@@ -1,0 +1,29 @@
+{
+  "items": {
+    "products": [
+      {
+        "id": "fe52f3a5-1126-4e7d-af27-28b9dcd2a9d3",
+        "title": "나이키 형광 런닝화",
+        "image": "./image/products/shoes/1.png",
+        "type": "shoes",
+        "banner": ["new", "best"],
+        "price": 209000,
+        "salePrice": 184000,
+        "option": {
+          "size": [230, 240, 250, 260, 270, 280],
+          "color": [
+            "black",
+            "white",
+            "red",
+            "pink",
+            "gray",
+            "blue",
+            "yellow",
+            "beige"
+          ]
+        },
+        "description": "깨끗한 화이트 컬러이고, 깔끔한 디자인의 소가죽 소재 스니커즈에요 투박하거나 캐주얼하기만 한 운동화 디자인이 아니어서 원피스 혹은 스커트를 입을 때도 신기 좋은 스니커즈에요 라운드 쉐입의 앞 코 라인은 발을 동글동글 귀여워 보이게 해준답니다"
+      }
+    ]
+  }
+}

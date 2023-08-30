@@ -1,0 +1,101 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+import DetailSlider from "../component/DetailSlider";
+import { PiThumbsUpLight, PiTimerLight, PiStairsFill } from "react-icons/pi";
+import { BsDownload } from "react-icons/bs";
+
+export default function Detail() {
+  const {
+    state: { toolkit },
+  } = useLocation();
+  console.log(toolkit);
+
+  const handleDownload = () => {
+    if (!toolkit || !toolkit.file) {
+      console.error("Toolkit data or file not available.");
+      return;
+    }
+
+    // 파일명 추출
+    const fileName = toolkit.file.split("/").pop();
+
+    // 파일 데이터를 public 폴더 기준으로 절대 경로를 가져옵니다.
+    const fileUrl = `${process.env.PUBLIC_URL}${toolkit.file}`;
+    console.log(fileUrl);
+
+    // Fetch API를 사용하여 파일 데이터를 가져옵니다.
+    fetch(fileUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Blob을 다운로드할 수 있는 URL 생성
+        const url = URL.createObjectURL(blob);
+
+        // 다운로드 링크 생성
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName; // 추출된 파일명 사용
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Blob URL 해제
+        URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error fetching file data:", error);
+      });
+  };
+
+  return (
+    <div className="w-full py-40 bg-[#ffeaa6]">
+      <div className="w-11/12 mx-auto py-10 flex justify-between">
+        <div className="w-5/12">
+          {toolkit && <DetailSlider t={toolkit.image} />}
+        </div>
+        <div className="w-5/12 text-[#282828]">
+          <p className="text-[1rem] mb-4">{toolkit.type}</p>
+          <p className="text-[2.1rem] font-semibold mb-7">{toolkit.title}</p>
+          <p className="text-[1.125rem] leading-8 mb-[60px]">
+            {toolkit.description}
+          </p>
+
+          <div>
+            <div className="flex items-center">
+              <PiThumbsUpLight />
+              <p className="font-semibold ml-4">
+                다음과 같은 분들에게 유용해요
+              </p>
+            </div>
+
+            <ul>
+              {toolkit.benefit.map((b) => {
+                return <li>{b}</li>;
+              })}
+            </ul>
+          </div>
+
+          <div>
+            <PiTimerLight />
+            <p>예상 소요시간</p>
+            <p>{toolkit.option.time}</p>
+          </div>
+
+          <div>
+            <PiStairsFill />
+            <p>난이도</p>
+            <p>{toolkit.option.level}</p>
+          </div>
+
+          <button
+            className="w-full p-6 box-border flex justify-center items-center bg-[#282828] text-[1.2rem] text-white"
+            type="button"
+            onClick={handleDownload}
+          >
+            <BsDownload />
+            <p className="ml-6">툴키트 다운받기</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

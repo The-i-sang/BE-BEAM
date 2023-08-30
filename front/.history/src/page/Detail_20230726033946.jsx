@@ -1,0 +1,90 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+import DetailSlider from "../component/DetailSlider";
+import { PiThumbsUpLight, PiTimerLight, PiStairsFill } from "react-icons/pi";
+import { BsDownload } from "react-icons/bs";
+
+export default function Detail() {
+  const {
+    state: { toolkit },
+  } = useLocation();
+  console.log(toolkit);
+
+  const handleDownload = () => {
+    if (!toolkit || !toolkit.file) {
+      console.error("Toolkit data or file not available.");
+      return;
+    }
+
+    // 파일명 추출
+    const fileName = toolkit.file.split("/").pop();
+
+    // 파일 데이터를 Blob 형태로 변환
+    const blob = new Blob([`${process.env.PUBLIC_URL}/${toolkit.file}`], {
+      type: "application/pdf",
+    });
+
+    // Blob을 다운로드할 수 있는 URL 생성
+    const url = URL.createObjectURL(blob);
+
+    // 다운로드 링크 생성
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName; // 추출된 파일명 사용
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Blob URL 해제
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="w-full py-40 bg-[#ffeaa6]">
+      <div className="w-11/12 mx-auto py-10 flex justify-between">
+        <div className="w-5/12">
+          {toolkit && <DetailSlider t={toolkit.image} />}
+        </div>
+        <div className="w-5/12">
+          <p>{toolkit.type}</p>
+          <p>{toolkit.title}</p>
+          <p>{toolkit.description}</p>
+
+          <div>
+            <div>
+              <PiThumbsUpLight />
+              <p>다음과 같은 분들에게 유용해요</p>
+            </div>
+
+            <ul>
+              {toolkit.benefit.map((b) => {
+                return <li>{b}</li>;
+              })}
+            </ul>
+          </div>
+
+          <div>
+            <PiTimerLight />
+            <p>예상 소요시간</p>
+            <p>{toolkit.option.time}</p>
+          </div>
+
+          <div>
+            <PiStairsFill />
+            <p>난이도</p>
+            <p>{toolkit.option.level}</p>
+          </div>
+
+          <button
+            className="w-full p-6 box-border flex justify-center items-center bg-[#282828] text-[1.2rem] text-white"
+            type="button"
+            onClick={handleDownload}
+          >
+            <BsDownload />
+            <p className="ml-6">툴키트 다운받기</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

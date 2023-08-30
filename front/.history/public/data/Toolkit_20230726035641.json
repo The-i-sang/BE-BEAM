@@ -1,0 +1,160 @@
+{
+  "items": {
+    "toolkits": [
+      {
+        "id": "fe52f3a5-1126-4e7d-af27-28b9dcd2a9d3",
+        "title": "워케이션 준비하기",
+        "thumbnail": "./image/toolkit_img/1-1.png",
+        "image": [
+          "./image/toolkit_img/1-1.png",
+          "./image/toolkit_img/1-2.png",
+          "./image/toolkit_img/1-3.png"
+        ],
+        "type": "Work",
+        "description": "워케이션을 떠나기 전 무엇을 준비해야 할까요? 장소와 기간 정하기, 짐 챙기기, 일정 짜기 등 성공적인 워케이션을 위해 필요한 요소들을 점검해 보세요.",
+        "benefit": [
+          "워케이션을 떠나기 직전인 사람",
+          "상상 속의 워케이션을 구체화해 볼 사람",
+          "할 일이 쌓여 있지만 휴식이 필요한 사람"
+        ],
+        "option": { "time": "40분", "level": "중" },
+        "file": "/download_file/toolkit_1.pdf"
+      },
+      {
+        "id": "16f49df9-f2fd-4469-b945-93a293ab35fd",
+        "title": "나는 어떤 프리워커?",
+        "thumbnail": "./image/toolkit_img/2-1.png",
+        "image": [
+          "./image/toolkit_img/2-1.png",
+          "./image/toolkit_img/2-2.png",
+          "./image/toolkit_img/2-3.png",
+          "./image/toolkit_img/2-4.png"
+        ],
+        "type": "Work",
+        "description": "원하는 삶을 만들어 나가려면 일하는 방식을 주도적으로 선택하는 게 중요합니다. 내가 진정으로 꿈꾸는 삶을 곰곰히 생각해, 회사 밖에서 어떤 유형으로 일을 할지 탐색해 보세요.",
+        "benefit": [
+          "일하는 방식을 스스로 선택하고 싶은 사람",
+          "자신의 일을 확장해 나가고 싶은 사람",
+          "새로운 일하기 방식을 탐구하고 싶은 사람"
+        ],
+        "option": { "time": "10분", "level": "하" },
+        "file": "/download_file/toolkit_2.pdf"
+      },
+      {
+        "id": "fc340a6c-d930-446b-9609-ef5bc2ee294b",
+        "title": "나만의 식물 오브제 그리기",
+        "thumbnail": "./image/toolkit_img/3-1.png",
+        "image": [
+          "./image/toolkit_img/3-1.png",
+          "./image/toolkit_img/3-2.png",
+          "./image/toolkit_img/3-3.png"
+        ],
+        "type": "Life",
+        "description": "예로부터 식물은 수많은 예술가들에게 영감의 원천이 되어주었어요. 식물은 늘 우리에게 말을 건네고 있지만 바쁜 일상에 치이다 보면 이를 놓칠 때가 많답니다. 새로운 관찰 도구와 함께 식물이 하는 말에 귀 기울여 볼까요?",
+        "benefit": [
+          "익숙한 일상에서 새로운 발견을 하고 싶은 사람",
+          "식물을 창작의 재료로 삼고 싶은 사람",
+          "몰입을 통해 휴식을 취하고 싶은 사람"
+        ],
+        "option": { "time": "1일", "level": "하" },
+        "file": "/download_file/toolkit_3.pdf"
+      },
+      {
+        "id": "da15636b-3bf9-42ce-9034-cb8fe62b1e51",
+        "title": "내게 맞는 수상 스포츠 찾기",
+        "thumbnail": "./image/toolkit_img/4-1.png",
+        "image": [
+          "./image/toolkit_img/4-1.png",
+          "./image/toolkit_img/4-2.png",
+          "./image/toolkit_img/4-3.png"
+        ],
+        "type": "Life",
+        "description": "물놀이를 좋아하나요? 올여름에는 새로운 취미를 만들어보세요. 도구를 활용해 즐길 수 있는 수많은 수상 스포츠 중 당신에게 어울리는 걸 찾아보세요.",
+        "benefit": [
+          "물놀이를 좋아하는 사람",
+          "신체 활동을 즐기는 사람",
+          "올여름 새로운 스포츠에 도전하고 싶은 사람"
+        ],
+        "option": { "time": "20분", "level": "하" },
+        "file": "/download_file/toolkit_4.pdf"
+      },
+      {
+        "id": "e75df4c0-ea29-43bd-8a8d-81e7089e1db2",
+        "title": "워케이션 준비하기",
+        "thumbnail": "./image/toolkit_img/1-1.png",
+        "image": [
+          "./image/toolkit_img/1-1.png",
+          "./image/toolkit_img/1-2.png",
+          "./image/toolkit_img/1-3.png"
+        ],
+        "type": "Work",
+        "description": "워케이션을 떠나기 전 무엇을 준비해야 할까요? 장소와 기간 정하기, 짐 챙기기, 일정 짜기 등 성공적인 워케이션을 위해 필요한 요소들을 점검해 보세요.",
+        "benefit": [
+          "워케이션을 떠나기 직전인 사람",
+          "상상 속의 워케이션을 구체화해 볼 사람",
+          "할 일이 쌓여 있지만 휴식이 필요한 사람"
+        ],
+        "option": { "time": "40분", "level": "중" },
+        "file": "/download_file/toolkit_1.pdf"
+      },
+      {
+        "id": "e0a04e98-5a28-4f34-982c-a7f5abd3204e",
+        "title": "나는 어떤 프리워커?",
+        "thumbnail": "./image/toolkit_img/2-1.png",
+        "image": [
+          "./image/toolkit_img/2-1.png",
+          "./image/toolkit_img/2-2.png",
+          "./image/toolkit_img/2-3.png",
+          "./image/toolkit_img/2-4.png"
+        ],
+        "type": "Work",
+        "description": "원하는 삶을 만들어 나가려면 일하는 방식을 주도적으로 선택하는 게 중요합니다. 내가 진정으로 꿈꾸는 삶을 곰곰히 생각해, 회사 밖에서 어떤 유형으로 일을 할지 탐색해 보세요.",
+        "benefit": [
+          "일하는 방식을 스스로 선택하고 싶은 사람",
+          "자신의 일을 확장해 나가고 싶은 사람",
+          "새로운 일하기 방식을 탐구하고 싶은 사람"
+        ],
+        "option": { "time": "10분", "level": "하" },
+        "file": "/download_file/toolkit_2.pdf"
+      },
+      {
+        "id": "1befa885-0f93-47a1-9ed3-eefadccf4f2e",
+        "title": "나만의 식물 오브제 그리기",
+        "thumbnail": "./image/toolkit_img/3-1.png",
+        "image": [
+          "./image/toolkit_img/3-1.png",
+          "./image/toolkit_img/3-2.png",
+          "./image/toolkit_img/3-3.png"
+        ],
+        "type": "Life",
+        "description": "예로부터 식물은 수많은 예술가들에게 영감의 원천이 되어주었어요. 식물은 늘 우리에게 말을 건네고 있지만 바쁜 일상에 치이다 보면 이를 놓칠 때가 많답니다. 새로운 관찰 도구와 함께 식물이 하는 말에 귀 기울여 볼까요?",
+        "benefit": [
+          "익숙한 일상에서 새로운 발견을 하고 싶은 사람",
+          "식물을 창작의 재료로 삼고 싶은 사람",
+          "몰입을 통해 휴식을 취하고 싶은 사람"
+        ],
+        "option": { "time": "1일", "level": "하" },
+        "file": "/download_file/toolkit_3.pdf"
+      },
+      {
+        "id": "838e4735-f0e6-44a3-8a37-af990c401548",
+        "title": "내게 맞는 수상 스포츠 찾기",
+        "thumbnail": "./image/toolkit_img/4-1.png",
+        "image": [
+          "./image/toolkit_img/4-1.png",
+          "./image/toolkit_img/4-2.png",
+          "./image/toolkit_img/4-3.png"
+        ],
+        "type": "Life",
+        "description": "물놀이를 좋아하나요? 올여름에는 새로운 취미를 만들어보세요. 도구를 활용해 즐길 수 있는 수많은 수상 스포츠 중 당신에게 어울리는 걸 찾아보세요.",
+        "benefit": [
+          "물놀이를 좋아하는 사람",
+          "신체 활동을 즐기는 사람",
+          "올여름 새로운 스포츠에 도전하고 싶은 사람"
+        ],
+        "option": { "time": "20분", "level": "하" },
+        "file": "/download_file/toolkit_4.pdf"
+      }
+    ]
+  }
+}
