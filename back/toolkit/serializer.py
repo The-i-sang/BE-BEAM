@@ -15,7 +15,7 @@ class ToolkitSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
 
     def get_images(self, obj):
-        image = obj.toolkitimage_set.all()
+        image = obj.toolkitimage_toolkit.all()
         return ToolkitImageSerializer(instance=image, many=True).data
 
     class Meta:
