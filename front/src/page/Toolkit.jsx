@@ -2,9 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ToolkitCard from "../component/ToolkitCard";
-import {BASE_URL} from "../config"
-
-
+import { BASE_URL } from "../config";
+import BestToolkitSlider from "../component/BestToolkitSlider";
 
 export default function Toolkit({ setCategoryOn }) {
   const [categories, setCategories] = useState([
@@ -18,8 +17,8 @@ export default function Toolkit({ setCategoryOn }) {
     error,
     data: toolkits,
   } = useQuery(["toolkits"], async () => {
-    return axios 
-      .get("/data/Toolkit.json") 
+    return axios
+      .get("/data/Toolkit.json")
       .then((res) => res.data.items.toolkits);
   });
 
@@ -42,6 +41,8 @@ export default function Toolkit({ setCategoryOn }) {
 
   return (
     <div className="w-full bg-[#ffffff] pt-40">
+      {toolkits && <BestToolkitSlider toolkits={toolkits} />}
+
       <div className="w-11/12 mx-auto py-10">
         <ul className="w-3/12 mx-auto flex justify-between items-center text-5xl font-medium text-[#f5aa15]">
           {categories.map((cate) => {
