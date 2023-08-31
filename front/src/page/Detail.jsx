@@ -85,7 +85,11 @@ export default function Detail({ setCategoryOn }) {
           {toolkit && <DetailSlider t={toolkit.image} />}
         </div>
         <div className="w-5/12 text-[#282828]">
-          <p className="text-[1rem] mb-4">{toolkit.type}</p>
+          <div className="flex">
+            <p className="text-[1rem] mb-4 mr-4">{toolkit.type}</p>
+            <p className="text-[1rem] mb-4">{toolkit.type2}</p>
+          </div>
+
           <p className="text-[2.1rem] font-semibold mb-7">{toolkit.title}</p>
           <p className="text-[1.125rem] leading-8 mb-[60px]">
             {toolkit.description}
