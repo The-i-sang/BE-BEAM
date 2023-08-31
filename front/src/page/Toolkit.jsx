@@ -86,17 +86,17 @@ export default function Toolkit({ setCategoryOn }) {
     <div className="w-full bg-[#ffffff] pt-40">
       {toolkits && <BestToolkitSlider toolkits={toolkits} />}
 
-      <div className="2xl:w-9/12 xl:w-[90%] mx-auto pt-20 py-20">
+      <div className="2xl:w-9/12 lg:w-10/12 md:w-[90%] mx-auto pt-20 py-20">
         <div className="w-full mx-auto flex flex-col justify-between items-center font-medium text-[#f5aa15]">
-          <ul className="flex items-center">
+          <ul className="flex flex-wrap items-center">
             {categories.map((cate) => {
               return (
                 <li
                   key={cate.title}
                   onClick={() => handleCategoryClick(cate.title)}
-                  className={`cursor-pointer mr-4 px-10 py-4 border-[1px] border-solid border-[#79b1ff] rounded-full ${
+                  className={`cursor-pointer xl:mr-3 md:mr-2 2xl:px-10 xl:px-8 lg:px-7 md:px-4 xl:py-4 lg:py-3 md:py-3 border-[1px] border-solid border-[#79b1ff] rounded-full ${
                     cate.isActive ? "bg-[#79b1ff] text-[white]" : ""
-                  } hover:bg-[#79b1ff] hover:text-[white] transition-all duration-700 text-[#79b1ff] text-[1rem]`}
+                  } hover:bg-[#79b1ff] hover:text-[white] transition-all duration-700 text-[#79b1ff] 2xl:text-[1rem] xl:text-[0.9rem] md:text-[0.9rem]`}
                 >
                   {cate.title}
                 </li>
@@ -104,15 +104,15 @@ export default function Toolkit({ setCategoryOn }) {
             })}
           </ul>
 
-          <ul className="mt-4 flex items-center">
+          <ul className="mt-4 flex flex-wrap items-center">
             {categories2.map((cate) => {
               return (
                 <li
                   key={cate.title}
                   onClick={() => handleCategoryClick2(cate.title)}
-                  className={`cursor-pointer mr-4 px-10 py-4 border-[1px] border-solid border-[#ff5252] rounded-full ${
+                  className={`cursor-pointer  xl:mr-3 md:mr-2 2xl:px-10 xl:px-8 lg:px-7 md:px-4 xl:py-4 lg:py-3 md:py-3 border-[1px] border-solid border-[#ff5252] rounded-full ${
                     cate.isActive ? "bg-[#ff5252] !text-[white]" : ""
-                  } hover:bg-[#ff5252] hover:text-[white] transition-all duration-700 text-[#ff5252] text-[1rem]`}
+                  } hover:bg-[#ff5252] hover:text-[white] transition-all duration-700 text-[#ff5252] 2xl:text-[1rem] xl:text-[0.9rem] md:text-[0.9rem]`}
                 >
                   {cate.title}
                 </li>
@@ -124,7 +124,7 @@ export default function Toolkit({ setCategoryOn }) {
         {isLoading && "Loading..."}
         {error && "An error has occurred...!"}
 
-        <ul className="w-full pt-14 flex flex-wrap [&>*:last-child]:ml-0">
+        <ul className="2xl:w-full xl:w-11/12 lg:w-full md:w-[94%] mx-auto pt-14 flex flex-wrap [&>*:last-child]:ml-0">
           {filteredToolkits &&
             filteredToolkits.map((toolkit, index) => {
               return (
