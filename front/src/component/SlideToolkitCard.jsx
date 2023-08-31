@@ -19,10 +19,10 @@ export default function SlideToolkitCard({ toolkit }) {
         />
 
         <div className="absolute top-0 left-[50%] ml-[-47%] w-[94%] h-full bg-black bg-opacity-0 rounded-2xl group-hover:bg-opacity-30 transition-all duration-700">
-          <p className="group-hover:opacity-100 absolute top-10 left-8 mt-8 text-[#ffffff] text-[1.7rem] font-bold opacity-0 transition-all duration-700 z-99999">
+          <p className="group-hover:opacity-100 absolute 2xl:top-10 lg:top-2 2xl:left-8 lg:left-4 mt-8 text-[#ffffff] 2xl:text-[1.7rem] lg:text-[1.3rem] font-bold opacity-0 transition-all duration-700 z-99999">
             {toolkit.title}
           </p>
-          <div className="group-hover:h-24 absolute left-0 bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] er:border-[1px] rounded-b-2xl text-[#ffffff] flex justify-center items-center text-xl transition-all duration-700 overflow-hidden z-999999">
+          <div className="2xl:group-hover:h-24 lg:group-hover:h-20 absolute left-0 bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] er:border-[1px] rounded-b-2xl text-[#ffffff] flex justify-center items-center 2xl:text-xl lg:text-base transition-all duration-700 overflow-hidden z-999999">
             <p>자세히 보기</p>
           </div>
         </div>

@@ -57,7 +57,7 @@ export default function BestToolkitSlider({ toolkits }) {
     ),
   };
   return (
-    <div className="w-[96%] mx-auto mb-8 relative">
+    <div className="2xl:w-[96%] lg:w-[93%] md:w-[90%] mx-auto mb-8 relative">
       <Slider {...settings} className="w-full">
         {selectedItems &&
           selectedItems?.map((toolkit) => {

@@ -86,7 +86,7 @@ export default function Toolkit({ setCategoryOn }) {
     <div className="w-full bg-[#ffffff] pt-40">
       {toolkits && <BestToolkitSlider toolkits={toolkits} />}
 
-      <div className="w-8/12 mx-auto pt-20 py-20">
+      <div className="2xl:w-9/12 xl:w-[90%] mx-auto pt-20 py-20">
         <div className="w-full mx-auto flex flex-col justify-between items-center font-medium text-[#f5aa15]">
           <ul className="flex items-center">
             {categories.map((cate) => {

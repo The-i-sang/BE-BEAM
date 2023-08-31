@@ -68,6 +68,48 @@ code {
   padding: 0;
 }
 
+@media (max-width: 1413px) {
+  .dots_custom li button {
+    border: none;
+    background: #d1d1d1;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 2px;
+    width: 8rem;
+    border-radius: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 1279px) {
+  .dots_custom li button {
+    border: none;
+    background: #d1d1d1;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 2px;
+    width: 7rem;
+    border-radius: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .dots_custom li button {
+    border: none;
+    background: #d1d1d1;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 2px;
+    width: 5rem;
+    border-radius: 100%;
+    padding: 0;
+  }
+}
+
 .dots_custom li.slick-active button {
   background-color: #282828;
 }
