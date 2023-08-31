@@ -34,12 +34,28 @@ export default function BestToolkitSlider({ toolkits }) {
     dots: true,
     infinite: true,
     autoplay: true,
+    autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    dotsClass: "dots_custom",
+    appendDots: (dots) => (
+      <div
+        style={{
+          width: "100%",
+          position: "absolute",
+          bottom: "-12px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ul> {dots} </ul>
+      </div>
+    ),
   };
   return (
-    <div className="w-[96%] mx-auto">
+    <div className="w-[96%] mx-auto relative">
       <Slider {...settings} className="w-full">
         {selectedItems &&
           selectedItems.map((toolkit) => {

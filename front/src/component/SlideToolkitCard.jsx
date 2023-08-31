@@ -9,7 +9,7 @@ export default function SlideToolkitCard({ toolkit }) {
       onClick={() => {
         navigate(`/toolkit/detail/${toolkit.id}`, { state: { toolkit } });
       }}
-      className="w-full mb-6 cursor-pointer list-none"
+      className="w-full mb-14 cursor-pointer list-none"
     >
       <div className="w-full relative group">
         <img
