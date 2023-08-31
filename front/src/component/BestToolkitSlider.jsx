@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,29 +6,31 @@ import "slick-carousel/slick/slick-theme.css";
 import SlideToolkitCard from "./SlideToolkitCard";
 
 export default function BestToolkitSlider({ toolkits }) {
-  function getRandomItemsFromArray(toolkits, count) {
-    if (count >= toolkits?.length) {
-      return toolkits; // 배열의 길이보다 많은 요소를 요청하는 경우 배열 전체를 반환
-    }
+  const [selectedItems, setSelectedItems] = useState();
 
-    const result = [];
-    const usedIndexes = new Set();
-
-    while (result?.length < count) {
-      const randomIndex = Math.floor(Math.random() * toolkits?.length);
-
-      if (!usedIndexes.has(randomIndex)) {
-        usedIndexes.add(randomIndex);
-        result.push(toolkits[randomIndex]);
+  // 첫 랜더링(새로고침)시에만 랜덤으로 툴킷 슬라이드가 생성되도록.
+  useEffect(() => {
+    function getRandomItemsFromArray(toolkits, count) {
+      if (count >= toolkits?.length) {
+        return toolkits; // 배열의 길이보다 많은 요소를 요청하는 경우 배열 전체를 반환
       }
+
+      const result = [];
+      const usedIndexes = new Set();
+
+      while (result?.length < count) {
+        const randomIndex = Math.floor(Math.random() * toolkits?.length);
+
+        if (!usedIndexes.has(randomIndex)) {
+          usedIndexes.add(randomIndex);
+          result.push(toolkits[randomIndex]);
+        }
+      }
+
+      return result;
     }
-
-    return result;
-  }
-
-  const selectedItems = getRandomItemsFromArray(toolkits, 8);
-
-  console.log(selectedItems);
+    setSelectedItems(getRandomItemsFromArray(toolkits, 8));
+  }, []);
 
   const settings = {
     dots: true,
@@ -55,12 +57,12 @@ export default function BestToolkitSlider({ toolkits }) {
     ),
   };
   return (
-    <div className="w-[96%] mx-auto relative">
+    <div className="w-[96%] mx-auto mb-8 relative">
       <Slider {...settings} className="w-full">
         {selectedItems &&
-          selectedItems.map((toolkit) => {
+          selectedItems?.map((toolkit) => {
             return (
-              <div className="flex justify-center items-center">
+              <div className="w-full flex justify-center items-center">
                 <SlideToolkitCard toolkit={toolkit} key={toolkit.id} />
               </div>
             );

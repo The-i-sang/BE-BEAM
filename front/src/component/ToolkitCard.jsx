@@ -1,17 +1,27 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ToolkitCard({ toolkit, index }) {
+export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
   const navigate = useNavigate();
+
+  console.log(ToolkitPage);
 
   return (
     <li
       onClick={() => {
         navigate(`/toolkit/detail/${toolkit.id}`, { state: { toolkit } });
       }}
-      className={`w-[24%] mb-32 ${
-        index % 4 === 3 || index === 3 ? "mr-0" : "mr-[1.3%]"
-      } cursor-pointer`}
+      className={`${ToolkitPage ? "w-[32%]" : "w-[24%]"}
+      ${ToolkitPage ? "mb-16" : "mb-32"}
+        ${
+          (!ToolkitPage && index % 4 === 3) || (!ToolkitPage && index === 3)
+            ? "mr-0"
+            : (!ToolkitPage && index % 4 !== 3) || (!ToolkitPage && index !== 3)
+            ? "mr-[1.3333%]"
+            : (ToolkitPage && index % 3 === 2) || (ToolkitPage && index === 2)
+            ? "mr-0"
+            : "mr-[2%]"
+        } cursor-pointer`}
     >
       <div className="relative group">
         <img
@@ -19,7 +29,7 @@ export default function ToolkitCard({ toolkit, index }) {
           src={process.env.PUBLIC_URL + `${toolkit.thumbnail}`}
           alt="toolkit_img"
         />
-        <div className="group-hover:h-24 group-hover:shadow-[0_-14px_12px_-2px_rgba(0,0,0,0.1)] absolute bottom-0 w-full h-0 bg-[rgba(255,221,141,0.94)] rounded-b-lg flex justify-center items-center text-xl transition-all duration-700 overflow-hidden">
+        <div className="group-hover:h-24 absolute bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] rounded-b-lg text-white flex justify-center items-center text-xl transition-all duration-700 overflow-hidden">
           <p>자세히 보기</p>
         </div>
       </div>
