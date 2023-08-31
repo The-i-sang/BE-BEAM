@@ -3,7 +3,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ToolkitCard from "./ToolkitCard";
+import SlideToolkitCard from "./SlideToolkitCard";
 
 export default function BestToolkitSlider({ toolkits }) {
   function getRandomItemsFromArray(toolkits, count) {
@@ -33,16 +33,21 @@ export default function BestToolkitSlider({ toolkits }) {
   const settings = {
     dots: true,
     infinite: true,
+    autoplay: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
   };
   return (
-    <div>
-      <Slider {...settings}>
+    <div className="w-[96%] mx-auto">
+      <Slider {...settings} className="w-full">
         {selectedItems &&
           selectedItems.map((toolkit) => {
-            return <ToolkitCard toolkit={toolkit} key={toolkit.id} />;
+            return (
+              <div className="flex justify-center items-center">
+                <SlideToolkitCard toolkit={toolkit} key={toolkit.id} />
+              </div>
+            );
           })}
       </Slider>
     </div>
