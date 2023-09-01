@@ -35,7 +35,7 @@ export default function Navbar({ setCategoryOn }) {
           <AiOutlineMenu />
         </button>
         <div
-          className="lg:w-1/12 md:w-[13%]"
+          className="lg:w-1/12 md:w-[13%] sm:w-[15%] w-[20%]"
           onClick={() => {
             navigate("/");
           }}

@@ -110,6 +110,20 @@ code {
   }
 }
 
+@media (max-width: 767px) {
+  .dots_custom li button {
+    border: none;
+    background: #d1d1d1;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 2px;
+    width: 4rem;
+    border-radius: 100%;
+    padding: 0;
+  }
+}
+
 .dots_custom li.slick-active button {
   background-color: #282828;
 }

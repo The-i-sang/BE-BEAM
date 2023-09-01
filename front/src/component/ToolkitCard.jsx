@@ -11,7 +11,7 @@ export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
       onClick={() => {
         navigate(`/toolkit/detail/${toolkit.id}`, { state: { toolkit } });
       }}
-      className={`${ToolkitPage ? "lg:w-[32%] md:w-[31%]" : "w-[24%]"}
+      className={`${ToolkitPage ? "lg:w-[32%] md:w-[31%] sm:w-full" : "w-[24%]"}
       ${ToolkitPage ? "lg:mb-16 md:mb-8" : "mb-32"}
         ${
           (!ToolkitPage && index % 4 === 3) || (!ToolkitPage && index === 3)
@@ -29,15 +29,15 @@ export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
           src={process.env.PUBLIC_URL + `${toolkit.thumbnail}`}
           alt="toolkit_img"
         />
-        <div className="2xl:group-hover:h-24 xl:group-hover:h-20 lg:group-hover:h-20 md:group-hover:h-16 absolute bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] rounded-b-lg text-white flex justify-center items-center xl:text-xl lg:text-lg md:text-[1rem] transition-all duration-700 overflow-hidden">
+        <div className="2xl:group-hover:h-24 xl:group-hover:h-20 lg:group-hover:h-20 md:group-hover:h-16 sm:group-hover:h-24 group-hover:h-24 absolute bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] rounded-b-lg text-white flex justify-center items-center xl:text-xl lg:text-lg md:text-[1rem] sm:text-xl text-xl transition-all duration-700 overflow-hidden">
           <p>자세히 보기</p>
         </div>
       </div>
 
-      <p className="lg:mt-8 md:mt-4 text-[#282828] lg:text-[1.8rem] md:text-[1.4rem] font-bold">
+      <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold">
         {toolkit.title}
       </p>
-      <p className="lg:mt-6 md:mt-4 lg:text-[1.2rem] md:text-[1rem] font-normal">
+      <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal">
         {toolkit.description}
       </p>
     </li>
