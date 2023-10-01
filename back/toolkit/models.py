@@ -3,7 +3,15 @@ from .validator import validate_image_file_extension
 
 
 def toolkit_image_upload_path(instance, filename):
-    return f"toolkit/{instance.toolkit.name}/{filename}"
+    return f"toolkit/{instance.toolkit.title}/{filename}"
+
+
+def toolkit_thumbnail_image_upload_path(instance, filename):
+    return f"toolkit/{instance.title}/thumbnail/{filename}"
+
+
+def toolkit_download_file_upload_path(instance, filename):
+    return f"toolkit/{instance.title}/download/{filename}"
 
 
 class ToolkitMainCategory(models.Model):
@@ -21,7 +29,20 @@ class ToolkitSubCategory(models.Model):
 
 
 class Toolkit(models.Model):
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    thumbnail_image = models.ImageField(
+        upload_to=toolkit_thumbnail_image_upload_path,
+        null=True,
+        blank=True,
+        validators=[
+            validate_image_file_extension,
+        ],
+    )
+    download_file = models.FileField(
+        upload_to=toolkit_download_file_upload_path,
+        null=True,
+        blank=True,
+    )
     description = models.TextField(blank=True, null=True)
     maincategory = models.ForeignKey(
         ToolkitMainCategory,
@@ -36,7 +57,7 @@ class Toolkit(models.Model):
     time = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class ToolkitImage(models.Model):
@@ -53,4 +74,4 @@ class ToolkitImage(models.Model):
     )
 
     def __str__(self):
-        return self.toolkit.name
+        return self.toolkit.title
