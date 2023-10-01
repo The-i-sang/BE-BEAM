@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ToolkitCard from "../component/ToolkitCard";
 import BestToolkitSlider from "../component/BestToolkitSlider";
+import { TOOLKIT_URL } from "../config";
 
 export default function Toolkit({ setCategoryOn }) {
   const ToolkitPage = true;
@@ -30,11 +31,11 @@ export default function Toolkit({ setCategoryOn }) {
     error,
     data: toolkits,
   } = useQuery(["toolkits"], async () => {
-    return axios
-      .get("/data/Toolkit.json")
-      .then((res) => res.data.items.toolkits);
-  });
+    const res = await axios.get(TOOLKIT_URL);
+    console.log(res.data)
+      return res.data;
 
+  });
   const [category, setCategory] = useState("All");
   const [category2, setCategory2] = useState("All");
 
@@ -130,7 +131,7 @@ export default function Toolkit({ setCategoryOn }) {
               return (
                 <ToolkitCard
                   toolkit={toolkit}
-                  key={toolkit.id}
+                  key={toolkit}
                   index={index}
                   ToolkitPage={ToolkitPage}
                 />

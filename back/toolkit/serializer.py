@@ -1,6 +1,18 @@
 from rest_framework import serializers
 
-from .models import Toolkit, ToolkitImage
+from .models import Toolkit, ToolkitImage, ToolkitMainCategory, ToolkitSubCategory
+
+
+class ToolkitMainCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ToolkitMainCategory
+        fields = "__all__"
+
+
+class ToolkitSubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ToolkitSubCategory
+        fields = "__all__"
 
 
 class ToolkitImageSerializer(serializers.ModelSerializer):
