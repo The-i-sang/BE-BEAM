@@ -5,21 +5,21 @@ import { GiTalk } from "react-icons/gi";
 
 export default function Community() {
   return (
-    <div className="w-full min-h-screen pt-16">
+    <div className="w-full pt-16">
       <div className="w-11/12 mx-auto">
         <div className="w-full mb-6 flex flex-col justify-center items-center">
           <div className="w-full text-[#ff4848] text-[1.5rem] flex justify-center items-center">
             <GiTalk />
-            <p className="ml-3 font-semibold">Community</p>
+            <p className="ml-3 font-semibold">Activity</p>
           </div>
 
           <div className="mt-6 text-[2.8rem] text-center font-extrabold leading-normal">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
-                  .typeString("관심사가 비슷한 사람들이 모여")
+                  .typeString("다양한 사람들이")
                   .pauseFor(200)
-                  .typeString("<br/>하나 되는 커뮤니티")
+                  .typeString("<br/>다양하게 어우러지는 모임")
                   .start()
                   .pauseFor(200);
                 // .callFunction(function (state) {
@@ -30,9 +30,9 @@ export default function Community() {
           </div>
 
           <p className="mt-7 text-[#383535] text-[1.4rem] text-center tracking-tighter">
-            관심사가 비슷한 사람들이 모여 하나 되는 커뮤니티,
+            다양한 사람들이 다양하게 어우러지는 모임,
             <br />
-            관심사에 맞게 커뮤니티를 Pick 하세요!
+            관심사에 맞게 모임을 Pick 하세요!
           </p>
         </div>
       </div>

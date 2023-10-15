@@ -78,7 +78,7 @@ export default function Detail() {
   return (
     <div className="w-full py-10 bg-[#ffffff]">
       <div className="w-full max-w-[1400px] mx-auto">
-        <h1 className="w-full mb-20 text-center text-[4rem] font-semibold">
+        <h1 className="w-full mb-10 text-center text-[4rem] font-">
           {toolkit.title}
         </h1>
         <div className="w-full flex justify-between">

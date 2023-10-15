@@ -29,23 +29,23 @@ export default function Search() {
   const [allData, setAllData] = useState([]);
 
   const [text, setText] = useState("");
-  const [searchData, setSearchData] = useState([]);
+  const [searchToolkits, setSearchToolkits] = useState([]);
   const [errorMessage, setErrorMessage] = useState("검색결과가 없습니다.");
 
   const handleDeleteTitle = () => {
     setText("");
   };
 
-  const handleSearchData = (e) => {
+  const handleSearchToolkit = (e) => {
     e.preventDefault();
 
     const trimmedText = text.trim();
 
     if (trimmedText !== "") {
-      setSearchData(
-        allData.filter((data) => {
-          const removedSpaceTitle = data.title.replace(/ /g, "");
-          const removedSpaceDescription = data.description.replace(/ /g, "");
+      setSearchToolkits(
+        toolkits.filter((toolkit) => {
+          const removedSpaceTitle = toolkit.title.replace(/ /g, "");
+          const removedSpaceDescription = toolkit.description.replace(/ /g, "");
 
           const removedSpaceText = text.replace(/ /g, "");
 
@@ -56,30 +56,30 @@ export default function Search() {
         })
       );
 
-      if (searchData.length === 0) {
+      if (searchToolkits.length === 0) {
         setErrorMessage("검색결과가 없습니다.");
       }
-    } else if (trimmedText === "" || searchData.length === 0) {
-      setSearchData([]);
+    } else if (trimmedText === "" || searchToolkits.length === 0) {
+      setSearchToolkits([]);
       setErrorMessage("검색결과가 없습니다.");
     }
   };
 
-  console.log(searchData);
+  console.log(searchToolkits);
 
   console.log(allData);
 
   useEffect(() => {
     if (!isLoadingToolkits && !isLoadingActivities) {
-      setAllData([...toolkits, ...activities]);
+      setAllData((prev) => [...prev, ...toolkits, ...activities]);
     }
   }, [toolkits, activities, isLoadingToolkits, isLoadingActivities]);
 
   useEffect(() => {
-    if (searchData.length !== 0) {
+    if (searchToolkits.length !== 0) {
       setErrorMessage("");
     }
-  }, [searchData]);
+  }, [searchToolkits]);
 
   return (
     <div className="bg-[#ffffff] pt-2">
@@ -92,7 +92,7 @@ export default function Search() {
           </p>
         </div>
 
-        <form onSubmit={handleSearchData} className="w-2/4 relative">
+        <form onSubmit={handleSearchToolkit} className="w-2/4 relative">
           <input
             onChange={(e) => {
               setText(e.target.value);
@@ -142,7 +142,7 @@ export default function Search() {
       )}
 
       <div className="w-11/12 mx-auto pb-32 pt-14">
-        <p className="text-[1.2rem] mb-10">{`총 ${searchData.length}개의 데이터가 검색되었습니다.`}</p>
+        <p className="text-[1.2rem] mb-10">{`총 ${searchToolkits.length}개의 툴킷이 검색되었습니다.`}</p>
 
         {errorMessage !== "" && (
           <div className="w-full flex flex-col items-center text-[1.1rem]">
@@ -152,23 +152,10 @@ export default function Search() {
         )}
 
         <ul className="w-full flex flex-wrap [&>*:last-child]:ml-0">
-          {searchData.length !== 0 &&
-            searchData.map((data, index) => {
+          {searchToolkits.length !== 0 &&
+            searchToolkits.map((toolkit, index) => {
               return (
-                <li key={data.id}>
-                  <img
-                    className="w-full object-cover mx-auto rounded-2xl"
-                    src={process.env.PUBLIC_URL + `${data.thumbnail}`}
-                    alt="data_img"
-                  />
-
-                  <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold">
-                    {data.title}
-                  </p>
-                  <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal">
-                    {data.description}
-                  </p>
-                </li>
+                <ToolkitCard toolkit={toolkit} key={toolkit.id} index={index} />
               );
             })}
         </ul>

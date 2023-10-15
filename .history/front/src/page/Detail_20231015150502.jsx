@@ -78,9 +78,7 @@ export default function Detail() {
   return (
     <div className="w-full py-10 bg-[#ffffff]">
       <div className="w-full max-w-[1400px] mx-auto">
-        <h1 className="w-full mb-20 text-center text-[4rem] font-semibold">
-          {toolkit.title}
-        </h1>
+        <h1 className="w-full mb-10 text-center">{toolkit.title}</h1>
         <div className="w-full flex justify-between">
           <div className="w-6/12">
             {toolkit && <DetailSlider t={toolkit.image} />}
