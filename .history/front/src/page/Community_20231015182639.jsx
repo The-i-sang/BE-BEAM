@@ -5,7 +5,7 @@ import { GiTalk } from "react-icons/gi";
 
 export default function Community() {
   return (
-    <div className="w-full min-h-screen pt-16">
+    <div className="w-full pt-16">
       <div className="w-11/12 mx-auto">
         <div className="w-full mb-6 flex flex-col justify-center items-center">
           <div className="w-full text-[#ff4848] text-[1.5rem] flex justify-center items-center">
@@ -30,9 +30,9 @@ export default function Community() {
           </div>
 
           <p className="mt-7 text-[#383535] text-[1.4rem] text-center tracking-tighter">
-            관심사가 비슷한 사람들이 모여 하나 되는 커뮤니티,
+            다양한 사람들이 다양하게 어우러지는 모임,
             <br />
-            관심사에 맞게 커뮤니티를 Pick 하세요!
+            관심사에 맞게 모임을 Pick 하세요!
           </p>
         </div>
       </div>

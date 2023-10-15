@@ -71,7 +71,7 @@ export default function Search() {
 
   useEffect(() => {
     if (!isLoadingToolkits && !isLoadingActivities) {
-      setAllData([...toolkits, ...activities]);
+      setAllData((prev) => [...prev, ...toolkits, ...activities]);
     }
   }, [toolkits, activities, isLoadingToolkits, isLoadingActivities]);
 
@@ -154,22 +154,7 @@ export default function Search() {
         <ul className="w-full flex flex-wrap [&>*:last-child]:ml-0">
           {searchData.length !== 0 &&
             searchData.map((data, index) => {
-              return (
-                <li key={data.id}>
-                  <img
-                    className="w-full object-cover mx-auto rounded-2xl"
-                    src={process.env.PUBLIC_URL + `${data.thumbnail}`}
-                    alt="data_img"
-                  />
-
-                  <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold">
-                    {data.title}
-                  </p>
-                  <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal">
-                    {data.description}
-                  </p>
-                </li>
-              );
+              return <ToolkitCard toolkit={data} key={data.id} index={index} />;
             })}
         </ul>
       </div>
