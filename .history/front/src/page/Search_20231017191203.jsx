@@ -4,11 +4,8 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 import ToolkitCard from "../component/ToolkitCard";
-import { useNavigate } from "react-router-dom";
 
 export default function Search() {
-  const navigate = useNavigate();
-
   const {
     isLoading: isLoadingToolkits,
     error: errorToolkits,
@@ -83,18 +80,6 @@ export default function Search() {
       setErrorMessage("");
     }
   }, [searchData]);
-
-  const onClickDetailNavigate = (e, data) => {
-    e.preventDefault();
-
-    if (data.type === "소모임" || data.type === "정기모임") {
-      const activity = data;
-      navigate(`/activity/detail/${data.id}`, { state: { activity } });
-    } else if (data.type !== "소모임" || data.type !== "정기모임") {
-      const toolkit = data;
-      navigate(`/toolkit/detail/${data.id}`, { state: { toolkit } });
-    }
-  };
 
   return (
     <div className="bg-[#ffffff] pt-2">
@@ -171,19 +156,16 @@ export default function Search() {
 
         <ul className="w-full grid grid-cols-4 gap-x-4">
           {searchData.length !== 0 &&
-            searchData.map((data) => {
+            searchData.map((data, index) => {
               return (
-                <li
-                  key={data.id}
-                  onClick={(e) => onClickDetailNavigate(e, data)}
-                >
+                <li key={data.id}>
                   <img
                     className="w-full object-cover mx-auto rounded-2xl"
                     src={process.env.PUBLIC_URL + `${data.thumbnail}`}
                     alt="data_img"
                   />
 
-                  <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+                  <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold">
                     {data.title}
                   </p>
                   <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal">

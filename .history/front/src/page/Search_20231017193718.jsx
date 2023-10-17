@@ -88,11 +88,9 @@ export default function Search() {
     e.preventDefault();
 
     if (data.type === "소모임" || data.type === "정기모임") {
-      const activity = data;
-      navigate(`/activity/detail/${data.id}`, { state: { activity } });
+      navigate(`/activity/detail/${data.id}`);
     } else if (data.type !== "소모임" || data.type !== "정기모임") {
-      const toolkit = data;
-      navigate(`/toolkit/detail/${data.id}`, { state: { toolkit } });
+      navigate(`/toolkit/detail/${data.id}`);
     }
   };
 
@@ -175,7 +173,7 @@ export default function Search() {
               return (
                 <li
                   key={data.id}
-                  onClick={(e) => onClickDetailNavigate(e, data)}
+                  onClick={(e, data) => onClickDetailNavigate(e, data)}
                 >
                   <img
                     className="w-full object-cover mx-auto rounded-2xl"
