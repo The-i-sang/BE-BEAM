@@ -13,8 +13,6 @@ import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
 
 export default function ActivityDetail() {
-  // const navigate = useNavigate();
-
   const {
     state: { activity },
   } = useLocation();
