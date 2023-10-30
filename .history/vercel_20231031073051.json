@@ -1,8 +1,6 @@
 {
   "version": 2,
   "builds": [{ "src": "front/package.json", "use": "@vercel/static-build" }],
-  "routes": [{ "src": "^/(.*)", "dest": "/$1" }],
-  "build": {
-    "command": "yarn build"
-  }
+  "routes": [{ "src": "^/front/(.*)", "dest": "/$1" }],
+  "build": "react-scripts build"
 }
