@@ -1,0 +1,73 @@
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CiSearch } from "react-icons/ci";
+import Menu from "./Menu";
+
+import { CiDark, CiLight } from "react-icons/ci";
+
+export default function Navbar() {
+  const navigate = useNavigate();
+  const path = useLocation().pathname;
+
+  // const [scrollHeight, setScrollHeight] = useState(0);
+
+  // function onScroll() {
+  //   setScrollHeight(window.scrollY);
+  // }
+  // useEffect(() => {
+  //   window.addEventListener("scroll", onScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", onScroll);
+  //   };
+  // }, []);
+  const [darkMode, setDarkMode] = useState(false);
+
+  if (darkMode) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+
+  return (
+    <div className="w-full">
+      <div className="w-full max-w-[1400px] mx-auto">
+        <div className="w-full py-8 flex justify-between items-center">
+          <div
+            className="lg:w-[80px] md:w-[13%] sm:w-[15%] w-[20%]"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <img
+              className="w-full object-cover mx-auto cursor-pointer"
+              src={process.env.PUBLIC_URL + "/logo/logo2.png"}
+              alt="logo"
+            />
+          </div>
+
+          <Menu path={path} />
+
+          <div>
+            <button
+              type="button"
+              className="mr-8 text-[1.8rem] text-[#f5aa15] cursor-pointer"
+              onClick={() => setDarkMode(!darkMode)}
+            >
+              {darkMode ? <CiLight /> : <CiDark />}
+            </button>
+
+            <button
+              type="button"
+              className="text-[1.8rem] text-[#f5aa15] cursor-pointer"
+              onClick={() => {
+                navigate("/search");
+              }}
+            >
+              <CiSearch />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
