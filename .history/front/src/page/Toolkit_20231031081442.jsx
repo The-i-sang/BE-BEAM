@@ -243,7 +243,7 @@ export default function Toolkit() {
       if (searchToolkits.length === 0) {
         setErrorMessage("검색결과가 없습니다.");
       }
-    } else if (trimmedText === "" || searchToolkits.length === 0) {
+    } else if (trimmedText == "" || searchToolkits.length === 0) {
       setSearchToolkits([]);
       setErrorMessage("검색결과가 없습니다.");
     }
@@ -548,7 +548,7 @@ export default function Toolkit() {
             category === "" &&
             category2 === "" &&
             category3 === "" ? (
-            <p>{errorMessage}</p>
+            <p>검색 결과가 없습니다...!</p>
           ) : (
             <></>
           )}

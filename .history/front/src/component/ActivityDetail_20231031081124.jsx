@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { IoPeopleCircle } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";

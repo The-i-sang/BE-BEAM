@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "builds": [{ "src": "front/package.json", "use": "@vercel/static-build" }],
+  "routes": [{ "src": "^/front/(.*)", "dest": "/$1" }],
+  "build": {
+    "command": "npm run build"
+  }
+}

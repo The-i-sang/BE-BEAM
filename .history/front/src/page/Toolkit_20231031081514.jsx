@@ -548,7 +548,7 @@ export default function Toolkit() {
             category === "" &&
             category2 === "" &&
             category3 === "" ? (
-            <p>{errorMessage}</p>
+            <p>검색 결과가 없습니다...!</p>
           ) : (
             <></>
           )}
