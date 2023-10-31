@@ -14,7 +14,7 @@ export default function Search() {
     data: toolkits,
   } = useQuery(["toolkits"], async () => {
     return axios //
-      .get("/data/Toolkit.json") //
+      .get(process.env.PUBLIC_URL + "/data/Toolkit.json") //
       .then((res) => res.data.items.toolkits);
   });
 
@@ -24,7 +24,7 @@ export default function Search() {
     data: activities,
   } = useQuery(["activities"], async () => {
     return axios //
-      .get("/data/Toolkit.json") //
+      .get(process.env.PUBLIC_URL + "/data/Toolkit.json") //
       .then((res) => res.data.items.activities);
   });
 
@@ -179,7 +179,9 @@ export default function Search() {
                 >
                   <img
                     className="w-full aspect-square object-bottom object-cover mx-auto rounded-2xl"
-                    src={process.env.PUBLIC_URL + `${data.thumbnail}`}
+                    src={
+                      process.env.PUBLIC_URL + data.thumbnail.replace("./", "/")
+                    }
                     alt="data_img"
                   />
 

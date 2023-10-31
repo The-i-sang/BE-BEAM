@@ -44,7 +44,9 @@ export default function Navbar() {
           >
             <img
               className="w-full object-cover mx-auto cursor-pointer"
-              src={process.env.PUBLIC_URL + "/logo/logo2.png"}
+              src={
+                process.env.PUBLIC_URL + "/logo/logo2.png".replace("./", "/")
+              }
               alt="logo"
             />
           </div>

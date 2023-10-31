@@ -17,7 +17,7 @@ export default function ActivityCard({ activity }) {
     >
       <img
         className="w-1/4 aspect-w-1 aspect-h-1 aspect-square object-cover object-center rounded-xl"
-        src={process.env.PUBLIC_URL + `${activity.thumbnail}`}
+        src={process.env.PUBLIC_URL + activity.thumbnail.replace("./", "/")}
         alt="activity_img"
       />
 

@@ -61,7 +61,7 @@ export default function Toolkit() {
     data: toolkits,
   } = useQuery(["toolkits"], async () => {
     return axios //
-      .get("/data/Toolkit.json") //
+      .get(process.env.PUBLIC_URL + "/data/Toolkit.json") //
       .then((res) => res.data.items.toolkits);
   });
 

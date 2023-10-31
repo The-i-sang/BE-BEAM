@@ -26,7 +26,7 @@ export default function DetailSlider({ autoplay = true, t }) {
           <div key={index} className="w-full h-[640px]">
             <img
               className="w-4/6 h-full object-contain mx-auto"
-              src={process.env.PUBLIC_URL + `/../${a}`}
+              src={process.env.PUBLIC_URL + a.replace("./", "/")}
               alt="detail_img"
             />
           </div>

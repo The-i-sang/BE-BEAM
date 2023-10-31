@@ -131,7 +131,7 @@ export default function Detail() {
 
             <div className="w-full pb-12 border-b-[1px] border-solid border-[#f5aa15]">
               <a
-                href={`${process.env.PUBLIC_URL}${toolkit.file}`}
+                href={process.env.PUBLIC_URL + toolkit.file}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -161,7 +161,10 @@ export default function Detail() {
                     className="w-[9%] object-cover"
                     src={
                       process.env.PUBLIC_URL +
-                      `/../${selectedToolkit[recommendIndex].thumbnail}`
+                      selectedToolkit[recommendIndex].thumbnail.replace(
+                        "./",
+                        "/"
+                      )
                     }
                     alt="img"
                   />

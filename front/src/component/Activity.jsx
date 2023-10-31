@@ -14,7 +14,7 @@ export default function Activity() {
     data: activities,
   } = useQuery(["activities"], async () => {
     return axios //
-      .get("/data/Toolkit.json") //
+      .get(process.env.PUBLIC_URL + "/data/Toolkit.json") //
       .then((res) => res.data.items.activities);
   });
 

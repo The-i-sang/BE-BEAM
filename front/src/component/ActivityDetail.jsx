@@ -53,7 +53,7 @@ export default function ActivityDetail() {
       <div className="w-11/12 mx-auto mt-16 mb-12 flex">
         <img
           className="w-[46%] object-cover object-center"
-          src={process.env.PUBLIC_URL + `/../${activity.thumbnail}`}
+          src={process.env.PUBLIC_URL + activity.thumbnail.replace("./", "/")}
           alt="img"
         />
         <div className="w-[54%] px-10 box-border">
@@ -71,7 +71,9 @@ export default function ActivityDetail() {
             <p className="w-2/5 ">{activity.description}</p>
             <img
               className="w-96 rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
-              src={process.env.PUBLIC_URL + `/../${activity.image[0]}`}
+              src={
+                process.env.PUBLIC_URL + activity.image[0].replace("./", "/")
+              }
               alt="comunity_desc_img"
             />
           </div>
@@ -159,7 +161,7 @@ export default function ActivityDetail() {
                   <li className="">
                     <img
                       className="w-full object-cover rounded-lg"
-                      src={process.env.PUBLIC_URL + `/../${i}`}
+                      src={process.env.PUBLIC_URL + i.replace("./", "/")}
                       alt="comunity_img"
                     />
                   </li>
