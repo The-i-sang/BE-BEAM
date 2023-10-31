@@ -31,7 +31,7 @@ export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
 
         <img
           className="w-full object-cover mx-auto rounded-2xl"
-          src={process.env.PUBLIC_URL + toolkit.thumbnail.replace("./", "/")}
+          src={process.env.PUBLIC_URL + toolkit.thumbnail}
           alt="toolkit_img"
         />
         <div className="2xl:group-hover:h-24 xl:group-hover:h-20 lg:group-hover:h-20 md:group-hover:h-16 sm:group-hover:h-24 group-hover:h-24 absolute bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] rounded-b-lg text-white flex justify-center items-center xl:text-xl lg:text-lg md:text-[1rem] sm:text-xl text-xl transition-all duration-700 overflow-hidden">

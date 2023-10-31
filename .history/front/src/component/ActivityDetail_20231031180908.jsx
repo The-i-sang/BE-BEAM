@@ -71,9 +71,7 @@ export default function ActivityDetail() {
             <p className="w-2/5 ">{activity.description}</p>
             <img
               className="w-96 rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
-              src={
-                process.env.PUBLIC_URL + activity.image[0].replace("./", "/")
-              }
+              src={process.env.PUBLIC_URL + `/../${activity.image[0]}`}
               alt="comunity_desc_img"
             />
           </div>
@@ -161,7 +159,7 @@ export default function ActivityDetail() {
                   <li className="">
                     <img
                       className="w-full object-cover rounded-lg"
-                      src={process.env.PUBLIC_URL + i.replace("./", "/")}
+                      src={process.env.PUBLIC_URL + `/../${i}`}
                       alt="comunity_img"
                     />
                   </li>

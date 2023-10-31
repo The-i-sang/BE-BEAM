@@ -161,7 +161,7 @@ export default function ActivityDetail() {
                   <li className="">
                     <img
                       className="w-full object-cover rounded-lg"
-                      src={process.env.PUBLIC_URL + i.replace("./", "/")}
+                      src={process.env.PUBLIC_URL + `/../${i}`}
                       alt="comunity_img"
                     />
                   </li>

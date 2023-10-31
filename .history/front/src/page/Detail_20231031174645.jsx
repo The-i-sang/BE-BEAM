@@ -161,10 +161,7 @@ export default function Detail() {
                     className="w-[9%] object-cover"
                     src={
                       process.env.PUBLIC_URL +
-                      selectedToolkit[recommendIndex].thumbnail.replace(
-                        "./",
-                        "/"
-                      )
+                      `/../${selectedToolkit[recommendIndex].thumbnail}`
                     }
                     alt="img"
                   />

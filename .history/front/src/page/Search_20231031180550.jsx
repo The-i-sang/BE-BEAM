@@ -179,9 +179,7 @@ export default function Search() {
                 >
                   <img
                     className="w-full aspect-square object-bottom object-cover mx-auto rounded-2xl"
-                    src={
-                      process.env.PUBLIC_URL + data.thumbnail.replace("./", "/")
-                    }
+                    src={process.env.PUBLIC_URL + `${data.thumbnail}`}
                     alt="data_img"
                   />
 
