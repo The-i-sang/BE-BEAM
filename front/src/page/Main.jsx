@@ -3,6 +3,7 @@ import img2 from "../assets/2.png";
 import img3 from "../assets/3.png";
 import img4 from "../assets/4.png";
 import img5 from "../assets/5.png";
+import img6 from "../assets/6.png";
 
 export default function Main() {
   const [scrollHeight, setScrollHeight] = useState(0);
@@ -28,8 +29,8 @@ export default function Main() {
               : "absolute top-0"
           } w-full h-[300px] text-center transition-all duration-1000 z-[9999] flex flex-col justify-center items-center leading-normal`}
         >
-          <h1 className="text-[4.8rem] font-extrabold">The 이상</h1>
-          <p className="text-[2.4rem] mt-2">이상한 사회를 이상적인 사회로</p>
+          <h1 className="text-[4.8rem] font-extrabold">BE:BEAM</h1>
+          <p className="text-[2.4rem] mt-2">연결망을 통한 따뜻한 사회로</p>
         </div>
 
         <div
@@ -44,9 +45,9 @@ export default function Main() {
       <div className="w-full mx-auto mt-40">
         <div className="w-full max-w-[1400px] mx-auto pt-32">
           <h2 className="mb-20 text-[3rem] text-[#282828] dark:text-white font-semibold text-center">
-            이상한 사회를{" "}
+            연결망을 통한{" "}
             <span className="text-[#ffffff] dark:text-black text-stroke">
-              이상적인 사회
+              따뜻한 사회
             </span>
             로
           </h2>
@@ -63,7 +64,7 @@ export default function Main() {
                 What does it mean?
               </p>
               <h1 className="mt-5 mb-20 text-[2.625rem] font-semibold">
-                The 이상이{" "}
+                BE:BEAM이{" "}
                 <span className="text-white dark:text-black text-stroke">
                   의미
                 </span>
@@ -87,7 +88,7 @@ export default function Main() {
                 What is the vision of this?
               </p>
               <h1 className="mt-5 mb-20 text-[2.625rem] font-semibold">
-                The 이상의{" "}
+                BE:BEAM의{" "}
                 <span className="text-white dark:text-black text-stroke">
                   비전
                 </span>
@@ -121,7 +122,7 @@ export default function Main() {
           <div className="w-full mb-32 flex items-center group text-[#282828] dark:text-white text-center">
             <img
               className="w-6/12 h-[580px] object-cover"
-              src={img2}
+              src={img6}
               alt="intro_img"
             />
 
@@ -130,16 +131,16 @@ export default function Main() {
                 What is the purpose?
               </p>
               <h1 className="mt-5 mb-20 text-[2.625rem] font-semibold">
-                The 이상의{" "}
+                BE:BEAM의{" "}
                 <span className="text-white dark:text-black text-stroke">
                   목적
                 </span>
                 은?
               </h1>
               <p className="text-[1rem] text-left leading-7">
-                💡 사회문제를 연구하고 부산지역 청년들의 사회참여를 기반으로{" "}
-                사회문제 해결을 목표로 하며 사회문제 해결을 통해 이상적인 사회
-                실현을 목적으로 합니다.
+                💡 BE:BEAM은 취향과 취미를 기반으로한 다양한 활동들을 통해서
+                사람과 사람간, 사람과 지역간 느슨한 연결망을 만드는 것을
+                목적으로 하고 있습니다.
               </p>
             </div>
           </div>
@@ -150,7 +151,7 @@ export default function Main() {
                 What is the core value of this?
               </p>
               <h1 className="mt-5 mb-10 text-[2.625rem] font-semibold">
-                The 이상의{" "}
+                BE:BEAM의{" "}
                 <span className="text-white dark:text-black text-stroke">
                   가치
                 </span>

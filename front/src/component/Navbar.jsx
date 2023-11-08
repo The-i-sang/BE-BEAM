@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <div className="w-full dark:bg-black">
       <div className="w-full max-w-[1400px] mx-auto">
-        <div className="w-full py-8 flex justify-between items-center">
+        <div className="w-full py-12 flex justify-between items-center">
           <div
             className="lg:w-[80px] md:w-[13%] sm:w-[15%] w-[20%]"
             onClick={() => {
