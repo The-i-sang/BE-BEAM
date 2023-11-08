@@ -145,7 +145,7 @@ export default function Detail() {
               </div>
               <p className="font-semibold ml-3">태그</p>
               {toolkit.keyword?.map((hashtag) => {
-                return <p className="ml-3">{hashtag}</p>;
+                return <p className="ml-3">#{hashtag}</p>;
               })}
             </div>
 
