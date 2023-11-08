@@ -6,6 +6,7 @@
         "title": "너는 어떤 호스트가 되고 싶어?",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/1-1.png",
+        "squareImage": "./image/toolkit_img/1-0.png",
         "image": [
           "./image/toolkit_img/1-1.png",
           "./image/toolkit_img/1-2.png",
@@ -28,6 +29,7 @@
         "title": "어떤 공간에서 커뮤니티를 진행하고 싶어? : 실내편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/2-1.png",
+        "squareImage": "./image/toolkit_img/2-0.png",
         "image": [
           "./image/toolkit_img/2-1.png",
           "./image/toolkit_img/2-2.png",
@@ -52,6 +54,7 @@
         "title": "어떤 공간에서 커뮤니티를 진행하고 싶어?: 실외편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/3-1.png",
+        "squareImage": "./image/toolkit_img/3-0.png",
         "image": [
           "./image/toolkit_img/3-1.png",
           "./image/toolkit_img/3-2.png",
@@ -75,6 +78,7 @@
         "title": "안정적인 커뮤니티 운영을 위해서: 예산편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/4-1.png",
+        "squareImage": "./image/toolkit_img/4-0.png",
         "image": [
           "./image/toolkit_img/4-1.png",
           "./image/toolkit_img/4-2.png",
@@ -97,6 +101,7 @@
         "title": "안정적인 커뮤니티 운영을 위해서 : 모임진행편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/5-1.png",
+        "squareImage": "./image/toolkit_img/5-0.png",
         "image": [
           "./image/toolkit_img/5-1.png",
           "./image/toolkit_img/5-2.png",
@@ -128,6 +133,7 @@
         "title": "안정적인 커뮤니티 운영을 위해서 : 팀빌딩편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/6-1.png",
+        "squareImage": "./image/toolkit_img/6-0.png",
         "image": [
           "./image/toolkit_img/6-1.png",
           "./image/toolkit_img/6-2.png",
@@ -158,6 +164,7 @@
         "title": "안정적인 커뮤니티 운영을 위해서: 계획편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/7-1.png",
+        "squareImage": "./image/toolkit_img/7-0.png",
         "image": [
           "./image/toolkit_img/7-1.png",
           "./image/toolkit_img/7-2.png",
@@ -192,6 +199,7 @@
         "title": "안정적인 커뮤니티 운영을 위해서 : 참여자 관리편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/8-1.png",
+        "squareImage": "./image/toolkit_img/8-0.png",
         "image": [
           "./image/toolkit_img/8-1.png",
           "./image/toolkit_img/8-2.png",
@@ -220,6 +228,7 @@
         "title": "모임 규칙을 정해보자: 호스트편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/9-1.png",
+        "squareImage": "./image/toolkit_img/9-0.png",
         "image": [
           "./image/toolkit_img/9-1.png",
           "./image/toolkit_img/9-2.png",
@@ -247,6 +256,7 @@
         "title": "모임 규칙을 정해보자: 참여자편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/10-1.png",
+        "squareImage": "./image/toolkit_img/10-0.png",
         "image": [
           "./image/toolkit_img/10-1.png",
           "./image/toolkit_img/10-2.png",
@@ -272,6 +282,7 @@
         "title": "모임 규칙을 정해보자: 오픈채팅방편",
         "creator": "비빔",
         "thumbnail": "./image/toolkit_img/11-1.png",
+        "squareImage": "./image/toolkit_img/11-0.png",
         "image": [
           "./image/toolkit_img/11-1.png",
           "./image/toolkit_img/11-2.png",
@@ -310,6 +321,7 @@
         "title": "소셜다이닝 : 이상식탁",
         "description": "식사를 함께 준비하고 먹으면서 가볍지만 깊은 이야기를 나누고 싶으신 분 나를 공개하기에는 부담스럽고, 하지만 나의 이야기를 하고 싶으신 분  소셜다이닝 : 이상식탁에 참여해주세요!",
         "thumbnail": "./image/activity_img/dining_0.png",
+        "squareImage": "./image/activity_img/dining_0.png",
         "image": [
           "./image/activity_img/dining_0.png",
           "./image/activity_img/dining_1.png",
@@ -338,6 +350,7 @@
         "title": "사진출사모임 : 나를 기록하는 사진관 (정기모임) (모집마감)",
         "description": "내가 뭘 좋아하는지! 내가 뭘 싫어하는지! 내가 어떤 사람인지 모르겠어요” 이런 분들 주목해주세요! 사진을 통해 나를 알아가고 우리를 알아가는‘나를 기록하는 시진관“이 진행됩니다.😊",
         "thumbnail": "./image/activity_img/picture_0.png",
+        "squareImage": "./image/activity_img/picture_0.png",
         "activitySchedule": [
           "6/4(일) 15시 오리엔테이션",
           "6/11(일) 15시 정신건강 관련 프로그램 진행",
@@ -381,6 +394,7 @@
         "title": "독서모임: 북페어링 (상시모집)",
         "description": "'북 페어링'은 부산의 여러 장소와 어울리는 책을 발굴해 감상을 나누는 모임을 진행하고 있습니다. 책과 함께 부산의 정취를 느끼고 싶은 분들의 많은 참여를 기다립니다☺️",
         "thumbnail": "./image/activity_img/book_0.png",
+        "squareImage": "./image/activity_img/book_0.png",
         "image": [
           "./image/activity_img/book_0.png",
           "./image/activity_img/book_1.png",
@@ -409,6 +423,7 @@
         "title": "운동모임:정기산행 (상시모집)",
         "description": "부산하면 어떤 이미지가 떠오르나요?  대부분이 바다를 생각하시겠지만, 의외로 부산에는 무려 59개나 되는 산이 있어요.  우리 함께 등산을 하면서 건강도 챙기고, 부산이라는 지역에 새로운 모습들을 함께 확인해봐요!  ",
         "thumbnail": "./image/activity_img/hiking_0.png",
+        "squareImage": "./image/activity_img/hiking_0.png",
         "image": [
           "./image/activity_img/hiking_0.png",
           "./image/activity_img/hiking_1.png",
@@ -440,6 +455,7 @@
         "title": "운동모임 : 선셋 러닝 (상시모집) (모집중)",
         "description": "해질녘 저녁, 아름다운 해운대 선셋과 함께 달릴 러닝 할 사람~?🙌 함께 달리며 건강도 챙기고, 하루도 뿌듯하게 마무리해봐요😊 1시간이내의 가벼운 러닝루트니, 다들 부담갖지 말고 신청해주세요~💕",
         "thumbnail": "./image/activity_img/jogging_0.png",
+        "squareImage": "./image/activity_img/jogging_0.png",
         "image": ["./image/activity_img/jogging_0.png"],
         "info": [
           "활동 주제, 일정, 장소는 매번 변동됩니다.",
