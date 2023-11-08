@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import Menu from "./Menu";
 
-import { CiDark, CiLight } from "react-icons/ci";
+import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 
-export default function Navbar() {
+export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
@@ -34,10 +34,20 @@ export default function Navbar() {
   }, [darkMode]);
   return (
     <div className="w-full dark:bg-black">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <div className="w-full py-12 flex justify-between items-center">
+      <div className="w-full sm:max-w-[1400px] mx-auto sm:px-0 px-5 box-border">
+        <div className="w-full sm:py-12 py-8 flex justify-between items-center">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setSideBarOpen(true);
+            }}
+            className="sm:hidden block text-[#f5aa15] text-[1.2rem]"
+          >
+            <CiMenuBurger />
+          </button>
+
           <div
-            className="lg:w-[80px] md:w-[13%] sm:w-[15%] w-[20%]"
+            className="md:w-[80px] sm:w-[70px] w-[60px]"
             onClick={() => {
               navigate("/");
             }}
@@ -51,12 +61,16 @@ export default function Navbar() {
             />
           </div>
 
-          <Menu path={path} />
+          <Menu
+            setSideBarOpen={setSideBarOpen}
+            sideBarOpen={sideBarOpen}
+            path={path}
+          />
 
           <div>
             <button
               type="button"
-              className="mr-8 text-[1.8rem] text-[#f5aa15] cursor-pointer"
+              className="lg:mr-8 md:mr-4 sm:mr-4 mr-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
               onClick={() => setDarkMode(!darkMode)}
             >
               {darkMode ? <CiLight /> : <CiDark />}
@@ -64,7 +78,7 @@ export default function Navbar() {
 
             <button
               type="button"
-              className="text-[1.8rem] text-[#f5aa15] cursor-pointer"
+              className="md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
               onClick={() => {
                 navigate("/search");
               }}

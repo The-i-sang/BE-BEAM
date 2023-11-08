@@ -5,11 +5,11 @@ export default function Footer() {
     <div className="w-full bg-[#ffffff] dark:bg-black">
       <div className="w-full max-w-[1400px] mx-auto py-10 box-border border-t-[1px] border-solid border-[#f5aa15] flex sm:flex-row flex-col items-center">
         <img
-          className="w-[21%] lg:w-[80px] sm:w-[14%] h-full object-cover"
+          className="md:w-[80px] sm:w-[70px] w-[60px] h-full object-cover"
           src={process.env.PUBLIC_URL + "/logo/logo2.png"}
           alt="logo"
         />
-        <div className="w-11/12 text-[#f5aa15] text-[1.1rem] text-center">
+        <div className="w-11/12 sm:mt-0 mt-4 text-[#f5aa15] lg:text-[1.25rem] md:text-[1.16rem] sm:text-[1.1rem] text-[1rem] text-center">
           <p>Copyright ⓒ 2023 beBeam. All Rights Reserved.</p>
         </div>
       </div>
