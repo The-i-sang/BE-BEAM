@@ -77,7 +77,7 @@ export default function Activity() {
             />
           </div>
 
-          <p className="sm:mt-7 mt-3 text-[#383535] dark:text-white sm:text-[1.4rem] text-[1.1rem] text-center tracking-tighter">
+          <p className="sm:mt-7 mt-3 text-[#383535] dark:text-white sm:text-[1.4rem] text-[1.1rem] sm:font-normal font-light text-center tracking-tighter">
             다양한 사람들이 다양하게 어우러지는 모임,
             <br />
             관심사에 맞게 모임을 Pick 하세요!
