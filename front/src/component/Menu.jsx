@@ -83,7 +83,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           <GoX />
         </button>
 
-        <ul className="w-full h-full mx-[1.3rem] mt-[-3rem] dark:text-[#f5aa15] text-white text-[1.6rem] flex flex-col justify-center">
+        <ul className="w-full h-full mx-[1.3rem] mt-40 dark:text-[#f5aa15] text-white text-[1.6rem]">
           <li
             onClick={() => {
               navigate("/");

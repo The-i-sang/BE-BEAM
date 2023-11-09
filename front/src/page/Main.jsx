@@ -38,7 +38,9 @@ export default function Main() {
 
         <div
           className={`${
-            scrollHeight > 100 ? "top-40" : "max-w-[1400px] top-96"
+            scrollHeight > 100
+              ? "top-40"
+              : "sm:max-w-[1400px] max-w-[470px] top-96"
           } w-full mx-auto sm:h-[720px] h-[400px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_0] text-white relative transition-all duration-700`}
         >
           <div className="w-full h-full bg-black opacity-20 absolute top-0 left-0" />
@@ -73,7 +75,7 @@ export default function Main() {
                 </span>
                 하는 것은?
               </h1>
-              <p className="sm:text-[1rem] text-[0.8rem] text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
                 💡 안녕하세요! 부산에서 청년 커뮤니티를 기획운영하고 있는
                 BE:BEAM입니다. BE:BEAM(비빔)은 비빔밥의 재료처럼 다양한 청년들이
                 모여, 빛줄기(BEAM)처럼 따뜻한 연결망을 이어나간다는 의미가
@@ -97,19 +99,19 @@ export default function Main() {
                 </span>
                 은?
               </h1>
-              <p className="sm:text-[1rem] text-[0.8rem] text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
                 💡 오늘날의 청년들은 일상에서 다양한 문제들과 마주하며 살아가고
                 있지만 함께 이야기하고, 공감하고, 고민할 자리는 점점 사라지고
                 있습니다. 이러한 기회의 부족은 청년들을 외롭게하고, 고립이라는
                 사회적문제를 발생시킵니다. 따라서 BE:BEAM은 청년들이 느슨하지만
                 따뜻한 연결을 경험하는 기회를 제공하고자 합니다.
               </p>
-              <p className="mt-6 sm:text-[1rem] text-[0.8rem] text-left sm:leading-7 leading-5">
+              <p className="mt-6 sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
                 1. BE:BEAM은 취향, 취미를 기반으로 한 오프라인 모임을 통해서
                 가벼우면서도 안정적인 일상의 느슨한 연결망을 만드는 활동을
                 원칙으로 합니다.
               </p>
-              <p className="sm:text-[1rem] text-[0.8rem] text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
                 2. BE:BEAM의 커뮤니티는 누구나 참여 가능할 수 있도록, 누구나
                 운영할 수 있도록 지원하는 것을 원칙으로 합니다.
               </p>
@@ -140,7 +142,7 @@ export default function Main() {
                 </span>
                 은?
               </h1>
-              <p className="sm:text-[1rem] text-[0.8rem] text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
                 💡 BE:BEAM은 취향과 취미를 기반으로한 다양한 활동들을 통해서
                 사람과 사람간, 사람과 지역간 느슨한 연결망을 만드는 것을
                 목적으로 하고 있습니다.
@@ -160,7 +162,7 @@ export default function Main() {
                 </span>
                 는?
               </h1>
-              <ul className="sm:text-[1rem] text-[0.8rem] text-left sm:leading-7 leading-5">
+              <ul className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
                 <li className="mb-4">
                   <span className="text-[1rem] text-[#f5aa15]">
                     연결망 (SOCIAL NETWORK)
