@@ -11,7 +11,11 @@ export default function Root() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
 
   return (
-    <div className="font-sans font-medium tracking-tighter whitespace-pre-wrap leading-7">
+    <div
+      className={`${
+        sideBarOpen ? "h-[100vh] overflow-hidden" : "h-auto"
+      } font-sans font-medium tracking-tighter whitespace-pre-wrap leading-7`}
+    >
       <ScrollRestoration />
       <Navbar setSideBarOpen={setSideBarOpen} sideBarOpen={sideBarOpen} />
       <QueryClientProvider client={queryClient}>
