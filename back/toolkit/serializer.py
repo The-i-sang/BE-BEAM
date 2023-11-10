@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Toolkit, ToolkitImage, ToolkitMainCategory, ToolkitSubCategory
+from .models import Toolkits, ToolkitImage, ToolkitMainCategory, ToolkitSubCategory
 
 
 class ToolkitMainCategorySerializer(serializers.ModelSerializer):
@@ -23,7 +23,7 @@ class ToolkitImageSerializer(serializers.ModelSerializer):
         fields = ["image"]
 
 
-class ToolkitSerializer(serializers.ModelSerializer):
+class ToolkitsSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
 
     def get_images(self, obj):
@@ -31,11 +31,11 @@ class ToolkitSerializer(serializers.ModelSerializer):
         return ToolkitImageSerializer(instance=image, many=True).data
 
     class Meta:
-        model = Toolkit
+        model = Toolkits
         fields = "__all__"
 
     def create(self, validated_data):
-        instance = Toolkit.objects.create(validated_data)
+        instance = Toolkits.objects.create(validated_data)
         image_set = self.context["request"].FILES
         for imange_data in image_set.getlist("image"):
             ToolkitImage.objects.create(Toolkit=instance, image=imange_data)

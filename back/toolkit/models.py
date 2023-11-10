@@ -2,16 +2,16 @@ from django.db import models
 from .validator import validate_image_file_extension
 
 
-def toolkit_image_upload_path(instance, filename):
-    return f"toolkit/{instance.toolkit.title}/{filename}"
+def toolkits_image_upload_path(instance, filename):
+    return f"toolkits/{instance.toolkits.title}/{filename}"
 
 
-def toolkit_thumbnail_image_upload_path(instance, filename):
-    return f"toolkit/{instance.title}/thumbnail/{filename}"
+def toolkits_thumbnail_image_upload_path(instance, filename):
+    return f"toolkits/{instance.title}/thumbnail/{filename}"
 
 
-def toolkit_download_file_upload_path(instance, filename):
-    return f"toolkit/{instance.title}/download/{filename}"
+def toolkits_download_file_upload_path(instance, filename):
+    return f"toolkits/{instance.title}/download/{filename}"
 
 
 class ToolkitMainCategory(models.Model):
@@ -28,10 +28,10 @@ class ToolkitSubCategory(models.Model):
         return self.name
 
 
-class Toolkit(models.Model):
+class Toolkits(models.Model):
     title = models.CharField(max_length=100)
     thumbnail_image = models.ImageField(
-        upload_to=toolkit_thumbnail_image_upload_path,
+        upload_to=toolkits_thumbnail_image_upload_path,
         null=True,
         blank=True,
         validators=[
@@ -39,7 +39,7 @@ class Toolkit(models.Model):
         ],
     )
     download_file = models.FileField(
-        upload_to=toolkit_download_file_upload_path,
+        upload_to=toolkits_download_file_upload_path,
         null=True,
         blank=True,
     )
@@ -47,12 +47,12 @@ class Toolkit(models.Model):
     maincategory = models.ForeignKey(
         ToolkitMainCategory,
         on_delete=models.CASCADE,
-        related_name="toolkit_maincategory",
+        related_name="toolkits_maincategory",
     )
     subcategory = models.ForeignKey(
         ToolkitSubCategory,
         on_delete=models.CASCADE,
-        related_name="toolkit_subcategory",
+        related_name="toolkits_subcategory",
     )
     time = models.IntegerField()
 
@@ -61,11 +61,11 @@ class Toolkit(models.Model):
 
 
 class ToolkitImage(models.Model):
-    toolkit = models.ForeignKey(
-        Toolkit, on_delete=models.CASCADE, related_name="toolkitimage_toolkit"
+    toolkits = models.ForeignKey(
+        Toolkits, on_delete=models.CASCADE, related_name="toolkitimage_toolkit"
     )
     image = models.ImageField(
-        upload_to=toolkit_image_upload_path,
+        upload_to=toolkits_image_upload_path,
         null=True,
         blank=True,
         validators=[
@@ -74,4 +74,4 @@ class ToolkitImage(models.Model):
     )
 
     def __str__(self):
-        return self.toolkit.title
+        return self.toolkits.title
