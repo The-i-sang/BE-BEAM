@@ -7,17 +7,10 @@ import Typewriter from "typewriter-effect";
 import { CiPen } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
-import { ImManWoman, ImWoman } from "react-icons/im";
-import { BsFillEyeSlashFill } from "react-icons/bs";
-import { GiHearingDisabled, GiNotebook } from "react-icons/gi";
-import { RiWheelchairFill, RiTeamFill } from "react-icons/ri";
-import { FaSchoolCircleXmark } from "react-icons/fa6";
-import { LiaRainbowSolid } from "react-icons/lia";
+import ToolkitCategory from "../component/ToolkitCategory";
 // import { TOOLKIT_URL } from "../config";
 
 export default function Toolkit() {
-  const ToolkitPage = true;
-
   const [categories, setCategories] = useState([
     { title: "All", isActive: true },
     { title: "청년", isActive: false },
@@ -285,14 +278,14 @@ export default function Toolkit() {
 
   return (
     <div className="w-full bg-[#ffffff] dark:bg-black pt-16 flex flex-col justify-between items-center font-medium">
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center">
+      <div className="w-11/12 mx-auto flex flex-col items-center">
         <div className="w-full mb-6 flex flex-col justify-center items-center">
-          <div className="w-full text-[#79B1FF] text-[1.5rem] flex justify-center items-center">
-            <CiPen className="text-[1.8rem]" />
+          <div className="w-full text-[#79B1FF] sm:text-[1.5rem] text-[1.2rem] flex justify-center items-center">
+            <CiPen />
             <p className="ml-3 font-semibold">Toolkit</p>
           </div>
 
-          <div className="mt-6 text-[2.8rem] text-[#282828] dark:text-white text-center font-extrabold leading-normal">
+          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold leading-normal">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
@@ -308,7 +301,7 @@ export default function Toolkit() {
             />
           </div>
 
-          <p className="mt-7 text-[#383535] dark:text-white text-[1.4rem] text-center tracking-tighter">
+          <p className="sm:mt-7 mt-3 text-[#383535] dark:text-white sm:text-[1.4rem] text-[1.1rem] sm:font-normal font-light text-center tracking-tighter">
             다양한 사회 문제들을 다양하게 풀어내는 툴킷,
             <br />
             관심사에 맞게 툴킷을 Pick 하세요!
@@ -324,7 +317,7 @@ export default function Toolkit() {
               setText(e.target.value);
             }}
             value={text}
-            className="w-full p-8 box-border mt-4 rounded-full dark:bg-transparent border-[1px] border-solid border-[#79B1FF] outline-none text-[1.2rem] dark:text-white placeholder:text-[1.2rem] placeholder:text-[#79B1FF]"
+            className="w-full sm:p-8 p-5 box-border mt-4 rounded-full dark:bg-transparent border-[1px] border-solid border-[#79B1FF] outline-none sm:text-[1.2rem] text-[0.9rem] dark:text-white sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem] placeholder:text-[#79B1FF]"
             type="text"
             placeholder="툴킷을 검색하세요."
           />
@@ -332,207 +325,38 @@ export default function Toolkit() {
             onClick={handleDeleteTitle}
             className={`${
               text.length > 0 ? "opacity-1" : "opacity-0"
-            } text-[2.4rem] dark:text-white absolute right-20 top-[40%] transition-all duration-700`}
+            } sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-20 right-12 sm:top-[40%] top-[45%] transition-all duration-700`}
             type="button"
           >
             <GoX />
           </button>
           <button
             type="submit"
-            className="text-[2.4rem] dark:text-white absolute right-7 top-[40%]"
+            className="sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-7 right-4 sm:top-[40%] top-[45%]"
           >
             <CiSearch />
           </button>
         </form>
-        <div className="w-full pb-6 mt-36 flex gap-x-10">
-          <ul className="flex text-5xl font-medium text-[#f5aa15]">
-            {categories.map((cate, i) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => handleCategoryClick(cate.title)}
-                  className="cursor-pointer mr-4 flex flex-col items-center group"
-                >
-                  <div
-                    className={`${
-                      cate.isActive
-                        ? "bg-black dark:bg-white"
-                        : "bg-transparent"
-                    } w-[65px] h-[65px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
-                  >
-                    {cate.title === "All" ? (
-                      <p
-                        className={`${
-                          cate.isActive ? "" : ""
-                        } text-[1.2rem] text-[#F5AA15] group-hover:text-[#F5AA15]`}
-                      >
-                        ALL
-                      </p>
-                    ) : cate.title === "청년" ? (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <ImManWoman />
-                      </p>
-                    ) : cate.title === "퀴어" ? (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <LiaRainbowSolid />
-                      </p>
-                    ) : cate.title === "시각장애" ? (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <BsFillEyeSlashFill />
-                      </p>
-                    ) : cate.title === "청각장애" ? (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <GiHearingDisabled />
-                      </p>
-                    ) : cate.title === "이동약자" ? (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <RiWheelchairFill />
-                      </p>
-                    ) : cate.title === "비진학" ? (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <FaSchoolCircleXmark />
-                      </p>
-                    ) : (
-                      <p className="text-[#F5AA15] text-[1.2rem] group-hover:text-[#F5AA15]">
-                        <ImWoman />
-                      </p>
-                    )}
-                  </div>
-                  <p
-                    className={`${
-                      cate.isActive
-                        ? "text-[#f58515]"
-                        : "text-[#393939] dark:text-white"
-                    } mt-2 text-[1rem] font-medium group-hover:text-[#f58515] transition-all duration-700 group-hover:transition-all group-hover:duration-700`}
-                  >
-                    {cate.title}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
 
-          <ul className="flex text-5xl font-medium text-[#ff3e4f]">
-            {categories2.map((cate, i) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => handleCategoryClick2(cate.title)}
-                  className="cursor-pointer mr-4 flex flex-col items-center group"
-                >
-                  <div
-                    className={`${
-                      cate.isActive
-                        ? "bg-black dark:bg-white"
-                        : "bg-transparent"
-                    } w-[65px] h-[65px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
-                  >
-                    {cate.title === "All" ? (
-                      <p
-                        className={`${
-                          cate.isActive ? "" : ""
-                        } text-[1.2rem] text-[#ff4848] group-hover:text-[#ff4848]`}
-                      >
-                        ALL
-                      </p>
-                    ) : cate.title === "커뮤니티 구성원" ? (
-                      <p className="text-[#ff4848] text-[1.2rem] group-hover:text-[#ff4848]">
-                        <RiTeamFill />
-                      </p>
-                    ) : (
-                      <p className="text-[#ff4848] text-[1.2rem] group-hover:text-[#ff4848]">
-                        <GiNotebook />
-                      </p>
-                    )}
-                  </div>
-                  <p
-                    className={`${
-                      cate.isActive
-                        ? "text-[#ff4848]"
-                        : "text-[#393939] dark:text-white"
-                    } mt-2 text-[1rem] font-medium group-hover:text-[#ff4848] transition-all duration-700 group-hover:transition-all group-hover:duration-700 text-center`}
-                  >
-                    {cate.title.split(" ")[0]}
-                  </p>
-                  <p
-                    className={`${
-                      cate.isActive
-                        ? "text-[#ff4848]"
-                        : "text-[#393939] dark:text-white"
-                    } mt-2 text-[1rem] font-medium group-hover:text-[#ff4848] transition-all duration-700 group-hover:transition-all group-hover:duration-700 text-center`}
-                  >
-                    {cate.title.split(" ")[1]}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-
-          <ul className="flex text-5xl font-medium text-[#79B1FF]">
-            {categories3.map((cate, i) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => handleCategoryClick3(cate.title)}
-                  className="cursor-pointer mr-4 flex flex-col items-center group"
-                >
-                  <div
-                    className={`${
-                      cate.isActive
-                        ? "bg-black dark:bg-white"
-                        : "bg-transparent"
-                    } w-[65px] h-[65px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
-                  >
-                    {cate.title === "All" ? (
-                      <p
-                        className={`${
-                          cate.isActive ? "" : ""
-                        } text-[1.2rem] text-[#79B1FF] group-hover:text-[#79B1FF]`}
-                      >
-                        ALL
-                      </p>
-                    ) : cate.title === "비빔" ? (
-                      <p className="text-[#79B1FF] text-[1.2rem] group-hover:text-[#79B1FF]">
-                        <ImManWoman />
-                      </p>
-                    ) : (
-                      <p className="text-[#79B1FF] text-[1.2rem] group-hover:text-[#79B1FF]">
-                        <ImManWoman />
-                      </p>
-                    )}
-                  </div>
-                  <p
-                    className={`${
-                      cate.isActive
-                        ? "text-[#79B1FF]"
-                        : "text-[#393939] dark:text-white"
-                    } mt-2 text-[1rem] font-medium group-hover:text-[#79B1FF] transition-all duration-700 group-hover:transition-all group-hover:duration-700`}
-                  >
-                    {cate.title}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ToolkitCategory
+          categories={categories}
+          categories2={categories2}
+          categories3={categories3}
+          handleCategoryClick={handleCategoryClick}
+          handleCategoryClick2={handleCategoryClick2}
+          handleCategoryClick3={handleCategoryClick3}
+        />
       </div>
 
       {isLoading && "Loading..."}
       {error && "An error has occurred...!"}
 
       <div className="w-full bg-[#c7deff] dark:bg-[#191919]">
-        <ul className="w-full max-w-[1400px] mx-auto py-10 grid grid-cols-3 gap-x-3">
+        <ul className="w-11/12 max-w-[1400px] mx-auto py-10 sm:grid md:grid-cols-3 sm:grid-cols-2 gap-x-3">
           {searchToolkits.length === 0 &&
             filteredToolkits &&
-            filteredToolkits.map((toolkit, index) => {
-              return (
-                <ToolkitCard
-                  toolkit={toolkit}
-                  key={toolkit}
-                  index={index}
-                  ToolkitPage={ToolkitPage}
-                />
-              );
+            filteredToolkits.map((toolkit) => {
+              return <ToolkitCard toolkit={toolkit} key={toolkit} />;
             })}
 
           {searchToolkits.length !== 0 &&

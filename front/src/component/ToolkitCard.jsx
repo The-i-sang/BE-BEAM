@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 // import { BASE_URL } from "../config";
 
-export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
+export default function ToolkitCard({ toolkit }) {
   const navigate = useNavigate();
 
   return (
@@ -10,17 +10,7 @@ export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
       onClick={() => {
         navigate(`/toolkit/detail/${toolkit.id}`, { state: { toolkit } });
       }}
-      className={`${ToolkitPage ? "" : ""}
-      ${ToolkitPage ? "lg:mb-16 md:mb-8" : "mb-32"}
-        ${
-          (!ToolkitPage && index % 4 === 3) || (!ToolkitPage && index === 3)
-            ? "mr-0"
-            : (!ToolkitPage && index % 4 !== 3) || (!ToolkitPage && index !== 3)
-            ? "mr-[1.3333%]"
-            : (ToolkitPage && index % 3 === 2) || (ToolkitPage && index === 2)
-            ? "mr-0"
-            : "lg:mr-[2%] md:mr-[3.5%]"
-        } cursor-pointer`}
+      className="lg:mb-16 md:mb-8 cursor-pointer"
     >
       <div className="relative group">
         {/* <img
@@ -39,10 +29,10 @@ export default function ToolkitCard({ toolkit, index, ToolkitPage }) {
         </div>
       </div>
 
-      <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] dark:text-[#79B1FF] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+      <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-6 text-[#282828] dark:text-[#79B1FF] lg:text-[1.8rem] md:text-[1.6rem] sm:text-[1.4rem] text-[1.4rem] font-bold whitespace-nowrap overflow-hidden text-ellipsis">
         {toolkit.title}
       </p>
-      <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal dark:text-white whitespace-normal">
+      <p className="lg:mt-6 md:mt-4 sm:mt-2 mt-4 md:mb-0 sm:mb-14 mb-10 lg:text-[1.2rem] md:text-[1rem] sm:text-[0.9rem] text-[0.9rem] font-normal dark:text-white whitespace-normal">
         {toolkit.description}
       </p>
     </li>
