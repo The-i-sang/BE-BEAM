@@ -56,12 +56,12 @@ export default function Activity() {
     <div className="w-full pt-16 dark:bg-black">
       <div className="w-11/12 mx-auto">
         <div className="w-full mb-6 flex flex-col justify-center items-center">
-          <div className="w-full text-[#f5aa15] text-[1.5rem] flex justify-center items-center">
+          <div className="w-full text-[#f5aa15] sm:text-[1.5rem] text-[1.2rem] flex justify-center items-center">
             <AiFillSmile />
             <p className="ml-3 font-semibold">Activity</p>
           </div>
 
-          <div className="mt-6 text-[2.8rem] dark:text-white text-center font-extrabold leading-normal">
+          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold leading-normal">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
@@ -77,20 +77,20 @@ export default function Activity() {
             />
           </div>
 
-          <p className="mt-7 text-[#383535] dark:text-white text-[1.4rem] text-center tracking-tighter">
+          <p className="sm:mt-7 mt-3 text-[#383535] dark:text-white sm:text-[1.4rem] text-[1.1rem] sm:font-normal font-light text-center tracking-tighter">
             다양한 사람들이 다양하게 어우러지는 모임,
             <br />
             관심사에 맞게 모임을 Pick 하세요!
           </p>
         </div>
 
-        <ul className="w-full mt-36 pb-6 flex items-center text-5xl font-medium text-[#f5aa15]">
+        <ul className="w-full sm:mt-36 mt-24 pb-6 flex items-center sm:text-[3rem] text-[2.4rem] font-medium text-[#f5aa15]">
           {categories.map((cate) => {
             return (
               <li
                 key={cate.title}
                 onClick={() => handleCategoryClick(cate.title)}
-                className="cursor-pointer mr-6 group"
+                className="cursor-pointer sm:mr-6 mr-4 group"
               >
                 <div className="flex flex-col items-center">
                   <div
@@ -98,7 +98,7 @@ export default function Activity() {
                       cate.isActive
                         ? "bg-black dark:bg-white"
                         : "bg-transparent"
-                    } w-[65px] h-[65px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
+                    } sm:w-[65px] sm:h-[65px] w-[52px] h-[52px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
                   >
                     {cate.title === "All" ? (
                       <p
@@ -106,7 +106,7 @@ export default function Activity() {
                           cate.isActive
                             ? "text-[#F5AA15]"
                             : "text-[#393939] dark:text-white"
-                        } text-[1.2rem] group-hover:text-[#F5AA15]`}
+                        } sm:text-[1.2rem] text-[0.9rem] group-hover:text-[#F5AA15]`}
                       >
                         ALL
                       </p>
@@ -116,7 +116,7 @@ export default function Activity() {
                           cate.isActive
                             ? "text-[#F5AA15]"
                             : "text-[#393939] dark:text-white"
-                        } text-[1.2rem] group-hover:text-[#F5AA15]`}
+                        } sm:text-[1.2rem] text-[1rem] group-hover:text-[#F5AA15]`}
                       >
                         <BsSendCheck />
                       </p>
@@ -126,7 +126,7 @@ export default function Activity() {
                           cate.isActive
                             ? "text-[#F5AA15]"
                             : "text-[#393939] dark:text-white"
-                        } text-[1.2rem] group-hover:text-[#F5AA15]`}
+                        } sm:text-[1.2rem] text-[1rem] group-hover:text-[#F5AA15]`}
                       >
                         <BsSendSlash />
                       </p>
@@ -137,7 +137,7 @@ export default function Activity() {
                       cate.isActive
                         ? "text-[#f58515]"
                         : "text-[#393939] dark:text-white"
-                    } mt-2 text-[1rem] font-medium group-hover:text-[#f58515] transition-all duration-700 group-hover:transition-all group-hover:duration-700`}
+                    } sm:mt-2 mt-1 sm:text-[1rem] text-[0.9rem] font-medium group-hover:text-[#f58515] transition-all duration-700 group-hover:transition-all group-hover:duration-700`}
                   >
                     {cate.title}
                   </p>
@@ -171,8 +171,8 @@ export default function Activity() {
       {isLoading && "Loading..."}
       {error && "An error has occurred...!"}
 
-      <div className="bg-[#FDBA74] dark:bg-[#191919]">
-        <ul className="w-11/12 mx-auto py-10 grid grid-cols-2 gap-x-6 gap-y-6">
+      <div className="w-full bg-[#FDBA74] dark:bg-[#191919]">
+        <ul className="w-11/12 mx-auto sm:py-10 py-6 sm:grid sm:grid-cols-2 sm:gap-x-6 gap-y-6">
           {filteredActivities &&
             filteredActivities.map((activity) => {
               return <ActivityCard key={activity.id} activity={activity} />;

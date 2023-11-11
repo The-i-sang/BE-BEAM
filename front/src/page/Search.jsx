@@ -178,9 +178,10 @@ export default function Search() {
                   onClick={(e) => onClickDetailNavigate(e, data)}
                 >
                   <img
-                    className="w-full aspect-square object-bottom object-cover mx-auto rounded-2xl"
+                    className="w-full aspect-square object-bottom object-cover mx-auto rounded-2xl border-[2px] border-solid border-[#f5aa15]"
                     src={
-                      process.env.PUBLIC_URL + data.thumbnail.replace("./", "/")
+                      process.env.PUBLIC_URL +
+                      data.squareImage.replace("./", "/")
                     }
                     alt="data_img"
                   />
@@ -188,7 +189,7 @@ export default function Search() {
                   <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-8 text-[#282828] dark:text-[#f5aa15]  lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.8rem] text-[1.8rem] font-bold whitespace-nowrap overflow-hidden text-ellipsis">
                     {data.title}
                   </p>
-                  <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal">
+                  <p className="lg:mt-6 md:mt-4 sm:mt-4 mt-4 md:mb-0 sm:mb-14 mb-14 lg:text-[1.2rem] sm:text-[1rem] font-normal whitespace-normal">
                     {data.description}
                   </p>
                 </li>

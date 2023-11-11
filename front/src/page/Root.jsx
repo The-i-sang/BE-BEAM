@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../component/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../component/Footer";
@@ -8,10 +8,16 @@ import { ScrollRestoration } from "react-router-dom";
 export default function Root() {
   const queryClient = new QueryClient();
 
+  const [sideBarOpen, setSideBarOpen] = useState(false);
+
   return (
-    <div className="font-sans font-medium tracking-tighter whitespace-pre-wrap leading-7">
+    <div
+      className={`${
+        sideBarOpen ? "h-[100vh] overflow-hidden" : "h-auto"
+      } font-sans font-medium tracking-tighter whitespace-pre-wrap leading-7`}
+    >
       <ScrollRestoration />
-      <Navbar />
+      <Navbar setSideBarOpen={setSideBarOpen} sideBarOpen={sideBarOpen} />
       <QueryClientProvider client={queryClient}>
         <Outlet />
       </QueryClientProvider>

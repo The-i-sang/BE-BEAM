@@ -8,6 +8,7 @@ import { PiThumbsUpDuotone, PiStairsFill } from "react-icons/pi";
 import { BsDownload } from "react-icons/bs";
 import { PiTimerDuotone } from "react-icons/pi";
 import { BsArrowRight } from "react-icons/bs";
+import { CiHashtag } from "react-icons/ci";
 
 export default function Detail() {
   const {
@@ -67,18 +68,25 @@ export default function Detail() {
   });
 
   let randomIndex = Math.floor(Math.random() * selectedToolkit?.length);
+  console.log(selectedToolkit, randomIndex, recommendIndex);
 
   useEffect(() => {
     // Check if 'randomIndex' is a number and not NaN before setting 'recommendIndex'
-    if (!isNaN(randomIndex)) {
-      setRecommendIndex(randomIndex);
+    if (randomIndex >= 0) {
+      if (randomIndex <= selectedToolkit?.length) {
+        setRecommendIndex(randomIndex);
+      } else if (randomIndex > selectedToolkit?.length) {
+        setRecommendIndex(0);
+      } else if (selectedToolkit?.length === 0) {
+        setRecommendIndex("");
+      }
     }
-  }, [randomIndex]);
+  }, [randomIndex, selectedToolkit?.length]);
 
   return (
     <div className="w-full py-10 bg-[#ffffff] dark:bg-black">
       <div className="w-full max-w-[1400px] mx-auto">
-        <h1 className="w-full mb-20 text-center text-[4rem] font-semibold dark:text-white">
+        <h1 className="w-full mb-20 text-center text-[3rem] font-semibold dark:text-white">
           {toolkit.title}
         </h1>
         <div className="w-full flex justify-between">
@@ -91,7 +99,9 @@ export default function Detail() {
               <p className="text-[1rem] mb-4">{toolkit.type2}</p>
             </div>
 
-            <p className="text-[2.1rem] font-semibold mb-7">{toolkit.title}</p>
+            <p className="text-[2.1rem] font-semibold mb-7 leading-10">
+              {toolkit.title}
+            </p>
             <p className="text-[1.125rem] leading-8 mb-[60px]">
               {toolkit.description}
             </p>
@@ -115,6 +125,14 @@ export default function Detail() {
 
             <div className="flex items-center mb-10">
               <div className="text-[1.4rem]">
+                <PiStairsFill />
+              </div>
+              <p className="font-semibold ml-3">난이도</p>
+              <p className="ml-3">{toolkit.option.level}</p>
+            </div>
+
+            <div className="flex items-center mb-10">
+              <div className="text-[1.4rem]">
                 <PiTimerDuotone />
               </div>
               <p className="font-semibold ml-3">예상 소요시간</p>
@@ -123,10 +141,12 @@ export default function Detail() {
 
             <div className="flex items-center mb-20">
               <div className="text-[1.4rem]">
-                <PiStairsFill />
+                <CiHashtag />
               </div>
-              <p className="font-semibold ml-3">난이도</p>
-              <p className="ml-3">{toolkit.option.level}</p>
+              <p className="font-semibold ml-3">태그</p>
+              {toolkit.keyword?.map((hashtag) => {
+                return <p className="ml-3">#{hashtag}</p>;
+              })}
             </div>
 
             <div className="w-full pb-12 border-b-[1px] border-solid border-[#f5aa15]">
@@ -146,47 +166,49 @@ export default function Detail() {
               </a>
             </div>
 
-            {selectedToolkit && !isNaN(recommendIndex) && (
-              <div
-                onClick={() => {
-                  const toolkit = selectedToolkit[recommendIndex];
-                  navigate(`/toolkit/detail/${toolkit.id}`, {
-                    state: { toolkit },
-                  });
-                }}
-                className="w-full py-10 box-border flex justify-between items-center text-[#282828] cursor-pointer"
-              >
-                <div className="w-3/4 flex items-center">
-                  <img
-                    className="w-[9%] object-cover"
-                    src={
-                      process.env.PUBLIC_URL +
-                      selectedToolkit[recommendIndex].thumbnail.replace(
-                        "./",
-                        "/"
-                      )
-                    }
-                    alt="img"
-                  />
+            {selectedToolkit &&
+              selectedToolkit.length >= 1 &&
+              (!isNaN(recommendIndex) || !isNaN(recommendIndex) === 0) && (
+                <div
+                  onClick={() => {
+                    const toolkit = selectedToolkit[recommendIndex];
+                    navigate(`/toolkit/detail/${toolkit.id}`, {
+                      state: { toolkit },
+                    });
+                  }}
+                  className="w-full py-10 box-border flex justify-between items-center text-[#282828] cursor-pointer"
+                >
+                  <div className="w-3/4 flex items-center">
+                    <img
+                      className="w-[9%] object-cover"
+                      src={
+                        process.env.PUBLIC_URL +
+                        selectedToolkit[recommendIndex].thumbnail.replace(
+                          "./",
+                          "/"
+                        )
+                      }
+                      alt="img"
+                    />
 
-                  <div className="ml-4 flex flex-col dark:text-white">
-                    <p className="text-[0.875rem]">
-                      Another Toolkit Recommendation
-                    </p>
-                    <p className="text-[1.125rem] font-semibold">
-                      {selectedToolkit[recommendIndex].title}
-                    </p>
+                    <div className="ml-4 flex flex-col dark:text-white">
+                      <p className="text-[0.875rem]">
+                        Another Toolkit Recommendation
+                      </p>
+                      <p className="text-[1.125rem] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                        {selectedToolkit[recommendIndex].title}
+                      </p>
+                    </div>
                   </div>
+
+                  <button className="flex items-center text-[0.875rem] dark:text-white">
+                    <p>자세히 보기</p>
+                    <div className="ml-1">
+                      <BsArrowRight />
+                    </div>
+                  </button>
                 </div>
-
-                <button className="flex items-center text-[0.875rem] dark:text-white">
-                  <p>자세히 보기</p>
-                  <div className="ml-1">
-                    <BsArrowRight />
-                  </div>
-                </button>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </div>
