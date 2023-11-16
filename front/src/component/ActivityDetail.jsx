@@ -22,8 +22,8 @@ export default function ActivityDetail() {
 
   return (
     <div className="w-full pt-10 dark:bg-black dark:text-white">
-      <div className="w-11/12 max-w-[1400px] mx-auto">
-        <div className="w-full flex items-center gap-x-2 sm:text-[1.1rem] text-[0.9rem] text-[#f5aa15]">
+      <div className="w-11/12 max-w-[1400px] mx-auto font-light">
+        <div className="w-full flex items-center gap-x-2 sm:text-[1.1rem] text-[0.9rem] text-[#f5aa15] font-medium">
           <IoPeopleCircle className="text-[1.5rem]" />
           <p>{activity.type}</p>
         </div>
@@ -32,7 +32,7 @@ export default function ActivityDetail() {
           {activity.title}
         </h1>
 
-        <ul className="w-full mt-8 sm:grid md:grid-cols-4 sm:grid-cols-2 sm:text-[1.2rem] text-[1rem] text-[#616161] dark:text-[rgba(255,255,255,0.7)]">
+        <ul className="w-full mt-8 sm:grid md:grid-cols-4 sm:grid-cols-2 sm:text-[1.2rem] text-[1rem] text-[#616161] dark:text-[rgba(255,255,255,0.7)] font-medium">
           <li className="md:h-auto sm:h-[60px] md:mb-0 sm:mb-4 sm:p-0 py-4 box-border flex items-center gap-x-4 sm:border-r-[1px] sm:border-b-0 border-b-[1px] border-solid border-[#DADCE0]">
             <FaLocationDot className="sm:text-[1.8rem] text-[1.4rem] text-[#282828] dark:text-white" />
             <p>{activity.place}</p>
@@ -156,7 +156,7 @@ export default function ActivityDetail() {
           <h1 className="sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
             우리 모임은 이렇게 즐겨요
           </h1>
-          <p className="sm:mt-2 mt-1 dark:text-[rgba(255,255,255,0.7)] sm:text-[1rem] text-[0.875rem]">
+          <p className="sm:mt-2 mt-1 dark:text-[rgba(255,255,255,0.7)] sm:text-[1rem] text-[0.875rem] font-medium">
             사진을 통해서 모임과 한 발자국 더 가까워지기!
           </p>
 
@@ -196,7 +196,7 @@ export default function ActivityDetail() {
         <h1 className="sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
           문의사항
         </h1>
-        <p className="sm:mt-2 mt-1 dark:text-[rgba(255,255,255,0.7)] sm:text-[1rem] text-[0.875rem]">
+        <p className="sm:mt-2 mt-1 dark:text-[rgba(255,255,255,0.7)] sm:text-[1rem] text-[0.875rem] font-medium">
           문의사항은 여기로 보내주세요.
         </p>
 
