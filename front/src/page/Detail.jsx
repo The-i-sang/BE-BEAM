@@ -85,67 +85,83 @@ export default function Detail() {
 
   return (
     <div className="w-full py-10 bg-[#ffffff] dark:bg-black">
-      <div className="w-full max-w-[1400px] mx-auto">
-        <h1 className="w-full mb-20 text-center text-[3rem] font-semibold dark:text-white">
+      <div className="w-11/12 max-w-[1400px] mx-auto">
+        <h1 className="w-full mb:mb-20 sm:mb-14 mb-4 text-center sm:text-[3rem] text-[2.3rem] font-semibold dark:text-white">
           {toolkit.title}
         </h1>
-        <div className="w-full flex justify-between">
-          <div className="w-6/12">
+
+        <div className="w-full flex md:flex-row sm:flex-col flex-col md:items-start md:justify-between">
+          <div className="lg:w-[500px] md:w-[380px] sm:w-full w-full">
             {toolkit && <DetailSlider t={toolkit.image} />}
           </div>
-          <div className="w-5/12 text-[#282828] dark:text-white">
-            <div className="flex">
-              <p className="text-[1rem] mb-4 mr-4">{toolkit.type}</p>
-              <p className="text-[1rem] mb-4">{toolkit.type2}</p>
+          <div className="lg:w-w-1calc md:w-w-2calc sm:w-full w-full md:px-6 sm:px-0 px-0 md:py-0 sm:py-14 py-14 box-border text-[#282828] dark:text-white">
+            <div className="sm:mb-4 mb-2 flex sm:text-[1rem] text-[0.8rem]">
+              {toolkit.type !== "" && <p className="mr-4">{toolkit.type}</p>}
+
+              <p>{toolkit.type2}</p>
             </div>
 
-            <p className="text-[2.1rem] font-semibold mb-7 leading-10">
+            <p className="sm:text-[2.1rem] text-[1.6rem] font-semibold sm:mb-7 mb-4">
               {toolkit.title}
             </p>
-            <p className="text-[1.125rem] leading-8 mb-[60px]">
+            <p className="sm:text-[1.125rem] text-[0.9rem] sm:mb-[60px] mb-[30px]">
               {toolkit.description}
             </p>
 
-            <div className="mb-10">
+            <div className="sm:mb-10 mb-6">
               <div className="flex items-center">
                 <div className="text-[1.4rem]">
                   <PiThumbsUpDuotone />
                 </div>
-                <p className="font-semibold ml-3">
+                <p className="font-semibold ml-3 sm:text-[1rem] text-[0.9rem]">
                   다음과 같은 분들에게 유용해요
                 </p>
               </div>
 
-              <ul className="ml-10 mt-3">
+              <ul className="ml-10 sm:mt-3 mt-1 sm:text-[1rem] text-[0.9rem]">
                 {toolkit.benefit.map((b) => {
                   return <li className="list-disc mb-1">{b}</li>;
                 })}
               </ul>
             </div>
 
-            <div className="flex items-center mb-10">
+            <div className="flex items-center sm:mb-10 mb-6">
               <div className="text-[1.4rem]">
                 <PiStairsFill />
               </div>
-              <p className="font-semibold ml-3">난이도</p>
-              <p className="ml-3">{toolkit.option.level}</p>
+              <p className="font-semibold ml-3 sm:text-[1rem] text-[0.9rem]">
+                난이도
+              </p>
+              <p className="ml-3 sm:text-[1rem] text-[0.9rem]">
+                {toolkit.option.level}
+              </p>
             </div>
 
-            <div className="flex items-center mb-10">
+            <div className="flex items-center sm:mb-10 mb-6">
               <div className="text-[1.4rem]">
                 <PiTimerDuotone />
               </div>
-              <p className="font-semibold ml-3">예상 소요시간</p>
-              <p className="ml-3">{toolkit.option.time}</p>
+              <p className="font-semibold ml-3 sm:text-[1rem] text-[0.9rem]">
+                예상 소요시간
+              </p>
+              <p className="ml-3 sm:text-[1rem] text-[0.9rem]">
+                {toolkit.option.time}
+              </p>
             </div>
 
-            <div className="flex items-center mb-20">
+            <div className="flex items-center flex-wrap sm:mb-20 mb-14">
               <div className="text-[1.4rem]">
                 <CiHashtag />
               </div>
-              <p className="font-semibold ml-3">태그</p>
+              <p className="font-semibold ml-3 sm:text-[1rem] text-[0.9rem]">
+                태그
+              </p>
               {toolkit.keyword?.map((hashtag) => {
-                return <p className="ml-3">#{hashtag}</p>;
+                return (
+                  <p className="ml-3 sm:text-[1rem] text-[0.9rem]">
+                    #{hashtag}
+                  </p>
+                );
               })}
             </div>
 
@@ -156,12 +172,14 @@ export default function Detail() {
                 rel="noopener noreferrer"
               >
                 <button
-                  className="w-full p-6 box-border flex justify-center items-center bg-[#282828] dark:bg-white text-[1.2rem] text-white dark:text-black"
+                  className="w-full sm:p-6 p-5 box-border flex justify-center items-center bg-[#282828] dark:bg-white text-[1.2rem] text-white dark:text-black"
                   type="button"
                   onClick={handleDownload}
                 >
                   <BsDownload />
-                  <p className="ml-6">툴키트 다운받기</p>
+                  <p className="ml-6 sm:text-[1rem] text-[0.9rem]">
+                    툴키트 다운받기
+                  </p>
                 </button>
               </a>
             </div>
@@ -176,11 +194,11 @@ export default function Detail() {
                       state: { toolkit },
                     });
                   }}
-                  className="w-full py-10 box-border flex justify-between items-center text-[#282828] cursor-pointer"
+                  className="w-full sm:py-10 py-5 box-border flex flex-row justify-between items-center text-[#282828] cursor-pointer"
                 >
-                  <div className="w-3/4 flex items-center">
+                  <div className="sm:w-3/4 w-3/4 flex items-center">
                     <img
-                      className="w-[9%] object-cover"
+                      className="sm:w-[60px] w-[40px] object-cover"
                       src={
                         process.env.PUBLIC_URL +
                         selectedToolkit[recommendIndex].thumbnail.replace(
@@ -191,17 +209,17 @@ export default function Detail() {
                       alt="img"
                     />
 
-                    <div className="ml-4 flex flex-col dark:text-white">
-                      <p className="text-[0.875rem]">
+                    <div className="sm:w-recomended-w-1calc w-recomended-w-2calc px-4 box-border flex flex-col dark:text-white">
+                      <p className="sm:text-[0.875rem] text-[0.74rem]">
                         Another Toolkit Recommendation
                       </p>
-                      <p className="text-[1.125rem] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                      <p className="sm:text-[1.125rem] text-[0.96rem] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
                         {selectedToolkit[recommendIndex].title}
                       </p>
                     </div>
                   </div>
 
-                  <button className="flex items-center text-[0.875rem] dark:text-white">
+                  <button className="sm:w-1/4 w-1/4 flex justify-end items-center sm:text-[0.875rem] text-[0.8rem] dark:text-white">
                     <p>자세히 보기</p>
                     <div className="ml-1">
                       <BsArrowRight />

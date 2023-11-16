@@ -34,7 +34,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [darkMode]);
   return (
     <div className="w-full dark:bg-black">
-      <div className="w-full sm:max-w-[1400px] mx-auto sm:px-0 px-5 box-border">
+      <div className="w-11/12 sm:max-w-[1400px] mx-auto">
         <div className="w-full sm:py-12 py-8 flex justify-between items-center">
           <button
             onClick={(e) => {

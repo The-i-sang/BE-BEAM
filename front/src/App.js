@@ -5,7 +5,7 @@ import Detail from "./page/Detail";
 import Root from "./page/Root";
 import Toolkit from "./page/Toolkit";
 import Search from "./page/Search";
-import Activity from "./component/Activity";
+import Activity from "./page/Activity";
 import ActivityDetail from "./component/ActivityDetail";
 import Community from "./page/Community";
 

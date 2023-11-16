@@ -285,7 +285,7 @@ export default function Toolkit() {
             <p className="ml-3 font-semibold">Toolkit</p>
           </div>
 
-          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold leading-normal">
+          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter

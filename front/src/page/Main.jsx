@@ -26,7 +26,7 @@ export default function Main() {
             scrollHeight > 100
               ? "absolute sm:top-[22rem] top-[13rem] text-white"
               : "absolute top-0"
-          } w-full h-[300px] text-center transition-all duration-1000 z-[99] flex flex-col justify-center items-center leading-normal`}
+          } w-full h-[300px] text-center transition-all duration-1000 z-[99] flex flex-col justify-center items-center`}
         >
           <h1 className="sm:text-[4.8rem] text-[3rem] font-extrabold">
             BE:BEAM
@@ -68,14 +68,14 @@ export default function Main() {
               <p className="lg:mt-[48px] sm:mt-[30px] mt-[20px] text-[1.125rem] font-medium text-left">
                 What does it mean?
               </p>
-              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold leading-tight text-left">
+              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold text-left">
                 BE:BEAM이{" "}
                 <span className="text-white dark:text-black text-stroke">
                   의미
                 </span>
                 하는 것은?
               </h1>
-              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left">
                 💡 안녕하세요! 부산에서 청년 커뮤니티를 기획운영하고 있는
                 BE:BEAM입니다. BE:BEAM(비빔)은 비빔밥의 재료처럼 다양한 청년들이
                 모여, 빛줄기(BEAM)처럼 따뜻한 연결망을 이어나간다는 의미가
@@ -92,26 +92,26 @@ export default function Main() {
               <p className="lg:mt-[48px] sm:mt-[30px] mt-[20px] text-[1.125rem] font-medium text-left">
                 What is the vision of this?
               </p>
-              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold leading-tight text-left">
+              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold text-left">
                 BE:BEAM의{" "}
                 <span className="text-white dark:text-black text-stroke">
                   비전
                 </span>
                 은?
               </h1>
-              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left">
                 💡 오늘날의 청년들은 일상에서 다양한 문제들과 마주하며 살아가고
                 있지만 함께 이야기하고, 공감하고, 고민할 자리는 점점 사라지고
                 있습니다. 이러한 기회의 부족은 청년들을 외롭게하고, 고립이라는
                 사회적문제를 발생시킵니다. 따라서 BE:BEAM은 청년들이 느슨하지만
                 따뜻한 연결을 경험하는 기회를 제공하고자 합니다.
               </p>
-              <p className="mt-6 sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
+              <p className="mt-6 sm:text-[1rem] text-[0.8rem] font-light text-left">
                 1. BE:BEAM은 취향, 취미를 기반으로 한 오프라인 모임을 통해서
                 가벼우면서도 안정적인 일상의 느슨한 연결망을 만드는 활동을
                 원칙으로 합니다.
               </p>
-              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left">
                 2. BE:BEAM의 커뮤니티는 누구나 참여 가능할 수 있도록, 누구나
                 운영할 수 있도록 지원하는 것을 원칙으로 합니다.
               </p>
@@ -135,14 +135,14 @@ export default function Main() {
               <p className="lg:mt-[48px] sm:mt-[30px] mt-[20px] text-[1.125rem] font-medium text-left">
                 What is the purpose?
               </p>
-              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold leading-tight text-left">
+              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold text-left">
                 BE:BEAM의{" "}
                 <span className="text-white dark:text-black text-stroke">
                   목적
                 </span>
                 은?
               </h1>
-              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
+              <p className="sm:text-[1rem] text-[0.8rem] font-light text-left">
                 💡 BE:BEAM은 취향과 취미를 기반으로한 다양한 활동들을 통해서
                 사람과 사람간, 사람과 지역간 느슨한 연결망을 만드는 것을
                 목적으로 하고 있습니다.
@@ -155,14 +155,14 @@ export default function Main() {
               <p className="lg:mt-[48px] sm:mt-[30px] mt-[20px] text-[1.125rem] font-medium text-left">
                 What is the core value of this?
               </p>
-              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold leading-tight text-left">
+              <h1 className="lg:mt-5 sm:mt-2 mt-2 lg:mb-20 sm:mb-10 mb-6 sm:text-[2.625rem] text-[1.9rem] font-semibold text-left">
                 BE:BEAM의{" "}
                 <span className="text-white dark:text-black text-stroke">
                   가치
                 </span>
                 는?
               </h1>
-              <ul className="sm:text-[1rem] text-[0.8rem] font-light text-left sm:leading-7 leading-5">
+              <ul className="sm:text-[1rem] text-[0.8rem] font-light text-left">
                 <li className="mb-4">
                   <span className="text-[1rem] text-[#f5aa15]">
                     연결망 (SOCIAL NETWORK)
