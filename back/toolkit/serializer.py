@@ -38,5 +38,5 @@ class ToolkitsSerializer(serializers.ModelSerializer):
         instance = Toolkits.objects.create(validated_data)
         image_set = self.context["request"].FILES
         for imange_data in image_set.getlist("image"):
-            ToolkitImage.objects.create(Toolkit=instance, image=imange_data)
+            ToolkitImage.objects.create(Toolkits=instance, image=imange_data)
         return instance

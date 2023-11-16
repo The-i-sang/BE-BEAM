@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from .validator import validate_image_file_extension
 
 
@@ -8,6 +9,10 @@ def toolkits_image_upload_path(instance, filename):
 
 def toolkits_thumbnail_image_upload_path(instance, filename):
     return f"toolkits/{instance.title}/thumbnail/{filename}"
+
+
+def toolkits_square_image_upload_path(instance, filename):
+    return f"toolkits/{instance.title}/square/{filename}"
 
 
 def toolkits_download_file_upload_path(instance, filename):
@@ -30,8 +35,20 @@ class ToolkitSubCategory(models.Model):
 
 class Toolkits(models.Model):
     title = models.CharField(max_length=100)
+    creator = models.CharField(max_length=100)
+    alt = models.TextField(blank=True)
+    keyword = ArrayField(models.CharField(max_length=100), blank=True)
+    benefit = ArrayField(models.CharField(max_length=100), blank=True)
     thumbnail_image = models.ImageField(
         upload_to=toolkits_thumbnail_image_upload_path,
+        null=True,
+        blank=True,
+        validators=[
+            validate_image_file_extension,
+        ],
+    )
+    square_image = models.ImageField(
+        upload_to=toolkits_square_image_upload_path,
         null=True,
         blank=True,
         validators=[
@@ -54,7 +71,8 @@ class Toolkits(models.Model):
         on_delete=models.CASCADE,
         related_name="toolkits_subcategory",
     )
-    time = models.IntegerField()
+    time = models.CharField(max_length=50)
+    level = models.CharField(max_length=50)
 
     def __str__(self):
         return self.title
