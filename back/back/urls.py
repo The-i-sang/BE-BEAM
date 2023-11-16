@@ -5,10 +5,10 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from toolkit.views import ToolkitsViewSet
+from toolkit.views import ToolkitViewSet
 
 router = DefaultRouter()
-router.register("toolkits", ToolkitsViewSet)
+router.register("toolkit", ToolkitViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

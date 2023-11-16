@@ -82,8 +82,12 @@ WSGI_APPLICATION = "back.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "the_isang",
+        "USER": "root",
+        "PASSWORD": "1357",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
 
@@ -144,5 +148,9 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001", "http://127.0.0.1:3001"]
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+]
