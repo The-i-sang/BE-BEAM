@@ -21,8 +21,8 @@ export default function ActivityDetail() {
   console.log(activity);
 
   return (
-    <div className="w-full pt-10 dark:bg-black dark:text-white">
-      <div className="w-11/12 max-w-[1400px] mx-auto font-light">
+    <div className="w-full pt-10 dark:bg-black dark:text-white font-light">
+      <div className="w-11/12 max-w-[1400px] mx-auto">
         <div className="w-full flex items-center gap-x-2 sm:text-[1.1rem] text-[0.9rem] text-[#f5aa15] font-medium">
           <IoPeopleCircle className="text-[1.5rem]" />
           <p>{activity.type}</p>
@@ -105,22 +105,22 @@ export default function ActivityDetail() {
               </li>
             )}
 
-            <li className="mt-10 flex items-center gap-x-2 text-[#282828] dark:text-white sm:text-[1.12rem] text-[0.9rem]">
+            <li className="sm:mt-10 mt-5 flex items-center gap-x-2 text-[#282828] dark:text-white sm:text-[1.12rem] text-[0.9rem]">
               <FaLocationDot className="sm:text-[1.8rem] text-[1.4rem]" />
               <p className="font-semibold">{activity.place}</p>
             </li>
 
-            <li className="mt-10 flex items-center gap-x-2 text-[#282828] sm:text-[1.12rem] text-[0.9rem] dark:text-white">
+            <li className="sm:mt-10 mt-5 flex items-center gap-x-2 text-[#282828] sm:text-[1.12rem] text-[0.9rem] dark:text-white">
               <BsFillCalendarCheckFill className="sm:text-[1.8rem] text-[1.4rem]" />
               <p className="font-semibold">{activity.schedule}</p>
             </li>
 
-            <li className="mt-10 flex items-center gap-x-2 text-[#282828] dark:text-white sm:text-[1.12rem] text-[0.9rem]">
+            <li className="sm:mt-10 mt-5 flex items-center gap-x-2 text-[#282828] dark:text-white sm:text-[1.12rem] text-[0.9rem]">
               <BsPersonFill className="sm:text-[1.8rem] text-[1.4rem]" />
               <p className="font-semibold">{activity.member}</p>
             </li>
 
-            <li className="mt-10 flex gap-x-2 text-[#282828] dark:text-white sm:text-[1.12rem] text-[0.9rem]">
+            <li className="sm:mt-10 mt-5 flex gap-x-2 text-[#282828] dark:text-white sm:text-[1.12rem] text-[0.9rem]">
               <ImPriceTag className="sm:text-[1.8rem] text-[1.4rem]" />
               <div>
                 <p className="font-semibold">{activity.detail_price}</p>
@@ -132,7 +132,7 @@ export default function ActivityDetail() {
             </li>
 
             {activity.activitySchedule && (
-              <li className="mt-10 flex gap-x-2 dark:text-white sm:text-[1.12rem] text-[0.9rem]">
+              <li className="sm:mt-10 mt-5 flex gap-x-2 dark:text-white sm:text-[1.12rem] text-[0.9rem]">
                 <BsFillCalendarDateFill className="sm:text-[1.8rem] text-[1.4rem]" />
 
                 <div className="text-[#111111] dark:text-white">
