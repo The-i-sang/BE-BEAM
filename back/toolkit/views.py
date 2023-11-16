@@ -1,17 +1,17 @@
 from rest_framework.response import Response
 from .serializer import (
-    ToolkitsSerializer,
+    ToolkitSerializer,
     ToolkitMainCategorySerializer,
     ToolkitSubCategorySerializer,
 )
 from rest_framework import viewsets
-from .models import Toolkits, ToolkitMainCategory, ToolkitSubCategory
+from .models import Toolkit, ToolkitMainCategory, ToolkitSubCategory
 from drf_spectacular.utils import extend_schema
 from .schema import toolkit_list_docs
 
 
-class ToolkitsViewSet(viewsets.ViewSet):
-    queryset = Toolkits.objects.all()
+class ToolkitViewSet(viewsets.ViewSet):
+    queryset = Toolkit.objects.all()
 
     @toolkit_list_docs
     def list(self, request):
@@ -29,5 +29,5 @@ class ToolkitsViewSet(viewsets.ViewSet):
         if toolkit_time:
             self.queryset = self.queryset.filter(time=toolkit_time)
 
-        serializer = ToolkitsSerializer(self.queryset, many=True)
+        serializer = ToolkitSerializer(self.queryset, many=True)
         return Response(serializer.data)

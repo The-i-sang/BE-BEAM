@@ -1,10 +1,10 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
 
-from .serializer import ToolkitsSerializer
+from .serializer import ToolkitSerializer
 
 toolkit_list_docs = extend_schema(
-    responses=ToolkitsSerializer(many=True),
+    responses=ToolkitSerializer(many=True),
     parameters=[
         OpenApiParameter(
             name="title",

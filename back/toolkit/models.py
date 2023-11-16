@@ -3,20 +3,20 @@ from django.contrib.postgres.fields import ArrayField
 from .validator import validate_image_file_extension
 
 
-def toolkits_image_upload_path(instance, filename):
-    return f"toolkits/{instance.toolkits.title}/{filename}"
+def toolkit_image_upload_path(instance, filename):
+    return f"toolkit/{instance.toolkit.title}/{filename}"
 
 
-def toolkits_thumbnail_image_upload_path(instance, filename):
-    return f"toolkits/{instance.title}/thumbnail/{filename}"
+def toolkit_thumbnail_image_upload_path(instance, filename):
+    return f"toolkit/{instance.title}/thumbnail/{filename}"
 
 
-def toolkits_square_image_upload_path(instance, filename):
-    return f"toolkits/{instance.title}/square/{filename}"
+def toolkit_square_image_upload_path(instance, filename):
+    return f"toolkit/{instance.title}/square/{filename}"
 
 
-def toolkits_download_file_upload_path(instance, filename):
-    return f"toolkits/{instance.title}/download/{filename}"
+def toolkit_download_file_upload_path(instance, filename):
+    return f"toolkit/{instance.title}/download/{filename}"
 
 
 class ToolkitMainCategory(models.Model):
@@ -33,14 +33,14 @@ class ToolkitSubCategory(models.Model):
         return self.name
 
 
-class Toolkits(models.Model):
+class Toolkit(models.Model):
     title = models.CharField(max_length=100)
     creator = models.CharField(max_length=100)
     alt = models.TextField(blank=True)
     keyword = ArrayField(models.CharField(max_length=100), blank=True)
     benefit = ArrayField(models.CharField(max_length=100), blank=True)
     thumbnail_image = models.ImageField(
-        upload_to=toolkits_thumbnail_image_upload_path,
+        upload_to=toolkit_thumbnail_image_upload_path,
         null=True,
         blank=True,
         validators=[
@@ -48,7 +48,7 @@ class Toolkits(models.Model):
         ],
     )
     square_image = models.ImageField(
-        upload_to=toolkits_square_image_upload_path,
+        upload_to=toolkit_square_image_upload_path,
         null=True,
         blank=True,
         validators=[
@@ -56,7 +56,7 @@ class Toolkits(models.Model):
         ],
     )
     download_file = models.FileField(
-        upload_to=toolkits_download_file_upload_path,
+        upload_to=toolkit_download_file_upload_path,
         null=True,
         blank=True,
     )
@@ -64,12 +64,12 @@ class Toolkits(models.Model):
     maincategory = models.ForeignKey(
         ToolkitMainCategory,
         on_delete=models.CASCADE,
-        related_name="toolkits_maincategory",
+        related_name="toolkit_maincategory",
     )
     subcategory = models.ForeignKey(
         ToolkitSubCategory,
         on_delete=models.CASCADE,
-        related_name="toolkits_subcategory",
+        related_name="toolkit_subcategory",
     )
     time = models.CharField(max_length=50)
     level = models.CharField(max_length=50)
@@ -79,11 +79,11 @@ class Toolkits(models.Model):
 
 
 class ToolkitImage(models.Model):
-    toolkits = models.ForeignKey(
-        Toolkits, on_delete=models.CASCADE, related_name="toolkitimage_toolkit"
+    toolkit = models.ForeignKey(
+        Toolkit, on_delete=models.CASCADE, related_name="toolkitimage_toolkit"
     )
     image = models.ImageField(
-        upload_to=toolkits_image_upload_path,
+        upload_to=toolkit_image_upload_path,
         null=True,
         blank=True,
         validators=[
@@ -92,4 +92,4 @@ class ToolkitImage(models.Model):
     )
 
     def __str__(self):
-        return self.toolkits.title
+        return self.toolkit.title
