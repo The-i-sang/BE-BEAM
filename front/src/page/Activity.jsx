@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ActivityCard from "./ActivityCard";
+import ActivityCard from "../component/ActivityCard";
 import Typewriter from "typewriter-effect";
 
 import { AiFillSmile } from "react-icons/ai";
@@ -61,7 +61,7 @@ export default function Activity() {
             <p className="ml-3 font-semibold">Activity</p>
           </div>
 
-          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold leading-normal">
+          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
@@ -90,7 +90,7 @@ export default function Activity() {
               <li
                 key={cate.title}
                 onClick={() => handleCategoryClick(cate.title)}
-                className="cursor-pointer sm:mr-6 mr-4 group"
+                className="cursor-pointer xl:mr-4 sm:mr-2 mr-1 group"
               >
                 <div className="flex flex-col items-center">
                   <div
@@ -98,7 +98,7 @@ export default function Activity() {
                       cate.isActive
                         ? "bg-black dark:bg-white"
                         : "bg-transparent"
-                    } sm:w-[65px] sm:h-[65px] w-[52px] h-[52px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
+                    } xl:w-[65px] xl:h-[65px] sm:w-[56px] sm:h-[56px] w-[52px] h-[52px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
                   >
                     {cate.title === "All" ? (
                       <p
@@ -106,7 +106,7 @@ export default function Activity() {
                           cate.isActive
                             ? "text-[#F5AA15]"
                             : "text-[#393939] dark:text-white"
-                        } sm:text-[1.2rem] text-[0.9rem] group-hover:text-[#F5AA15]`}
+                        } sm:text-[1.2rem] text-[1rem] group-hover:text-[#F5AA15]`}
                       >
                         ALL
                       </p>
@@ -116,7 +116,7 @@ export default function Activity() {
                           cate.isActive
                             ? "text-[#F5AA15]"
                             : "text-[#393939] dark:text-white"
-                        } sm:text-[1.2rem] text-[1rem] group-hover:text-[#F5AA15]`}
+                        }sm:text-[1.2rem] text-[1rem] group-hover:text-[#F5AA15]`}
                       >
                         <BsSendCheck />
                       </p>
@@ -137,7 +137,7 @@ export default function Activity() {
                       cate.isActive
                         ? "text-[#f58515]"
                         : "text-[#393939] dark:text-white"
-                    } sm:mt-2 mt-1 sm:text-[1rem] text-[0.9rem] font-medium group-hover:text-[#f58515] transition-all duration-700 group-hover:transition-all group-hover:duration-700`}
+                    } mt-2 xl:text-[1rem] sm:text-[0.9rem] text-[0.8rem] font-medium group-hover:text-[#f58515] transition-all duration-700 group-hover:transition-all group-hover:duration-700`}
                   >
                     {cate.title}
                   </p>

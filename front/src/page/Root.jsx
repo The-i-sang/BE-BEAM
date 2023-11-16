@@ -14,7 +14,7 @@ export default function Root() {
     <div
       className={`${
         sideBarOpen ? "h-[100vh] overflow-hidden" : "h-auto"
-      } font-sans font-medium tracking-tighter whitespace-pre-wrap leading-7`}
+      } font-sans font-medium tracking-tighter whitespace-pre-wrap leading-normal`}
     >
       <ScrollRestoration />
       <Navbar setSideBarOpen={setSideBarOpen} sideBarOpen={sideBarOpen} />
