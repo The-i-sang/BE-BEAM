@@ -8,7 +8,7 @@ import { CiPen } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import ToolkitCategory from "../component/ToolkitCategory";
-// import { TOOLKIT_URL } from "../config";
+import { TOOLKIT_URL } from "../config";
 
 export default function Toolkit() {
   const [categories, setCategories] = useState([
@@ -44,7 +44,6 @@ export default function Toolkit() {
   //   data: toolkits,
   // } = useQuery(["toolkits"], async () => {
   //   const res = await axios.get(TOOLKIT_URL);
-  //   console.log(res.data);
   //   return res.data;
   // });
 
@@ -181,9 +180,6 @@ export default function Toolkit() {
     }
   };
 
-  console.log(categories, categories2, categories3);
-  console.log(category, category2, category3);
-  console.log(searchToolkits.length);
 
   useEffect(() => {
     let filteredList = toolkits;

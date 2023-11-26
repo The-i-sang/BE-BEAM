@@ -39,7 +39,7 @@ class Toolkit(models.Model):
     alt = models.TextField(blank=True)
     keyword = ArrayField(models.CharField(max_length=100), blank=True)
     benefit = ArrayField(models.CharField(max_length=100), blank=True)
-    thumbnail_image = models.ImageField(
+    thumbnail = models.ImageField(
         upload_to=toolkit_thumbnail_image_upload_path,
         null=True,
         blank=True,
@@ -47,7 +47,7 @@ class Toolkit(models.Model):
             validate_image_file_extension,
         ],
     )
-    square_image = models.ImageField(
+    squareImage = models.ImageField(
         upload_to=toolkit_square_image_upload_path,
         null=True,
         blank=True,
@@ -55,21 +55,21 @@ class Toolkit(models.Model):
             validate_image_file_extension,
         ],
     )
-    download_file = models.FileField(
+    file = models.FileField(
         upload_to=toolkit_download_file_upload_path,
         null=True,
         blank=True,
     )
     description = models.TextField(blank=True, null=True)
-    maincategory = models.ForeignKey(
+    type = models.ForeignKey(
         ToolkitMainCategory,
         on_delete=models.CASCADE,
-        related_name="toolkit_maincategory",
+        related_name="toolkit_type",
     )
-    subcategory = models.ForeignKey(
+    type2 = models.ForeignKey(
         ToolkitSubCategory,
         on_delete=models.CASCADE,
-        related_name="toolkit_subcategory",
+        related_name="toolkit_type2",
     )
     time = models.CharField(max_length=50)
     level = models.CharField(max_length=50)

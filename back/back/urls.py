@@ -8,7 +8,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from toolkit.views import ToolkitViewSet
 
 router = DefaultRouter()
-router.register("toolkit", ToolkitViewSet)
+router.register("api/toolkit", ToolkitViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
