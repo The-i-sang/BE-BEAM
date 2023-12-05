@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { IoPeopleCircle } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
@@ -13,7 +13,7 @@ import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
 
 export default function ActivityDetail() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {
     state: { activity },
@@ -205,31 +205,6 @@ export default function ActivityDetail() {
         </p>
       </div>
 
-      {/* <h1 className="mb-[40px] text-[2.25rem] font-semibold">신청 링크</h1>
-        <p className="text-[1.125rem] text-[#454545] whitespace-pre-wrap">
-          {activity.request}
-        </p>
-
-        <div className="w-full mt-[120px] flex justify-between">
-          <button
-            onClick={() => {
-              navigate("/activity");
-            }}
-            className="w-[48%] py-3 bg-black bg-opacity-0 border-[1px] border-solid border-black flex items-center justify-center hover:bg-opacity-100 hover:border-black hover:text-white transition-all duration-700"
-            type="button"
-          >
-            목록보기
-          </button>
-          <button
-            className="w-[48%] py-3 bg-black bg-opacity-100 text-white border-[1px] border-solid border-black flex items-center justify-center hover:bg-opacity-0 hover:border-black hover:text-black transition-all duration-700"
-            type="button"
-          >
-            <a href="https://www.instagram.com/bebeam_busan/" target="_blank">
-              신청하기
-            </a>
-          </button>
-        </div> */}
-
       <div className="w-full fixed bottom-6 left-0 flex justify-center items-center">
         <div className="w-11/12 max-w-[760px] p-4 box-border bg-white border-[1px] border-solid border-[#b0b0b0] rounded-lg flex">
           <div className="mr-[10px] flex-1">
@@ -245,8 +220,23 @@ export default function ActivityDetail() {
             </p>
           </div>
 
-          <button className="w-full flex-1 bg-[#282828] rounded-lg round text-white sm:text-[1rem] text-[0.875rem]">
-            <p>{activity.state === "모집 마감" ? "모집 마감" : "모집 중"}</p>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (activity.state === "모집 마감") {
+                return;
+              } else {
+                navigate("/applyForm");
+              }
+            }}
+            className="w-full flex-1 bg-[#282828] rounded-lg round text-white sm:text-[1rem] text-[0.875rem]"
+          >
+            <p>
+              {activity.state === "모집 마감"
+                ? "모집 마감"
+                : "모집 중 [신청폼으로 이동]"}
+            </p>
           </button>
           <button className="w-[60px] h-[60px] p-2 box-border ml-[6px] border-[1px] border-solid border-[#b0b0b0] rounded-lg flex flex-col items-center justify-center text-[0.7rem] font-semibold dark:text-black">
             <BsHeart className="text-[1.2rem]" />
