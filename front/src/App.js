@@ -8,6 +8,7 @@ import Search from "./page/Search";
 import Activity from "./page/Activity";
 import ActivityDetail from "./component/ActivityDetail";
 import Community from "./page/Community";
+import ApplyForm from "./page/ApplyForm";
 
 function App() {
   const router = createBrowserRouter([
@@ -38,6 +39,10 @@ function App() {
         {
           path: "/community",
           element: <Community />,
+        },
+        {
+          path: "/applyForm",
+          element: <ApplyForm />,
         },
       ],
     },
