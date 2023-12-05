@@ -87,6 +87,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           <li
             onClick={() => {
               navigate("/");
+              setSideBarOpen(false);
             }}
             className="cursor-pointer"
           >
@@ -95,6 +96,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           <li
             onClick={() => {
               navigate("/activity");
+              setSideBarOpen(false);
             }}
             className="cursor-pointer mt-10"
           >
@@ -103,6 +105,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           <li
             onClick={() => {
               navigate("/toolkit");
+              setSideBarOpen(false);
             }}
             className="cursor-pointer mt-10"
           >
@@ -112,6 +115,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           <li
             onClick={() => {
               navigate("/community");
+              setSideBarOpen(false);
             }}
             className="cursor-pointer mt-10"
           >
