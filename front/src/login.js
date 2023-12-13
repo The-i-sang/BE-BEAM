@@ -1,31 +1,36 @@
-//Login.js
+//login.js
+
+
 import "./login.css";
+import logo from './logo1.png';
 
 function Login(){
     return (
 
-        <div>로그인</div>,
-        <div>로고 넣기</div>, 
+        <div className="wrap">
         <form>
-            <h1>로그인</h1>
+            <img clasName="img" src={logo} alt="로고이미지" />
+            <h1><span className="title">로그인</span></h1>
             <div className="id_pw_wrap">
-                <div className="input_row" id="id_line">
-                <label htmlFor="password">아이디 : </label>
-                    <div className="icon_cell" id="id_cell">
-                        <span class="blind">아이디</span>
-                    </div>
-                    <input type="text" id="id" placeholder="아이디" title="아이디" class="input_text" maxlength="41" value/>
-                </div>
+        
+                <p>
+                    <label className="word" htmlFor="password" > </label>
+                    <input className="input" type="text" placeholder="아이디" />
+                </p>
+                <br>
+                </br>
+                <p>
+                    <label className="word" htmlFor="password">  </label>
+                    <input className="input" type="password" placeholder="비밀번호"/>
+                </p>
                 
-                
-                <br /> 
-                <label htmlFor="password">Password : </label>
-                <input type="password" />
             </div>
+
+
             <br />
             <button className="btn" type="submit">로그인</button>
         </form>
-        
+        </div>
     );
 }
 
