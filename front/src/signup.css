@@ -1,0 +1,46 @@
+
+.wrap{
+    text-align:center;
+}
+.title{
+    text-align:center;
+}
+
+
+.id_pw_wrap {
+    display: flex; /* 수정된 부분: id_pw_wrap를 플렉스 컨테이너로 만듭니다. */
+    flex-direction: column;
+  }
+
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+.word{
+    font-size:2rem;
+    width:150px;
+    height:30px;
+}
+
+.input{
+    width:300px;
+    height:30px;
+    border:1px solid #fccb8a;
+    border-radius:0.25rem;
+    padding:1rem 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.btn{
+    width:350px;
+    height:60px;
+    color:white;
+    font-weight:bold;
+    background:#fccb8a;
+    padding:0.375rem 0.75rem;
+    border:1px solid #fccb8a;
+    border-radius:0.25rem;
+    font-size:1.5rem;
+    line-height:1.5;
+}
