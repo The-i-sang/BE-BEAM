@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
+import { CiSearch, CiLogin } from "react-icons/ci";
 import Menu from "./Menu";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
@@ -35,7 +35,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   return (
     <div className="w-full dark:bg-black">
       <div className="w-11/12 sm:max-w-[1400px] mx-auto">
-        <div className="w-full sm:py-12 py-8 flex justify-between items-center">
+        <div className="w-full sm:py-12 py-8 flex justify-between items-center sm:static relative">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -47,7 +47,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
           </button>
 
           <div
-            className="md:w-[80px] sm:w-[70px] w-[60px]"
+            className="md:w-[80px] sm:w-[70px] w-[60px] sm:static absolute top-4 left-[50%] ml-[-30px]"
             onClick={() => {
               navigate("/");
             }}
@@ -67,7 +67,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             path={path}
           />
 
-          <div>
+          <div className="grid grid-cols-3">
             <button
               type="button"
               className="lg:mr-8 md:mr-4 sm:mr-4 mr-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
@@ -84,6 +84,20 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
               }}
             >
               <CiSearch />
+            </button>
+
+            {/* 나중에 조건문 추가 : 로그인을 하지 않았을 시 => 로그인 페이지로 이동 / 로그인을 했을 시 => 마이페이지로 이동*/}
+            {/* 이걸 위해서 서버에서 로그인을 했는지 하지 않았는지 상태를 알려주는 값을 가져와서 사용해야 함 */}
+
+            <button
+              type="button"
+              className="md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
+              onClick={() => {
+                const content = "login";
+                navigate("/auth", { state: { content } });
+              }}
+            >
+              <CiLogin />
             </button>
           </div>
         </div>

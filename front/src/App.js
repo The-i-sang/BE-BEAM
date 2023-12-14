@@ -9,6 +9,7 @@ import Activity from "./page/Activity";
 import ActivityDetail from "./component/ActivityDetail";
 import Community from "./page/Community";
 import ApplyForm from "./page/ApplyForm";
+import Auth from "./page/Auth";
 
 function App() {
   const router = createBrowserRouter([
@@ -43,6 +44,10 @@ function App() {
         {
           path: "/applyForm",
           element: <ApplyForm />,
+        },
+        {
+          path: "/Auth",
+          element: <Auth />,
         },
       ],
     },
