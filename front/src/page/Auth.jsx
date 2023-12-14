@@ -55,7 +55,7 @@ function Auth() {
       <div
         className={`${
           content === "login" ? "pb-10" : "pb-20"
-        } sm:w-[500px] w-full mx-auto sm:pt-0 pt-10 px-8 box-border flex flex-col items-center`}
+        } sm:w-[500px] w-full mx-auto sm:pt-0 pt-10 px-5 box-border flex flex-col items-center`}
       >
         <img
           className="md:w-[100px] sm:w-[90px] w-[80px] object-cover mx-auto cursor-pointer"
@@ -64,10 +64,10 @@ function Auth() {
         />
 
         <div>
-          <h1 className="mt-6 text-[2rem] font-black">
+          <h1 className="mt-6 text-[1.8rem] font-black">
             연결망을 통한 따뜻한 사회로.
           </h1>
-          <div className="mt-2 flex items-center gap-x-2 justify-center text-[1.125rem]">
+          <div className="mt-2 flex items-center gap-x-2 justify-center text-[1.125rem] font-thin">
             <p>{`${
               content === "login"
                 ? "아직 회원이 아니신가요?"
@@ -119,7 +119,7 @@ function Auth() {
               <p
                 className={`${
                   emailIdentifyCheck ? "opacity-0" : "opacity-100"
-                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] transition-all duration-700`}
+                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >{`${
                 emailInput.length !== 0 && emailIdentifyCheck
                   ? ""
@@ -151,7 +151,7 @@ function Auth() {
               <p
                 className={`${
                   passwordIdentifyCheck ? "opacity-0" : "opacity-100"
-                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] transition-all duration-700`}
+                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >{`${
                 passwordInput.length !== 0 && passwordIdentifyCheck
                   ? ""
@@ -183,7 +183,7 @@ function Auth() {
                       passwordInput === passwordCheckInput
                         ? "opacity-0"
                         : "opacity-100"
-                    } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] transition-all duration-700`}
+                    } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
                   >{`${
                     passwordCheckInput.length !== 0 &&
                     passwordInput === passwordCheckInput
@@ -211,7 +211,7 @@ function Auth() {
                   <p
                     className={`${
                       nicknameInput.length !== 0 ? "opacity-0" : "opacity-100"
-                    } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] transition-all duration-700`}
+                    } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
                   >{`${
                     nicknameInput.length === 0 ? "닉네임을 입력해주세요." : ""
                   }`}</p>
