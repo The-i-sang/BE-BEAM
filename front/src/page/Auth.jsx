@@ -55,7 +55,7 @@ function Auth() {
       <div
         className={`${
           content === "login" ? "pb-10" : "pb-20"
-        } sm:w-[500px] sm:max-w-[500px] w-[320px] max-w-[320px] mx-auto sm:pt-0 pt-10 px-8 box-border flex flex-col items-center`}
+        } sm:w-[500px] w-full mx-auto sm:pt-0 pt-10 px-8 box-border flex flex-col items-center`}
       >
         <img
           className="md:w-[100px] sm:w-[90px] w-[80px] object-cover mx-auto cursor-pointer"
