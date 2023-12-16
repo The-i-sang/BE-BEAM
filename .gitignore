@@ -28,3 +28,4 @@ back/db.sqlite3
 venv
 node_modules
 .vscode
+secrets.json
