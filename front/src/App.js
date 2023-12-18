@@ -11,8 +11,26 @@ import Community from "./page/Community";
 import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
 import Mypage from "./page/Mypage";
+import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { userState } from "./recoil/userState";
 
 function App() {
+  const [userIn, setUserIn] = useRecoilState(userState);
+
+  useEffect(() => {
+    const user = "서버에서 받아오는 유저 데이터";
+
+    if (user) {
+      // 유저 값이 있을시
+      setUserIn(true);
+    } else {
+      setUserIn(false);
+    }
+  }, [setUserIn]);
+
+  console.log(userIn);
+
   const router = createBrowserRouter([
     {
       path: "/",

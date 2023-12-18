@@ -12,6 +12,7 @@ import {
   passwordState,
 } from "../recoil/authState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { userState } from "../recoil/userState";
 
 function Auth() {
   const navigate = useNavigate();
@@ -48,6 +49,9 @@ function Auth() {
     }
   };
 
+  // 모든 데이터를 입력받았는지 확인하는 useState
+  const [dataComeIn, setDataComeIn] = useState(false);
+
   // 모든 상태가 변경된 채로 랜더링이 완료되었는지 알아보기 위한 useState
   // true = 아직 로딩 중이라는 의미.
   const [loading, setLoading] = useState(true);
@@ -59,18 +63,55 @@ function Auth() {
   const setPasswordCheckInput = useSetRecoilState(passwordCheckState);
   const setNicknameInput = useSetRecoilState(nickNameState);
 
+  // user가 들어왔는지 안 들어왔는지 확인하는 전역 데이터.
+  const userIn = useRecoilValue(userState);
+
   useEffect(() => {
     setEmailInput("");
     setPasswordInput("");
     setPasswordCheckInput("");
     setNicknameInput("");
-  }, [location.state.content]);
+  }, [content]);
+
+  useEffect(() => {
+    const same =
+      emailInput &&
+      emailIdentifyCheck &&
+      passwordInput &&
+      passwordIdentifyCheck;
+
+    if (
+      (content === "login" && same) ||
+      (content === "signUp" &&
+        same &&
+        passwordCheckInput &&
+        passwordInput === passwordCheckInput &&
+        nickNameState)
+    ) {
+      setDataComeIn(true);
+    } else {
+      setDataComeIn(false);
+    }
+  }, [
+    content,
+    emailInput,
+    passwordInput,
+    passwordCheckInput,
+    nicknameInput,
+    emailIdentifyCheck,
+    passwordIdentifyCheck,
+  ]);
 
   useEffect(() => {
     setLoading(false);
   }, []);
 
-  console.log(emailInput.length, passwordInput.length);
+  // user가 있을시 Auth 페이지에 접근 불가.
+  useEffect(() => {
+    if (userIn) {
+      navigate("/");
+    }
+  }, [userIn]);
 
   return (
     <>
@@ -151,7 +192,7 @@ function Auth() {
                   >{`${
                     emailInput.length !== 0 && emailIdentifyCheck
                       ? ""
-                      : emailInput.length !== 0 && emailIdentifyCheck === false
+                      : emailInput.length !== 0 && !emailIdentifyCheck
                       ? "이메일 양식을 맞춰주세요."
                       : "이메일을 입력하세요."
                   }`}</p>
@@ -185,8 +226,7 @@ function Auth() {
                   >{`${
                     passwordInput.length !== 0 && passwordIdentifyCheck
                       ? ""
-                      : passwordInput.length !== 0 &&
-                        passwordIdentifyCheck === false
+                      : passwordInput.length !== 0 && !passwordIdentifyCheck
                       ? "대소문자, 특수문자, 숫자를 포함하여 8자리 이상 입력해주세요."
                       : "비밀번호를 입력해주세요."
                   }`}</p>
@@ -254,19 +294,37 @@ function Auth() {
                           : ""
                       }`}</p>
                     </div>
+
+                    <div className="w-full mb-2">
+                      <label htmlFor="condition" className="font-bold">
+                        이용 약관 동의
+                      </label>
+                      {/* 데이터 수집 완료되면 추가할 예정 */}
+                    </div>
                   </>
                 )}
               </div>
 
-              {/* 로그인에 필요한 정보들 다 받기 전에는 비활성화 시키기 */}
-              {/* disabled에 삼항연산자 넣어서 수정 */}
               <Button
                 type="submit"
-                onClick={() => {
-                  navigate("/login");
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  // 로그인 / 회원가입 관련 로직 필요.
+
+                  if (content === "login") {
+                    alert("로그인 되었습니다.!");
+                    // 로그인이 되었으면 메인페이지로 보내기 + Auth 페이지에 접근하지 못하게 하기
+                    navigate("/");
+                  } else {
+                    alert("회원가입 되었습니다!");
+                    // 회원가입 후에 바로 로그인되고 메인페이지로 보낼지, 아니면 로그인을 하도록 로그인 페이지로 보낼지 추후 상의.
+                    navigate("/");
+                  }
                 }}
                 buttonText={`${content === "login" ? "로그인" : "회원가입"}`}
-                disabled={false}
+                disabled={dataComeIn ? false : true}
+                dataComeIn={dataComeIn}
               />
             </form>
 
