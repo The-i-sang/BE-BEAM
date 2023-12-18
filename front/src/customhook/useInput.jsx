@@ -1,9 +1,10 @@
 // input 커스텀훅
 
-import { useState } from "react";
+import { useRecoilState } from "recoil";
 
-const useInput = (initialValue) => {
-  const [value, setValue] = useState(initialValue);
+const useInput = (recoilState) => {
+  const [value, setValue] = useRecoilState(recoilState);
+  console.log(value);
 
   const onChange = (e) => {
     setValue(e.target.value);
