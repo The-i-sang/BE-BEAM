@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { userState } from "../recoil/userState";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
+import MypageMyProfile from "../component/MypageMyProfile";
 
 export default function Mypage() {
   const navigate = useNavigate();
@@ -16,5 +17,11 @@ export default function Mypage() {
   //   }
   // }, [userIn]);
 
-  return <div>Mypage</div>;
+  return (
+    <div className="w-full bg-[#f6f6f6]">
+      <div className="w-11/12 mx-auto pt-[3.75rem] pb-[2rem]">
+        <MypageMyProfile />
+      </div>
+    </div>
+  );
 }
