@@ -21,12 +21,14 @@ function App() {
   useEffect(() => {
     const user = "서버에서 받아오는 유저 데이터";
 
-    if (user) {
-      // 유저 값이 있을시
-      setUserIn(true);
-    } else {
-      setUserIn(false);
-    }
+    // if (user) {
+    //   // 유저 값이 있을시
+    //   setUserIn(true);
+    // } else {
+    //   setUserIn(false);
+    // }
+
+    setUserIn(false);
   }, [setUserIn]);
 
   console.log(userIn);

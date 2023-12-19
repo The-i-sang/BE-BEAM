@@ -10,11 +10,11 @@ export default function Mypage() {
   const userIn = useRecoilValue(userState);
 
   // user가 없을시 Mypage에 접근 불가.
-  useEffect(() => {
-    if (!userIn) {
-      navigate("/");
-    }
-  }, [userIn]);
+  // useEffect(() => {
+  //   if (!userIn) {
+  //     navigate("/");
+  //   }
+  // }, [userIn]);
 
   return <div>Mypage</div>;
 }
