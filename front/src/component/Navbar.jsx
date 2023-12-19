@@ -51,7 +51,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
           </button>
 
           <div
-            className="md:w-[80px] sm:w-[70px] w-[60px] sm:static absolute top-4 left-[50%] ml-[-30px]"
+            className="md:w-[80px] sm:w-[70px] w-[60px] sm:static absolute top-4 left-[50%] sm:ml-0 ml-[-30px]"
             onClick={() => {
               navigate("/");
             }}
