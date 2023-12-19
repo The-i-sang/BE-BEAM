@@ -94,7 +94,8 @@ export default function Detail() {
           <div className="lg:w-[500px] md:w-[380px] sm:w-full w-full">
             {toolkit && <DetailSlider t={toolkit.image} />}
           </div>
-          <div className="lg:w-w-1calc md:w-w-2calc sm:w-full w-full md:px-6 sm:px-0 px-0 md:py-0 sm:py-14 py-14 box-border text-[#282828] dark:text-white font-light">
+
+          <div className="lg:w-w-1calc md:w-w-2calc sm:w-full w-full xl:pl-14 md:px-6 sm:px-0 px-0 md:py-0 sm:py-14 py-14 box-border text-[#282828] dark:text-white font-light">
             <div className="sm:mb-4 mb-2 flex sm:text-[1rem] text-[0.8rem]">
               {toolkit.type !== "" && <p className="mr-4">{toolkit.type}</p>}
 

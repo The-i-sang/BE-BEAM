@@ -14,6 +14,8 @@ import Mypage from "./page/Mypage";
 import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "./recoil/userState";
+import UserInfoModify from "./page/UserInfoModify";
+import UserProfileModify from "./page/UserProfileModify";
 
 function App() {
   const [userIn, setUserIn] = useRecoilState(userState);
@@ -73,6 +75,14 @@ function App() {
         {
           path: "/mypage",
           element: <Mypage />,
+        },
+        {
+          path: "/mypage/userInfoModify",
+          element: <UserInfoModify />,
+        },
+        {
+          path: "/mypage/userProfileModify",
+          element: <UserProfileModify />,
         },
       ],
     },

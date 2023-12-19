@@ -20,6 +20,7 @@
     "recoil": "^0.7.7",
     "slick-carousel": "^1.8.1",
     "tailwind-scrollbar-hide": "^1.1.7",
+    "tailwindcss-gradients": "^3.0.0",
     "typewriter-effect": "^2.21.0",
     "typing-effect-reactjs": "^1.4.1",
     "web-vitals": "^2.1.0"
