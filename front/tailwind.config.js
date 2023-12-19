@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx}"],
+
   theme: {
     extend: {
       spacing: {
@@ -12,11 +13,30 @@ module.exports = {
         "recomended-w-1calc": "calc(100% - 60px)",
         "recomended-w-2calc": "calc(100% - 40px)",
       },
+
+      animation: {
+        "slide-in": "slide-in 2s forwards",
+        "slide-out": "slide-out 2s forwards",
+      },
+
+      keyframes: {
+        "slide-in": {
+          "0%": { transform: "translateX(-20%)", opacity: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+        "slide-out": {
+          "0%": { transform: "translateX(0)", opacity: 1 },
+          "100%": { transform: "translateX(20%)", opacity: 0 },
+        },
+      },
     },
   },
+
   corePlugins: {
     aspectRatio: true,
+    lineClamp: true,
   },
+
   plugins: [require("tailwind-scrollbar-hide")],
   darkMode: "class",
 };

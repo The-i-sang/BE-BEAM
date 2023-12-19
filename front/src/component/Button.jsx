@@ -22,7 +22,7 @@ export default function Button({
           : buttonText === "구글"
           ? "w-full h-[3.75rem] rounded-lg border-[1px] border-solid border-[#ccc] text-[1.125rem] font-bold"
           : buttonText === "개인 정보 수정"
-          ? "h-3.75rem mt-4 px-28 bg-[#F5AA15] rounded-md text-[0.875rem] text-white font-semibold"
+          ? "w-full max-w-[20rem] h-3.75rem mt-4 bg-[#F5AA15] border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black rounded-md text-[0.875rem] text-white font-semibold"
           : ""
       } p-3 box-border text-center relative transition-all duration-700`}
     >
