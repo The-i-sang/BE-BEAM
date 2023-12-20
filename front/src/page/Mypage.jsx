@@ -3,7 +3,7 @@ import { userState } from "../recoil/userState";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import MypageMyProfile from "../component/MypageMyProfile";
-import MypageLikeToolkit from "../component/MypageLikeToolkit";
+import TabCommonComponent from "../component/TabCommonComponent";
 
 export default function Mypage() {
   const navigate = useNavigate();
@@ -22,7 +22,9 @@ export default function Mypage() {
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
       <div className="w-11/12 mx-auto pt-[3.75rem] pb-[2rem]">
         <MypageMyProfile />
-        <MypageLikeToolkit />
+
+        <TabCommonComponent title="내가 찜한 모임" />
+        <TabCommonComponent title="나의 모임" />
       </div>
     </div>
   );
