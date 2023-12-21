@@ -19,3 +19,8 @@ export const nickNameState = atom({
   key: "nickNameState",
   default: "",
 });
+
+export const introMyselfState = atom({
+  key: "introMyselfState",
+  default: "",
+});

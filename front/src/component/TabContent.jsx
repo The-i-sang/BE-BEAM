@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
+import Button from "./Button";
 
 export const Slide = ({ index, data, slideIndex, slideShowNum }) => {
   useEffect(() => {
@@ -47,6 +49,8 @@ export const Slide = ({ index, data, slideIndex, slideShowNum }) => {
 };
 
 export default function TabContent({ title, tabCount }) {
+  const navigate = useNavigate();
+
   const [slideIndex, setSlideIndex] = useState(8);
   const [slideShowNum, setSlideShowNum] = useState(8);
 
@@ -153,59 +157,89 @@ export default function TabContent({ title, tabCount }) {
   console.log(title, tabCount, datas);
 
   return (
-    <div className="w-full py-[2rem] px-[1.25rem] box-border flex items-center gap-x-2">
-      <button
-        onClick={prevSlide}
-        disabled={slideIndex === slideShowNum ? true : false}
-        className={`${
-          slideIndex === slideShowNum ? "text-[#a8a5a5]" : "text-[#474545]"
-        } xl:w-[50px] md:w-[40px] sm:w-[30px] w-[40px] xl:h-[50px] md:h-[40px] sm:h-[30px] h-[40px] bg-white border-[1px] border-solid border-[#dfdfdf] rounded-2xl flex items-center justify-center text-[2rem]`}
-      >
-        <GoChevronLeft />
-      </button>
+    <>
+      {datas?.length > 0 ? (
+        <div className="w-full py-[2rem] px-[1.25rem] box-border flex items-center gap-x-2">
+          <button
+            onClick={prevSlide}
+            disabled={slideIndex === slideShowNum ? true : false}
+            className={`${
+              slideIndex === slideShowNum ? "text-[#a8a5a5]" : "text-[#474545]"
+            } xl:w-[50px] md:w-[40px] sm:w-[30px] w-[40px] xl:h-[50px] md:h-[40px] sm:h-[30px] h-[40px] bg-white border-[1px] border-solid border-[#dfdfdf] rounded-2xl flex items-center justify-center text-[2rem]`}
+          >
+            <GoChevronLeft />
+          </button>
 
-      <div
-        className={`${
-          slideShowNum === 8
-            ? "grid-cols-8"
-            : slideShowNum === 7
-            ? "grid-cols-7"
-            : slideShowNum === 6
-            ? "grid-cols-6"
-            : slideShowNum === 5
-            ? "grid-cols-5"
-            : slideShowNum === 4
-            ? "grid-cols-4"
-            : slideShowNum === 3
-            ? "grid-cols-3"
-            : slideShowNum === 2
-            ? "grid-cols-2"
-            : "grid-cols-1"
-        } w-full grid gap-x-3`}
-      >
-        {datas &&
-          datas?.map((data, index) => {
-            return (
-              <Slide
-                key={index}
-                index={index}
-                data={data}
-                slideIndex={slideIndex}
-                slideShowNum={slideShowNum}
-              />
-            );
-          })}
-      </div>
+          <div
+            className={`${
+              slideShowNum === 8
+                ? "grid-cols-8"
+                : slideShowNum === 7
+                ? "grid-cols-7"
+                : slideShowNum === 6
+                ? "grid-cols-6"
+                : slideShowNum === 5
+                ? "grid-cols-5"
+                : slideShowNum === 4
+                ? "grid-cols-4"
+                : slideShowNum === 3
+                ? "grid-cols-3"
+                : slideShowNum === 2
+                ? "grid-cols-2"
+                : "grid-cols-1"
+            } w-full grid gap-x-3`}
+          >
+            {datas?.map((data, index) => {
+              return (
+                <Slide
+                  key={index}
+                  index={index}
+                  data={data}
+                  slideIndex={slideIndex}
+                  slideShowNum={slideShowNum}
+                />
+              );
+            })}
+          </div>
 
-      <button
-        onClick={nextSlide}
-        disabled={slideIndex < datas?.length ? false : true}
-        className={`${
-          slideIndex < datas?.length ? "text-[#474545]" : "text-[#a8a5a5]"
-        } xl:w-[50px] md:w-[40px] sm:w-[30px] w-[40px] xl:h-[50px] md:h-[40px] sm:h-[30px] h-[40px] bg-white border-[1px] border-solid border-[#dfdfdf] rounded-2xl flex items-center justify-center text-[2rem]`}
-      >
-        <GoChevronRight />
-      </button>
-    </div>
+          <button
+            onClick={nextSlide}
+            disabled={slideIndex < datas?.length ? false : true}
+            className={`${
+              slideIndex < datas?.length ? "text-[#474545]" : "text-[#a8a5a5]"
+            } xl:w-[50px] md:w-[40px] sm:w-[30px] w-[40px] xl:h-[50px] md:h-[40px] sm:h-[30px] h-[40px] bg-white border-[1px] border-solid border-[#dfdfdf] rounded-2xl flex items-center justify-center text-[2rem]`}
+          >
+            <GoChevronRight />
+          </button>
+        </div>
+      ) : (
+        <div className="w-full py-12 flex flex-col items-center">
+          <h1 className="text-[1.06rem] text-[#3f3f3f] font-semibold">
+            찜한 모임이 없어요.
+          </h1>
+
+          <div className="w-full mt-6 flex items-center justify-center gap-x-3">
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+
+                navigate("/community");
+              }}
+              buttonText="정기모임 구경하기"
+              disabled={false}
+            />
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+
+                navigate("/activity");
+              }}
+              buttonText="소모임 구경하기"
+              disabled={false}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
