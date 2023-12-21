@@ -43,7 +43,7 @@ export default function MypageMyProfile() {
             <img
               className="mb-3 sm:w-[100px] w-[80px] h-full object-cover rounded-full"
               src={process.env.PUBLIC_URL + "/image/basic_user_profile.jpg"}
-              alt="logo"
+              alt="user_profile"
             />
 
             <button
