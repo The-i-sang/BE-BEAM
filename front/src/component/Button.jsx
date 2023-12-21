@@ -26,6 +26,8 @@ export default function Button({
           : buttonText === "정기모임 구경하기" ||
             buttonText === "소모임 구경하기"
           ? "w-full max-w-[20rem] bg-[#f5aa15] rounded-md text-[0.875rem] text-white font-semibold"
+          : buttonText === "프로필 수정하기"
+          ? "w-full mt-2 bg-[#f5aa15] rounded-md text-[0.875rem] text-white font-semibold"
           : ""
       } h-[3.75rem] p-3 box-border text-center relative transition-all duration-700`}
     >

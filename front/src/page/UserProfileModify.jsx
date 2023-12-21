@@ -82,6 +82,11 @@ export default function UserProfileModify() {
 
             <Button
               buttonText="프로필 수정하기"
+              onClick={(e) => {
+                e.preventDefault();
+
+                // user 닉네임, 한 줄 소개 수정한거 서버로 보내기
+              }}
               disabled={nicknameInput?.length > 0 ? false : true}
             />
           </div>
