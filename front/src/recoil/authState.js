@@ -24,3 +24,8 @@ export const introMyselfState = atom({
   key: "introMyselfState",
   default: "",
 });
+
+export const userNameState = atom({
+  key: "userNameState",
+  default: "",
+});

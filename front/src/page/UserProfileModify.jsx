@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 
-import { AiOutlineSync } from "react-icons/ai";
 import { introMyselfState, nickNameState } from "../recoil/authState";
 import Input from "../component/Input";
 import useInput from "../customhook/useInput";
 import { useSetRecoilState } from "recoil";
 import Button from "../component/Button";
+
+import { AiOutlineSync } from "react-icons/ai";
+import TextArea from "../component/TextArea";
 
 export default function UserProfileModify() {
   const [nicknameInput, onNicknameChange] = useInput(nickNameState);
@@ -69,7 +71,7 @@ export default function UserProfileModify() {
               <label htmlFor="introMyself" className="font-bold">
                 한 줄 소개
               </label>
-              <Input
+              <TextArea
                 type="text"
                 id="introMyself"
                 placeholder="Ex. 처음에는 낯을 가리지만 친해지면 수다쟁이 프론트엔드 개발자"
