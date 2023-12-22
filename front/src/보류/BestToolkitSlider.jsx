@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import SlideToolkitCard from "./SlideToolkitCard";
+import SlideToolkitCard from "../component/SlideToolkitCard";
 
 export default function BestToolkitSlider({ toolkits }) {
   const [selectedItems, setSelectedItems] = useState();

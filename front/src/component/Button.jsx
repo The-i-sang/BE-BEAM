@@ -7,6 +7,7 @@ export default function Button({
   buttonText,
   disabled,
   dataComeIn,
+  userPhoneNumberInput,
 }) {
   return (
     <button
@@ -28,6 +29,14 @@ export default function Button({
           ? "w-full max-w-[20rem] bg-[#f5aa15] rounded-md text-[0.875rem] text-white font-semibold"
           : buttonText === "프로필 수정하기"
           ? "w-full mt-2 bg-[#f5aa15] rounded-md text-[0.875rem] text-white font-semibold"
+          : buttonText === "휴대전화 인증" && userPhoneNumberInput.length === 11
+          ? "w-[10rem] h-[3rem] mt-2 bg-[#f5aa15] rounded-md text-[0.875rem] text-white font-semibold"
+          : buttonText === "휴대전화 인증" && userPhoneNumberInput.length < 11
+          ? "w-[10rem] h-[3rem] mt-2 bg-[#d0d0d0] rounded-md text-[0.875rem] text-white font-semibold"
+          : buttonText === "정보 수정" && dataComeIn
+          ? "w-full h-3.75rem mt-4 bg-[#F5AA15] border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black rounded-md text-[0.875rem] text-white font-semibold"
+          : buttonText === "정보 수정" && !dataComeIn
+          ? "w-full h-3.75rem mt-4 bg-[#d0d0d0] border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black rounded-md text-[0.875rem] text-white font-semibold"
           : ""
       } h-[3.75rem] p-3 box-border text-center relative transition-all duration-700`}
     >
