@@ -29,3 +29,13 @@ export const userNameState = atom({
   key: "userNameState",
   default: "",
 });
+
+export const userPhoneNumberState = atom({
+  key: "userPhoneNumberState",
+  default: "",
+});
+
+export const userBirthdayState = atom({
+  key: "userBirthdayState",
+  default: "",
+});

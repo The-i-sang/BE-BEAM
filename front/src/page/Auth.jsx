@@ -13,6 +13,7 @@ import {
 } from "../recoil/authState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "../recoil/userState";
+import { identify } from "../common.js";
 
 function Auth() {
   const navigate = useNavigate();
@@ -29,25 +30,6 @@ function Auth() {
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   // password가 맞는지 확인하는 useState
   const [passwordIdentifyCheck, setPasswordIdentifyCheck] = useState(null);
-
-  // email이 맞는지 확인하는 함수
-  const identify = (emailInput, passwordInput) => {
-    if (emailInput) {
-      // email 주소 유효성 검사 정규표현식
-      const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-
-      return !emailRegex.test(emailInput)
-        ? setEmailIdentifyCheck(false)
-        : setEmailIdentifyCheck(true);
-    } else if (passwordInput) {
-      // password 주소 유효성 검사 정규표현식
-      const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      return !passwordRegex.test(passwordInput)
-        ? setPasswordIdentifyCheck(false)
-        : setPasswordIdentifyCheck(true);
-    }
-  };
 
   // 모든 데이터를 입력받았는지 확인하는 useState
   const [dataComeIn, setDataComeIn] = useState(false);
@@ -164,12 +146,12 @@ function Auth() {
               <div className="w-full mb-6">
                 <div className="w-full mb-2">
                   {/* id로 로그인할 수 있도록 할 건지, 이메일로 로그인할 수 있도록 할 건지. */}
-                  <label htmlFor="id" className="font-bold">
+                  <label htmlFor="email" className="font-bold">
                     이메일
                   </label>
                   <Input
                     type="email"
-                    id="id"
+                    id="email"
                     placeholder={`${
                       content === "login"
                         ? "이메일을 입력해주세요."
@@ -178,7 +160,12 @@ function Auth() {
                     onChange={(e) => {
                       onEmailChange(e);
 
-                      identify(e.target.value, undefined);
+                      identify(
+                        e.target.value,
+                        undefined,
+                        setEmailIdentifyCheck,
+                        setPasswordIdentifyCheck
+                      );
                     }}
                     value={emailInput}
                   />
@@ -213,7 +200,12 @@ function Auth() {
                     onChange={(e) => {
                       onPasswordChange(e);
 
-                      identify(undefined, e.target.value);
+                      identify(
+                        undefined,
+                        e.target.value,
+                        setEmailIdentifyCheck,
+                        setPasswordIdentifyCheck
+                      );
                     }}
                     value={passwordInput}
                   />
