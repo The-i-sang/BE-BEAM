@@ -5,7 +5,14 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import Button from "./Button";
 import MeetingParticipantsListModal from "./MeetingParticipantsListModal";
 
-export const Slide = ({ index, data, slideIndex, slideShowNum }) => {
+export const Slide = ({
+  index,
+  data,
+  slideIndex,
+  slideShowNum,
+  title,
+  tabCount,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +38,9 @@ export const Slide = ({ index, data, slideIndex, slideShowNum }) => {
         onClick={(e) => {
           e.preventDefault();
 
-          setModalOpen(true);
+          if (title === "나의 모임" && tabCount === 1) {
+            setModalOpen(true);
+          }
         }}
         className={`${
           (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
@@ -213,6 +222,8 @@ export default function TabContent({ title, tabCount }) {
                   data={data}
                   slideIndex={slideIndex}
                   slideShowNum={slideShowNum}
+                  title={title}
+                  tabCount={tabCount}
                 />
               );
             })}
