@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import Button from "./Button";
+import MeetingParticipantsListModal from "./MeetingParticipantsListModal";
 
 export const Slide = ({ index, data, slideIndex, slideShowNum }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     // 슬라이드 요소들을 선택
     const slides = document.querySelectorAll(".animate-slide-in");
@@ -23,28 +26,41 @@ export const Slide = ({ index, data, slideIndex, slideShowNum }) => {
   }, [slideIndex]); // 슬라이드 인덱스가 변경되었을 때만 이 효과를 실행
 
   return (
-    <div
-      className={`${
-        (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
-        (slideIndex > slideShowNum && index >= slideIndex) ||
-        (slideIndex === slideShowNum && index > slideShowNum - 1)
-          ? "hidden"
-          : "block"
-      } p-4 box-border bg-[#ffac07] transition-all duration-700 animate-slide-in rounded-lg aspect-w-1 aspect-h-1 aspect-square cursor-pointer flex flex-col items-center justify-center text-center
+    <>
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+
+          setModalOpen(true);
+        }}
+        className={`${
+          (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
+          (slideIndex > slideShowNum && index >= slideIndex) ||
+          (slideIndex === slideShowNum && index > slideShowNum - 1)
+            ? "hidden"
+            : "block"
+        } p-4 box-border bg-[#ffac07] transition-all duration-700 animate-slide-in rounded-lg aspect-w-1 aspect-h-1 aspect-square cursor-pointer flex flex-col items-center justify-center text-center
       }`}
-    >
-      <img
-        className="w-[60%] aspect-w-1 aspect-h-1 aspect-square object-cover mx-auto rounded-full"
-        src={process.env.PUBLIC_URL + data.thumbnail?.replace("./", "/")}
-        alt="thumbnail"
+      >
+        <img
+          className="w-[60%] aspect-w-1 aspect-h-1 aspect-square object-cover mx-auto rounded-full"
+          src={process.env.PUBLIC_URL + data.thumbnail?.replace("./", "/")}
+          alt="thumbnail"
+        />
+        <p className="mt-[10px] px-2 py-[1px] bg-white rounded-2xl text-[#ffac07] text-[0.75rem]">
+          {data.type}
+        </p>
+        <p className="mt-1 text-white text-[0.85rem] line-clamp-1">
+          {data.title}
+        </p>
+      </div>
+
+      <MeetingParticipantsListModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        data={data}
       />
-      <p className="mt-[10px] px-2 py-[1px] bg-white rounded-2xl text-[#ffac07] text-[0.75rem]">
-        {data.type}
-      </p>
-      <p className="mt-1 text-white text-[0.85rem] line-clamp-1">
-        {data.title}
-      </p>
-    </div>
+    </>
   );
 };
 
