@@ -17,6 +17,7 @@ module.exports = {
       animation: {
         "slide-in": "slide-in 2s forwards",
         "slide-out": "slide-out 2s forwards",
+        scale: "scale-up-down 2s infinite",
       },
 
       keyframes: {
