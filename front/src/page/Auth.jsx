@@ -14,9 +14,17 @@ import {
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "../recoil/userState";
 import { identify } from "../common.js";
+import {
+  CheckboxContainer,
+  HiddenCheckbox,
+  Icon,
+  StyledCheckbox,
+  StyledLabel,
+} from "../StyledComponents";
 
 import { GoChevronRight } from "react-icons/go";
 import { FaCircleCheck } from "react-icons/fa6";
+import PersonalInfoProcessingDetailModal from "../component/PersonalInfoProcessingDetailModal.jsx";
 
 function Auth() {
   const navigate = useNavigate();
@@ -50,6 +58,9 @@ function Auth() {
     { title: "check3", state: false },
   ]);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenIndex, setModalOpenIndex] = useState(0);
+
   // email, password, passwordCheck, nickname 데이터를 다른 곳에서 사용할 수 있으니
   // 커스텀 훅과 recoil을 연결하여 전역 상태로 관리.
   const setEmailInput = useSetRecoilState(emailState);
@@ -65,6 +76,11 @@ function Auth() {
     setPasswordInput("");
     setPasswordCheckInput("");
     setNicknameInput("");
+    setCheck((prev) =>
+      prev?.map((check) => {
+        return { ...check, state: false };
+      })
+    );
   }, [content]);
 
   const allBtnEvent = () => {
@@ -88,7 +104,6 @@ function Auth() {
   };
 
   const checkBtnEvent = (index) => {
-    console.log(index);
     if (
       check[check?.findIndex((el) => el.title === `check${index}`)]?.state ===
       false
@@ -102,8 +117,7 @@ function Auth() {
           }
         })
       );
-    }
-    if (
+    } else if (
       check[check?.findIndex((el) => el.title === `check${index}`)]?.state ===
       true
     ) {
@@ -111,6 +125,23 @@ function Auth() {
         prev?.map((el) => {
           if (el.title === `check${index}`) {
             return { ...el, state: false };
+          } else {
+            return el;
+          }
+        })
+      );
+    }
+  };
+
+  const checkBtnEvent2 = (index) => {
+    if (
+      check[check?.findIndex((el) => el.title === `check${index}`)]?.state ===
+      false
+    ) {
+      setCheck((prev) =>
+        prev?.map((el) => {
+          if (el.title === `check${index}`) {
+            return { ...el, state: true };
           } else {
             return el;
           }
@@ -140,7 +171,9 @@ function Auth() {
         same &&
         passwordCheckInput &&
         passwordInput === passwordCheckInput &&
-        nickNameState)
+        nickNameState &&
+        check[0].state &&
+        check[1].state)
     ) {
       setDataComeIn(true);
     } else {
@@ -154,6 +187,7 @@ function Auth() {
     nicknameInput,
     emailIdentifyCheck,
     passwordIdentifyCheck,
+    check,
   ]);
 
   useEffect(() => {
@@ -383,14 +417,15 @@ function Auth() {
                       <label className="font-bold">
                         개인 정보 처리 및 마케팅 수신 동의
                       </label>
+
                       <p className="mt-2 mb-4 text-[0.8125rem]">
                         서비스 이용에 꼭 필요한 사항입니다.
                         <br />
                         정책 및 약관을 클릭해 모든 내용을 확인해주세요.
                       </p>
 
-                      <div className="">
-                        <div className="">
+                      <div className="w-full">
+                        <div className="w-full">
                           <input
                             type="checkbox"
                             id="all-check"
@@ -401,53 +436,99 @@ function Auth() {
                           <label
                             htmlFor="all-check"
                             className={`${
-                              allCheck && "bg-[#ffbd4c] border-[#ffa228]"
-                            } w-full p-3 box-border cursor-pointer rounded-lg text-[#383838] border-[1px] border-solid border-[#ccc] transition-all duration-700 flex items-center gap-x-2`}
+                              allCheck
+                                ? "bg-[#fbb843] border-[#ffa228] text-white"
+                                : "bg-white text-[#6b6b6b]"
+                            } w-full p-3 box-border cursor-pointer rounded-lg  text-[0.875rem] border-[1px] border-solid border-[#ccc] transition-all duration-700 flex items-center gap-x-2`}
                           >
-                            <FaCircleCheck className="text-[1.4rem]" />
+                            <FaCircleCheck className="text-[1.2rem]" />
                             전체동의
                           </label>
                         </div>
 
-                        {checkboxData &&
-                          checkboxData?.map((data, index) => {
-                            return (
-                              <div className="w-full mt-2 flex items-center justify-between">
-                                <div>
-                                  <input
-                                    type="checkbox"
-                                    id={`check${index}`}
-                                    checked={
-                                      check[
-                                        check?.findIndex(
-                                          (el) => el.title === `check${index}`
-                                        )
-                                      ]?.state
-                                    }
-                                    onChange={() => checkBtnEvent(index)}
-                                  />
-                                  <label htmlFor={`check${index}`}>
-                                    {data?.title}
-                                    <span className="text-[#6ca9ff]">{`(${data.term})`}</span>
-                                  </label>
-                                </div>
+                        <div className="w-full px-3 py-4 box-border rounded-lg">
+                          {checkboxData &&
+                            checkboxData?.map((data, index) => {
+                              return (
+                                <>
+                                  <div className="w-full mt-2 mb-3 flex items-center justify-between">
+                                    <CheckboxContainer
+                                      onClick={() => checkBtnEvent(index)}
+                                    >
+                                      <HiddenCheckbox
+                                        type="checkbox"
+                                        id={`check${index}`}
+                                        checked={
+                                          check[
+                                            check?.findIndex(
+                                              (el) =>
+                                                el.title === `check${index}`
+                                            )
+                                          ]?.state
+                                        }
+                                      />
+                                      <StyledCheckbox
+                                        checked={
+                                          check[
+                                            check?.findIndex(
+                                              (el) =>
+                                                el.title === `check${index}`
+                                            )
+                                          ]?.state
+                                        }
+                                        onChange={() => checkBtnEvent(index)}
+                                      >
+                                        <Icon
+                                          viewBox="0 0 24 24"
+                                          className="scale-75"
+                                        >
+                                          <polyline points="20 6 9 17 4 12" />
+                                        </Icon>
+                                      </StyledCheckbox>
 
-                                {(data?.title == "이용약관" ||
-                                  data?.title ===
-                                    "개인정보 처리방침(THE이상)") && (
-                                  <button
-                                    type="button"
-                                    className="text-[1.3rem]"
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                    }}
-                                  >
-                                    <GoChevronRight />
-                                  </button>
-                                )}
-                              </div>
-                            );
-                          })}
+                                      <StyledLabel htmlFor={`check${index}`}>
+                                        {data?.title}
+                                        <span
+                                          className={`${
+                                            data.term === "선택"
+                                              ? "text-[#b6b6b6]"
+                                              : "text-[#6ca9ff]"
+                                          } ml-1`}
+                                        >{`(${data.term})`}</span>
+                                      </StyledLabel>
+                                    </CheckboxContainer>
+
+                                    {(data?.title == "이용약관" ||
+                                      data?.title ===
+                                        "개인정보 처리방침(THE이상)") && (
+                                      <button
+                                        type="button"
+                                        className="text-[1.3rem] text-[#414141]"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+
+                                          setModalOpen(true);
+                                          setModalOpenIndex(index);
+                                        }}
+                                      >
+                                        <GoChevronRight />
+                                      </button>
+                                    )}
+                                  </div>
+
+                                  <PersonalInfoProcessingDetailModal
+                                    modalOpenIndex={modalOpenIndex}
+                                    checkboxData={checkboxData}
+                                    modalOpen={modalOpen}
+                                    setModalOpen={setModalOpen}
+                                    onClick={() =>
+                                      checkBtnEvent2(modalOpenIndex)
+                                    }
+                                  />
+                                </>
+                              );
+                            })}
+                        </div>
                       </div>
                     </div>
                   </>

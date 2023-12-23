@@ -37,6 +37,8 @@ export default function Button({
           ? "w-full h-3.75rem mt-4 bg-[#F5AA15] border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black rounded-md text-[0.875rem] text-white font-semibold"
           : buttonText === "정보 수정" && !dataComeIn
           ? "w-full h-3.75rem mt-4 bg-[#d0d0d0] border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black rounded-md text-[0.875rem] text-white font-semibold"
+          : buttonText === "동의하기"
+          ? "w-full mt-2 bg-[#f5aa15] rounded-md text-[0.875rem] text-white font-semibold"
           : ""
       } h-[3.75rem] p-3 box-border text-center relative transition-all duration-700`}
     >
