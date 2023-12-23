@@ -7,6 +7,7 @@ import Typewriter from "typewriter-effect";
 import { AiFillSmile } from "react-icons/ai";
 import { BsSendCheck, BsSendSlash } from "react-icons/bs";
 
+
 export default function Activity() {
   const {
     isLoading,
@@ -92,6 +93,7 @@ export default function Activity() {
                 onClick={() => handleCategoryClick(cate.title)}
                 className="cursor-pointer xl:mr-4 sm:mr-2 mr-1 group"
               >
+                
                 <div className="flex flex-col items-center">
                   <div
                     className={`${
@@ -101,6 +103,7 @@ export default function Activity() {
                     } xl:w-[65px] xl:h-[65px] sm:w-[56px] sm:h-[56px] w-[52px] h-[52px] rounded-full border-[1px] group-hover:bg-black dark:group-hover:bg-white border-solid border-[#393939] dark:border-white flex justify-center items-center transition-all duration-700`}
                   >
                     {cate.title === "All" ? (
+                      
                       <p
                         className={`${
                           cate.isActive
@@ -132,6 +135,7 @@ export default function Activity() {
                       </p>
                     )}
                   </div>
+                  
                   <p
                     className={`${
                       cate.isActive
