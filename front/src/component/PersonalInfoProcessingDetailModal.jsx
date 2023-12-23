@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { GoX } from "react-icons/go";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -22,7 +22,17 @@ export default function PersonalInfoProcessingDetailModal({
 }) {
   const data = checkboxData[modalOpenIndex];
 
-  console.log(data);
+  const modalContentRef = useRef(null);
+
+  useEffect(() => {
+    if (modalContentRef.current && modalOpen) {
+      setTimeout(() => {
+        modalContentRef.current.scrollTop = 0; // 스크롤을 가장 위로 이동시킵니다.
+      }, 0);
+    }
+  }, [modalOpen]);
+
+  console.log(modalContentRef.current);
 
   return (
     <div
@@ -53,7 +63,7 @@ export default function PersonalInfoProcessingDetailModal({
         </button>
       </div>
 
-      <div className="modalContentScroll">
+      <div ref={modalContentRef} className="modalContentScroll">
         <p className="whitespace-pre-line text-[0.8rem] text-[#333333]">
           {data.content}
         </p>
