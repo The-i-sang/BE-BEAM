@@ -10,6 +10,9 @@ import {
   nickNameState,
   passwordCheckState,
   passwordState,
+  userBirthdayState,
+  userNameState,
+  userPhoneNumberState,
 } from "../recoil/authState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "../recoil/userState";
@@ -21,21 +24,30 @@ import {
   StyledCheckbox,
   StyledLabel,
 } from "../StyledComponents";
+import PersonalInfoProcessingDetailModal from "../component/PersonalInfoProcessingDetailModal.jsx";
+import InputCheckbox from "../component/InputCheckbox.jsx";
 
 import { GoChevronRight } from "react-icons/go";
-import { FaCircleCheck } from "react-icons/fa6";
-import PersonalInfoProcessingDetailModal from "../component/PersonalInfoProcessingDetailModal.jsx";
+import {
+  FaCircleCheck,
+  FaCircleChevronDown,
+  FaCircleChevronUp,
+} from "react-icons/fa6";
 
 function Auth() {
   const navigate = useNavigate();
   const location = useLocation();
   const content = location.state.content || "";
 
+  const [userNameInput, onUserNameChange] = useInput(userNameState);
+  const [userPhoneNumberInput, onUserPhoneNumberChange] =
+    useInput(userPhoneNumberState);
   const [emailInput, onEmailChange] = useInput(emailState);
   const [passwordInput, onPasswordChange] = useInput(passwordState);
   const [passwordCheckInput, onPasswordCheckChange] =
     useInput(passwordCheckState);
   const [nicknameInput, onNicknameChange] = useInput(nickNameState);
+  const [userBirthdayInput, onUserBirthdayChange] = useInput(userBirthdayState);
 
   // email이 맞는지 확인하는 useState
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
@@ -60,9 +72,19 @@ function Auth() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenIndex, setModalOpenIndex] = useState(0);
+  const [keywordListOpen, setKeywordListOpen] = useState(false);
+
+  // 체크박스에 체크되었는지 확인하는 useState
+  const [isChecked, setIsChecked] = useState("");
+
+  // 5개 다중선택 가능한 체크박스 useState
+  const [isCheckedList, setIsCheckedList] = useState([]);
 
   // email, password, passwordCheck, nickname 데이터를 다른 곳에서 사용할 수 있으니
   // 커스텀 훅과 recoil을 연결하여 전역 상태로 관리.
+  const setUserNameInput = useSetRecoilState(userNameState);
+  const setUserPhoneNumberInput = useSetRecoilState(userPhoneNumberState);
+  const setBirthdayInput = useSetRecoilState(userBirthdayState);
   const setEmailInput = useSetRecoilState(emailState);
   const setPasswordInput = useSetRecoilState(passwordState);
   const setPasswordCheckInput = useSetRecoilState(passwordCheckState);
@@ -72,10 +94,15 @@ function Auth() {
   const userIn = useRecoilValue(userState);
 
   useEffect(() => {
+    setUserNameInput("");
+    setUserPhoneNumberInput("");
+    setBirthdayInput("");
+    setIsChecked("");
     setEmailInput("");
     setPasswordInput("");
     setPasswordCheckInput("");
     setNicknameInput("");
+    setIsCheckedList([]);
     setCheck((prev) =>
       prev?.map((check) => {
         return { ...check, state: false };
@@ -168,10 +195,18 @@ function Auth() {
     if (
       (content === "login" && same) ||
       (content === "signUp" &&
+        userNameInput &&
+        !userNameInput.includes(" ") &&
+        userPhoneNumberInput &&
+        userPhoneNumberInput.length === 11 &&
+        userBirthdayInput &&
+        isChecked &&
         same &&
         passwordCheckInput &&
         passwordInput === passwordCheckInput &&
-        nickNameState &&
+        nicknameInput &&
+        !nicknameInput.includes(" ") &&
+        isCheckedList?.length > 0 &&
         check[0].state &&
         check[1].state)
     ) {
@@ -182,12 +217,16 @@ function Auth() {
   }, [
     content,
     emailInput,
+    emailIdentifyCheck,
     passwordInput,
     passwordCheckInput,
     nicknameInput,
-    emailIdentifyCheck,
     passwordIdentifyCheck,
     check,
+    isChecked,
+    userBirthdayInput,
+    userNameInput,
+    userPhoneNumberInput,
   ]);
 
   useEffect(() => {
@@ -212,14 +251,38 @@ function Auth() {
     { title: "마케팅 동의", term: "선택" },
   ];
 
+  const datas = ["여성", "남성"];
+  const keywordDatas = [
+    "음악",
+    "그림",
+    "음식",
+    "드라마",
+    "영화",
+    "사진",
+    "마라톤",
+    "댄스",
+    "악기",
+    "노래",
+    "디저트",
+    "요리",
+    "취업",
+    "공부",
+    "회화",
+    "뮤지컬",
+    "랩",
+    "발라드",
+    "술",
+    "회화",
+    "연기",
+    "패션",
+  ];
+
   // user가 있을시 Auth 페이지에 접근 불가.
   useEffect(() => {
     if (userIn) {
       navigate("/");
     }
   }, [userIn]);
-
-  console.log(check);
 
   return (
     <>
@@ -270,13 +333,140 @@ function Auth() {
 
             <form className="w-full mt-10">
               <div className="w-full mb-6">
+                {content === "signUp" && (
+                  <>
+                    <div className="w-full mb-2">
+                      <label htmlFor="userName" className="font-bold">
+                        이름
+                      </label>
+                      <Input
+                        type="text"
+                        id="userName"
+                        placeholder="이름을 입력해주세요."
+                        onChange={(e) => {
+                          onUserNameChange(e);
+                        }}
+                        value={userNameInput}
+                      />
+                      <p
+                        className={`${
+                          userNameInput.length !== 0
+                            ? "opacity-0"
+                            : "opacity-100"
+                        } ${
+                          (userNameInput.length === 0 ||
+                            userNameInput.includes(" ")) &&
+                          "opacity-100"
+                        } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                      >{`${
+                        userNameInput.length === 0
+                          ? "이름을 입력해주세요."
+                          : userNameInput.includes(" ")
+                          ? "공백은 사용할 수 없습니다."
+                          : ""
+                      }`}</p>
+                    </div>
+
+                    <div className="w-full mb-2">
+                      <label htmlFor="phoneNumber" className="font-bold">
+                        휴대전화 번호
+                      </label>
+
+                      <div className="w-full flex items-center gap-x-5">
+                        <Input
+                          type="text"
+                          id="phoneNumber"
+                          placeholder="핸드폰 번호를 입력해주세요."
+                          onChange={(e) => {
+                            onUserPhoneNumberChange(e);
+                          }}
+                          value={userPhoneNumberInput}
+                          maxLength="11"
+                        />
+
+                        {/* 인증 완료시 인증 완료 문구로 변경 */}
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            // 핸드폰 인증 로직 추가
+                          }}
+                          buttonText="휴대전화 인증"
+                          disabled={
+                            userPhoneNumberInput.length === 11 ? false : true
+                          }
+                          userPhoneNumberInput={userPhoneNumberInput}
+                        />
+
+                        {/* <div className="w-[10rem] flex items-center justify-center gap-x-1 text-[0.875rem] text-[#f55]">
+                  <CiCircleCheck className="text-[1.4rem]" />
+                  <p>인증 완료</p>
+                </div> */}
+                      </div>
+
+                      <p
+                        className={`${
+                          userPhoneNumberInput.length !== 0
+                            ? "opacity-0"
+                            : "opacity-100"
+                        } ${
+                          userPhoneNumberInput.length === 0 && "opacity-100"
+                        } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                      >{`${
+                        userPhoneNumberInput.length === 0
+                          ? "핸드폰 번호를 입력해주세요."
+                          : ""
+                      }`}</p>
+                    </div>
+
+                    <div className="w-full mb-2">
+                      <label htmlFor="birth" className="font-bold">
+                        생일
+                      </label>
+                      <Input
+                        type="date"
+                        id="birth"
+                        placeholder="생일을 입력해주세요."
+                        onChange={(e) => {
+                          onUserBirthdayChange(e);
+                        }}
+                        value={userBirthdayInput}
+                      />
+                      <p
+                        className={`${
+                          userBirthdayInput.length !== 0
+                            ? "opacity-0"
+                            : "opacity-100"
+                        } ${
+                          userBirthdayInput.length === 0 && "opacity-100"
+                        } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                      >{`${
+                        userBirthdayInput.length === 0
+                          ? "생일을 입력해주세요."
+                          : ""
+                      }`}</p>
+                    </div>
+
+                    <div className="w-full mb-2">
+                      <label htmlFor="userSex" className="font-bold">
+                        성별
+                      </label>
+                      <InputCheckbox
+                        datas={datas}
+                        isChecked={isChecked}
+                        setIsChecked={setIsChecked}
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className="w-full mb-2">
                   {/* id로 로그인할 수 있도록 할 건지, 이메일로 로그인할 수 있도록 할 건지. */}
                   <label htmlFor="email" className="font-bold">
                     이메일
                   </label>
                   <Input
-                    type="email"
+                    type="text"
                     id="email"
                     placeholder={`${
                       content === "login"
@@ -298,9 +488,9 @@ function Auth() {
 
                   <p
                     className={`${
-                      emailIdentifyCheck ? "opacity-0" : "opacity-100"
-                    } ${
-                      emailInput.length === 0 && "opacity-100"
+                      emailInput.length !== 0 && emailIdentifyCheck
+                        ? "opacity-0"
+                        : "opacity-100"
                     } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
                   >{`${
                     emailInput.length !== 0 && emailIdentifyCheck
@@ -337,9 +527,11 @@ function Auth() {
                   />
                   <p
                     className={`${
-                      passwordIdentifyCheck ? "opacity-0" : "opacity-100"
-                    } ${
-                      passwordInput.length === 0 && "opacity-100"
+                      passwordInput.length === 0
+                        ? "opacity-100"
+                        : passwordIdentifyCheck
+                        ? "opacity-0"
+                        : "opacity-100"
                     } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
                   >{`${
                     passwordInput.length !== 0 && passwordIdentifyCheck
@@ -385,7 +577,7 @@ function Auth() {
                       }`}</p>
                     </div>
 
-                    <div className="w-full mb-8">
+                    <div className="w-full mb-2">
                       <label htmlFor="nickname" className="font-bold">
                         닉네임
                       </label>
@@ -400,17 +592,60 @@ function Auth() {
                       />
                       <p
                         className={`${
-                          nicknameInput.length !== 0
+                          nicknameInput.length !== 0 &&
+                          !nicknameInput.includes(" ")
                             ? "opacity-0"
                             : "opacity-100"
-                        } ${
-                          nicknameInput.length === 0 && "opacity-100"
                         } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
-                      >{`${
-                        nicknameInput.length === 0
-                          ? "닉네임을 입력해주세요."
-                          : ""
-                      }`}</p>
+                      >
+                        {`${
+                          nicknameInput.length === 0
+                            ? "닉네임을 입력해주세요."
+                            : nicknameInput.includes(" ")
+                            ? "공백은 사용할 수 없습니다."
+                            : ""
+                        }`}
+                      </p>
+                    </div>
+
+                    <div className="w-full mb-8">
+                      <label
+                        htmlFor="userInterestKeyword"
+                        className="font-bold"
+                      >
+                        관심 있는 키워드
+                        <span className="ml-1 text-[0.8rem] font-normal">
+                          (최대 5개 선택 가능)
+                        </span>
+                      </label>
+
+                      <div className="w-full mt-2 mb-4 flex items-center gap-x-2">
+                        <p className="text-[0.8125rem] font-thin">
+                          키워드에 맞는 콘텐츠를 추천해드려요!
+                        </p>
+
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            setKeywordListOpen((prev) => !prev);
+                          }}
+                          className="text-[1.4rem]"
+                        >
+                          {keywordListOpen ? (
+                            <FaCircleChevronUp className="text-[#ffc85b]" />
+                          ) : (
+                            <FaCircleChevronDown className="text-[#ffc85e]" />
+                          )}
+                        </button>
+                      </div>
+
+                      <InputCheckbox
+                        datas={keywordDatas}
+                        isCheckedList={isCheckedList}
+                        setIsCheckedList={setIsCheckedList}
+                        keywordListOpen={keywordListOpen}
+                      />
                     </div>
 
                     <div className="w-full mb-2">
@@ -418,7 +653,7 @@ function Auth() {
                         개인 정보 처리 및 마케팅 수신 동의
                       </label>
 
-                      <p className="mt-2 mb-4 text-[0.8125rem]">
+                      <p className="mt-2 mb-4 text-[0.8125rem] font-thin">
                         서비스 이용에 꼭 필요한 사항입니다.
                         <br />
                         정책 및 약관을 클릭해 모든 내용을 확인해주세요.

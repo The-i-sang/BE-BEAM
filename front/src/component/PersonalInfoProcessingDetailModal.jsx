@@ -32,8 +32,6 @@ export default function PersonalInfoProcessingDetailModal({
     }
   }, [modalOpen]);
 
-  console.log(modalContentRef.current);
-
   return (
     <div
       className={`${
