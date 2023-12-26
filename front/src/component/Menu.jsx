@@ -6,8 +6,6 @@ import { GoX } from "react-icons/go";
 export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
   const navigate = useNavigate();
 
-  console.log(sideBarOpen);
-
   return (
     <>
       <ul className="lg:w-[50%] sm:w-[58%] hidden sm:flex justify-between text-[#344054] dark:text-white lg:text-[1.25rem] md:text-[1.16rem] sm:text-[1.1rem] text-[1.1rem]">
