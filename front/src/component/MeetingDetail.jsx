@@ -12,7 +12,7 @@ import {
 import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
 
-export default function ActivityDetail() {
+export default function MeetingDetail() {
   const navigate = useNavigate();
 
   const {
