@@ -88,7 +88,7 @@ export default function Search() {
 
     if (data.type === "소모임" || data.type === "정기모임") {
       const activity = data;
-      navigate(`/activity/detail/${data.id}`, { state: { activity } });
+      navigate(`/meeting/detail/${data.id}`, { state: { activity } });
     } else if (data.type !== "소모임" || data.type !== "정기모임") {
       const toolkit = data;
       navigate(`/toolkit/detail/${data.id}`, { state: { toolkit } });

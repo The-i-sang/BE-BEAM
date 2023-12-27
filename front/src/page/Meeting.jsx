@@ -2,9 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
-import ActivityCard from "../component/ActivityCard";
+import MeetingCard from "../component/MeetingCard";
 import Typewriter from "typewriter-effect";
 
 import { AiFillSmile } from "react-icons/ai";
@@ -38,7 +38,6 @@ export default function Meeting() {
   ]);
 
   const [category, setCategory] = useState("모집 중");
-  const [filteredActivities, setFilteredActivities] = useState([]);
 
   const handleCategoryClick = (clickedCategory) => {
     setCategory(clickedCategory);
@@ -51,7 +50,7 @@ export default function Meeting() {
     setCategories(updatedCategories);
   };
 
-  useEffect(() => {
+  const filteredActivities = useMemo(() => {
     let filteredList = activities;
 
     if (category !== "All") {
@@ -60,7 +59,7 @@ export default function Meeting() {
       );
     }
 
-    setFilteredActivities(filteredList);
+    return filteredList;
   }, [category, activities]);
 
   useEffect(() => {
@@ -69,6 +68,8 @@ export default function Meeting() {
       { title: "모집 중", isActive: true },
       { title: "모집 마감", isActive: false },
     ]);
+
+    setCategory("모집 중");
   }, [content]);
 
   const recruiting =
@@ -222,22 +223,22 @@ export default function Meeting() {
         } w-full dark:bg-[#191919]`}
       >
         <ul className="w-11/12 mx-auto sm:py-10 py-6 sm:grid sm:grid-cols-2 sm:gap-x-6 gap-y-6">
-          <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem]">
-            {recruiting && recruitDeadline && category === "All"
-              ? "모임이 없어요...!"
-              : recruiting && category === "모집 중"
-              ? "현재 모집 중인 활동이 없어요...!"
-              : recruitDeadline && category === "모집 마감"
-              ? "모집 마감된 활동이 없어요...!"
-              : ""}
-          </p>
+          {filteredActivities?.length === 0 && (
+            <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem]">
+              {recruiting && recruitDeadline && category === "All"
+                ? "모임이 없어요...!"
+                : recruiting && category === "모집 중"
+                ? "현재 모집 중인 활동이 없어요...!"
+                : "모집 마감된 활동이 없어요...!"}
+            </p>
+          )}
 
           {isLoading && "Loading..."}
           {error && "An error has occurred...!"}
 
           {filteredActivities &&
             filteredActivities.map((activity) => {
-              return <ActivityCard key={activity.id} activity={activity} />;
+              return <MeetingCard key={activity.id} activity={activity} />;
             })}
         </ul>
       </div>

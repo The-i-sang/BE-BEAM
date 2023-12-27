@@ -5,7 +5,6 @@ import Detail from "./page/Detail";
 import Root from "./page/Root";
 import Toolkit from "./page/Toolkit";
 import Search from "./page/Search";
-import ActivityDetail from "./component/ActivityDetail";
 import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
 import Mypage from "./page/Mypage";
@@ -15,6 +14,7 @@ import { userState } from "./recoil/userState";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
 import Meeting from "./page/Meeting";
+import MeetingDetail from "./component/MeetingDetail";
 
 function App() {
   const [userIn, setUserIn] = useRecoilState(userState);
@@ -46,8 +46,8 @@ function App() {
           element: <Meeting />,
         },
         {
-          path: "/activity/detail/:id",
-          element: <ActivityDetail />,
+          path: "/meeting/detail/:id",
+          element: <MeetingDetail />,
         },
         { path: "/search", element: <Search /> },
         {
