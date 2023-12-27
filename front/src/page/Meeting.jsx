@@ -63,6 +63,14 @@ export default function Meeting() {
     setFilteredActivities(filteredList);
   }, [category, activities]);
 
+  useEffect(() => {
+    setCategories([
+      { title: "All", isActive: false },
+      { title: "모집 중", isActive: true },
+      { title: "모집 마감", isActive: false },
+    ]);
+  }, [content]);
+
   const recruiting =
     filteredActivities?.filter((activity) => activity.state === "모집 중")
       ?.length === 0;
@@ -214,17 +222,15 @@ export default function Meeting() {
         } w-full dark:bg-[#191919]`}
       >
         <ul className="w-11/12 mx-auto sm:py-10 py-6 sm:grid sm:grid-cols-2 sm:gap-x-6 gap-y-6">
-          {recruiting && recruitDeadline && category === "All" ? (
-            <p className="text-[1.1rem] mt-14">모임이 없어요...!</p>
-          ) : recruiting && category === "모집 중" ? (
-            <p className="text-[1.1rem] mt-14">
-              현재 모집 중인 활동이 없어요...!
-            </p>
-          ) : recruitDeadline && category === "모집 마감" ? (
-            <p className="text-[1.1rem]">모집 마감된 활동이 없어요...!</p>
-          ) : (
-            ""
-          )}
+          <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem]">
+            {recruiting && recruitDeadline && category === "All"
+              ? "모임이 없어요...!"
+              : recruiting && category === "모집 중"
+              ? "현재 모집 중인 활동이 없어요...!"
+              : recruitDeadline && category === "모집 마감"
+              ? "모집 마감된 활동이 없어요...!"
+              : ""}
+          </p>
 
           {isLoading && "Loading..."}
           {error && "An error has occurred...!"}
