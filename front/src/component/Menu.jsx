@@ -1,10 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { GoX } from "react-icons/go";
 
 export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const content = location.state?.content || "";
 
   return (
     <>
@@ -23,10 +25,10 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
         </li>
         <li
           onClick={() => {
-            navigate("/activity");
+            navigate("/meeting", { state: { content: "small_meeting" } });
           }}
           className={`${
-            path === "/activity"
+            content === "small_meeting"
               ? "text-white font-semibold before:opacity-100"
               : "before:opacity-0"
           } md:w-1/5 sm:w-[23%] py-2 before:absolute before:-inset-1 before:-skew-y-3 before:bg-orange-300 hover:before:opacity-100 relative inline-block cursor-pointer hover:font-semibold hover:text-white transition-all duration-700 before:transition-all before:duration-700`}
@@ -52,10 +54,10 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
 
         <li
           onClick={() => {
-            navigate("/community");
+            navigate("/meeting", { state: { content: "regular_meeting" } });
           }}
           className={`${
-            path === "/community"
+            content === "regular_meeting"
               ? "text-white font-semibold before:opacity-100"
               : "before:opacity-0"
           } md:w-1/5 sm:w-[23%] py-2 before:absolute before:-inset-1 before:-skew-y-3 before:bg-orange-300 hover:before:opacity-100 relative inline-block cursor-pointer hover:font-semibold hover:text-white transition-all duration-700 before:transition-all before:duration-700`}
@@ -93,7 +95,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           </li>
           <li
             onClick={() => {
-              navigate("/activity");
+              navigate("/meeting", { state: { content: "small_meeting" } });
               setSideBarOpen(false);
             }}
             className="cursor-pointer mt-10"
@@ -112,7 +114,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
 
           <li
             onClick={() => {
-              navigate("/community");
+              navigate("/meeting", { state: { content: "regular_meeting" } });
               setSideBarOpen(false);
             }}
             className="cursor-pointer mt-10"
