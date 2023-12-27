@@ -227,6 +227,7 @@ function Auth() {
     userBirthdayInput,
     userNameInput,
     userPhoneNumberInput,
+    isCheckedList,
   ]);
 
   useEffect(() => {
@@ -272,7 +273,7 @@ function Auth() {
     "랩",
     "발라드",
     "술",
-    "회화",
+    "독서",
     "연기",
     "패션",
   ];

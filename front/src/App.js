@@ -5,9 +5,7 @@ import Detail from "./page/Detail";
 import Root from "./page/Root";
 import Toolkit from "./page/Toolkit";
 import Search from "./page/Search";
-import Activity from "./page/Activity";
 import ActivityDetail from "./component/ActivityDetail";
-import Community from "./page/Community";
 import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
 import Mypage from "./page/Mypage";
@@ -16,6 +14,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "./recoil/userState";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
+import Meeting from "./page/Meeting";
 
 function App() {
   const [userIn, setUserIn] = useRecoilState(userState);
@@ -43,8 +42,8 @@ function App() {
       children: [
         { index: true, element: <Main /> },
         {
-          path: "/activity",
-          element: <Activity />,
+          path: "/meeting",
+          element: <Meeting />,
         },
         {
           path: "/activity/detail/:id",
@@ -60,10 +59,6 @@ function App() {
           element: <Detail />,
         },
         { path: "*", element: <NotFoundPage /> },
-        {
-          path: "/community",
-          element: <Community />,
-        },
         {
           path: "/applyForm",
           element: <ApplyForm />,
