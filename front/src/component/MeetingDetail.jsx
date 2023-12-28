@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { IoPeopleCircle } from "react-icons/io5";
@@ -11,6 +11,7 @@ import {
 } from "react-icons/bs";
 import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
+import MeetingApplyReasonModal from "./MeetingApplyReasonModal";
 
 export default function MeetingDetail() {
   const navigate = useNavigate();
@@ -19,6 +20,10 @@ export default function MeetingDetail() {
     state: { activity },
   } = useLocation();
   console.log(activity);
+
+  const [meetingApplyReasonModal, setMeetingApplyReasonModal] = useState(false);
+  //false : 모달 안보임
+  //모임 신청이유를 입력받는 모달 : 상태관리
 
   return (
     <div className="w-full pt-10 dark:bg-black dark:text-white font-light">
@@ -227,7 +232,8 @@ export default function MeetingDetail() {
               if (activity.state === "모집 마감") {
                 return;
               } else {
-                navigate("/applyForm");
+                // navigate("/applyForm");
+                setMeetingApplyReasonModal(true);
               }
             }}
             className="w-full flex-1 bg-[#282828] rounded-lg round text-white sm:text-[1rem] text-[0.875rem]"
@@ -244,6 +250,11 @@ export default function MeetingDetail() {
           </button>
         </div>
       </div>
+
+      <MeetingApplyReasonModal
+        meetingApplyReasonModal={meetingApplyReasonModal}
+        setMeetingApplyReasonModal={setMeetingApplyReasonModal}
+      />
     </div>
   );
 }
