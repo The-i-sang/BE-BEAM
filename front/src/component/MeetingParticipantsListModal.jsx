@@ -205,7 +205,7 @@ export default function MeetingParticipantsListModal({
             {currentPosts.map((post, index) => (
               <div
                 key={index}
-                className="w-full py-3 box-border flex items-center gap-x-2 text-left sm:text-[0.83rem] text-[0.8rem] word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
+                className="w-full py-3 box-border flex items-center gap-x-2 text-left sm:text-[0.83rem] text-[0.8rem] sm:font-normal font-thin word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
               >
                 <div className="w-1/12">
                   <HiddenCheckbox type="checkbox" id={`check-${index}`} />
