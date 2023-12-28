@@ -225,32 +225,32 @@ export default function MeetingParticipantsListModal({
                     </div>
                   </div>
                   <div className="sm:w-2/12 sm:mb-0 mb-1 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
                       E :{" "}
                     </p>
                     {post.email}
                   </div>
                   <div className="sm:w-2/12 sm:mb-0 mb-1 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
                       H.P :{" "}
                     </p>
                     {post.phoneNumber}
                   </div>
                   <div className="sm:w-1/12 sm:mb-0 mb-1 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
                       신청일 :{" "}
                     </p>
                     {post.applyDay}
                   </div>
                   <div className="sm:w-3/12 sm:bg-transparent sm:my-0 my-2 sm:p-0 p-2 box-border bg-[#ebebeb] rounded-md">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
                       신청 이유 :{" "}
                     </p>
                     {post.applyDes}
                   </div>
                   <div className="sm:w-1/12 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
-                      수락여부 :{" "}
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                      수락 여부 :{" "}
                     </p>
                     {post.YesOrNo}
                   </div>
