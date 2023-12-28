@@ -44,6 +44,24 @@ export const StyledCheckbox = styled.div`
   }
 `;
 
+export const StyledCheckbox2 = styled.div`
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #ccc;
+  background: ${(props) => (props.checked ? "black" : "white")};
+  border-radius: 10%;
+  transition: all 150ms;
+
+  ${HiddenCheckbox}:focus + & {
+    box-shadow: 0 0 0 3px gold;
+  }
+
+  ${Icon} {
+    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+  }
+`;
+
 export const StyledLabel = styled.label`
   font-size: 0.8rem;
   color: #333;

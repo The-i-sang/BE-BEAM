@@ -12,6 +12,9 @@ import { CiSearch } from "react-icons/ci";
 import styled, { keyframes } from "styled-components";
 import { fadeInRight } from "react-animations";
 
+import { HiddenCheckbox, Icon, StyledCheckbox2 } from "../StyledComponents";
+import { MdOutlineAlternateEmail } from "react-icons/md";
+
 const fadeInAnimation = keyframes`${fadeInRight}`;
 
 const FadeInDiv = styled.div`
@@ -27,7 +30,7 @@ export default function MeetingParticipantsListModal({
     useInput(searchNicknameState);
 
   // 임시 해당 모임 신청자 리스트
-  const userData = [
+  const [userData, setUserData] = useState([
     {
       name: "홍길동",
       sex: "남성",
@@ -127,7 +130,7 @@ export default function MeetingParticipantsListModal({
       applyDes: ".",
       YesOrNo: "수락",
     },
-  ];
+  ]);
 
   const [currentPage, setCurrentPage] = useState(1);
   // 한 페이지당 10개의 리스트를 보여줄 것.
@@ -198,22 +201,60 @@ export default function MeetingParticipantsListModal({
         {/* 거절돠어 넘어갈시 거절된 사용자에게 거절되었다는 카톡 전송. */}
 
         <div className="w-full">
-          <div className="w-full h-[56vh] overflow-y-scroll">
+          <div className="modalContentScroll2">
             {currentPosts.map((post, index) => (
               <div
                 key={index}
-                className={`${
-                  index === 0 ? "border-y" : "border-b"
-                } w-full h-[38px] py-2 box-border flex items-center text-left text-[0.875rem]`}
+                className="w-full py-3 box-border flex items-center gap-x-2 text-left sm:text-[0.83rem] text-[0.8rem] word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
               >
-                <div className="w-1/12 line-clamp-1">{index}</div>
-                <div className="w-1/12 line-clamp-1">{post.name}</div>
-                <div className="w-1/12 line-clamp-1">{post.sex}</div>
-                <div className="w-2/12 line-clamp-1">{post.email}</div>
-                <div className="w-2/12 line-clamp-1">{post.phoneNumber}</div>
-                <div className="w-1/12 line-clamp-1">{post.applyDay}</div>
-                <div className="w-3/12 line-clamp-1">{post.applyDes}</div>
-                <div className="w-1/12 line-clamp-1">{post.YesOrNo}</div>
+                <div className="w-1/12">
+                  <HiddenCheckbox type="checkbox" id={`check-${index}`} />
+                  <StyledCheckbox2>
+                    <Icon viewBox="0 0 24 24" className="scale-75">
+                      <polyline points="20 6 9 17 4 12" />
+                    </Icon>
+                  </StyledCheckbox2>
+                </div>
+                <div className="w-11/12 flex sm:flex-row flex-col">
+                  <div className="sm:w-2/12 flex flex-row sm:mb-0 mb-1">
+                    <div className="sm:w-6/12 sm:pr-0 pr-2 sm:font-normal font-semibold text-[0.83rem] ">
+                      {post.name}
+                    </div>
+                    <div className="sm:w-6/12 sm:pl-0 pl-2 sm:border-none border-l-[1px] border-solid border-[#d1d1d1] sm:text-[#000] text-[#c15d5d]">
+                      {post.sex}
+                    </div>
+                  </div>
+                  <div className="sm:w-2/12 sm:mb-0 mb-1 flex items-center">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                      E :{" "}
+                    </p>
+                    {post.email}
+                  </div>
+                  <div className="sm:w-2/12 sm:mb-0 mb-1 flex items-center">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                      H.P :{" "}
+                    </p>
+                    {post.phoneNumber}
+                  </div>
+                  <div className="sm:w-1/12 sm:mb-0 mb-1 flex items-center">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                      신청일 :{" "}
+                    </p>
+                    {post.applyDay}
+                  </div>
+                  <div className="sm:w-3/12 sm:bg-transparent sm:my-0 my-2 sm:p-0 p-2 box-border bg-[#ebebeb] rounded-md">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                      신청 이유 :{" "}
+                    </p>
+                    {post.applyDes}
+                  </div>
+                  <div className="sm:w-1/12 flex items-center">
+                    <p className="sm:hidden block sm:text-[#000] text-[#939393]">
+                      수락여부 :{" "}
+                    </p>
+                    {post.YesOrNo}
+                  </div>
+                </div>
               </div>
             ))}
           </div>

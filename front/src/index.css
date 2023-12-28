@@ -177,3 +177,29 @@ code {
 .modalContentScroll::-webkit-scrollbar-thumb:hover {
   background: #ffc35c; /* 스크롤바 핸들을 마우스로 가리킬 때의 색 */
 }
+
+.modalContentScroll2 {
+  width: 100%;
+  height: 56vh;
+  padding: 0 10px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+.modalContentScroll2::-webkit-scrollbar {
+  width: 8px; /* 스크롤바의 너비 */
+}
+
+.modalContentScroll2::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 스크롤바의 배경색 */
+  border-radius: 100px;
+}
+
+.modalContentScroll2::-webkit-scrollbar-thumb {
+  background: #ffc35c; /* 스크롤바 핸들(가로 또는 세로로 움직이는 부분)의 색 */
+  border-radius: 100px;
+}
+
+.modalContentScroll2::-webkit-scrollbar-thumb:hover {
+  background: #ffc35c; /* 스크롤바 핸들을 마우스로 가리킬 때의 색 */
+}
