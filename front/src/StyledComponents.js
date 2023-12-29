@@ -46,11 +46,11 @@ export const StyledCheckbox = styled.div`
 
 export const StyledCheckbox2 = styled.div`
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border: 1px solid #ccc;
   background: ${(props) => (props.checked ? "black" : "white")};
-  border-radius: 10%;
+  border-radius: 16%;
   transition: all 150ms;
 
   ${HiddenCheckbox}:focus + & {
