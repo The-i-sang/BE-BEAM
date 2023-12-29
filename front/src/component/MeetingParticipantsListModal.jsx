@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Input from "./Input";
 import useInput from "../customhook/useInput";
 
 import { searchNicknameState } from "../recoil/contentState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  CheckboxContainer,
+  HiddenCheckbox,
+  Icon,
+  StyledCheckbox2,
+} from "../StyledComponents";
+import styled, { keyframes } from "styled-components";
 
 import { GoX } from "react-icons/go";
-import { FaMeetup } from "react-icons/fa6";
-import { CiSearch } from "react-icons/ci";
+import { FaMeetup, FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
+import { CiSearch, CiSliderHorizontal } from "react-icons/ci";
+import { PiArrowsDownUpThin } from "react-icons/pi";
 
-import styled, { keyframes } from "styled-components";
 import { fadeInRight } from "react-animations";
-
-import { HiddenCheckbox, Icon, StyledCheckbox2 } from "../StyledComponents";
-import { MdOutlineAlternateEmail } from "react-icons/md";
-
 const fadeInAnimation = keyframes`${fadeInRight}`;
 
 const FadeInDiv = styled.div`
@@ -38,7 +41,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-5124-0540",
       applyDay: "2023-12-01",
       applyDes: "책책책을 읽자",
-      YesOrNo: "수락",
+      YesOrNo: false,
     },
     {
       name: "도경수",
@@ -47,7 +50,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-4270-5821",
       applyDay: "2023-12-02",
       applyDes: "노래가 좋아",
-      YesOrNo: "수락",
+      YesOrNo: false,
     },
     {
       name: "강아지",
@@ -56,7 +59,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-8859-4444",
       applyDay: "2023-12-11",
       applyDes: "헤헷",
-      YesOrNo: "거절",
+      YesOrNo: false,
     },
     {
       name: "사람",
@@ -65,7 +68,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-1720-4875",
       applyDay: "2023-12-11",
       applyDes: "헤헷",
-      YesOrNo: "거절",
+      YesOrNo: false,
     },
     {
       name: "어린아이",
@@ -74,7 +77,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-2983-1580",
       applyDay: "2023-12-15",
       applyDes: "헤헷",
-      YesOrNo: "거절",
+      YesOrNo: false,
     },
     {
       name: "오리",
@@ -83,7 +86,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-2158-4320",
       applyDay: "2023-12-18",
       applyDes: "헤헷",
-      YesOrNo: "거절",
+      YesOrNo: false,
     },
     {
       name: "하기싫다",
@@ -91,8 +94,9 @@ export default function MeetingParticipantsListModal({
       email: "npppppppp@theIsang.com",
       phoneNumber: "010-1254-1200",
       applyDay: "2023-12-20",
-      applyDes: "헤헷",
-      YesOrNo: "수락",
+      applyDes:
+        "다양한 사람들도 만나보고 여러 가지 경험을 해보고 싶어서 지원했습니다.",
+      YesOrNo: false,
     },
     {
       name: "개발자",
@@ -101,7 +105,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-1500-2700",
       applyDay: "2023-12-20",
       applyDes: "적을 말이 없어요",
-      YesOrNo: "수락",
+      YesOrNo: false,
     },
     {
       name: "ㅇㄹㅇㄹㅇㄹㅇㄹ",
@@ -110,7 +114,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-5453-1557",
       applyDay: "2023-12-21",
       applyDes: "dvrgegefw",
-      YesOrNo: "거절",
+      YesOrNo: false,
     },
     {
       name: "외국인",
@@ -119,7 +123,7 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-7875-1510",
       applyDay: "2023-12-23",
       applyDes: "erknewkreojwl",
-      YesOrNo: "거절",
+      YesOrNo: false,
     },
     {
       name: "유승민",
@@ -128,7 +132,16 @@ export default function MeetingParticipantsListModal({
       phoneNumber: "010-5220-2817",
       applyDay: "2023-12-25",
       applyDes: ".",
-      YesOrNo: "수락",
+      YesOrNo: false,
+    },
+    {
+      name: "아야어여오요",
+      sex: "남성",
+      email: "arrrrrrrrrrrrrrrrr@naver.com",
+      phoneNumber: "010-7800-5903",
+      applyDay: "2023-12-27",
+      applyDes: "안녕하세요. 꼭 참여하고 싶어요",
+      YesOrNo: false,
     },
   ]);
 
@@ -144,13 +157,163 @@ export default function MeetingParticipantsListModal({
     pageNumbers.push(i);
   }
 
+  const filterTitle = ["이름", "이메일", "전화번호", "신청일"];
+
+  const [filterName, setFilterName] = useState("");
+  const [filterCount, setFilterCount] = useState([
+    { name: "이름", count: 0 },
+    { name: "이메일", count: 0 },
+    { name: "전화번호", count: 0 },
+    { name: "신청일", count: 0 },
+  ]);
+
+  const filterData = useMemo(() => {
+    let tempData = [...userData];
+    const filter = filterCount.find((item) => item.name === filterName);
+
+    if (filter) {
+      const { count } = filter;
+
+      if (count % 2 !== 0) {
+        switch (filterName) {
+          case "이름":
+            tempData.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+          case "이메일":
+            tempData.sort((a, b) => a.email.localeCompare(b.email));
+            break;
+          case "전화번호":
+            tempData.sort(
+              (a, b) =>
+                a.phoneNumber.replace(/[-.]/g, "") -
+                b.phoneNumber.replace(/[-.]/g, "")
+            );
+            break;
+          case "신청일":
+            tempData.sort(
+              (a, b) =>
+                a.applyDay.replace(/[-.]/g, "") -
+                b.applyDay.replace(/[-.]/g, "")
+            );
+            break;
+          default:
+            break;
+        }
+      } else {
+        switch (filterName) {
+          case "이름":
+            tempData.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+          case "이메일":
+            tempData.sort((a, b) => b.email.localeCompare(a.email));
+            break;
+          case "전화번호":
+            tempData.sort(
+              (a, b) =>
+                b.phoneNumber.replace(/[-.]/g, "") -
+                a.phoneNumber.replace(/[-.]/g, "")
+            );
+            break;
+          case "신청일":
+            tempData.sort(
+              (a, b) =>
+                b.applyDay.replace(/[-.]/g, "") -
+                a.applyDay.replace(/[-.]/g, "")
+            );
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    return tempData;
+  }, [userData, filterName, filterCount]);
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = userData?.slice(indexOfFirstPost, indexOfLastPost);
-  console.log(currentPosts);
+  const currentPosts = filterData?.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(filterCount);
 
   // 페이지네이션 버튼 클릭 이벤트
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // 이용 약관 동의 useState
+  const [allCheck, setAllCheck] = useState(false);
+  const [allCheckCount, setAllCheckCount] = useState(0);
+  const [check, setCheck] = useState([]);
+
+  const allBtnEvent = () => {
+    setAllCheckCount((prev) => prev + 1);
+
+    if (allCheck === false) {
+      setAllCheck(true);
+
+      if (allCheckCount === 0) {
+        for (let i = 0; i < filterData?.length; i++) {
+          if (check?.findIndex((el) => el.title === `check-${i}`) === -1) {
+            setCheck((prev) => [...prev, { title: `check-${i}`, state: true }]);
+          }
+        }
+      } else {
+        setCheck((prev) =>
+          prev?.map((check) => {
+            return { ...check, state: true };
+          })
+        );
+      }
+    } else {
+      setAllCheck(false);
+
+      setCheck((prev) =>
+        prev?.map((check) => {
+          return { ...check, state: false };
+        })
+      );
+    }
+  };
+
+  const checkBtnEvent = (index) => {
+    if (check?.findIndex((el) => el.title === `check-${index}`) === -1) {
+      setCheck((prev) => [...prev, { title: `check-${index}`, state: true }]);
+    } else {
+      setCheck((prev) =>
+        prev?.map((el) => {
+          if (el.title === `check-${index}`) {
+            return { ...el, state: !el.state };
+          } else {
+            return el;
+          }
+        })
+      );
+    }
+  };
+
+  // 신청을 받을 수 있는 인원(임시).
+  const peopleLimitCount = 6;
+  // 신청을 받을 수 있는 남은 인원.
+  const remainPeopleLimitCount =
+    peopleLimitCount -
+    userData?.filter((user) => user.YesOrNo === true)?.length;
+
+  // 체크박스 상태가 true인 항목의 index를 찾음.
+  const checkedIndexes = check?.reduce((acc, cur, index) => {
+    if (cur.state) {
+      acc.push(index);
+    }
+    return acc;
+  }, []);
+
+  const [searchResult, setSearchResult] = useState([]);
+
+  useEffect(() => {
+    if (searchNicknameInput !== "") {
+      const regex = new RegExp([...searchNicknameInput].join("\\s*"), "i");
+      const result = userData.filter((user) => regex.test(user.name));
+      setSearchResult(result); // 검색 결과를 searchResult 상태에 저장
+    } else {
+      setSearchResult([]); // 검색창이 비어있을 경우, 검색 결과를 비움
+    }
+  }, [searchNicknameInput, userData]);
 
   return (
     <div
@@ -185,7 +348,7 @@ export default function MeetingParticipantsListModal({
           <Input
             type="text"
             id="search"
-            placeholder="검색어를 입력하세요."
+            placeholder="검색할 닉네임을 입력하세요."
             onChange={(e) => {
               onSearchNicknameChange(e);
             }}
@@ -194,69 +357,367 @@ export default function MeetingParticipantsListModal({
           <CiSearch className="text-[1.4rem] text-[#f58d15] absolute top-[38%] left-4" />
         </div>
 
-        {/* table 위에 filter 따로 추가 */}
-        <div className="w-full mt-4 py-2">filter area</div>
+        <div className="w-full mt-4 px-[0.625rem] py-3 box-border bg-[#ebebeb] rounded-lg flex items-center text-[0.75rem] text-[#525252]">
+          <div className="w-[5%] flex items-center">
+            <CheckboxContainer onClick={allBtnEvent}>
+              <HiddenCheckbox
+                type="checkbox"
+                id="all-check"
+                checked={allCheck}
+              />
+              <StyledCheckbox2 checked={allCheck} onChange={allBtnEvent}>
+                <Icon viewBox="0 0 24 24" className="scale-75">
+                  <polyline points="20 6 9 17 4 12" />
+                </Icon>
+              </StyledCheckbox2>
+            </CheckboxContainer>
+          </div>
 
-        {/* 수락돠어 넘어갈시 수락된 사용자에게 오픈채팅방 링크와 함께 수락되었다는 카톡 전송. */}
-        {/* 거절돠어 넘어갈시 거절된 사용자에게 거절되었다는 카톡 전송. */}
+          <div className="w-[95%] flex items-center justify-between gap-x-10">
+            <div className="w-[20%] flex items-center gap-x-1">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  // YesOrNo가 false인 userData의 index만을 가진 새로운 checkedIndexes를 만듦.
+                  const isCheckedIndexes = checkedIndexes.filter(
+                    (index) => !userData[index].YesOrNo
+                  );
+                  console.log(
+                    isCheckedIndexes,
+                    checkedIndexes,
+                    check,
+                    userData
+                  );
+
+                  if (remainPeopleLimitCount >= isCheckedIndexes?.length) {
+                    // 체크된 index에 해당하는 userData의 YesOrNo를 true로 변경.
+                    const newUserData = userData.map((user, index) => {
+                      if (isCheckedIndexes.includes(index)) {
+                        return { ...user, YesOrNo: true };
+                      }
+                      return user;
+                    });
+
+                    // userData를 업데이트.
+                    setUserData(newUserData);
+                  } else {
+                    alert(`${remainPeopleLimitCount}명 내에서 수락해주세요.`);
+                  }
+                }}
+              >
+                신청 수락
+              </button>
+              <p className="text-[#ababab]">/</p>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  // 체크된 index에 해당하는 userData의 YesOrNo를 true로 변경.
+                  const newUserData = userData.map((user, index) => {
+                    if (checkedIndexes.includes(index)) {
+                      return { ...user, YesOrNo: false };
+                    }
+                    return user;
+                  });
+
+                  // userData를 업데이트.
+                  setUserData(newUserData);
+                }}
+              >
+                신청 거절
+              </button>
+            </div>
+
+            {filterTitle?.map((filter) => {
+              return (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    setFilterName(filter);
+
+                    setFilterCount((prev) =>
+                      prev?.map((f) => {
+                        if (f.name === filter) {
+                          return { ...f, count: f.count + 1 };
+                        } else {
+                          return f;
+                        }
+                      })
+                    );
+                  }}
+                  className="w-[20%] flex items-center gap-x-4 text-[1rem] text-[#a0a0a0]"
+                >
+                  <p className="text-[0.8125rem] text-[#707070] font-semibold">
+                    {filter}
+                  </p>
+                  <CiSliderHorizontal />
+
+                  {filter === filterName &&
+                  filterCount?.filter((f) => f.name === filterName)[0].count %
+                    2 !==
+                    0 ? (
+                    <FaArrowDownLong className="text-[0.75rem] text-[#ffb22d]" />
+                  ) : filter === filterName &&
+                    filterCount?.filter((f) => f.name === filterName)[0].count %
+                      2 ===
+                      0 ? (
+                    <FaArrowUpLong className="text-[0.75rem] text-[#ffb22d]" />
+                  ) : (
+                    <PiArrowsDownUpThin />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 수락돠어 넘어갈시 수락된 사용자에게 수락되었으니 언제까지 입금하라는 알림 / 문자 / 카톡 전송. */}
 
         <div className="w-full">
           <div className="modalContentScroll2">
-            {currentPosts.map((post, index) => (
-              <div
-                key={index}
-                className="w-full py-3 box-border flex items-center gap-x-2 text-left sm:text-[0.83rem] text-[0.8rem] sm:font-normal font-thin word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
-              >
-                <div className="w-1/12">
-                  <HiddenCheckbox type="checkbox" id={`check-${index}`} />
-                  <StyledCheckbox2>
-                    <Icon viewBox="0 0 24 24" className="scale-75">
-                      <polyline points="20 6 9 17 4 12" />
-                    </Icon>
-                  </StyledCheckbox2>
-                </div>
-                <div className="w-11/12 flex sm:flex-row flex-col">
-                  <div className="sm:w-2/12 flex flex-row sm:mb-0 mb-1">
-                    <div className="sm:w-6/12 sm:pr-0 pr-2 sm:font-normal font-semibold text-[0.83rem] ">
-                      {post.name}
+            {searchNicknameInput?.length !== 0
+              ? searchResult?.map((post, index) => (
+                  <div
+                    key={index}
+                    className="w-full py-3 box-border flex items-center gap-x-1 text-left sm:text-[0.83rem] text-[0.8rem] sm:font-normal font-thin word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
+                  >
+                    <div className="w-[5%] flex items-center">
+                      <CheckboxContainer onClick={() => checkBtnEvent(index)}>
+                        <HiddenCheckbox
+                          type="checkbox"
+                          id={`check-${index}`}
+                          checked={
+                            check[
+                              check?.findIndex(
+                                (el) => el.title === `check-${index}`
+                              )
+                            ]?.state
+                          }
+                        />
+                        <StyledCheckbox2
+                          checked={
+                            check[
+                              check?.findIndex(
+                                (el) => el.title === `check-${index}`
+                              )
+                            ]?.state
+                          }
+                          onChange={() => checkBtnEvent(index)}
+                        >
+                          <Icon viewBox="0 0 24 24" className="scale-75">
+                            <polyline points="20 6 9 17 4 12" />
+                          </Icon>
+                        </StyledCheckbox2>
+                      </CheckboxContainer>
                     </div>
-                    <div className="sm:w-6/12 sm:pl-0 pl-2 sm:border-none border-l-[1px] border-solid border-[#d1d1d1] sm:text-[#000] text-[#c15d5d]">
-                      {post.sex}
+                    <div className="w-[95%] flex sm:flex-row flex-col sm:items-center justify-center">
+                      <div className="sm:w-[20%] flex flex-row sm:mb-0 mb-1">
+                        <div className="sm:w-[70%] sm:pr-0 pr-2 sm:font-normal font-semibold text-[0.83rem] ">
+                          {post.name}
+                        </div>
+                        <div className="sm:w-[30%] sm:pl-0 pl-2 sm:border-none border-l-[1px] border-solid border-[#d1d1d1] sm:text-[#000] text-[#c15d5d]">
+                          {post.sex}
+                        </div>
+                      </div>
+
+                      <div className="sm:w-[15%] sm:mb-0 mb-1 flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          E :{" "}
+                        </p>
+                        {post.email}
+                      </div>
+
+                      <div className="sm:w-[12%] sm:mb-0 mb-1 flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          H.P :{" "}
+                        </p>
+                        {post.phoneNumber}
+                      </div>
+
+                      <div className="sm:w-[10%] sm:mb-0 mb-1 flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          신청일 :{" "}
+                        </p>
+                        {post.applyDay}
+                      </div>
+
+                      <div className="sm:w-[20%] sm:bg-transparent sm:my-0 my-2 sm:p-0 p-2 box-border bg-[#ebebeb] rounded-md">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          신청 이유 :{" "}
+                        </p>
+                        {post.applyDes}
+                      </div>
+
+                      <div className="sm:w-[18%] sm:my-0 my-1 flex sm:flex-col flex-row sm:items-start items-center sm:gap-y-1 gap-x-1 text-[0.75rem]">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            setUserData((prev) =>
+                              prev?.map((user, idx) => {
+                                if (idx === index) {
+                                  return { ...user, YesOrNo: true };
+                                } else {
+                                  return user;
+                                }
+                              })
+                            );
+                          }}
+                          className="px-4 py-1 box-border border-[1px] border-solid border-[#282828] rounded-sm bg-[#282828] text-white"
+                        >
+                          신청 수락
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            setUserData((prev) =>
+                              prev?.map((user, idx) => {
+                                if (idx === index) {
+                                  return { ...user, YesOrNo: false };
+                                } else {
+                                  return user;
+                                }
+                              })
+                            );
+                          }}
+                          className="px-4 py-1 box-border border-[1px] border-solid border-[#bebebe] rounded-sm"
+                        >
+                          신청 거절
+                        </button>
+                      </div>
+
+                      <div className="sm:w-[5%] flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          수락 여부 :{" "}
+                        </p>
+                        {post.YesOrNo === false ? "거절" : "수락"}
+                      </div>
                     </div>
                   </div>
-                  <div className="sm:w-2/12 sm:mb-0 mb-1 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                      E :{" "}
-                    </p>
-                    {post.email}
+                ))
+              : currentPosts?.map((post, index) => (
+                  <div
+                    key={index}
+                    className="w-full py-3 box-border flex items-center gap-x-1 text-left sm:text-[0.83rem] text-[0.8rem] sm:font-normal font-thin word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
+                  >
+                    <div className="w-[5%] flex items-center">
+                      <CheckboxContainer onClick={() => checkBtnEvent(index)}>
+                        <HiddenCheckbox
+                          type="checkbox"
+                          id={`check-${index}`}
+                          checked={
+                            check[
+                              check?.findIndex(
+                                (el) => el.title === `check-${index}`
+                              )
+                            ]?.state
+                          }
+                        />
+                        <StyledCheckbox2
+                          checked={
+                            check[
+                              check?.findIndex(
+                                (el) => el.title === `check-${index}`
+                              )
+                            ]?.state
+                          }
+                          onChange={() => checkBtnEvent(index)}
+                        >
+                          <Icon viewBox="0 0 24 24" className="scale-75">
+                            <polyline points="20 6 9 17 4 12" />
+                          </Icon>
+                        </StyledCheckbox2>
+                      </CheckboxContainer>
+                    </div>
+                    <div className="w-[95%] flex sm:flex-row flex-col sm:items-center justify-center">
+                      <div className="sm:w-[20%] flex flex-row sm:mb-0 mb-1">
+                        <div className="sm:w-[70%] sm:pr-0 pr-2 sm:font-normal font-semibold text-[0.83rem] ">
+                          {post.name}
+                        </div>
+                        <div className="sm:w-[30%] sm:pl-0 pl-2 sm:border-none border-l-[1px] border-solid border-[#d1d1d1] sm:text-[#000] text-[#c15d5d]">
+                          {post.sex}
+                        </div>
+                      </div>
+
+                      <div className="sm:w-[15%] sm:mb-0 mb-1 flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          E :{" "}
+                        </p>
+                        {post.email}
+                      </div>
+
+                      <div className="sm:w-[12%] sm:mb-0 mb-1 flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          H.P :{" "}
+                        </p>
+                        {post.phoneNumber}
+                      </div>
+
+                      <div className="sm:w-[10%] sm:mb-0 mb-1 flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          신청일 :{" "}
+                        </p>
+                        {post.applyDay}
+                      </div>
+
+                      <div className="sm:w-[20%] sm:bg-transparent sm:my-0 my-2 sm:p-0 p-2 box-border bg-[#ebebeb] rounded-md">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          신청 이유 :{" "}
+                        </p>
+                        {post.applyDes}
+                      </div>
+
+                      <div className="sm:w-[18%] sm:my-0 my-1 flex sm:flex-col flex-row sm:items-start items-center sm:gap-y-1 gap-x-1 text-[0.75rem]">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            setUserData((prev) =>
+                              prev?.map((user, idx) => {
+                                if (idx === index) {
+                                  return { ...user, YesOrNo: true };
+                                } else {
+                                  return user;
+                                }
+                              })
+                            );
+                          }}
+                          className="px-4 py-1 box-border border-[1px] border-solid border-[#282828] rounded-sm bg-[#282828] text-white"
+                        >
+                          신청 수락
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+
+                            setUserData((prev) =>
+                              prev?.map((user, idx) => {
+                                if (idx === index) {
+                                  return { ...user, YesOrNo: false };
+                                } else {
+                                  return user;
+                                }
+                              })
+                            );
+                          }}
+                          className="px-4 py-1 box-border border-[1px] border-solid border-[#bebebe] rounded-sm"
+                        >
+                          신청 거절
+                        </button>
+                      </div>
+
+                      <div className="sm:w-[5%] flex items-center">
+                        <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                          수락 여부 :{" "}
+                        </p>
+                        {post.YesOrNo === false ? "거절" : "수락"}
+                      </div>
+                    </div>
                   </div>
-                  <div className="sm:w-2/12 sm:mb-0 mb-1 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                      H.P :{" "}
-                    </p>
-                    {post.phoneNumber}
-                  </div>
-                  <div className="sm:w-1/12 sm:mb-0 mb-1 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                      신청일 :{" "}
-                    </p>
-                    {post.applyDay}
-                  </div>
-                  <div className="sm:w-3/12 sm:bg-transparent sm:my-0 my-2 sm:p-0 p-2 box-border bg-[#ebebeb] rounded-md">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                      신청 이유 :{" "}
-                    </p>
-                    {post.applyDes}
-                  </div>
-                  <div className="sm:w-1/12 flex items-center">
-                    <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                      수락 여부 :{" "}
-                    </p>
-                    {post.YesOrNo}
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
           </div>
           <div className="flex justify-center mt-4">
             {pageNumbers.map((number) => (
