@@ -35,6 +35,7 @@ export default function MeetingParticipantsListModal({
   // 임시 해당 모임 신청자 리스트
   const [userData, setUserData] = useState([
     {
+      pk: "1", // PK = Primary Key
       name: "홍길동",
       sex: "남성",
       email: "hong@theIsang.com",
@@ -44,6 +45,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "2",
       name: "도경수",
       sex: "남성",
       email: "DO@theIsang.com",
@@ -53,6 +55,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "3",
       name: "강아지",
       sex: "여성",
       email: "DOG@theIsang.com",
@@ -62,6 +65,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "4",
       name: "사람",
       sex: "여성",
       email: "person@theIsang.com",
@@ -71,6 +75,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "5",
       name: "어린아이",
       sex: "여성",
       email: "child@theIsang.com",
@@ -80,6 +85,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "6",
       name: "오리",
       sex: "여성",
       email: "duck@theIsang.com",
@@ -89,6 +95,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "7",
       name: "하기싫다",
       sex: "여성",
       email: "npppppppp@theIsang.com",
@@ -99,6 +106,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "8",
       name: "개발자",
       sex: "여성",
       email: "fjdjs@theIsang.com",
@@ -108,6 +116,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "9",
       name: "ㅇㄹㅇㄹㅇㄹㅇㄹ",
       sex: "여성",
       email: "dfdgrgrf@theIsang.com",
@@ -117,6 +126,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "10",
       name: "외국인",
       sex: "여성",
       email: "wdwefefdx@theIsang.com",
@@ -126,6 +136,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "11",
       name: "유승민",
       sex: "여성",
       email: "dnjfht@naver.com",
@@ -135,6 +146,7 @@ export default function MeetingParticipantsListModal({
       YesOrNo: false,
     },
     {
+      pk: "12",
       name: "아야어여오요",
       sex: "남성",
       email: "arrrrrrrrrrrrrrrrr@naver.com",
@@ -169,11 +181,14 @@ export default function MeetingParticipantsListModal({
 
   const filterData = useMemo(() => {
     let tempData = [...userData];
+
     const filter = filterCount.find((item) => item.name === filterName);
 
     if (searchNicknameInput !== "") {
       const regex = new RegExp([...searchNicknameInput].join("\\s*"), "i");
       tempData = tempData.filter((user) => regex.test(user.name));
+    } else {
+      tempData = [...userData];
     }
 
     if (filter) {
@@ -254,8 +269,14 @@ export default function MeetingParticipantsListModal({
 
       if (allCheckCount === 0) {
         for (let i = 0; i < filterData?.length; i++) {
-          if (check?.findIndex((el) => el.title === `check-${i}`) === -1) {
-            setCheck((prev) => [...prev, { title: `check-${i}`, state: true }]);
+          const user = filterData[i];
+          if (
+            check?.findIndex((el) => el.title === `check-${user.pk}`) === -1
+          ) {
+            setCheck((prev) => [
+              ...prev,
+              { title: `check-${user.pk}`, state: true },
+            ]);
           }
         }
       } else {
@@ -276,13 +297,13 @@ export default function MeetingParticipantsListModal({
     }
   };
 
-  const checkBtnEvent = (index) => {
-    if (check?.findIndex((el) => el.title === `check-${index}`) === -1) {
-      setCheck((prev) => [...prev, { title: `check-${index}`, state: true }]);
+  const checkBtnEvent = (pk) => {
+    if (check?.findIndex((el) => el.title === `check-${pk}`) === -1) {
+      setCheck((prev) => [...prev, { title: `check-${pk}`, state: true }]);
     } else {
       setCheck((prev) =>
         prev?.map((el) => {
-          if (el.title === `check-${index}`) {
+          if (el.title === `check-${pk}`) {
             return { ...el, state: !el.state };
           } else {
             return el;
@@ -302,7 +323,7 @@ export default function MeetingParticipantsListModal({
   // 체크박스 상태가 true인 항목의 index를 찾음.
   const checkedIndexes = check?.reduce((acc, cur) => {
     if (cur.state) {
-      const index = parseInt(cur.title.split("-")[1], 10);
+      const index = cur.title.split("-")[1];
       acc.push(index);
     }
     return acc;
@@ -374,13 +395,18 @@ export default function MeetingParticipantsListModal({
 
                   // YesOrNo가 false인 userData의 index만을 가진 새로운 checkedIndexes를 만듦.
                   const isCheckedIndexes = checkedIndexes.filter(
-                    (index) => !userData[index].YesOrNo
+                    (index) =>
+                      !userData[
+                        userData?.findIndex((data) => data.pk === index)
+                      ].YesOrNo
                   );
+
+                  console.log(checkedIndexes, isCheckedIndexes, userData);
 
                   if (remainPeopleLimitCount >= isCheckedIndexes?.length) {
                     // 체크된 index에 해당하는 userData의 YesOrNo를 true로 변경.
-                    const newUserData = filterData.map((user, index) => {
-                      if (isCheckedIndexes.includes(index)) {
+                    const newUserData = userData?.map((user) => {
+                      if (isCheckedIndexes.includes(user.pk)) {
                         return { ...user, YesOrNo: true };
                       }
                       return user;
@@ -400,9 +426,11 @@ export default function MeetingParticipantsListModal({
                 onClick={(e) => {
                   e.preventDefault();
 
+                  console.log(checkedIndexes);
+
                   // 체크된 index에 해당하는 userData의 YesOrNo를 true로 변경.
-                  const newUserData = filterData.map((user, index) => {
-                    if (checkedIndexes.includes(index)) {
+                  const newUserData = userData?.map((user) => {
+                    if (checkedIndexes.includes(user.pk)) {
                       return { ...user, YesOrNo: false };
                     }
                     return user;
@@ -466,18 +494,18 @@ export default function MeetingParticipantsListModal({
           <div className="modalContentScroll2">
             {currentPosts?.map((post, index) => (
               <div
-                key={index}
+                key={post.pk}
                 className="w-full py-3 box-border flex items-center gap-x-1 text-left sm:text-[0.83rem] text-[0.8rem] sm:font-normal font-thin word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
               >
                 <div className="w-[5%] flex items-center">
-                  <CheckboxContainer onClick={() => checkBtnEvent(index)}>
+                  <CheckboxContainer onClick={() => checkBtnEvent(post.pk)}>
                     <HiddenCheckbox
                       type="checkbox"
-                      id={`check-${index}`}
+                      id={`check-${post.pk}`}
                       checked={
                         check[
                           check?.findIndex(
-                            (el) => el.title === `check-${index}`
+                            (el) => el.title === `check-${post.pk}`
                           )
                         ]?.state
                       }
@@ -486,11 +514,11 @@ export default function MeetingParticipantsListModal({
                       checked={
                         check[
                           check?.findIndex(
-                            (el) => el.title === `check-${index}`
+                            (el) => el.title === `check-${post.pk}`
                           )
                         ]?.state
                       }
-                      onChange={() => checkBtnEvent(index)}
+                      onChange={() => checkBtnEvent(post.pk)}
                     >
                       <Icon viewBox="0 0 24 24" className="scale-75">
                         <polyline points="20 6 9 17 4 12" />
@@ -545,10 +573,7 @@ export default function MeetingParticipantsListModal({
 
                         setUserData((prev) =>
                           prev?.map((user) => {
-                            if (
-                              user.name === post.name &&
-                              user.phoneNumber === post.phoneNumber
-                            ) {
+                            if (user.pk === post.pk) {
                               return { ...user, YesOrNo: true };
                             } else {
                               return user;
@@ -566,10 +591,7 @@ export default function MeetingParticipantsListModal({
 
                         setUserData((prev) =>
                           prev?.map((user) => {
-                            if (
-                              user.name === post.name &&
-                              user.phoneNumber === post.phoneNumber
-                            ) {
+                            if (user.pk === post.pk) {
                               return { ...user, YesOrNo: false };
                             } else {
                               return user;
