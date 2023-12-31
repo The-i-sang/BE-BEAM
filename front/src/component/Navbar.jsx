@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CiSearch, CiLogin } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
+import { BsPersonLock } from "react-icons/bs";
 import Menu from "./Menu";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
@@ -102,7 +103,8 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
                   navigate("/auth", { state: { content } });
                 }}
               >
-                <CiLogin />
+                
+                <BsPersonLock />
               </button>
             ) : (
               <div
