@@ -3,6 +3,8 @@ import img3 from "../assets/3.png";
 import img4 from "../assets/4.png";
 import img5 from "../assets/5.png";
 import img6 from "../assets/6.png";
+import Popup from "../component/Popup";
+
 
 export default function Main() {
   const [scrollHeight, setScrollHeight] = useState(0);
@@ -16,10 +18,27 @@ export default function Main() {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+
+  const [popupOn, setPopupOn] = useState(false);
+
+
+  useEffect(()=>{
+    setPopupOn(true);
+    
+  }, []);
+
+
+
+  console.log(popupOn);
   console.log(scrollHeight);
 
   return (
     <div className="w-full mx-auto pt-4 sm:pb-32 pb-20 dark:bg-black dark:text-white">
+
+      {popupOn===true? <Popup setPopupOn={setPopupOn} />: <></>}
+
+
       <div className="w-full relative">
         <div
           className={`${
