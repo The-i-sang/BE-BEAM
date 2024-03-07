@@ -238,7 +238,7 @@ export default function UserInfoModify() {
             }}
             buttonText="정보 수정"
             disabled={dataComeIn ? false : true}
-            dataComeIn={dataComeIn}
+            buttonDisabledStyle={!dataComeIn}
           />
         </div>
       </div>

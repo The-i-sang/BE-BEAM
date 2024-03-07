@@ -57,7 +57,7 @@ export default function MeetingApplyReasonModal({
         <Button
           buttonText="신청하기"
           disabled={!meetingApplyReasonInput.length > 0}
-          meetingApplyReasonInput={meetingApplyReasonInput}
+          buttonDisabledStyle={meetingApplyReasonInput.length === 0}
         />
       </div>
     </div>

@@ -85,9 +85,11 @@ export default function MypageMyProfile() {
 
             navigate("/mypage/userInfoModify");
           }}
+          type="button"
           buttonText="개인 정보 수정"
-          disabled={false}
-        />
+        >
+          개인 정보 수정
+        </Button>
       </div>
     </div>
   );

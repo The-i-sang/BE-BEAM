@@ -57,9 +57,9 @@ export default function MeetingDetail() {
         </ul>
       </div>
 
-      <div className="w-11/12 mx-auto md:mt-16 sm:mt-8 mt-8 sm:mb-12 mb-5 flex md:flex-row sm:flex-col flex-col">
+      <div className="w-11/12 sm:max-w-[1400px] mx-auto md:mt-16 sm:mt-8 mt-8 sm:mb-12 mb-5 flex md:flex-row sm:flex-col flex-col">
         <img
-          className="lg:w-[600px] md:w-[460px] sm:w-full object-cover object-center"
+          className="lg:w-[600px] md:w-[460px] sm:w-full object-cover object-center rounded-lg"
           src={process.env.PUBLIC_URL + activity.thumbnail.replace("./", "/")}
           alt="img"
         />
@@ -72,7 +72,7 @@ export default function MeetingDetail() {
       </div>
 
       <div className="w-full bg-[#f6f6f6] dark:bg-[#191919]">
-        <div className="w-11/12 mx-auto sm:py-14 pt-5 pb-10 flex flex-col items-start">
+        <div className="w-11/12 sm:max-w-[1400px] mx-auto sm:py-14 pt-5 pb-10 flex flex-col items-start">
           <h1 className="sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
             모임소개
           </h1>
@@ -92,7 +92,7 @@ export default function MeetingDetail() {
       </div>
 
       <div className="w-full border-b-[1px] border-solid border-[#d0d0d0] dark:border-[#444] flex gap-x-10">
-        <div className="w-11/12 mx-auto sm:py-14 pt-5 pb-10 flex sm:flex-row flex-col">
+        <div className="w-11/12 sm:max-w-[1400px] mx-auto sm:py-14 pt-5 pb-10 flex sm:flex-row flex-col">
           <h1 className="sm:w-1/5 w-full sm:mb-0 mb-4 sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
             모임 상세
           </h1>
@@ -157,7 +157,7 @@ export default function MeetingDetail() {
       <div className="w-full bg-transparent dark:bg-black relative dark:shadow-[0_35px_60px_-15px_rgba(255,255,255,0.2)]">
         <div className="w-full h-1/2 bg-[#f6f6f6] dark:bg-[#282828] absolute bottom-0 left-0 z-[-999]" />
 
-        <div className="w-11/12 mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
+        <div className="w-11/12 sm:max-w-[1400px] mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
           <h1 className="sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
             우리 모임은 이렇게 즐겨요
           </h1>
@@ -183,7 +183,7 @@ export default function MeetingDetail() {
       </div>
 
       <div className="w-full bg-transparent border-b-[1px] border-solid border-[#d0d0d0] dark:border-[#444]">
-        <div className="w-11/12 mx-auto sm:py-14 pt-5 pb-10">
+        <div className="w-11/12 sm:max-w-[1400px] mx-auto sm:py-14 pt-5 pb-10">
           <h1 className="sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
             안내사항
           </h1>
@@ -197,7 +197,7 @@ export default function MeetingDetail() {
         </div>
       </div>
 
-      <div className="w-11/12 mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
+      <div className="w-11/12 sm:max-w-[1400px] mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
         <h1 className="sm:text-[1.5rem] text-[1.2rem] text-[#282828] dark:text-white font-semibold">
           문의사항
         </h1>
