@@ -90,6 +90,7 @@ export default function UserProfileModify() {
                 // user 닉네임, 한 줄 소개 수정한거 서버로 보내기
               }}
               disabled={nicknameInput?.length > 0 ? false : true}
+              buttonDisabledStyle={nicknameInput?.length === 0}
             />
           </div>
         </div>

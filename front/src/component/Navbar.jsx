@@ -99,11 +99,9 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
                 type="button"
                 className="lg:ml-8 md:ml-4 sm:ml-4 ml-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
                 onClick={() => {
-                  const content = "login";
-                  navigate("/auth", { state: { content } });
+                  navigate("/auth");
                 }}
               >
-                
                 <BsPersonLock />
               </button>
             ) : (
