@@ -2,6 +2,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "react-animations": "^1.0.0",
+    "react-cookie": "^7.1.0",
     "react-slick": "^0.29.0",
     "recoil": "^0.7.7",
     "slick-carousel": "^1.8.1"

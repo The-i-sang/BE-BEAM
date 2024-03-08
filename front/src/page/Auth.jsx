@@ -20,6 +20,16 @@ function Auth() {
     }
   }, [userIn]);
 
+  function doGoogleLogin() {
+    const clientId =
+      "235917139656-hk7j40seofglv9o6jqpt6akhu4t1su56.apps.googleusercontent.com";
+    const redirectUrl = "https://the-isang-site.vercel.app/googleAuth";
+
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code&scope=email profile openid https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/user.addresses.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.gender.read`;
+
+    window.location.href = url;
+  }
+
   return (
     <div className="w-full">
       <div className="pb-10 sm:w-[500px] w-full mx-auto sm:pt-0 pt-10 px-5 box-border flex flex-col items-center">
@@ -39,7 +49,11 @@ function Auth() {
         </div>
 
         <div className="w-full mt-8">
-          <SnsBtn buttonText="구글" icon={<FcGoogle />} />
+          <SnsBtn
+            onClick={doGoogleLogin}
+            buttonText="구글"
+            icon={<FcGoogle />}
+          />
           <SnsBtn buttonText="카카오톡" icon={<RiKakaoTalkFill />} />
         </div>
       </div>

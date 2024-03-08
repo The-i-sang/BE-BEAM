@@ -9,28 +9,26 @@ import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
 import Mypage from "./page/Mypage";
 import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { userState } from "./recoil/userState";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
 import Meeting from "./page/Meeting";
 import MeetingDetail from "./component/MeetingDetail";
+import GoogleAuth from "./page/GoogleAuth";
+import { Cookies } from "react-cookie";
 
 function App() {
+  const cookies = new Cookies();
+  const accessToken = cookies.get("accessToken");
+
   const [userIn, setUserIn] = useRecoilState(userState);
 
   useEffect(() => {
-    const user = "서버에서 받아오는 유저 데이터";
-
-    // if (user) {
-    //   // 유저 값이 있을시
-    //   setUserIn(true);
-    // } else {
-    //   setUserIn(false);
-    // }
-
-    setUserIn(false);
-  }, [setUserIn]);
+    if (accessToken) {
+      setUserIn(true);
+    }
+  }, [accessToken, setUserIn]);
 
   console.log(userIn);
 
@@ -78,6 +76,10 @@ function App() {
         {
           path: "/mypage/userProfileModify",
           element: <UserProfileModify />,
+        },
+        {
+          path: "/googleAuth",
+          element: <GoogleAuth />,
         },
       ],
     },
