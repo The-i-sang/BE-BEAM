@@ -30,6 +30,13 @@ function Auth() {
     window.location.href = url;
   }
 
+  function doKakaoLogin() {
+    const redirectUrl = "http://localhost:3000/kakaoAuth";
+
+    const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${redirectUrl}&scope=profile_nickname,profile_image,account_email`;
+    window.location.href = url;
+  }
+
   return (
     <div className="w-full">
       <div className="pb-10 sm:w-[500px] w-full mx-auto sm:pt-0 pt-10 px-5 box-border flex flex-col items-center">
@@ -54,7 +61,11 @@ function Auth() {
             buttonText="구글"
             icon={<FcGoogle />}
           />
-          <SnsBtn buttonText="카카오톡" icon={<RiKakaoTalkFill />} />
+          <SnsBtn
+            onClick={doKakaoLogin}
+            buttonText="카카오톡"
+            icon={<RiKakaoTalkFill />}
+          />
         </div>
       </div>
     </div>

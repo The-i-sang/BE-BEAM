@@ -9,7 +9,7 @@ import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
 import Mypage from "./page/Mypage";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { userState } from "./recoil/userState";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
@@ -17,20 +17,19 @@ import Meeting from "./page/Meeting";
 import MeetingDetail from "./component/MeetingDetail";
 import GoogleAuth from "./page/GoogleAuth";
 import { Cookies } from "react-cookie";
+import KakakoAuth from "./page/KakaoAuth";
 
 function App() {
   const cookies = new Cookies();
   const accessToken = cookies.get("accessToken");
 
-  const [userIn, setUserIn] = useRecoilState(userState);
+  const setUserIn = useSetRecoilState(userState);
 
   useEffect(() => {
     if (accessToken) {
       setUserIn(true);
     }
   }, [accessToken, setUserIn]);
-
-  console.log(userIn);
 
   const router = createBrowserRouter([
     {
@@ -80,6 +79,10 @@ function App() {
         {
           path: "/googleAuth",
           element: <GoogleAuth />,
+        },
+        {
+          path: "/kakaoAuth",
+          element: <KakakoAuth />,
         },
       ],
     },
