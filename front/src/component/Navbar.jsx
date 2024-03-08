@@ -8,27 +8,34 @@ import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { userState } from "../recoil/userState";
 import { useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
-import { GoogleUserDataFetch } from "../api/user";
+import { GoogleUserDataFetch, KakaoUserDataFetch } from "../api/user";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
-  const path = useLocation().pathname;
+  const location = useLocation();
 
+  const snsAuthType = location?.state?.pathname;
+  const path = useLocation().pathname;
   const userIn = useRecoilValue(userState);
+
   const [userData, setUserData] = useState();
+
   const cookies = new Cookies();
   const accessToken = cookies.get("accessToken");
 
   useEffect(() => {
     if (accessToken) {
-      async function googleUserDataFetch() {
-        setUserData(await GoogleUserDataFetch(accessToken));
-      }
+      const fetchData = async () => {
+        const fetchFunction =
+          snsAuthType === "googleAuth"
+            ? GoogleUserDataFetch
+            : KakaoUserDataFetch;
+        setUserData(await fetchFunction(accessToken));
+      };
 
-      googleUserDataFetch();
+      fetchData();
     }
   }, [accessToken, setUserData]);
-  console.log(accessToken, userData, userIn);
 
   // useState의 초기 상태를 함수로 설정하면, 이 함수는 컴포넌트가 처음 렌더링될 때 한 번만 호출됨.
   // 이를 이용하면 컴포넌트가 렌더링되기 전에 localStorage의 값을 읽어와 상태를 설정할 수 있음.
@@ -53,6 +60,15 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
       localStorage.setItem("darkMode", "false");
     }
   }, [darkMode]);
+
+  const profileImg =
+    snsAuthType === "googleAuth"
+      ? userData?.photos[0]?.url
+      : userData?.kakao_account?.profile?.profile_image_url;
+  const userNickname =
+    snsAuthType === "googleAuth"
+      ? userData?.names[0]?.displayName
+      : userData?.kakao_account?.profile?.nickname;
 
   return (
     <div className="w-full dark:bg-black">
@@ -108,9 +124,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
               <CiSearch />
             </button>
 
-            {/* 나중에 조건문 추가 : 로그인을 하지 않았을 시 => 로그인 페이지로 이동 / 로그인을 했을 시 => 마이페이지로 이동*/}
-            {/* 이걸 위해서 서버에서 로그인을 했는지 하지 않았는지 상태를 알려주는 값을 가져와서 사용해야 함 => user가 들어왔는지 알려주는 전역 상태 userIn */}
-
             {!userIn ? (
               <button
                 type="button"
@@ -130,17 +143,12 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
                   navigate("/mypage");
                 }}
               >
-                {/* 구글로 로그인시 구글 프로필 사진과 구글 닉네임 받아오기 */}
-                {/* 일반 회원가입 후 첫 로그인시 기본 프로필 사진과 회원가입시 입력했던 닉네임 받아오기
-                - 추후 마이페이지에서 프로필 사진, 닉네임 수정 가능 */}
                 <img
-                  className="lg:w-[40px] sm:w-[36px] w-[36px] h-full object-cover rounded-full"
-                  src={process.env.PUBLIC_URL + userData?.photos[0].url}
+                  className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
+                  src={process.env.PUBLIC_URL + profileImg}
                   alt="profile_img"
                 />
-                <p className="md:block sm:hidden hidden">
-                  {userData?.names[0]?.displayName}
-                </p>
+                <p className="md:block sm:hidden hidden">{userNickname}</p>
               </div>
             )}
           </div>

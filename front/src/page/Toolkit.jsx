@@ -8,7 +8,6 @@ import { CiPen } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import ToolkitCategory from "../component/ToolkitCategory";
-import { TOOLKIT_URL } from "../config";
 
 export default function Toolkit() {
   const [categories, setCategories] = useState([
@@ -37,15 +36,6 @@ export default function Toolkit() {
   const [text, setText] = useState("");
   const [searchToolkits, setSearchToolkits] = useState([]);
   const [errorMessage, setErrorMessage] = useState("검색결과가 없습니다.");
-
-  // const {
-  //   isLoading,
-  //   error,
-  //   data: toolkits,
-  // } = useQuery(["toolkits"], async () => {
-  //   const res = await axios.get(TOOLKIT_URL);
-  //   return res.data;
-  // });
 
   const {
     isLoading,
@@ -180,7 +170,6 @@ export default function Toolkit() {
     }
   };
 
-
   useEffect(() => {
     let filteredList = toolkits;
 
@@ -290,9 +279,6 @@ export default function Toolkit() {
                   .typeString("<br/>다양하게 풀어내는 툴킷")
                   .start()
                   .pauseFor(200);
-                // .callFunction(function (state) {
-                //   state.elements.cursor.style.display = "none";
-                // });
               }}
             />
           </div>

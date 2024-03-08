@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { GoogleAuthTokenFetch } from "../api/user";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../recoil/userState";
+import { KakaoAuthTokenFetch } from "../api/user";
 import { Cookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
-import { userState } from "../recoil/userState";
-import { useSetRecoilState } from "recoil";
 
-export const GoogleAuth = () => {
+export default function KakakoAuth() {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,30 +14,29 @@ export const GoogleAuth = () => {
   const url = new URL(window.location.href);
   const code = url.searchParams.get("code");
   console.log(code);
+  console.log(location);
 
-  const [googleToken, setGoogleToken] = useState();
+  const [kakaoToken, setKakaoToken] = useState();
   const setUserIn = useSetRecoilState(userState);
 
   useEffect(() => {
-    async function googleGetToken() {
-      setGoogleToken(await GoogleAuthTokenFetch(code));
+    async function kakaoGetToken() {
+      setKakaoToken(await KakaoAuthTokenFetch(code));
     }
 
-    googleGetToken();
+    kakaoGetToken();
   }, []);
 
   useEffect(() => {
-    if (googleToken) {
-      cookies.set("accessToken", googleToken.access_token);
+    if (kakaoToken) {
+      cookies.set("accessToken", kakaoToken.access_token);
       setUserIn(true);
 
       navigate("/", { state: { pathname } });
     }
-  }, [cookies, googleToken, setUserIn]);
+  }, [cookies, kakaoToken, setUserIn]);
 
-  console.log(googleToken);
+  console.log(kakaoToken);
 
   return <></>;
-};
-
-export default GoogleAuth;
+}
