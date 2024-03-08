@@ -6,13 +6,29 @@ import Menu from "./Menu";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { userState } from "../recoil/userState";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
+import { Cookies } from "react-cookie";
+import { GoogleUserDataFetch } from "../api/user";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
-  const userIn = useRecoilValue(userState);
+  const [userIn, setUserIn] = useRecoilState(userState);
+  const [userData, setUserData] = useState();
+  const cookies = new Cookies();
+  const accessToken = cookies.get("accessToken");
+
+  useEffect(() => {
+    if (accessToken) {
+      async function googleUserDataFetch() {
+        setUserData(await GoogleUserDataFetch(accessToken));
+      }
+
+      googleUserDataFetch();
+    }
+  }, [accessToken, setUserData]);
+  console.log(accessToken, userData, userIn);
 
   // useState의 초기 상태를 함수로 설정하면, 이 함수는 컴포넌트가 처음 렌더링될 때 한 번만 호출됨.
   // 이를 이용하면 컴포넌트가 렌더링되기 전에 localStorage의 값을 읽어와 상태를 설정할 수 있음.
@@ -37,6 +53,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
       localStorage.setItem("darkMode", "false");
     }
   }, [darkMode]);
+
   return (
     <div className="w-full dark:bg-black">
       <div className="w-11/12 sm:max-w-[1400px] mx-auto">
@@ -118,10 +135,12 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
                 - 추후 마이페이지에서 프로필 사진, 닉네임 수정 가능 */}
                 <img
                   className="lg:w-[40px] sm:w-[36px] w-[36px] h-full object-cover rounded-full"
-                  src={process.env.PUBLIC_URL + "/image/basic_user_profile.jpg"}
-                  alt="logo"
+                  src={process.env.PUBLIC_URL + userData?.photos[0].url}
+                  alt="profile_img"
                 />
-                <p className="md:block sm:hidden hidden">nickname</p>
+                <p className="md:block sm:hidden hidden">
+                  {userData?.names[0]?.displayName}
+                </p>
               </div>
             )}
           </div>

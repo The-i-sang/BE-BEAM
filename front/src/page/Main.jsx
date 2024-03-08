@@ -4,7 +4,7 @@ import img4 from "../assets/4.png";
 import img5 from "../assets/5.png";
 import img6 from "../assets/6.png";
 import Popup from "../component/Popup";
-
+import { Cookies } from "react-cookie";
 
 export default function Main() {
   const [scrollHeight, setScrollHeight] = useState(0);
@@ -19,25 +19,22 @@ export default function Main() {
     };
   }, []);
 
-
   const [popupOn, setPopupOn] = useState(false);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setPopupOn(true);
-    
   }, []);
 
+  const cookies = new Cookies();
+  const accessToken = cookies.get("accessToken");
 
-
+  console.log(accessToken);
   console.log(popupOn);
   console.log(scrollHeight);
 
   return (
     <div className="w-full mx-auto pt-4 sm:pb-32 pb-20 dark:bg-black dark:text-white">
-
-      {popupOn===true? <Popup setPopupOn={setPopupOn} />: <></>}
-
+      {popupOn === true ? <Popup setPopupOn={setPopupOn} /> : <></>}
 
       <div className="w-full relative">
         <div

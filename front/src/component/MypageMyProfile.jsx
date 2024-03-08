@@ -1,11 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { Cookies } from "react-cookie";
 
 import { CiEdit } from "react-icons/ci";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../recoil/userState";
 
 export default function MypageMyProfile() {
   const navigate = useNavigate();
+  const cookies = new Cookies();
+  const setUserIn = useSetRecoilState(userState);
 
   const keywordBox = [
     "산책/크래킹",
@@ -26,10 +31,11 @@ export default function MypageMyProfile() {
 
         <button
           type="button"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
+            cookies.remove("accessToken");
+            setUserIn(false);
 
-            // 로그아웃 관련 로직 필요
+            navigate("/");
           }}
           className="text-[0.875rem] text-[#828282] dark:text-[#bababa] font-thin"
         >
