@@ -6,7 +6,7 @@ import Menu from "./Menu";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { userState } from "../recoil/userState";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
 import { GoogleUserDataFetch } from "../api/user";
 
@@ -14,7 +14,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
-  const [userIn, setUserIn] = useRecoilState(userState);
+  const userIn = useRecoilValue(userState);
   const [userData, setUserData] = useState();
   const cookies = new Cookies();
   const accessToken = cookies.get("accessToken");
