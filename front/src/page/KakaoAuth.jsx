@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "../recoil/userState";
 import { KakaoAuthTokenFetch } from "../api/user";
 import { Cookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
+import { SnsAuthTypeState } from "../recoil/contentState";
 
 export default function KakakoAuth() {
   const cookies = new Cookies();
@@ -16,12 +17,15 @@ export default function KakakoAuth() {
 
   const [kakaoToken, setKakaoToken] = useState();
   const setUserIn = useSetRecoilState(userState);
+  const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
 
   useEffect(() => {
     if (pathname) {
       localStorage.setItem("snsAuthType", pathname);
     }
   }, [pathname]);
+
+  console.log(snsAuthType);
 
   useEffect(() => {
     async function kakaoGetToken() {
