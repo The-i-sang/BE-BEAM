@@ -4,6 +4,7 @@ import { Cookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import { userState } from "../recoil/userState";
 import { useSetRecoilState } from "recoil";
+import { SnsAuthTypeState } from "../recoil/contentState";
 
 export const GoogleAuth = () => {
   const cookies = new Cookies();
@@ -16,6 +17,7 @@ export const GoogleAuth = () => {
 
   const [googleToken, setGoogleToken] = useState();
   const setUserIn = useSetRecoilState(userState);
+  const setSnsAuthType = useSetRecoilState(SnsAuthTypeState);
 
   useEffect(() => {
     if (pathname) {
@@ -35,10 +37,11 @@ export const GoogleAuth = () => {
     if (googleToken) {
       cookies.set("accessToken", googleToken.access_token);
       setUserIn(true);
+      setSnsAuthType(pathname);
 
       navigate("/");
     }
-  }, [cookies, googleToken, setUserIn]);
+  }, [cookies, googleToken, setUserIn, setSnsAuthType, pathname]);
 
   console.log(googleToken);
 

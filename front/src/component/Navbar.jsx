@@ -23,21 +23,10 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const accessToken = cookies.get("accessToken");
 
   useEffect(() => {
-    const updateSnsAuthType = () => {
-      const newSnsAuthType = localStorage.getItem("snsAuthType");
-      console.log(newSnsAuthType);
-
-      if (newSnsAuthType) {
-        setSnsAuthType(newSnsAuthType);
-      }
-    };
-
-    window.addEventListener("storage", updateSnsAuthType);
-
-    return () => {
-      window.removeEventListener("storage", updateSnsAuthType);
-    };
-  }, [setSnsAuthType, snsAuthType]);
+    if (localStorage.getItem("snsAuthType")) {
+      setSnsAuthType(localStorage.getItem("snsAuthType"));
+    }
+  }, []);
 
   useEffect(() => {
     if (accessToken && snsAuthType) {
