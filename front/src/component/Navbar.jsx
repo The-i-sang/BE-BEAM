@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
-import { BsPersonLock } from "react-icons/bs";
+import { CiSearch, CiUser } from "react-icons/ci";
 import Menu from "./Menu";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
-import { userState } from "../recoil/userState";
-import { useRecoilValue } from "recoil";
+import { UserDataState, userState } from "../recoil/userState";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
 import { GoogleUserDataFetch, KakaoUserDataFetch } from "../api/user";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const snsAuthType = location?.state?.pathname;
-  const path = useLocation().pathname;
+  const path = useLocation()?.pathname;
   const userIn = useRecoilValue(userState);
 
-  const [userData, setUserData] = useState();
+  const [snsAuthType, setSnsAuthType] = useState("");
+  const [userData, setUserData] = useRecoilState(UserDataState);
 
   const cookies = new Cookies();
   const accessToken = cookies.get("accessToken");
 
   useEffect(() => {
-    if (accessToken) {
+    const snsAuthType = localStorage.getItem("snsAuthType");
+    if (snsAuthType) {
+      setSnsAuthType(snsAuthType);
+    }
+  }, []);
+  console.log(snsAuthType);
+
+  useEffect(() => {
+    if (accessToken && snsAuthType) {
       const fetchData = async () => {
         const fetchFunction =
           snsAuthType === "googleAuth"
@@ -35,7 +41,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
       fetchData();
     }
-  }, [accessToken, setUserData]);
+  }, [accessToken, setUserData, snsAuthType]);
 
   // useState의 초기 상태를 함수로 설정하면, 이 함수는 컴포넌트가 처음 렌더링될 때 한 번만 호출됨.
   // 이를 이용하면 컴포넌트가 렌더링되기 전에 localStorage의 값을 읽어와 상태를 설정할 수 있음.
@@ -61,15 +67,25 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     }
   }, [darkMode]);
 
-  const profileImg =
-    snsAuthType === "googleAuth"
-      ? userData?.photos[0]?.url
-      : userData?.kakao_account?.profile?.profile_image_url;
-  const userNickname =
-    snsAuthType === "googleAuth"
-      ? userData?.names[0]?.displayName
-      : userData?.kakao_account?.profile?.nickname;
+  const googleAuthTrue = snsAuthType === "googleAuth";
+  const kakaoAuthTrue = snsAuthType === "kakaoAuth";
 
+  const profileImg =
+    Object.keys(userData).length > 0 &&
+    (googleAuthTrue
+      ? userData?.photos[0]?.url
+      : kakaoAuthTrue
+      ? userData?.kakao_account?.profile?.profile_image_url
+      : null);
+  const userNickname =
+    Object.keys(userData).length > 0 &&
+    (googleAuthTrue
+      ? userData?.names[0]?.displayName
+      : kakaoAuthTrue
+      ? userData?.kakao_account?.profile?.nickname
+      : null);
+
+  console.log(userData, profileImg, userNickname);
   return (
     <div className="w-full dark:bg-black">
       <div className="w-11/12 sm:max-w-[1400px] mx-auto">
@@ -124,33 +140,35 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
               <CiSearch />
             </button>
 
-            {!userIn ? (
-              <button
-                type="button"
-                className="lg:ml-8 md:ml-4 sm:ml-4 ml-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
-                onClick={() => {
-                  navigate("/auth");
-                }}
-              >
-                <BsPersonLock />
-              </button>
-            ) : (
-              <div
-                className="lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
+            <button
+              type="button"
+              className={`${
+                !userIn ? "block" : "hidden"
+              } lg:ml-8 md:ml-4 sm:ml-4 ml-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer`}
+              onClick={() => {
+                navigate("/auth");
+              }}
+            >
+              <CiUser />
+            </button>
 
-                  navigate("/mypage");
-                }}
-              >
-                <img
-                  className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
-                  src={process.env.PUBLIC_URL + profileImg}
-                  alt="profile_img"
-                />
-                <p className="md:block sm:hidden hidden">{userNickname}</p>
-              </div>
-            )}
+            <div
+              className={`${
+                userIn ? "block" : "hidden"
+              } lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer`}
+              onClick={(e) => {
+                e.preventDefault();
+
+                navigate("/mypage");
+              }}
+            >
+              <img
+                className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
+                src={process.env.PUBLIC_URL + profileImg}
+                alt="profile_img"
+              />
+              <p className="md:block sm:hidden hidden">{userNickname}</p>
+            </div>
           </div>
         </div>
       </div>
