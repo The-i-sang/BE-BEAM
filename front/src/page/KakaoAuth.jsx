@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { userState } from "../recoil/userState";
 import { KakaoAuthTokenFetch } from "../api/user";
 import { Cookies } from "react-cookie";
@@ -17,7 +17,7 @@ export default function KakakoAuth() {
 
   const [kakaoToken, setKakaoToken] = useState();
   const setUserIn = useSetRecoilState(userState);
-  const setSnsAuthType = useRecoilValue(SnsAuthTypeState);
+  const setSnsAuthType = useSetRecoilState(SnsAuthTypeState);
 
   useEffect(() => {
     if (pathname) {
