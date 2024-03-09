@@ -16,6 +16,9 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const path = useLocation()?.pathname;
   const userIn = useRecoilValue(userState);
 
+  const [snsAuthTypeStr, setSnsAuthTypeStr] = useState(
+    localStorage.getItem("snsAuthType") || ""
+  );
   const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
   const [userData, setUserData] = useRecoilState(UserDataState);
 
@@ -24,18 +27,16 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
   useEffect(() => {
     const updateSnsAuthType = () => {
-      const snsAuthTypeStr = localStorage.getItem("snsAuthType");
-      if (snsAuthTypeStr) {
-        setSnsAuthType(snsAuthTypeStr);
+      const newSnsAuthType = localStorage.getItem("snsAuthType") || "";
+      if (newSnsAuthType !== snsAuthTypeStr) {
+        setSnsAuthType(newSnsAuthType);
+        setSnsAuthTypeStr(newSnsAuthType);
       }
     };
 
-    // 첫 렌더링 시 localStorage에서 snsAuthType을 가져옵니다.
     updateSnsAuthType();
 
-    // localStorage 변화 감지.
     const handleStorageChange = (e) => {
-      // snsAuthType 키에 대한 변화만 감지하고 싶다면, e.key를 사용.
       if (e.key === "snsAuthType") {
         updateSnsAuthType();
       }
@@ -43,11 +44,10 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
     window.addEventListener("storage", handleStorageChange);
 
-    // Component가 unmount 될 때 이벤트 리스너를 제거.
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [setSnsAuthType]);
+  }, [snsAuthTypeStr, setSnsAuthType]);
   console.log(snsAuthType);
 
   useEffect(() => {
