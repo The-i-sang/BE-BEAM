@@ -38,7 +38,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
       window.removeEventListener("storage", updateSnsAuthType);
     };
   }, [setSnsAuthType, snsAuthType]);
-  console.log(snsAuthType);
 
   useEffect(() => {
     if (accessToken && snsAuthType) {
@@ -94,7 +93,16 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     ? userData?.kakao_account?.profile?.nickname
     : "userName";
 
-  console.log(userData, profileImg, userNickname);
+  console.log(
+    "userData",
+    userData,
+    "profileImg",
+    profileImg,
+    "userNickname",
+    userNickname,
+    "snsAuthType",
+    snsAuthType
+  );
 
   return (
     <div className="w-full dark:bg-black">
@@ -164,7 +172,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
             <div
               className={`${
-                userIn && Object.keys(userData).length > 0 ? "block" : "hidden"
+                userIn ? "block" : "hidden"
               } lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer`}
               onClick={(e) => {
                 e.preventDefault();
