@@ -8,6 +8,7 @@ import { UserDataState, userState } from "../recoil/userState";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
 import { GoogleUserDataFetch, KakaoUserDataFetch } from "../api/user";
+import { SnsAuthTypeState } from "../recoil/contentState";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
@@ -15,18 +16,38 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const path = useLocation()?.pathname;
   const userIn = useRecoilValue(userState);
 
-  const [snsAuthType, setSnsAuthType] = useState("");
+  const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
   const [userData, setUserData] = useRecoilState(UserDataState);
 
   const cookies = new Cookies();
   const accessToken = cookies.get("accessToken");
 
   useEffect(() => {
-    const snsAuthType = localStorage.getItem("snsAuthType");
-    if (snsAuthType) {
-      setSnsAuthType(snsAuthType);
-    }
-  }, []);
+    const updateSnsAuthType = () => {
+      const snsAuthTypeStr = localStorage.getItem("snsAuthType");
+      if (snsAuthTypeStr) {
+        setSnsAuthType(snsAuthTypeStr);
+      }
+    };
+
+    // 첫 렌더링 시 localStorage에서 snsAuthType을 가져옵니다.
+    updateSnsAuthType();
+
+    // localStorage 변화 감지.
+    const handleStorageChange = (e) => {
+      // snsAuthType 키에 대한 변화만 감지하고 싶다면, e.key를 사용.
+      if (e.key === "snsAuthType") {
+        updateSnsAuthType();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // Component가 unmount 될 때 이벤트 리스너를 제거.
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [setSnsAuthType]);
   console.log(snsAuthType);
 
   useEffect(() => {

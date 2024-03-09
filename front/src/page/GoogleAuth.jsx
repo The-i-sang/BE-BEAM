@@ -4,6 +4,7 @@ import { Cookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import { userState } from "../recoil/userState";
 import { useSetRecoilState } from "recoil";
+import { SnsAuthTypeState } from "../recoil/contentState";
 
 export const GoogleAuth = () => {
   const cookies = new Cookies();
@@ -13,10 +14,10 @@ export const GoogleAuth = () => {
 
   const url = new URL(window.location.href);
   const code = url.searchParams.get("code");
-  console.log(code);
 
   const [googleToken, setGoogleToken] = useState();
   const setUserIn = useSetRecoilState(userState);
+  const setSnsAuthType = useSetRecoilState(SnsAuthTypeState);
 
   useEffect(() => {
     if (pathname) {
