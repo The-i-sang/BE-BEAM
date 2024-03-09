@@ -22,8 +22,9 @@ export const GoogleAuth = () => {
   useEffect(() => {
     if (pathname) {
       localStorage.setItem("snsAuthType", pathname);
+      setSnsAuthType(pathname);
     }
-  }, [pathname]);
+  }, [pathname, setSnsAuthType]);
 
   useEffect(() => {
     async function googleGetToken() {

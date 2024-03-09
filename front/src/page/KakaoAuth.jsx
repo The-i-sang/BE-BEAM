@@ -22,8 +22,9 @@ export default function KakakoAuth() {
   useEffect(() => {
     if (pathname) {
       localStorage.setItem("snsAuthType", pathname);
+      setSnsAuthType(pathname);
     }
-  }, [pathname]);
+  }, [pathname, setSnsAuthType]);
 
   console.log(snsAuthType);
 
