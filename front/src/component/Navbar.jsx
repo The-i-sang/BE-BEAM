@@ -67,23 +67,21 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     }
   }, [darkMode]);
 
-  const googleAuthTrue = snsAuthType === "googleAuth";
-  const kakaoAuthTrue = snsAuthType === "kakaoAuth";
+  const googleAuthTrue =
+    snsAuthType === "googleAuth" && Object.keys(userData).length > 0;
+  const kakaoAuthTrue =
+    snsAuthType === "kakaoAuth" && Object.keys(userData).length > 0;
 
-  const profileImg =
-    Object.keys(userData).length > 0 &&
-    (googleAuthTrue
-      ? userData?.photos[0]?.url
-      : kakaoAuthTrue
-      ? userData?.kakao_account?.profile?.profile_image_url
-      : null);
-  const userNickname =
-    Object.keys(userData).length > 0 &&
-    (googleAuthTrue
-      ? userData?.names[0]?.displayName
-      : kakaoAuthTrue
-      ? userData?.kakao_account?.profile?.nickname
-      : null);
+  const profileImg = googleAuthTrue
+    ? userData?.photos[0]?.url
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.profile_image_url
+    : null;
+  const userNickname = googleAuthTrue
+    ? userData?.names[0]?.displayName
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.nickname
+    : null;
 
   console.log(userData, profileImg, userNickname);
   return (
