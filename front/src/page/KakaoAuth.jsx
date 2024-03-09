@@ -9,15 +9,19 @@ export default function KakakoAuth() {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const location = useLocation();
-  const pathname = location.pathname;
+  const pathname = location.pathname.slice(1);
 
   const url = new URL(window.location.href);
   const code = url.searchParams.get("code");
-  console.log(code);
-  console.log(location);
 
   const [kakaoToken, setKakaoToken] = useState();
   const setUserIn = useSetRecoilState(userState);
+
+  useEffect(() => {
+    if (pathname) {
+      localStorage.setItem("snsAuthType", pathname);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     async function kakaoGetToken() {
@@ -32,7 +36,7 @@ export default function KakakoAuth() {
       cookies.set("accessToken", kakaoToken.access_token);
       setUserIn(true);
 
-      navigate("/", { state: { pathname } });
+      navigate("/");
     }
   }, [cookies, kakaoToken, setUserIn]);
 

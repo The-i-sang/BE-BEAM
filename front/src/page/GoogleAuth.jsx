@@ -9,7 +9,7 @@ export const GoogleAuth = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const location = useLocation();
-  const pathname = location.pathname;
+  const pathname = location.pathname.slice(1);
 
   const url = new URL(window.location.href);
   const code = url.searchParams.get("code");
@@ -17,6 +17,12 @@ export const GoogleAuth = () => {
 
   const [googleToken, setGoogleToken] = useState();
   const setUserIn = useSetRecoilState(userState);
+
+  useEffect(() => {
+    if (pathname) {
+      localStorage.setItem("snsAuthType", pathname);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     async function googleGetToken() {
@@ -31,7 +37,7 @@ export const GoogleAuth = () => {
       cookies.set("accessToken", googleToken.access_token);
       setUserIn(true);
 
-      navigate("/", { state: { pathname } });
+      navigate("/");
     }
   }, [cookies, googleToken, setUserIn]);
 
