@@ -25,6 +25,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   useEffect(() => {
     const updateSnsAuthType = () => {
       const newSnsAuthType = localStorage.getItem("snsAuthType");
+      console.log(newSnsAuthType);
 
       if (newSnsAuthType) {
         setSnsAuthType(newSnsAuthType);
@@ -36,7 +37,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     return () => {
       window.removeEventListener("storage", updateSnsAuthType);
     };
-  }, [setSnsAuthType]);
+  }, [setSnsAuthType, snsAuthType]);
   console.log(snsAuthType);
 
   useEffect(() => {
@@ -86,12 +87,12 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     ? userData?.photos[0]?.url
     : kakaoAuthTrue
     ? userData?.kakao_account?.profile?.profile_image_url
-    : null;
+    : "/image/basic_user_profile.jpg";
   const userNickname = googleAuthTrue
     ? userData?.names[0]?.displayName
     : kakaoAuthTrue
     ? userData?.kakao_account?.profile?.nickname
-    : null;
+    : "userName";
 
   console.log(userData, profileImg, userNickname);
 
@@ -163,7 +164,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
             <div
               className={`${
-                userIn && userData ? "block" : "hidden"
+                userIn && Object.keys(userData).length > 0 ? "block" : "hidden"
               } lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer`}
               onClick={(e) => {
                 e.preventDefault();
