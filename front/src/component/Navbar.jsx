@@ -16,9 +16,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const path = useLocation()?.pathname;
   const userIn = useRecoilValue(userState);
 
-  const [snsAuthTypeStr, setSnsAuthTypeStr] = useState(
-    localStorage.getItem("snsAuthType") || ""
-  );
   const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
   const [userData, setUserData] = useRecoilState(UserDataState);
 
@@ -27,29 +24,19 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
   useEffect(() => {
     const updateSnsAuthType = () => {
-      const newSnsAuthType = localStorage.getItem("snsAuthType") || "";
-      if (newSnsAuthType !== snsAuthTypeStr) {
-        setSnsAuthType(newSnsAuthType);
-        setSnsAuthTypeStr(newSnsAuthType);
-      } else {
+      const newSnsAuthType = localStorage.getItem("snsAuthType");
+
+      if (newSnsAuthType) {
         setSnsAuthType(newSnsAuthType);
       }
     };
 
-    updateSnsAuthType();
-
-    const handleStorageChange = (e) => {
-      if (e.key === "snsAuthType") {
-        updateSnsAuthType();
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("storage", updateSnsAuthType);
 
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("storage", updateSnsAuthType);
     };
-  }, [snsAuthTypeStr, setSnsAuthType]);
+  }, [setSnsAuthType]);
   console.log(snsAuthType);
 
   useEffect(() => {
@@ -107,6 +94,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     : null;
 
   console.log(userData, profileImg, userNickname);
+
   return (
     <div className="w-full dark:bg-black">
       <div className="w-11/12 sm:max-w-[1400px] mx-auto">
@@ -175,7 +163,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
             <div
               className={`${
-                userIn ? "block" : "hidden"
+                userIn && userData ? "block" : "hidden"
               } lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer`}
               onClick={(e) => {
                 e.preventDefault();
