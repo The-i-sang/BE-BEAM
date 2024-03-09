@@ -31,6 +31,8 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
       if (newSnsAuthType !== snsAuthTypeStr) {
         setSnsAuthType(newSnsAuthType);
         setSnsAuthTypeStr(newSnsAuthType);
+      } else {
+        setSnsAuthType(newSnsAuthType);
       }
     };
 
