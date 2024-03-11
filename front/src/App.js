@@ -18,6 +18,7 @@ import MeetingDetail from "./component/MeetingDetail";
 import GoogleAuth from "./page/GoogleAuth";
 import { Cookies } from "react-cookie";
 import KakakoAuth from "./page/KakaoAuth";
+import Community from "./page/Community";
 
 function App() {
   const cookies = new Cookies();
@@ -41,6 +42,10 @@ function App() {
         {
           path: "/meeting",
           element: <Meeting />,
+        },
+        {
+          path: "/community",
+          element: <Community />,
         },
         {
           path: "/meeting/detail/:id",

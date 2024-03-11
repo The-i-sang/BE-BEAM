@@ -1,14 +1,24 @@
 import React from "react";
-import { BsArrowLeft } from "react-icons/bs";
 
-export default function PrevArrow({ onClick }) {
+export default function PrevArrow({
+  onClick,
+  toolkitType,
+  icon,
+  currentSlide,
+}) {
   return (
     <>
       <div
         onClick={onClick}
-        className="text-[2.4rem] text-[#282828] dark:text-white absolute top-[46%] left-0 z-[9999] cursor-pointer"
+        className={`${
+          !toolkitType
+            ? "left-2 text-white top-[40%]"
+            : "left-0 text-[#282828] top-[46%]"
+        } ${
+          currentSlide === 0 ? "text-[#c2c2c2]" : null
+        } text-[2.4rem] dark:text-white absolute z-[9999] cursor-pointer`}
       >
-        <BsArrowLeft />
+        {icon}
       </div>
     </>
   );

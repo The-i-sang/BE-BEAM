@@ -82,6 +82,8 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     ? userData?.kakao_account?.profile?.nickname
     : "userName";
 
+  // src > common.js 파일을 참고하여 재활용할 수 있도록 코드 변경하기.
+
   console.log(
     "userData",
     userData,
