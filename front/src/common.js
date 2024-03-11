@@ -24,4 +24,23 @@ export function identify(
   }
 }
 
-export function getUserData() {}
+export function getUserData(snsAuthType, userData) {
+  const googleAuthTrue =
+    snsAuthType === "googleAuth" && Object.keys(userData).length > 0;
+  const kakaoAuthTrue =
+    snsAuthType === "kakaoAuth" && Object.keys(userData).length > 0;
+
+  const profileImg = googleAuthTrue
+    ? userData?.photos[0]?.url
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.profile_image_url
+    : "/image/basic_user_profile.jpg";
+
+  const userNickname = googleAuthTrue
+    ? userData?.names[0]?.displayName
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.nickname
+    : "userName";
+
+  return { profileImg: profileImg, userNickname: userNickname };
+}

@@ -2,17 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
+::-webkit-scrollbar {
+  width: 10px;
+  /* 스크롤바의 너비 */
+}
 
-body::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* 트랙의 배경 색상 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232426;
+  border-radius: 10px;
+  /* 핸들의 배경 색상 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #232426; /* 마우스 오버 시 핸들의 배경 색상 */
 }
 
 body {

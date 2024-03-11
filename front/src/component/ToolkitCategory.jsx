@@ -16,7 +16,7 @@ export default function ToolkitCategory({
   handleCategoryClick3,
 }) {
   return (
-    <div className="w-full max-w-[1400px] mx-auto sm:pb-6 pb-4 sm:mt-36 mt-24 flex flex-wrap sm:gap-x-4 gap-x-4">
+    <div className="w-full max-w-[1400px] mx-auto sm:pb-6 pb-4 sm:mt-24 mt-16 flex flex-wrap sm:gap-x-4 gap-x-4">
       <ul className="flex flex-wrap text-5xl font-medium text-[#766b55]">
         {categories.map((cate, i) => {
           return (

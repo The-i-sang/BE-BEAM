@@ -8,6 +8,7 @@ import { CiPen } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import ToolkitCategory from "../component/ToolkitCategory";
+import TypeWriter from "../component/TypeWriter";
 
 export default function Toolkit() {
   const [categories, setCategories] = useState([
@@ -263,62 +264,52 @@ export default function Toolkit() {
 
   return (
     <div className="w-full bg-[#ffffff] dark:bg-black pt-16 flex flex-col justify-between items-center font-medium">
-      <div className="w-11/12 mx-auto flex flex-col items-center">
-        <div className="w-full mb-6 flex flex-col justify-center items-center">
-          <div className="w-full text-[#79B1FF] sm:text-[1.5rem] text-[1.2rem] flex justify-center items-center">
-            <CiPen />
-            <p className="ml-3 font-semibold">Toolkit</p>
-          </div>
-
-          <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white text-center font-extrabold">
-            <Typewriter
-              onInit={(typewriter) => {
-                typewriter
-                  .typeString("다양한 사회 문제들을")
-                  .pauseFor(200)
-                  .typeString("<br/>다양하게 풀어내는 툴킷")
-                  .start()
-                  .pauseFor(200);
-              }}
+      <div className="w-full flex flex-col items-center">
+        <div class="w-11/12 mx-auto">
+          <div className="w-full mb-10 flex lg:flex-row flex-col lg:justify-between items-center">
+            <TypeWriter
+              type="Toolkit"
+              icon={<CiPen />}
+              titleFirst="다양한 사회 문제들을"
+              titleBack="<br/>다양하게 풀어내는 툴킷"
+              subTitleFirst="다양한 사회 문제들을 다양하게 풀어내는 툴킷,"
+              subTitleBack="관심사에 맞게 툴킷을 Pick 하세요!"
+              textColor="text-[#79B1FF]"
+            />
+            <img
+              className="w-full lg:max-w-[450px] max-w-[600px] aspect-square"
+              src="image/toolkit_main_img.png"
+              alt="main_img"
             />
           </div>
 
-          <p className="sm:mt-7 mt-3 text-[#383535] dark:text-white sm:text-[1.4rem] text-[1.1rem] sm:font-normal font-light text-center tracking-tighter">
-            다양한 사회 문제들을 다양하게 풀어내는 툴킷,
-            <br />
-            관심사에 맞게 툴킷을 Pick 하세요!
-          </p>
+          <form onSubmit={handleSearchToolkit} className="w-full relative">
+            <input
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+              value={text}
+              className="w-full sm:p-8 p-5 box-border mt-4 rounded-full dark:bg-transparent border-[1px] border-solid border-[#79B1FF] outline-none sm:text-[1.2rem] text-[0.9rem] dark:text-white sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem] placeholder:text-[#79B1FF]"
+              type="text"
+              placeholder="툴킷을 검색하세요."
+            />
+            <button
+              onClick={handleDeleteTitle}
+              className={`${
+                text.length > 0 ? "opacity-1" : "opacity-0"
+              } sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-20 right-12 sm:top-[40%] top-[45%] transition-all duration-700`}
+              type="button"
+            >
+              <GoX />
+            </button>
+            <button
+              type="submit"
+              className="sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-7 right-4 sm:top-[40%] top-[45%]"
+            >
+              <CiSearch />
+            </button>
+          </form>
         </div>
-
-        <form
-          onSubmit={handleSearchToolkit}
-          className="w-full max-w-[760px] relative"
-        >
-          <input
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-            value={text}
-            className="w-full sm:p-8 p-5 box-border mt-4 rounded-full dark:bg-transparent border-[1px] border-solid border-[#79B1FF] outline-none sm:text-[1.2rem] text-[0.9rem] dark:text-white sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem] placeholder:text-[#79B1FF]"
-            type="text"
-            placeholder="툴킷을 검색하세요."
-          />
-          <button
-            onClick={handleDeleteTitle}
-            className={`${
-              text.length > 0 ? "opacity-1" : "opacity-0"
-            } sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-20 right-12 sm:top-[40%] top-[45%] transition-all duration-700`}
-            type="button"
-          >
-            <GoX />
-          </button>
-          <button
-            type="submit"
-            className="sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-7 right-4 sm:top-[40%] top-[45%]"
-          >
-            <CiSearch />
-          </button>
-        </form>
 
         <ToolkitCategory
           categories={categories}

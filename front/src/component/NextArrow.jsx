@@ -1,14 +1,28 @@
 import React from "react";
-import { BsArrowRight } from "react-icons/bs";
 
-export default function NextArrow({ onClick }) {
+export default function NextArrow({
+  onClick,
+  toolkitType,
+  icon,
+  currentSlide,
+  slideCount,
+  slidesToShow,
+}) {
+  const isLastSlide = currentSlide >= slideCount - slidesToShow;
+
   return (
     <>
       <div
         onClick={onClick}
-        className="text-[2.4rem] text-[#282828] dark:text-white absolute top-[46%] right-0 z-[9999] cursor-pointer"
+        className={`${
+          !toolkitType
+            ? "text-white right-2 top-[40%]"
+            : "text-[#282828] right-0 top-[46%]"
+        } ${
+          isLastSlide && "text-[#c2c2c2]"
+        } text-[2.4rem] dark:text-white absolute z-[9999] cursor-pointer`}
       >
-        <BsArrowRight />
+        {icon}
       </div>
     </>
   );

@@ -1,12 +1,16 @@
-import React from "react";
-import NextArrow from "./NextArrow";
-import PrevArrow from "./PrevArrow";
-
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import NextArrow from "./NextArrow";
+import PrevArrow from "./PrevArrow";
 
-export default function DetailSlider({ autoplay = true, t }) {
+import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
+
+export default function DetailSlider({ autoplay = true, t, slidesToShow = 1 }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -15,8 +19,23 @@ export default function DetailSlider({ autoplay = true, t }) {
     slidesToScroll: 1,
     autoplay: Boolean(autoplay),
     autoplaySpeed: typeof autoplay === "boolean" ? 3000 : autoplay,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: (
+      <NextArrow
+        toolkitType={true}
+        icon={<BsArrowRight />}
+        currentSlide={currentSlide}
+        slideCount={t.length}
+        slidesToShow={slidesToShow}
+      />
+    ),
+    prevArrow: (
+      <PrevArrow
+        toolkitType={true}
+        icon={<BsArrowLeft />}
+        currentSlide={currentSlide}
+      />
+    ),
+    afterChange: (current) => setCurrentSlide(current),
   };
 
   return (
