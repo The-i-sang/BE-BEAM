@@ -4,13 +4,44 @@ import Button from "./Button";
 import { Cookies } from "react-cookie";
 
 import { CiEdit } from "react-icons/ci";
-import { useSetRecoilState } from "recoil";
-import { userState } from "../recoil/userState";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserDataState, userState } from "../recoil/userState";
+import { SnsAuthTypeState } from "../recoil/contentState";
 
 export default function MypageMyProfile() {
   const navigate = useNavigate();
   const cookies = new Cookies();
+
   const setUserIn = useSetRecoilState(userState);
+  const snsAuthType = useRecoilValue(SnsAuthTypeState);
+  const userData = useRecoilValue(UserDataState);
+
+  const googleAuthTrue =
+    snsAuthType === "googleAuth" && Object.keys(userData).length > 0;
+  const kakaoAuthTrue =
+    snsAuthType === "kakaoAuth" && Object.keys(userData).length > 0;
+
+  const profileImg = googleAuthTrue
+    ? userData?.photos[0]?.url
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.profile_image_url
+    : "/image/basic_user_profile.jpg";
+  const userNickname = googleAuthTrue
+    ? userData?.names[0]?.displayName
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.nickname
+    : "userName";
+
+  console.log(
+    "userData",
+    userData,
+    "profileImg",
+    profileImg,
+    "userNickname",
+    userNickname,
+    "snsAuthType",
+    snsAuthType
+  );
 
   const keywordBox = [
     "산책/크래킹",
@@ -48,7 +79,7 @@ export default function MypageMyProfile() {
           <div className="relative">
             <img
               className="mb-3 sm:w-[100px] w-[80px] h-full object-cover rounded-full"
-              src={process.env.PUBLIC_URL + "/image/basic_user_profile.jpg"}
+              src={process.env.PUBLIC_URL + profileImg}
               alt="user_profile"
             />
 
@@ -65,7 +96,7 @@ export default function MypageMyProfile() {
           </div>
 
           <p className="mb-4 text-[1.125rem] dark:text-white font-semibold">
-            nickname
+            {userNickname}
           </p>
           <p className="text-[0.875rem] text-[#666] dark:text-[#bababa] font-thin">
             안녕하세요.

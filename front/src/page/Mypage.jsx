@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { userState } from "../recoil/userState";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,11 @@ export default function Mypage() {
   const userIn = useRecoilValue(userState);
 
   // user가 없을시 Mypage에 접근 불가.
-  // useEffect(() => {
-  //   if (!userIn) {
-  //     navigate("/");
-  //   }
-  // }, [userIn]);
+  useEffect(() => {
+    if (!userIn) {
+      navigate("/");
+    }
+  }, [userIn]);
 
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
