@@ -11,6 +11,7 @@ export default function Main() {
   function onScroll() {
     setScrollHeight(window.scrollY);
   }
+
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     return () => {
@@ -26,7 +27,7 @@ export default function Main() {
 
   return (
     <div className="w-full mx-auto pt-4 sm:pb-32 pb-20 dark:bg-black dark:text-white">
-      {popupOn === true ? <Popup setPopupOn={setPopupOn} /> : <></>}
+      {popupOn ? <Popup setPopupOn={setPopupOn} /> : null}
 
       <div className="w-full relative">
         <div

@@ -23,3 +23,5 @@ export function identify(
       : setPasswordIdentifyCheck(true);
   }
 }
+
+export function getUserData() {}
