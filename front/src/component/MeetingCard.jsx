@@ -1,6 +1,5 @@
-//import React from "react";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 
 import { GoHeart, GoHeartFill } from "react-icons/go";
@@ -8,18 +7,16 @@ import { GoHeart, GoHeartFill } from "react-icons/go";
 export default function MeetingCard({ activity }) {
   const navigate = useNavigate();
 
-  // 상태 변수 선언
   const [isClicked, setIsClicked] = useState(false);
 
-  // 클릭 이벤트 핸들러
   const handleClick = () => {
-    setIsClicked(!isClicked); // 클릭할 때마다 상태를 반전시킴
+    setIsClicked(!isClicked);
   };
 
   return (
-    <li className="cursor-pointer w-full h-full sm:mb-0 mb-5 p-4 box-border bg-[rgba(255,255,255,0.1)] rounded-xl border-[1px] border-solid border-white flex md:flex-row sm:flex-col flex-col">
+    <li className="cursor-pointer w-full h-full sm:mb-0 mb-5 p-6 box-border bg-[#171718] text-white rounded-[2rem] flex md:flex-row sm:flex-col flex-col shadow-[0_10px_12px_2px_#858585] relative overflow-hidden">
       <img
-        className="lg:w-[164px] md:w-[140px] sm:w-full w-full aspect-w-1 aspect-h-1 aspect-square object-cover object-center rounded-xl"
+        className="lg:w-[164px] md:w-[140px] sm:w-full w-full aspect-square object-cover object-center rounded-full shadow-[0_10px_8px_2px_rgba(0,0,0,0.4)]"
         src={process.env.PUBLIC_URL + activity.thumbnail.replace("./", "/")}
         alt="activity_img"
       />
@@ -38,13 +35,9 @@ export default function MeetingCard({ activity }) {
             )}
           </div>
 
-          <div className="heart" onClick={handleClick}>
-            {isClicked ? (
-              <GoHeartFill style={{ fontSize: "28px" }} />
-            ) : (
-              <GoHeart style={{ fontSize: "28px" }} />
-            )}
-          </div>
+          <button className="text-[1.5rem]" onClick={handleClick}>
+            {isClicked ? <GoHeartFill /> : <GoHeart />}
+          </button>
         </div>
 
         <div
@@ -53,23 +46,27 @@ export default function MeetingCard({ activity }) {
               state: { activity },
             });
           }}
-          className="mt-4"
+          className="mt-4 text-white"
         >
-          <h1 className="mb-2 text-[#383535] dark:text-[#ffaa15] lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+          <h1 className="mb-2 lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
             {activity.title}
           </h1>
 
-          <p className="mb-2 lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[#555] dark:text-[rgba(255,255,255,0.7)] whitespace-nowrap overflow-hidden text-ellipsis">
+          <p className="mb-2 lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[#c5c5c5] dark:text-[rgba(255,255,255,0.7)] whitespace-nowrap overflow-hidden text-ellipsis">
             {activity.state} · {activity.schedule}
           </p>
-          <div className="flex items-center">
-            <FaLocationDot className="text-[#282828] dark:text-[#ff2121] lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem]" />
-            <p className="lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[#282828] dark:text-white">
-              {activity.place}
-            </p>
+          <div className="flex items-center lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[rgb(128,128,128)]">
+            <FaLocationDot className="text-white lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem]" />
+            <p>{activity.place}</p>
           </div>
         </div>
       </div>
+
+      <img
+        className="xl:w-[140px] lg:w-[120px] md:w-[100px] sm:w-[130px] w-[30%] absolute md:bottom-[-20%] md:right-[-5%] sm:bottom-[-12%] sm:right-[-12%] bottom-[-5%] right-[-5%]"
+        src={process.env.PUBLIC_URL + "/image/deco.png"}
+        alt="deco"
+      />
     </li>
   );
 }

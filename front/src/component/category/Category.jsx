@@ -2,9 +2,15 @@ import React from "react";
 import { motion } from "framer-motion";
 import CategoryMenu from "./CategoryMenu";
 
-export default function Category({ title, iconImg, arr }) {
+export default function Category({
+  title,
+  iconImg,
+  arr,
+  category,
+  setCategory,
+}) {
   return (
-    <div className="w-full px-4 py-2 box-border bg-black text-white">
+    <div className="w-full px-4 py-2 box-border bg-black dark:bg-white text-white dark:text-[#232426]">
       <div className="w-full flex flex-row items-center">
         <motion.div
           initial={{ scale: 2 }}
@@ -24,8 +30,14 @@ export default function Category({ title, iconImg, arr }) {
       </div>
 
       <ul className="w-full mt-[-12px] flex flex-row items-center gap-x-4 overflow-x-scroll overflow-y-hidden">
-        {arr?.map((type) => (
-          <CategoryMenu icon={type.icon} title={type.title} />
+        {arr.map((type, idx) => (
+          <CategoryMenu
+            key={idx}
+            icon={type.icon}
+            title={type.title}
+            category={category}
+            setCategory={setCategory}
+          />
         ))}
       </ul>
     </div>

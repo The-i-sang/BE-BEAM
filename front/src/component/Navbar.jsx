@@ -49,13 +49,13 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     return localStorage.getItem("darkMode") === "true";
   });
 
-  // 컴포넌트가 마운트될 때 로컬 스토리지에서 다크 모드 설정을 불러옵니다.
+  // 컴포넌트가 마운트될 때 로컬 스토리지에서 다크 모드 설정을 불러옴.
   useEffect(() => {
     const isDark = localStorage.getItem("darkMode") === "true";
     setDarkMode(isDark);
   }, []);
 
-  // 다크 모드 상태가 변경될 때마다 이를 로컬 스토리지에 저장합니다.
+  // 다크 모드 상태가 변경될 때마다 이를 로컬 스토리지에 저장.
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");

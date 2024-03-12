@@ -2,13 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ToolkitCard from "../component/ToolkitCard";
-import Typewriter from "typewriter-effect";
+import ToolkitCategory from "../component/ToolkitCategory";
+import TypeWriter from "../component/TypeWriter";
 
 import { CiPen } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
-import ToolkitCategory from "../component/ToolkitCategory";
-import TypeWriter from "../component/TypeWriter";
 
 export default function Toolkit() {
   const [categories, setCategories] = useState([
@@ -265,7 +264,7 @@ export default function Toolkit() {
   return (
     <div className="w-full bg-[#ffffff] dark:bg-black pt-16 flex flex-col justify-between items-center font-medium">
       <div className="w-full flex flex-col items-center">
-        <div class="w-11/12 mx-auto">
+        <div className="w-11/12 mx-auto">
           <div className="w-full mb-10 flex lg:flex-row flex-col lg:justify-between items-center">
             <TypeWriter
               type="Toolkit"
@@ -277,7 +276,7 @@ export default function Toolkit() {
               textColor="text-[#79B1FF]"
             />
             <img
-              className="w-full lg:max-w-[450px] max-w-[600px] aspect-square"
+              className="w-full lg:max-w-[450px] max-w-[600px] aspect-square animate-fadeIn"
               src="image/toolkit_main_img.png"
               alt="main_img"
             />
