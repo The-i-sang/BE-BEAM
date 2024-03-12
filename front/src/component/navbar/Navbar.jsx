@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CiSearch, CiUser } from "react-icons/ci";
-import Menu from "./Menu";
-
-import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
-import { UserDataState, userState } from "../recoil/userState";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserDataState, userState } from "../../recoil/userState";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
-import { GoogleUserDataFetch, KakaoUserDataFetch } from "../api/user";
-import { SnsAuthTypeState } from "../recoil/contentState";
+import { GoogleUserDataFetch, KakaoUserDataFetch } from "../../api/user";
+import { SnsAuthTypeState } from "../../recoil/contentState";
+import MenuList from "./MenuList";
+import MobileMenuList from "./MobileMenuList";
+
+import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
+import { CiSearch, CiUser } from "react-icons/ci";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
 
-  const path = useLocation()?.pathname;
   const userIn = useRecoilValue(userState);
 
   const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
@@ -124,10 +124,10 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             />
           </div>
 
-          <Menu
+          <MenuList />
+          <MobileMenuList
             setSideBarOpen={setSideBarOpen}
             sideBarOpen={sideBarOpen}
-            path={path}
           />
 
           <div className="flex items-center">
