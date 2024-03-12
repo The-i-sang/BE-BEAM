@@ -25,20 +25,6 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
         </li>
         <li
           onClick={() => {
-            navigate("/meeting", { state: { content: "small_meeting" } });
-          }}
-          className={`${
-            content === "small_meeting"
-              ? "text-white font-semibold before:opacity-100"
-              : "before:opacity-0"
-          } md:w-1/5 sm:w-[23%] py-2 before:absolute before:-inset-1 before:-skew-y-3 before:bg-orange-300 hover:before:opacity-100 relative inline-block cursor-pointer hover:font-semibold hover:text-white transition-all duration-700 before:transition-all before:duration-700`}
-        >
-          <span className={`${path === "/activity" ? "" : ""} relative`}>
-            소모임
-          </span>
-        </li>
-        <li
-          onClick={() => {
             navigate("/toolkit");
           }}
           className={`${
@@ -63,7 +49,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
           } md:w-1/5 sm:w-[23%] py-2 before:absolute before:-inset-1 before:-skew-y-3 before:bg-orange-300 hover:before:opacity-100 relative inline-block cursor-pointer hover:font-semibold hover:text-white transition-all duration-700 before:transition-all before:duration-700`}
         >
           <span className={`${path === "/community" ? "" : ""} relative`}>
-            정기모임
+            Meeting
           </span>
         </li>
       </ul>
@@ -97,15 +83,6 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
               </li>
               <li
                 onClick={() => {
-                  navigate("/meeting", { state: { content: "small_meeting" } });
-                  setSideBarOpen(false);
-                }}
-                className="cursor-pointer mt-10"
-              >
-                소모임
-              </li>
-              <li
-                onClick={() => {
                   navigate("/toolkit");
                   setSideBarOpen(false);
                 }}
@@ -122,7 +99,7 @@ export default function Menu({ setSideBarOpen, sideBarOpen, path }) {
                 }}
                 className="cursor-pointer mt-10"
               >
-                정기모임
+                Meeting
               </li>
             </ul>
           </>
