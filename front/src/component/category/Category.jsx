@@ -5,12 +5,15 @@ import CategoryMenu from "./CategoryMenu";
 export default function Category({
   title,
   iconImg,
+  bgColor,
   arr,
   category,
   setCategory,
 }) {
   return (
-    <div className="w-full px-4 py-2 box-border bg-black dark:bg-white text-white dark:text-[#232426]">
+    <div
+      className={`${bgColor} w-full px-4 py-2 box-border dark:bg-white text-white dark:text-[#232426]`}
+    >
       <div className="w-full flex flex-row items-center">
         <motion.div
           initial={{ scale: 2 }}
