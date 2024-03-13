@@ -5,6 +5,11 @@ export const SnsAuthTypeState = atom({
   default: "",
 });
 
+export const SlidesToShowState = atom({
+  key: "SlidesToShowState",
+  default: 2,
+});
+
 export const searchNicknameState = atom({
   key: "searchNicknameState",
   default: "",

@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-export const MeetingDataFetch = async () => {
+export const ToolkitDataFetch = async () => {
   const res = await axios({
     method: "get",
     url: `${process.env.PUBLIC_URL}/data/Toolkit.json`,

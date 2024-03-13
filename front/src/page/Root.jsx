@@ -4,6 +4,8 @@ import { Outlet } from "react-router-dom";
 import Footer from "../component/Footer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ScrollRestoration } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { SlidesToShowState } from "../recoil/contentState";
 
 export default function Root() {
   const queryClient = new QueryClient();
@@ -11,6 +13,7 @@ export default function Root() {
 
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
+  const setSlidesToShow = useSetRecoilState(SlidesToShowState);
 
   const scrollToTop = () => {
     // ref가 가리키는 요소의 높이를 이용하여 스크롤
@@ -30,6 +33,22 @@ export default function Root() {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 1024) {
+        setSlidesToShow(1);
+      } else {
+        setSlidesToShow(2);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [setSlidesToShow]);
 
   return (
     <div

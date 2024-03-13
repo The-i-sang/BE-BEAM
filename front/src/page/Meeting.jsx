@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { FaKissWinkHeart } from "react-icons/fa";
 import { MeetingDataFetch } from "../api/meeting";
 import MeetingCard from "../component/MeetingCard";
+import { useRecoilValue } from "recoil";
+import { SlidesToShowState } from "../recoil/contentState";
 
 export default function Meeting() {
   const meetingType = [
@@ -21,25 +23,9 @@ export default function Meeting() {
     { title: "모집 마감", icon: "image/meeting_category_icon4.png" },
   ];
 
-  const [slidesToShow, setSlidesToShow] = useState(2);
+  const slidesToShow = useRecoilValue(SlidesToShowState);
   const [category1, setCategory1] = useState("ALL");
   const [category2, setCategory2] = useState("ALL");
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width < 1024) {
-        setSlidesToShow(1);
-      } else {
-        setSlidesToShow(2);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const { isLoading, error, data } = useQuery(["activities"], async () => {
     const result = await MeetingDataFetch();
