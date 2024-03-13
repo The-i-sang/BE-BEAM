@@ -14,7 +14,7 @@ export default function CategoryMenu({ icon, title, category, setCategory }) {
       onClick={() => setCategory(title)}
     >
       <img className="w-[70%] aspect-square" src={icon} alt="icon" />
-      <p className="font-semibold xl:text-[1.1rem] lg:text-[1rem] sm:text-[1rem] text-[0.9rem]">
+      <p className="font-semibold xl:text-[1rem] lg:text-[1rem] sm:text-[0.9rem] text-[0.9rem] leading-tight">
         {title}
       </p>
     </button>
