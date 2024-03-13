@@ -88,7 +88,7 @@ export default function Meeting() {
           titleBack="<br/>다양하게 어우러지는 모임"
           subTitleFirst="다양한 사람들이 다양하게 어우러지는 모임,"
           subTitleBack="관심사에 맞게 모임을 Pick 하세요!"
-          textColor="text-[#f5aa15]"
+          textColor="text-[#ffc655]"
         />
         <img
           className="w-full lg:max-w-[450px] max-w-[600px] aspect-square animate-fadeIn"
@@ -102,6 +102,7 @@ export default function Meeting() {
           <Category
             title="Meeting Type"
             iconImg={"/image/meeting_icon1.png"}
+            bgColor="bg-[#ffc655]"
             arr={meetingType}
             category={category1}
             setCategory={setCategory1}
@@ -109,21 +110,27 @@ export default function Meeting() {
           <Category
             title="Recruitment Status"
             iconImg={"/image/meeting_icon2.png"}
+            bgColor="bg-[#ffc655]"
             arr={recruitmentStatus}
             category={category2}
             setCategory={setCategory2}
           />
         </SwipeToSlide>
 
-        <div className="w-full pb-16 bg-[#e6e6e6]">
-          <div className="w-full p-4 box-border ">
+        <div className="w-full pb-16">
+          <div className="w-full px-4 py-6 box-border ">
             <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
               {comment}
             </p>
 
-            <ul className="sm:grid sm:grid-cols-2 sm:gap-x-6 gap-y-6">
+            <ul className="sm:grid sm:grid-cols-2 sm:gap-x-4 gap-y-4">
               {filteredMeetings?.map((data) => (
-                <MeetingCard key={data.id} activity={data} />
+                <MeetingCard
+                  key={data.id}
+                  activity={data}
+                  bgColor="bg-[#ffc655]"
+                  shadow="shadow-[0_10px_8px_2px_#e9a30d]"
+                />
               ))}
             </ul>
           </div>

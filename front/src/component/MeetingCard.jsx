@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 import { GoHeart, GoHeartFill } from "react-icons/go";
 
-export default function MeetingCard({ activity }) {
+export default function MeetingCard({ activity, bgColor, shadow }) {
   const navigate = useNavigate();
 
   const [isClicked, setIsClicked] = useState(false);
@@ -14,9 +14,11 @@ export default function MeetingCard({ activity }) {
   };
 
   return (
-    <li className="cursor-pointer w-full h-full sm:mb-0 mb-5 p-6 box-border bg-[#171718] text-white rounded-[2rem] flex md:flex-row sm:flex-col flex-col shadow-[0_10px_12px_2px_#858585] relative overflow-hidden">
+    <li
+      className={`${bgColor} cursor-pointer w-full h-full sm:mb-0 mb-5 p-6 box-border text-[#232426] rounded-[2rem] flex md:flex-row sm:flex-col flex-col relative overflow-hidden shadow-[0_5px_5px_2px_#ebebeb]`}
+    >
       <img
-        className="lg:w-[164px] md:w-[140px] sm:w-full w-full aspect-square object-cover object-center rounded-full shadow-[0_10px_8px_2px_rgba(0,0,0,0.4)]"
+        className={`${shadow} lg:w-[164px] md:w-[140px] sm:w-full w-full aspect-square object-cover object-center rounded-full`}
         src={process.env.PUBLIC_URL + activity.thumbnail.replace("./", "/")}
         alt="activity_img"
       />
@@ -46,16 +48,16 @@ export default function MeetingCard({ activity }) {
               state: { activity },
             });
           }}
-          className="mt-4 text-white"
+          className="mt-4 text-[#232426]"
         >
           <h1 className="mb-2 lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem] font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
             {activity.title}
           </h1>
 
-          <p className="mb-2 lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[#c5c5c5] dark:text-[rgba(255,255,255,0.7)] whitespace-nowrap overflow-hidden text-ellipsis">
+          <p className="mb-2 lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[#575757] dark:text-[rgba(255,255,255,0.7)] whitespace-nowrap overflow-hidden text-ellipsis">
             {activity.state} · {activity.schedule}
           </p>
-          <div className="flex items-center lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[rgb(128,128,128)]">
+          <div className="flex items-center lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-[rgb(255,255,255)]">
             <FaLocationDot className="text-white lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem]" />
             <p>{activity.place}</p>
           </div>

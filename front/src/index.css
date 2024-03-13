@@ -168,7 +168,7 @@ code {
 }
 
 .modalContentScroll::-webkit-scrollbar {
-  width: 8px; /* 스크롤바의 너비 */
+  width: 5px; /* 스크롤바의 너비 */
 }
 
 .modalContentScroll::-webkit-scrollbar-track {
