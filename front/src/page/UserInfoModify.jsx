@@ -7,7 +7,7 @@ import {
   userNameState,
   userPhoneNumberState,
 } from "../recoil/authState";
-import useInput from "../customhook/useInput";
+import useInputGlobal from "../customhook/useInputGlobal.jsx";
 import { useSetRecoilState } from "recoil";
 import Button from "../component/Button";
 
@@ -16,11 +16,12 @@ import { identify } from "../common.js";
 import InputCheckbox from "../component/InputCheckbox.jsx";
 
 export default function UserInfoModify() {
-  const [userNameInput, onUserNameChange] = useInput(userNameState);
+  const [userNameInput, onUserNameChange] = useInputGlobal(userNameState);
   const [userPhoneNumberInput, onUserPhoneNumberChange] =
-    useInput(userPhoneNumberState);
-  const [emailInput, onEmailChange] = useInput(emailState);
-  const [userBirthdayInput, onUserBirthdayChange] = useInput(userBirthdayState);
+    useInputGlobal(userPhoneNumberState);
+  const [emailInput, onEmailChange] = useInputGlobal(emailState);
+  const [userBirthdayInput, onUserBirthdayChange] =
+    useInputGlobal(userBirthdayState);
 
   // email이 맞는지 확인하는 useState
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);

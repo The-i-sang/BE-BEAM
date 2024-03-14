@@ -3,7 +3,7 @@ import img3 from "../assets/3.png";
 import img4 from "../assets/4.png";
 import img5 from "../assets/5.png";
 import img6 from "../assets/6.png";
-import Popup from "../component/Popup";
+import Popup from "../component/popUp/Popup";
 import MainIntroContentLeft from "../component/main/MainIntroContentLeft";
 import MainIntroContentRight from "../component/main/MainIntroContentRight";
 

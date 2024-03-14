@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { FaKissWinkHeart } from "react-icons/fa";
 import { MeetingDataFetch } from "../api/meeting";
-import MeetingCard from "../component/MeetingCard";
+import MeetingCard from "../component/meeting/MeetingCard";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 
@@ -32,7 +32,7 @@ export default function Meeting() {
     return result;
   });
 
-  const [filteredMeetings, setFilteredMeetings] = useState(data);
+  const [filteredMeetings, setFilteredMeetings] = useState([]);
 
   useEffect(() => {
     if (!Array.isArray(data)) return;
@@ -57,12 +57,11 @@ export default function Meeting() {
     ? "Loading..."
     : error
     ? "An error has occurred...!"
-    : filteredMeetings?.length === 0 && category2 === "모집 중"
+    : filteredMeetings.length === 0 && category2 === "모집 중"
     ? "현재 모집 중인 활동이 없어요...!"
-    : filteredMeetings?.length === 0 && category2 === "모집 마감"
+    : filteredMeetings.length === 0 && category2 === "모집 마감"
     ? "모집 마감된 활동이 없어요...!"
     : null;
-  console.log(filteredMeetings);
 
   return (
     <div className="w-full pt-16 dark:bg-black dark:text-white">
@@ -103,23 +102,21 @@ export default function Meeting() {
           />
         </SwipeToSlide>
 
-        <div className="w-full pb-16">
-          <div className="w-full px-4 py-6 box-border ">
-            <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
-              {comment}
-            </p>
+        <div className="w-full px-4 pt-6 py-24 box-border">
+          <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
+            {comment}
+          </p>
 
-            <ul className="sm:grid sm:grid-cols-2 sm:gap-x-4 gap-y-4">
-              {filteredMeetings?.map((data) => (
-                <MeetingCard
-                  key={data.id}
-                  activity={data}
-                  bgColor="bg-[#ffc655]"
-                  shadow="shadow-[0_10px_8px_2px_#e9a30d]"
-                />
-              ))}
-            </ul>
-          </div>
+          <ul className="sm:grid sm:grid-cols-2 sm:gap-x-4 gap-y-4">
+            {filteredMeetings.map((data) => (
+              <MeetingCard
+                key={data.id}
+                activity={data}
+                bgColor="bg-[#ffc655]"
+                shadow="shadow-[0_10px_8px_2px_#e9a30d]"
+              />
+            ))}
+          </ul>
         </div>
       </div>
     </div>

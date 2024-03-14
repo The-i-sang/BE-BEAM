@@ -2,15 +2,15 @@ import React from "react";
 
 import { GoX } from "react-icons/go";
 import TextArea from "./TextArea";
-import useInput from "../customhook/useInput";
 import { meetingApplyReasonState } from "../recoil/contentState";
 import Button from "./Button";
+import useInputGlobal from "../customhook/useInputGlobal";
 
 export default function MeetingApplyReasonModal({
   meetingApplyReasonModal,
   setMeetingApplyReasonModal,
 }) {
-  const [meetingApplyReasonInput, onMeetingApplyReasonChange] = useInput(
+  const [meetingApplyReasonInput, onMeetingApplyReasonChange] = useInputGlobal(
     meetingApplyReasonState
   );
 
