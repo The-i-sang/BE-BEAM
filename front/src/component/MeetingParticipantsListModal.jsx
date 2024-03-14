@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Input from "./Input";
-import useInput from "../customhook/useInput";
+import useInputGlobal from "../customhook/useInputGlobal";
 
 import { searchNicknameState } from "../recoil/contentState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -30,7 +30,7 @@ export default function MeetingParticipantsListModal({
   data,
 }) {
   const [searchNicknameInput, onSearchNicknameChange] =
-    useInput(searchNicknameState);
+    useInputGlobal(searchNicknameState);
 
   // 임시 해당 모임 신청자 리스트
   const [userData, setUserData] = useState([

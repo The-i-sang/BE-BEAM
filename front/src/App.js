@@ -18,7 +18,6 @@ import MeetingDetail from "./component/MeetingDetail";
 import GoogleAuth from "./page/GoogleAuth";
 import { Cookies } from "react-cookie";
 import KakakoAuth from "./page/KakaoAuth";
-import Toolkit2 from "./page/Toolkit2";
 
 function App() {
   const cookies = new Cookies();
@@ -51,10 +50,6 @@ function App() {
         {
           path: "/toolkit",
           element: <Toolkit />,
-        },
-        {
-          path: "/toolkit2",
-          element: <Toolkit2 />,
         },
         {
           path: "/toolkit/detail/:id",

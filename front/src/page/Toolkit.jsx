@@ -1,264 +1,144 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import ToolkitCard from "../component/ToolkitCard";
-import ToolkitCategory from "../component/ToolkitCategory";
+import ToolkitCard from "../component/toolkit/ToolkitCard";
 import TypeWriter from "../component/TypeWriter";
+import { ToolkitDataFetch } from "../api/toolkit";
+import SwipeToSlide from "../component/category/SwipeToSlide";
+import Category from "../component/category/Category";
+import { SlidesToShowState } from "../recoil/contentState";
+import { useRecoilValue } from "recoil";
+import useInput from "../customhook/useInput";
 
-import { CiPen } from "react-icons/ci";
+import { CiPen, CiSearch } from "react-icons/ci";
 import { GoX } from "react-icons/go";
-import { CiSearch } from "react-icons/ci";
 
 export default function Toolkit() {
-  const [categories, setCategories] = useState([
-    { title: "All", isActive: true },
-    { title: "청년", isActive: false },
-    { title: "퀴어", isActive: false },
-    { title: "시각장애", isActive: false },
-    { title: "청각장애", isActive: false },
-    { title: "이동약자", isActive: false },
-    { title: "비진학", isActive: false },
-    { title: "여성·젠더", isActive: false },
-  ]);
-
-  const [categories2, setCategories2] = useState([
-    { title: "All", isActive: true },
-    { title: "커뮤니티 구성원", isActive: false },
-    { title: "커뮤니티 기획자", isActive: false },
-  ]);
-
-  const [categories3, setCategories3] = useState([
-    { title: "All", isActive: true },
-    { title: "비빔", isActive: false },
-    { title: "아카이브", isActive: false },
-  ]);
-  const [filteredToolkits, setFilteredToolkits] = useState([]);
-  const [text, setText] = useState("");
-  const [searchToolkits, setSearchToolkits] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("검색결과가 없습니다.");
-
-  const {
-    isLoading,
-    error,
-    data: toolkits,
-  } = useQuery(["toolkits"], async () => {
-    return axios //
-      .get(process.env.PUBLIC_URL + "/data/Toolkit.json") //
-      .then((res) => res.data.items.toolkits);
+  const { isLoading, error, data } = useQuery(["toolkits"], async () => {
+    const result = await ToolkitDataFetch();
+    return result;
   });
 
-  console.log(toolkits);
+  const [filteredToolkits, setFilteredToolkits] = useState([]);
+  const [searchToolkitText, onSearchToolkitTextChange, setSearchToolkitText] =
+    useInput("");
+  const [category1, setCategory1] = useState("ALL");
+  const [category2, setCategory2] = useState("ALL");
+  const [category3, setCategory3] = useState("ALL");
+  const categories = [category1, category2, category3];
+  const setCategories = [setCategory1, setCategory2, setCategory3];
 
-  const [category, setCategory] = useState("All");
-  const [category2, setCategory2] = useState("All");
-  const [category3, setCategory3] = useState("All");
+  const slidesToShow = useRecoilValue(SlidesToShowState);
 
-  const handleCategoryClick = (clickedCategory) => {
-    setCategory(clickedCategory);
+  const toolkitType = [
+    { title: "ALL", icon: "image/toolkit_category_icon12.png" },
+    { title: "청년", icon: "image/toolkit_category_icon1.png" },
+    { title: "퀴어", icon: "image/toolkit_category_icon2.png" },
+    { title: "시각장애", icon: "image/toolkit_category_icon3.png" },
+    { title: "청각장애", icon: "image/toolkit_category_icon4.png" },
+    { title: "이동약자", icon: "image/toolkit_category_icon5.png" },
+    { title: "비진학", icon: "image/toolkit_category_icon6.png" },
+    { title: "여성·젠더", icon: "image/toolkit_category_icon7.png" },
+  ];
 
-    // Update isActive for each category based on the clicked category
-    const updatedCategories = categories.map((cate) => ({
-      ...cate,
-      isActive: cate.title === clickedCategory,
-    }));
-    setCategories(updatedCategories);
+  const personType = [
+    { title: "ALL", icon: "image/toolkit_category_icon13.png" },
+    { title: "커뮤니티 구성원", icon: "image/toolkit_category_icon8.png" },
+    { title: "커뮤니티 기획자", icon: "image/toolkit_category_icon9.png" },
+  ];
 
-    setText("");
-    setSearchToolkits([]);
-
-    if (category2 === "" && category3 === "") {
-      setCategories2((prev) =>
-        prev.map((category) => {
-          if (category.title === "All") {
-            return { ...category, isActive: true };
-          } else {
-            return category;
-          }
-        })
-      );
-
-      setCategories3((prev) =>
-        prev.map((category) => {
-          if (category.title === "All") {
-            return { ...category, isActive: true };
-          } else {
-            return category;
-          }
-        })
-      );
-
-      setCategory2("All");
-      setCategory3("All");
-    }
-  };
-
-  const handleCategoryClick2 = (clickedCategory) => {
-    setCategory2(clickedCategory);
-
-    // Update isActive for each category based on the clicked category
-    const updatedCategories = categories2.map((cate) => ({
-      ...cate,
-      isActive: cate.title === clickedCategory,
-    }));
-    setCategories2(updatedCategories);
-
-    setText("");
-    setSearchToolkits([]);
-
-    if (category === "" && category3 === "") {
-      setCategories((prev) =>
-        prev.map((category) => {
-          if (category.title === "All") {
-            return { ...category, isActive: true };
-          } else {
-            return category;
-          }
-        })
-      );
-
-      setCategories3((prev) =>
-        prev.map((category) => {
-          if (category.title === "All") {
-            return { ...category, isActive: true };
-          } else {
-            return category;
-          }
-        })
-      );
-
-      setCategory("All");
-      setCategory3("All");
-    }
-  };
-
-  const handleCategoryClick3 = (clickedCategory) => {
-    setCategory3(clickedCategory);
-
-    // Update isActive for each category based on the clicked category
-    const updatedCategories = categories3.map((cate) => ({
-      ...cate,
-      isActive: cate.title === clickedCategory,
-    }));
-    setCategories3(updatedCategories);
-
-    setText("");
-    setSearchToolkits([]);
-
-    if (category === "" && category2 === "") {
-      setCategories((prev) =>
-        prev.map((category) => {
-          if (category.title === "All") {
-            return { ...category, isActive: true };
-          } else {
-            return category;
-          }
-        })
-      );
-
-      setCategories2((prev) =>
-        prev.map((category) => {
-          if (category.title === "All") {
-            return { ...category, isActive: true };
-          } else {
-            return category;
-          }
-        })
-      );
-
-      setCategory("All");
-      setCategory2("All");
-    }
-  };
-
-  useEffect(() => {
-    let filteredList = toolkits;
-
-    if (category !== "All") {
-      filteredList = filteredList.filter(
-        (toolkit) => toolkit.type === category
-      );
-    }
-
-    if (category2 !== "All") {
-      filteredList = filteredList.filter(
-        (toolkit) => toolkit.type2 === category2
-      );
-    }
-
-    if (category3 !== "All") {
-      filteredList = filteredList.filter(
-        (toolkit) => toolkit.creator === category3
-      );
-    }
-
-    setFilteredToolkits(filteredList);
-  }, [category, category2, category3, toolkits]);
-
-  const handleDeleteTitle = () => {
-    setText("");
-  };
+  const creator = [
+    { title: "ALL", icon: "image/toolkit_category_icon14.png" },
+    { title: "비빔", icon: "image/toolkit_category_icon10.png" },
+    { title: "아카이브", icon: "image/toolkit_category_icon11.png" },
+  ];
 
   const handleSearchToolkit = (e) => {
     e.preventDefault();
 
-    const trimmedText = text.trim();
+    if (!Array.isArray(data)) return;
 
-    if (trimmedText !== "") {
-      setSearchToolkits(
-        toolkits.filter((toolkit) => {
-          const removedSpaceTitle = toolkit.title.replace(/ /g, "");
-          const removedSpaceDescription = toolkit.description.replace(/ /g, "");
+    let filtered = data;
 
-          const removedSpaceText = text.replace(/ /g, "");
+    const trimmedSearchTerm = searchToolkitText.trim();
 
-          return (
-            removedSpaceTitle.replace(/ /g, "").includes(removedSpaceText) ||
-            removedSpaceDescription.includes(removedSpaceText)
-          );
-        })
+    if (searchToolkitText.length > 0 && trimmedSearchTerm === "") {
+      setFilteredToolkits([]);
+    } else {
+      const refinedSearchTerm = searchToolkitText
+        .replace(/\s+/g, "")
+        .toLowerCase();
+
+      const filteredResults = filtered.filter(
+        (toolkit) =>
+          toolkit?.title
+            .replace(/\s+/g, "")
+            .toLowerCase()
+            .includes(refinedSearchTerm) ||
+          toolkit?.description
+            .replace(/\s+/g, "")
+            .toLowerCase()
+            .includes(refinedSearchTerm)
       );
 
-      if (searchToolkits.length === 0) {
-        setErrorMessage("검색결과가 없습니다.");
-      }
-    } else if (trimmedText === "" || searchToolkits.length === 0) {
-      setSearchToolkits([]);
-      setErrorMessage("검색결과가 없습니다.");
+      setFilteredToolkits(filteredResults);
     }
+  };
 
-    setCategories((prev) =>
-      prev.map((category) => {
-        if (category.isActive === true) {
-          return { ...category, isActive: false };
-        } else {
-          return category;
+  useEffect(() => {
+    if (searchToolkitText.length === 0) {
+      if (!Array.isArray(data)) return;
+
+      /**
+       * @type {{ type: string; type2: string; creator : string; }[]}
+       */
+      let filtered = data;
+
+      if (category1 !== "ALL") {
+        filtered = filtered.filter((toolkit) => toolkit.type === category1);
+      }
+
+      if (category2 !== "ALL") {
+        filtered = filtered.filter((toolkit) => toolkit.type2 === category2);
+      }
+
+      if (category3 !== "ALL") {
+        filtered = filtered.filter((toolkit) => toolkit.creator === category3);
+      }
+
+      setFilteredToolkits(filtered);
+    }
+    return;
+  }, [
+    searchToolkitText,
+    category1,
+    category2,
+    category3,
+    setFilteredToolkits,
+    data,
+  ]);
+
+  useEffect(() => {
+    if (searchToolkitText.length === 0) {
+      categories.forEach((category, i) => {
+        if (category === "") {
+          setCategories[i]("ALL");
         }
-      })
-    );
+      });
+    }
+  }, [searchToolkitText, ...categories, ...setCategories]);
 
-    setCategories2((prev) =>
-      prev.map((category) => {
-        if (category.isActive === true) {
-          return { ...category, isActive: false };
-        } else {
-          return category;
-        }
-      })
-    );
+  const comment = isLoading
+    ? "Loading..."
+    : error
+    ? "An error has occurred...!"
+    : searchToolkitText.length > 0 && filteredToolkits.length === 0
+    ? "검색 결과가 없습니다."
+    : searchToolkitText.length === 0 && filteredToolkits.length === 0
+    ? "툴킷이 없습니다."
+    : null;
 
-    setCategories3((prev) =>
-      prev.map((category) => {
-        if (category.isActive === true) {
-          return { ...category, isActive: false };
-        } else {
-          return category;
-        }
-      })
-    );
-
-    setCategory("");
-    setCategory2("");
-    setCategory3("");
+  const onClickCategoryMenu = () => {
+    setSearchToolkitText("");
   };
 
   return (
@@ -285,17 +165,23 @@ export default function Toolkit() {
           <form onSubmit={handleSearchToolkit} className="w-full relative">
             <input
               onChange={(e) => {
-                setText(e.target.value);
+                onSearchToolkitTextChange(e);
+
+                setCategory1("");
+                setCategory2("");
+                setCategory3("");
               }}
-              value={text}
+              value={searchToolkitText}
               className="w-full sm:p-8 p-5 box-border mt-4 rounded-full dark:bg-transparent border-[1px] border-solid border-[#79B1FF] outline-none sm:text-[1.2rem] text-[0.9rem] dark:text-white sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem] placeholder:text-[#79B1FF]"
               type="text"
               placeholder="툴킷을 검색하세요."
             />
             <button
-              onClick={handleDeleteTitle}
+              onClick={() => {
+                setSearchToolkitText("");
+              }}
               className={`${
-                text.length > 0 ? "opacity-1" : "opacity-0"
+                searchToolkitText.length > 0 ? "opacity-1" : "opacity-0"
               } sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-20 right-12 sm:top-[40%] top-[45%] transition-all duration-700`}
               type="button"
             >
@@ -310,45 +196,49 @@ export default function Toolkit() {
           </form>
         </div>
 
-        <ToolkitCategory
-          categories={categories}
-          categories2={categories2}
-          categories3={categories3}
-          handleCategoryClick={handleCategoryClick}
-          handleCategoryClick2={handleCategoryClick2}
-          handleCategoryClick3={handleCategoryClick3}
-        />
-      </div>
+        <div className="w-full mt-10">
+          <SwipeToSlide slidesToShow={slidesToShow}>
+            <Category
+              title="Toolkit Type"
+              iconImg={"/image/toolkit_icon1.png"}
+              bgColor="bg-[#79B1FF]"
+              arr={toolkitType}
+              category={category1}
+              setCategory={setCategory1}
+              onClickCategoryMenu={onClickCategoryMenu}
+            />
+            <Category
+              title="Person Type"
+              iconImg={"/image/toolkit_icon2.png"}
+              bgColor="bg-[#79B1FF]"
+              arr={personType}
+              category={category2}
+              setCategory={setCategory2}
+              onClickCategoryMenu={onClickCategoryMenu}
+            />
+            <Category
+              title="Creator"
+              iconImg={"/image/toolkit_icon3.png"}
+              bgColor="bg-[#79B1FF]"
+              arr={creator}
+              category={category3}
+              setCategory={setCategory3}
+              onClickCategoryMenu={onClickCategoryMenu}
+            />
+          </SwipeToSlide>
+        </div>
 
-      {isLoading && "Loading..."}
-      {error && "An error has occurred...!"}
+        <div className="w-full px-4 pt-6 py-24 box-border bg-[#c7deff] dark:bg-[#191919]">
+          <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
+            {comment}
+          </p>
 
-      <div className="w-full bg-[#c7deff] dark:bg-[#191919]">
-        <ul className="w-11/12 max-w-[1400px] mx-auto py-10 sm:grid md:grid-cols-3 sm:grid-cols-2 gap-x-3">
-          {searchToolkits.length === 0 &&
-            filteredToolkits &&
-            filteredToolkits.map((toolkit) => {
-              return <ToolkitCard toolkit={toolkit} key={toolkit} />;
-            })}
-
-          {searchToolkits.length !== 0 &&
-          category === "" &&
-          category2 === "" &&
-          category3 === "" ? (
-            searchToolkits.map((toolkit, index) => {
-              return (
-                <ToolkitCard toolkit={toolkit} key={toolkit.id} index={index} />
-              );
-            })
-          ) : searchToolkits.length === 0 &&
-            category === "" &&
-            category2 === "" &&
-            category3 === "" ? (
-            <p>{errorMessage}</p>
-          ) : (
-            <></>
-          )}
-        </ul>
+          <ul className="w-full sm:grid md:grid-cols-3 sm:grid-cols-2 gap-x-5">
+            {filteredToolkits.map((data, idx) => (
+              <ToolkitCard toolkit={data} key={data.id} index={idx} />
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

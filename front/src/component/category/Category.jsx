@@ -9,6 +9,7 @@ export default function Category({
   arr,
   category,
   setCategory,
+  onClickCategoryMenu,
 }) {
   return (
     <div
@@ -40,6 +41,7 @@ export default function Category({
             title={type.title}
             category={category}
             setCategory={setCategory}
+            onClickCategoryMenu={onClickCategoryMenu}
           />
         ))}
       </ul>

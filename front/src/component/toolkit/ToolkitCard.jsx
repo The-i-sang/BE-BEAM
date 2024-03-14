@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../config";
 
 export default function ToolkitCard({ toolkit }) {
   const navigate = useNavigate();
@@ -13,12 +12,6 @@ export default function ToolkitCard({ toolkit }) {
       className="lg:mb-16 md:mb-8 cursor-pointer"
     >
       <div className="relative group">
-        {/* <img
-          className="w-full object-cover mx-auto rounded-2xl"
-          src={`${BASE_URL}${toolkit.thumbnail}`}
-          alt={toolkit.alt}
-        /> */}
-
         <img
           className="w-full object-cover mx-auto rounded-2xl"
           src={process.env.PUBLIC_URL + toolkit.thumbnail.replace("./", "/")}

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { introMyselfState, nickNameState } from "../recoil/authState";
 import Input from "../component/Input";
-import useInput from "../customhook/useInput";
+import useInputGlobal from "../customhook/useInputGlobal";
 import { useSetRecoilState } from "recoil";
 import Button from "../component/Button";
 
@@ -10,8 +10,9 @@ import { AiOutlineSync } from "react-icons/ai";
 import TextArea from "../component/TextArea";
 
 export default function UserProfileModify() {
-  const [nicknameInput, onNicknameChange] = useInput(nickNameState);
-  const [introMyselfInput, onIntroMyselfChange] = useInput(introMyselfState);
+  const [nicknameInput, onNicknameChange] = useInputGlobal(nickNameState);
+  const [introMyselfInput, onIntroMyselfChange] =
+    useInputGlobal(introMyselfState);
 
   const setNicknameInput = useSetRecoilState(nickNameState);
   const setIntroMyselfInput = useSetRecoilState(introMyselfState);
