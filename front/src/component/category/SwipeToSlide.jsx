@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
-import NextArrow from "../NextArrow";
-import PrevArrow from "../PrevArrow";
+import NextArrow from "../slider/NextArrow";
+import PrevArrow from "../slider/PrevArrow";
 
 import { BsArrowRightSquare } from "react-icons/bs";
 import { BsArrowLeftSquare } from "react-icons/bs";

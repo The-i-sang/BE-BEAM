@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { FaKissWinkHeart } from "react-icons/fa";
 import { MeetingDataFetch } from "../api/meeting";
-import MeetingCard from "../component/MeetingCard";
+import MeetingCard from "../component/meeting/MeetingCard";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 

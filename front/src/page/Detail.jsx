@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import DetailSlider from "../component/DetailSlider";
+import DetailSlider from "../component/slider/DetailSlider";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 

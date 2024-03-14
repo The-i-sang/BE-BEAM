@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FaLocationDot } from "react-icons/fa6";
 
+import { FaLocationDot } from "react-icons/fa6";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 
 export default function MeetingCard({ activity, bgColor, shadow }) {
