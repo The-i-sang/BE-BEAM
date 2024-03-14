@@ -228,14 +228,19 @@ export default function Toolkit() {
           </SwipeToSlide>
         </div>
 
-        <div className="w-full px-4 pt-6 py-24 box-border bg-[#c7deff] dark:bg-[#191919]">
+        <div className="w-full px-4 pt-6 py-24 box-border dark:bg-[#191919]">
           <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
             {comment}
           </p>
 
-          <ul className="w-full sm:grid md:grid-cols-3 sm:grid-cols-2 gap-x-5">
+          <ul className="w-full sm:grid sm:grid-cols-2 gap-x-5">
             {filteredToolkits.map((data, idx) => (
-              <ToolkitCard toolkit={data} key={data.id} index={idx} />
+              <ToolkitCard
+                toolkit={data}
+                key={data.id}
+                bgColor="bg-[#79B1FF]"
+                hoverBgColor="hover:bg-[rgba(121,177,255,0.8)]"
+              />
             ))}
           </ul>
         </div>

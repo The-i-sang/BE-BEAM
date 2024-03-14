@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ToolkitCard({ toolkit }) {
+export default function ToolkitCard({ toolkit, bgColor, hoverBgColor }) {
   const navigate = useNavigate();
 
   return (
@@ -9,25 +9,25 @@ export default function ToolkitCard({ toolkit }) {
       onClick={() => {
         navigate(`/toolkit/detail/${toolkit.id}`, { state: { toolkit } });
       }}
-      className="lg:mb-16 md:mb-8 cursor-pointer"
+      className={`${bgColor} ${hoverBgColor} w-full mb-5 p-5 box-border rounded-3xl cursor-pointer lg:grid lg:grid-cols-2 sm:flex flex sm:flex-col flex-col sm:justify-between justify-between gap-x-5 items-center text-white shadow-[0_5px_5px_2px_#ebebeb] group transition-all duration-700`}
     >
-      <div className="relative group">
-        <img
-          className="w-full object-cover mx-auto rounded-2xl"
-          src={process.env.PUBLIC_URL + toolkit.thumbnail.replace("./", "/")}
-          alt={toolkit.alt}
-        />
-        <div className="2xl:group-hover:h-24 xl:group-hover:h-20 lg:group-hover:h-20 md:group-hover:h-16 sm:group-hover:h-24 group-hover:h-24 absolute bottom-0 w-full h-0 bg-[rgba(40,40,40,0.94)] rounded-b-lg text-white flex justify-center items-center xl:text-xl lg:text-lg md:text-[1rem] sm:text-xl text-xl transition-all duration-700 overflow-hidden">
-          <p>자세히 보기</p>
-        </div>
+      <div className="w-full h-full 2xl:py-4 flex flex-col justify-between">
+        <p className="xl:text-[1.6rem] lg:text-[1.5rem] sm:text-[1.4rem] text-[1.4rem] font-bold xl:line-clamp-2 lg:line-clamp-1">
+          {toolkit.title}
+        </p>
+        <p className="sm:block hidden lg:mt-2 sm:mt-2 mt-4 px-3 py-2 border-[1px] border-solid border-white rounded-full sm:text-[0.9rem] text-[0.8rem] text-white font-semibold opacity-0 group-hover:opacity-100 transition-all duration-700">
+          자세히 보기
+        </p>
+        <p className="lg:mt-6 md:mt-4 sm:mt-2 mt-4 lg:mb-0 sm:mb-4 mb-6 lg:text-[1.1rem] sm:text-[1rem] text-[1rem] font-normal whitespace-normal xl:line-clamp-5 sm:line-clamp-4">
+          {toolkit.description}
+        </p>
       </div>
 
-      <p className="lg:mt-8 md:mt-4 sm:mt-8 mt-6 text-[#282828] dark:text-[#79B1FF] lg:text-[1.8rem] md:text-[1.6rem] sm:text-[1.4rem] text-[1.4rem] font-bold whitespace-nowrap overflow-hidden text-ellipsis">
-        {toolkit.title}
-      </p>
-      <p className="lg:mt-6 md:mt-4 sm:mt-2 mt-4 md:mb-0 sm:mb-14 mb-10 lg:text-[1.2rem] md:text-[1rem] sm:text-[0.9rem] text-[0.9rem] font-normal dark:text-white whitespace-normal">
-        {toolkit.description}
-      </p>
+      <img
+        className="lg:w-auto sm:w-full lg:h-full sm:h-auto aspect-square object-cover rounded-2xl"
+        src={process.env.PUBLIC_URL + toolkit.squareImage.replace("./", "/")}
+        alt={toolkit.alt}
+      />
     </li>
   );
 }
