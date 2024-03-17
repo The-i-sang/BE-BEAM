@@ -44,3 +44,22 @@ export function getUserData(snsAuthType, userData) {
 
   return { profileImg: profileImg, userNickname: userNickname };
 }
+
+export function handleConsoleError(
+  isLoading,
+  error,
+  searchText,
+  filteredDatas
+) {
+  const comment = isLoading
+    ? "Loading..."
+    : error
+    ? "An error has occurred...!"
+    : searchText.length > 0 && filteredDatas.length === 0
+    ? "검색 결과가 없습니다."
+    : searchText.length === 0 && filteredDatas.length === 0
+    ? "데이터가 없습니다."
+    : null;
+
+  return comment;
+}

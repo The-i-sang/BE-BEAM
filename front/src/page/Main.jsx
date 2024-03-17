@@ -65,7 +65,7 @@ export default function Main() {
             scrollHeight > 100
               ? "top-40"
               : "sm:max-w-[1400px] max-w-[470px] top-96"
-          } w-full mx-auto sm:h-[720px] h-[400px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_0] text-white relative transition-all duration-700`}
+          } w-full mx-auto sm:h-[720px] h-[400px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_50%] text-white relative transition-all duration-700`}
         >
           <div className="w-full h-full bg-black opacity-20 absolute top-0 left-0" />
         </div>
