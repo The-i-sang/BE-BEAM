@@ -3,12 +3,12 @@ import TypeWriter from "../component/TypeWriter";
 import Category from "../component/category/Category";
 import SwipeToSlide from "../component/category/SwipeToSlide";
 import { useQuery } from "@tanstack/react-query";
-
-import { FaKissWinkHeart } from "react-icons/fa";
-import { MeetingDataFetch } from "../api/meeting";
 import MeetingCard from "../component/meeting/MeetingCard";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
+import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
+
+import { FaKissWinkHeart } from "react-icons/fa";
 
 export default function Meeting() {
   const meetingType = [
@@ -27,10 +27,16 @@ export default function Meeting() {
   const [category1, setCategory1] = useState("ALL");
   const [category2, setCategory2] = useState("ALL");
 
-  const { isLoading, error, data } = useQuery(["activities"], async () => {
-    const result = await MeetingDataFetch();
+  const {
+    isLoading,
+    error,
+    data: datas,
+  } = useQuery(["data"], async () => {
+    const result = await MeetingAndToolkitDataFetch();
     return result;
   });
+
+  const data = datas?.activities;
 
   const [filteredMeetings, setFilteredMeetings] = useState([]);
 

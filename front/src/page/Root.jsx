@@ -55,7 +55,7 @@ export default function Root() {
       ref={contentWrapRef}
       className={`${
         sideBarOpen ? "h-[100vh] overflow-hidden" : "h-auto"
-      } font-sans font-medium tracking-tighter whitespace-pre-wrap leading-normal`}
+      } font-sans font-medium tracking-tighter whitespace-pre-wrap leading-normal list-none`}
     >
       <ScrollRestoration />
       <Navbar setSideBarOpen={setSideBarOpen} sideBarOpen={sideBarOpen} />

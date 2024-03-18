@@ -8,6 +8,8 @@ export default function SearchInputForm({
   setSearchText,
   data,
   setFilteredDatas,
+  formStyle,
+  inputStyle,
 }) {
   const handleSearchData = (e) => {
     e.preventDefault();
@@ -42,10 +44,10 @@ export default function SearchInputForm({
   return (
     <form
       onSubmit={handleSearchData}
-      className="w-full max-w-[760px] mx-auto relative"
+      className={`${formStyle} w-full relative`}
     >
       <input
-        className="w-full sm:p-8 p-5 box-border bg-[rgba(0,0,0,0.2)] rounded-full border-[2px] border-solid border-white sm:text-[1.2rem] text-[0.9rem] text-white outline-none sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem] placeholder:text-[rgba(255,255,255,0.6)]"
+        className={`${inputStyle} w-full sm:p-8 p-5 box-border rounded-full border-[2px] border-solid sm:text-[1.2rem] text-[0.9rem] outline-none sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]`}
         type="text"
         placeholder={placeholder}
         onChange={onChange}
@@ -53,7 +55,7 @@ export default function SearchInputForm({
       />
 
       <button
-        className="sm:text-[2.4rem] text-[1.5rem] absolute sm:top-[30%] top-[36%] right-[10%]"
+        className="sm:text-[2.4rem] text-[1.5rem] absolute sm:top-[30%] top-[36%] sm:right-20 right-12"
         type="button"
         onClick={() => {
           setSearchText("");

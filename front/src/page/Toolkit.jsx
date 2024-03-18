@@ -1,22 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import ToolkitCard from "../component/toolkit/ToolkitCard";
+import Card from "../component/toolkit/Card";
 import TypeWriter from "../component/TypeWriter";
-import { ToolkitDataFetch } from "../api/toolkit";
 import SwipeToSlide from "../component/category/SwipeToSlide";
 import Category from "../component/category/Category";
 import { SlidesToShowState } from "../recoil/contentState";
 import { useRecoilValue } from "recoil";
 import useInput from "../customhook/useInput";
+import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
+import SearchInputForm from "../component/input/SearchInputForm";
+import { useNavigate } from "react-router-dom";
 
-import { CiPen, CiSearch } from "react-icons/ci";
-import { GoX } from "react-icons/go";
+import { CiPen } from "react-icons/ci";
 
 export default function Toolkit() {
-  const { isLoading, error, data } = useQuery(["toolkits"], async () => {
-    const result = await ToolkitDataFetch();
+  const navigate = useNavigate();
+
+  const {
+    isLoading,
+    error,
+    data: datas,
+  } = useQuery(["data"], async () => {
+    const result = await MeetingAndToolkitDataFetch();
     return result;
   });
+
+  const data = datas?.toolkits;
 
   const [filteredToolkits, setFilteredToolkits] = useState([]);
   const [searchToolkitText, onSearchToolkitTextChange, setSearchToolkitText] =
@@ -52,36 +61,12 @@ export default function Toolkit() {
     { title: "아카이브", icon: "image/toolkit_category_icon11.png" },
   ];
 
-  const handleSearchToolkit = (e) => {
-    e.preventDefault();
+  const onHandleSearchTextChange = (e) => {
+    onSearchToolkitTextChange(e);
 
-    if (!Array.isArray(data)) return;
-
-    let filtered = data;
-
-    const trimmedSearchTerm = searchToolkitText.trim();
-
-    if (searchToolkitText.length > 0 && trimmedSearchTerm === "") {
-      setFilteredToolkits([]);
-    } else {
-      const refinedSearchTerm = searchToolkitText
-        .replace(/\s+/g, "")
-        .toLowerCase();
-
-      const filteredResults = filtered.filter(
-        (toolkit) =>
-          toolkit?.title
-            .replace(/\s+/g, "")
-            .toLowerCase()
-            .includes(refinedSearchTerm) ||
-          toolkit?.description
-            .replace(/\s+/g, "")
-            .toLowerCase()
-            .includes(refinedSearchTerm)
-      );
-
-      setFilteredToolkits(filteredResults);
-    }
+    setCategory1("");
+    setCategory2("");
+    setCategory3("");
   };
 
   useEffect(() => {
@@ -127,6 +112,10 @@ export default function Toolkit() {
     }
   }, [searchToolkitText, ...categories, ...setCategories]);
 
+  const onClickCategoryMenu = () => {
+    setSearchToolkitText("");
+  };
+
   const comment = isLoading
     ? "Loading..."
     : error
@@ -136,10 +125,6 @@ export default function Toolkit() {
     : searchToolkitText.length === 0 && filteredToolkits.length === 0
     ? "툴킷이 없습니다."
     : null;
-
-  const onClickCategoryMenu = () => {
-    setSearchToolkitText("");
-  };
 
   return (
     <div className="w-full bg-[#ffffff] dark:bg-black pt-16 flex flex-col justify-between items-center font-medium">
@@ -162,38 +147,16 @@ export default function Toolkit() {
             />
           </div>
 
-          <form onSubmit={handleSearchToolkit} className="w-full relative">
-            <input
-              onChange={(e) => {
-                onSearchToolkitTextChange(e);
-
-                setCategory1("");
-                setCategory2("");
-                setCategory3("");
-              }}
-              value={searchToolkitText}
-              className="w-full sm:p-8 p-5 box-border mt-4 rounded-full dark:bg-transparent border-[1px] border-solid border-[#79B1FF] outline-none sm:text-[1.2rem] text-[0.9rem] dark:text-white sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem] placeholder:text-[#79B1FF]"
-              type="text"
-              placeholder="툴킷을 검색하세요."
-            />
-            <button
-              onClick={() => {
-                setSearchToolkitText("");
-              }}
-              className={`${
-                searchToolkitText.length > 0 ? "opacity-1" : "opacity-0"
-              } sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-20 right-12 sm:top-[40%] top-[45%] transition-all duration-700`}
-              type="button"
-            >
-              <GoX />
-            </button>
-            <button
-              type="submit"
-              className="sm:text-[2.4rem] text-[1.5rem] dark:text-white absolute sm:right-7 right-4 sm:top-[40%] top-[45%]"
-            >
-              <CiSearch />
-            </button>
-          </form>
+          <SearchInputForm
+            placeholder="툴킷을 검색하세요."
+            searchText={searchToolkitText}
+            onChange={onHandleSearchTextChange}
+            setSearchText={setSearchToolkitText}
+            data={data}
+            setFilteredDatas={setFilteredToolkits}
+            formStyle="text-[#232426]"
+            inputStyle="border-[#79B1FF] placeholder:text-[#79B1FF]"
+          />
         </div>
 
         <div className="w-full mt-10">
@@ -233,13 +196,18 @@ export default function Toolkit() {
             {comment}
           </p>
 
-          <ul className="w-full sm:grid sm:grid-cols-2 gap-x-5">
-            {filteredToolkits.map((data, idx) => (
-              <ToolkitCard
-                toolkit={data}
+          <ul className="w-full md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-x-5">
+            {filteredToolkits.map((data) => (
+              <Card
+                data={data}
                 key={data.id}
-                bgColor="bg-[#79B1FF]"
-                hoverBgColor="hover:bg-[rgba(121,177,255,0.8)]"
+                onClick={() => {
+                  navigate(`/toolkit/detail/${data.id}`, {
+                    state: { toolkit: data },
+                  });
+                }}
+                thumbnailImg={data.squareImage}
+                bgColor="bg-[#79b1ff]"
               />
             ))}
           </ul>

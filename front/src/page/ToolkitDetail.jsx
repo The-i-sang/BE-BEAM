@@ -10,7 +10,7 @@ import { PiTimerDuotone } from "react-icons/pi";
 import { BsArrowRight } from "react-icons/bs";
 import { CiHashtag } from "react-icons/ci";
 
-export default function Detail() {
+export default function ToolkitDetail() {
   const {
     state: { toolkit },
   } = useLocation();
@@ -25,6 +25,7 @@ export default function Detail() {
   const navigate = useNavigate();
   const params = useParams().id;
 
+  // 파일 다운을 할 수 있도록 서버에서 기능 구현(현재는 프론트에서 구현되어 있음)
   const handleDownload = () => {
     if (!toolkit || !toolkit.file) {
       console.error("Toolkit data or file not available.");
@@ -85,7 +86,7 @@ export default function Detail() {
 
   return (
     <div className="w-full py-10 bg-[#ffffff] dark:bg-black">
-      <div className="w-11/12 max-w-[1400px] mx-auto">
+      <div className="w-11/12 max-w-[90%] mx-auto">
         <h1 className="w-full mb:mb-20 sm:mb-14 mb-4 text-center sm:text-[3rem] text-[2.3rem] font-semibold dark:text-white">
           {toolkit.title}
         </h1>
