@@ -36,6 +36,8 @@ export default function Search() {
     onSearchTextChange(e);
   };
 
+  console.log(filteredDatas);
+
   return (
     <div className="bg-[#ffffff] dark:bg-black">
       <div className="w-full sm:h-[780px] h-[500px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_50%] text-white flex flex-col justify-center items-center relative">
