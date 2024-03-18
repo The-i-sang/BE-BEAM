@@ -45,7 +45,7 @@ export default function MeetingCard({ activity, bgColor, shadow }) {
         <div
           onClick={() => {
             navigate(`/meeting/detail/${activity.id}`, {
-              state: { activity },
+              state: { activity: activity },
             });
           }}
           className="mt-4 text-[#232426]"

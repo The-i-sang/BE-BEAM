@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NotFoundPage from "./page/NotFoundPage";
 import Main from "./page/Main";
-import Detail from "./page/Detail";
+import ToolkitDetail from "./page/ToolkitDetail";
 import Root from "./page/Root";
 import Toolkit from "./page/Toolkit";
 import Search from "./page/Search";
@@ -14,7 +14,7 @@ import { userState } from "./recoil/userState";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
 import Meeting from "./page/Meeting";
-import MeetingDetail from "./component/MeetingDetail";
+import MeetingDetail from "./page/MeetingDetail";
 import GoogleAuth from "./page/GoogleAuth";
 import { Cookies } from "react-cookie";
 import KakakoAuth from "./page/KakaoAuth";
@@ -53,7 +53,7 @@ function App() {
         },
         {
           path: "/toolkit/detail/:id",
-          element: <Detail />,
+          element: <ToolkitDetail />,
         },
         { path: "*", element: <NotFoundPage /> },
         {
