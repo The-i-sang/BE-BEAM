@@ -57,7 +57,7 @@ export function handleConsoleError(
     ? "An error has occurred...!"
     : searchText.length > 0 && filteredDatas.length === 0
     ? "검색 결과가 없습니다."
-    : searchText.length === 0 && filteredDatas.length === 0
+    : searchText.length === 0
     ? "데이터가 없습니다."
     : null;
 
