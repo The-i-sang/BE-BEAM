@@ -1,10 +1,10 @@
 import React from "react";
 
 import { GoX } from "react-icons/go";
-import TextArea from "./TextArea";
-import { meetingApplyReasonState } from "../recoil/contentState";
-import Button from "./Button";
-import useInputGlobal from "../customhook/useInputGlobal";
+import TextArea from "../../textArea/TextArea";
+import { meetingApplyReasonState } from "../../../recoil/contentState";
+import Button from "../../Button";
+import useInputGlobal from "../../../customhook/useInputGlobal";
 
 export default function MeetingApplyReasonModal({
   meetingApplyReasonModal,
@@ -34,7 +34,7 @@ export default function MeetingApplyReasonModal({
       </div>
 
       <div className="text-center text-[0.8125rem] text-[#9d9d9d]">
-        <h1 className="text-[1.625rem] font-semibold text-[#282828]">
+        <h1 className="text-[1.625rem] font-semibold text-[#838181]">
           모임 신청 이유 작성란
         </h1>
 

@@ -78,7 +78,7 @@ export default function MypageMyProfile() {
         <div className="w-full pb-[1.25rem] border-b-[1px] border-solid border-[#ddd] dark:border-[#7a7a7a] flex flex-col items-center">
           <div className="relative">
             <img
-              className="mb-3 sm:w-[100px] w-[80px] h-full object-cover rounded-full"
+              className="mb-3 sm:w-[100px] w-[80px] aspect-square object-cover rounded-full"
               src={process.env.PUBLIC_URL + profileImg}
               alt="user_profile"
             />

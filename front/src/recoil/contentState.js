@@ -15,6 +15,7 @@ export const searchNicknameState = atom({
   default: "",
 });
 
+// 모임에 참여하고 싶은 이유(필요함)
 export const meetingApplyReasonState = atom({
   key: "meetingApplyReasonState",
   default: "",
