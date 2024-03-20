@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 import Button from "../component/Button";
 
 import { AiOutlineSync } from "react-icons/ai";
-import TextArea from "../component/TextArea";
+import TextArea from "../component/textArea/TextArea";
 
 export default function UserProfileModify() {
   const [nicknameInput, onNicknameChange] = useInputGlobal(nickNameState);
