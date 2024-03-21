@@ -1,12 +1,11 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "./button/Button";
 import { Cookies } from "react-cookie";
-
-import { CiEdit } from "react-icons/ci";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { UserDataState, userState } from "../recoil/userState";
 import { SnsAuthTypeState } from "../recoil/contentState";
+
+import { CiEdit } from "react-icons/ci";
 
 export default function MypageMyProfile() {
   const navigate = useNavigate();
@@ -117,13 +116,12 @@ export default function MypageMyProfile() {
         </div>
 
         <Button
-          onClick={(e) => {
-            e.preventDefault();
-
+          onClick={() => {
             navigate("/mypage/userInfoModify");
           }}
           type="button"
           buttonText="개인 정보 수정"
+          basicStyle="max-w-[20rem] h-[3.75rem] mt-4 border-[1px] border-solid border-[#F5AA15] dark:border-white dark:bg-black hover:bg-transparent hover:text-[#F5AA15]"
         >
           개인 정보 수정
         </Button>

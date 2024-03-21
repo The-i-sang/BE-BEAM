@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "./button/Button";
+import MeetingParticipantsListModal from "./MeetingParticipantsListModal";
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import Button from "./Button";
-import MeetingParticipantsListModal from "./MeetingParticipantsListModal";
 
 export const Slide = ({
   index,

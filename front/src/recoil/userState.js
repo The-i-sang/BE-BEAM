@@ -9,3 +9,8 @@ export const UserDataState = atom({
   key: "UserDataState",
   default: {},
 });
+
+export const UserNecessaryDataState = atom({
+  key: "UserNecessaryDataState",
+  default: {},
+});

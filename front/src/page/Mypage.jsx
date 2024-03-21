@@ -14,7 +14,7 @@ export default function Mypage() {
   // user가 없을시 Mypage에 접근 불가.
   useEffect(() => {
     if (!userIn) {
-      navigate("/");
+      //navigate("/");
     }
   }, [userIn]);
 

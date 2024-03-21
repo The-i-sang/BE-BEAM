@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserDataState, userState } from "../../recoil/userState";
+import {
+  UserDataState,
+  UserNecessaryDataState,
+  userState,
+} from "../../recoil/userState";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
 import { GoogleUserDataFetch, KakaoUserDataFetch } from "../../api/user";
@@ -10,6 +14,7 @@ import MobileMenuList from "./MobileMenuList";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { CiSearch, CiUser } from "react-icons/ci";
+import { getUserData } from "../../common";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
@@ -18,6 +23,9 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
   const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
   const [userData, setUserData] = useRecoilState(UserDataState);
+  const [userNecessaryData, setUserNecessaryData] = useRecoilState(
+    UserNecessaryDataState
+  );
 
   const cookies = new Cookies();
   const accessToken = cookies.get("accessToken");
@@ -66,26 +74,15 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     }
   }, [darkMode]);
 
-  const googleAuthTrue =
-    snsAuthType === "googleAuth" && Object.keys(userData).length > 0;
-  const kakaoAuthTrue =
-    snsAuthType === "kakaoAuth" && Object.keys(userData).length > 0;
+  useEffect(() => {
+    if (snsAuthType && userData) {
+      setUserNecessaryData(getUserData(snsAuthType, userData));
+    }
+  }, [snsAuthType, userData, setUserNecessaryData]);
 
-  const profileImg = googleAuthTrue
-    ? userData?.photos[0]?.url
-    : kakaoAuthTrue
-    ? userData?.kakao_account?.profile?.profile_image_url
-    : "/image/basic_user_profile.jpg";
-  const userNickname = googleAuthTrue
-    ? userData?.names[0]?.displayName
-    : kakaoAuthTrue
-    ? userData?.kakao_account?.profile?.nickname
-    : "userName";
-
-  // src > common.js 파일을 참고하여 재활용할 수 있도록 코드 변경하기.
+  const { profileImg, userNickname } = userNecessaryData;
 
   console.log(
-    "userData",
     userData,
     "profileImg",
     profileImg,
