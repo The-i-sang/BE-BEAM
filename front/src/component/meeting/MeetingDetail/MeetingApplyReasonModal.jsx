@@ -3,7 +3,7 @@ import React from "react";
 import { GoX } from "react-icons/go";
 import TextArea from "../../textArea/TextArea";
 import { meetingApplyReasonState } from "../../../recoil/contentState";
-import Button from "../../Button";
+import Button from "../../button/Button";
 import useInputGlobal from "../../../customhook/useInputGlobal";
 
 export default function MeetingApplyReasonModal({
@@ -55,9 +55,11 @@ export default function MeetingApplyReasonModal({
         />
 
         <Button
+          type="button"
           buttonText="신청하기"
           disabled={!meetingApplyReasonInput.length > 0}
           buttonDisabledStyle={meetingApplyReasonInput.length === 0}
+          basicStyle="h-auto mt-2"
         />
       </div>
     </div>

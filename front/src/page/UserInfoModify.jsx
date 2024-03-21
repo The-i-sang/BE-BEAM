@@ -9,11 +9,11 @@ import {
 } from "../recoil/authState";
 import useInputGlobal from "../customhook/useInputGlobal.jsx";
 import { useSetRecoilState } from "recoil";
-import Button from "../component/Button";
+import Button from "../component/button/Button";
+import InputCheckbox from "../component/InputCheckbox.jsx";
 
 import { CiSquareInfo, CiCircleCheck } from "react-icons/ci";
 import { identify } from "../common.js";
-import InputCheckbox from "../component/InputCheckbox.jsx";
 
 export default function UserInfoModify() {
   const [userNameInput, onUserNameChange] = useInputGlobal(userNameState);
