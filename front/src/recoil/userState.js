@@ -10,6 +10,7 @@ export const UserDataState = atom({
   default: {},
 });
 
+// 유저들에게 필요한 정보들만 모아둔 곳.
 export const UserNecessaryDataState = atom({
   key: "UserNecessaryDataState",
   default: {},
