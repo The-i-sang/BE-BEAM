@@ -18,7 +18,7 @@ export default function MypageMyProfile() {
   const setUserIn = useSetRecoilState(userState);
   const snsAuthType = useRecoilValue(SnsAuthTypeState);
   const userData = useRecoilValue(UserDataState);
-  const [userNecessaryData] = useRecoilValue(UserNecessaryDataState);
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
 
   const { profileImg, userNickname } = userNecessaryData;
 
