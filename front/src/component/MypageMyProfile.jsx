@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "./button/Button";
 import { Cookies } from "react-cookie";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserDataState, userState } from "../recoil/userState";
+import {
+  UserDataState,
+  UserNecessaryDataState,
+  userState,
+} from "../recoil/userState";
 import { SnsAuthTypeState } from "../recoil/contentState";
 
 import { CiEdit } from "react-icons/ci";
@@ -14,22 +18,9 @@ export default function MypageMyProfile() {
   const setUserIn = useSetRecoilState(userState);
   const snsAuthType = useRecoilValue(SnsAuthTypeState);
   const userData = useRecoilValue(UserDataState);
+  const [userNecessaryData] = useRecoilValue(UserNecessaryDataState);
 
-  const googleAuthTrue =
-    snsAuthType === "googleAuth" && Object.keys(userData).length > 0;
-  const kakaoAuthTrue =
-    snsAuthType === "kakaoAuth" && Object.keys(userData).length > 0;
-
-  const profileImg = googleAuthTrue
-    ? userData?.photos[0]?.url
-    : kakaoAuthTrue
-    ? userData?.kakao_account?.profile?.profile_image_url
-    : "/image/basic_user_profile.jpg";
-  const userNickname = googleAuthTrue
-    ? userData?.names[0]?.displayName
-    : kakaoAuthTrue
-    ? userData?.kakao_account?.profile?.nickname
-    : "userName";
+  const { profileImg, userNickname } = userNecessaryData;
 
   console.log(
     "userData",

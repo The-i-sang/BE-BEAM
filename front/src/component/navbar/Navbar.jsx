@@ -11,10 +11,10 @@ import { GoogleUserDataFetch, KakaoUserDataFetch } from "../../api/user";
 import { SnsAuthTypeState } from "../../recoil/contentState";
 import MenuList from "./MenuList";
 import MobileMenuList from "./MobileMenuList";
+import { getUserData } from "../../common";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { CiSearch, CiUser } from "react-icons/ci";
-import { getUserData } from "../../common";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
@@ -81,16 +81,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [snsAuthType, userData, setUserNecessaryData]);
 
   const { profileImg, userNickname } = userNecessaryData;
-
-  console.log(
-    userData,
-    "profileImg",
-    profileImg,
-    "userNickname",
-    userNickname,
-    "snsAuthType",
-    snsAuthType
-  );
 
   return (
     <div className="w-full dark:bg-black">
