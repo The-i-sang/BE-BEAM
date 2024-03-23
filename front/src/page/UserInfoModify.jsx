@@ -8,12 +8,17 @@ import {
   userPhoneNumberState,
 } from "../recoil/authState";
 import useInputGlobal from "../customhook/useInputGlobal.jsx";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Button from "../component/button/Button";
 import InputCheckbox from "../component/InputCheckbox.jsx";
+import { identify } from "../common.js";
+import {
+  IsCheckedListKeywordState,
+  UserNecessaryDataState,
+} from "../recoil/userState.js";
 
 import { CiSquareInfo, CiCircleCheck } from "react-icons/ci";
-import { identify } from "../common.js";
+import { FaCircleChevronUp, FaCircleChevronDown } from "react-icons/fa6";
 
 export default function UserInfoModify() {
   const [userNameInput, onUserNameChange] = useInputGlobal(userNameState);
@@ -22,6 +27,11 @@ export default function UserInfoModify() {
   const [emailInput, onEmailChange] = useInputGlobal(emailState);
   const [userBirthdayInput, onUserBirthdayChange] =
     useInputGlobal(userBirthdayState);
+  const [isCheckedListKeyword, setIsCheckedListKeyword] = useRecoilState(
+    IsCheckedListKeywordState
+  );
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
+  const { profileImg, userNickname } = userNecessaryData;
 
   // email이 맞는지 확인하는 useState
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
@@ -33,9 +43,9 @@ export default function UserInfoModify() {
 
   // 체크박스에 체크되었는지 확인하는 useState
   const [isChecked, setIsChecked] = useState("");
-
   // 모든 데이터를 입력받았는지 확인하는 useState
   const [dataComeIn, setDataComeIn] = useState(false);
+  const [keywordListOpen, setKeywordListOpen] = useState(false);
 
   const datas = ["여성", "남성"];
 
@@ -76,6 +86,33 @@ export default function UserInfoModify() {
     userBirthdayInput,
     isChecked,
   ]);
+
+  const keywordDatas = [
+    "음악",
+    "그림",
+    "음식",
+    "드라마",
+    "영화",
+    "사진",
+    "마라톤",
+    "댄스",
+    "악기",
+    "노래",
+    "디저트",
+    "요리",
+    "취업",
+    "공부",
+    "회화",
+    "뮤지컬",
+    "랩",
+    "발라드",
+    "술",
+    "독서",
+    "연기",
+    "패션",
+  ];
+
+  useEffect(() => {}, []);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
@@ -138,7 +175,7 @@ export default function UserInfoModify() {
                 {/* 인증 완료시 인증 완료 문구로 변경 */}
                 <Button
                   buttonText="휴대전화 인증"
-                  disabled={userPhoneNumberInput.length === 11 ? false : true}
+                  disabled={userPhoneNumberInput.length !== 11}
                   userPhoneNumberInput={userPhoneNumberInput}
                 />
 
@@ -225,6 +262,32 @@ export default function UserInfoModify() {
                 datas={datas}
                 isChecked={isChecked}
                 setIsChecked={setIsChecked}
+              />
+            </div>
+
+            <div>
+              <div className="w-full mt-2 mb-4 flex items-center gap-x-2">
+                <p className="text-[0.8125rem] font-thin">
+                  키워드에 맞는 콘텐츠를 추천해드려요!
+                </p>
+
+                <button
+                  onClick={() => setKeywordListOpen((prev) => !prev)}
+                  className="text-[1.4rem]"
+                >
+                  {keywordListOpen ? (
+                    <FaCircleChevronUp className="text-[#ffc85b]" />
+                  ) : (
+                    <FaCircleChevronDown className="text-[#ffc85e]" />
+                  )}
+                </button>
+              </div>
+
+              <InputCheckbox
+                datas={keywordDatas}
+                isCheckedList={isCheckedListKeyword}
+                setIsCheckedList={setIsCheckedListKeyword}
+                keywordListOpen={keywordListOpen}
               />
             </div>
 

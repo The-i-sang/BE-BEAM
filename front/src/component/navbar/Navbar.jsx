@@ -15,6 +15,7 @@ import { getUserData } from "../../common";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { CiSearch, CiUser } from "react-icons/ci";
+import Util from "./Util";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
@@ -81,26 +82,21 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [snsAuthType, userData, setUserNecessaryData]);
 
   const { profileImg, userNickname } = userNecessaryData;
+  console.log(userData);
 
   return (
     <div className="w-full dark:bg-black">
       <div className="w-11/12 sm:max-w-[90%] mx-auto">
         <div className="w-full sm:py-12 py-8 flex justify-between items-center sm:static relative">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setSideBarOpen(true);
-            }}
-            className="sm:hidden block text-[#f5aa15] text-[1.2rem]"
-          >
-            <CiMenuBurger />
-          </button>
+          <Util
+            icon={<CiMenuBurger />}
+            onClick={() => setSideBarOpen(true)}
+            smStyle="sm:hidden"
+          />
 
           <div
             className="md:w-[80px] sm:w-[70px] w-[60px] sm:static absolute top-4 left-[50%] sm:ml-0 ml-[-30px]"
-            onClick={() => {
-              navigate("/");
-            }}
+            onClick={() => navigate("/")}
           >
             <img
               className="w-full object-cover mx-auto cursor-pointer"
@@ -118,45 +114,36 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
           />
 
           <div className="flex items-center">
-            <button
-              type="button"
-              className="lg:mr-8 md:mr-4 sm:mr-4 mr-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
+            <Util
+              icon={darkMode ? <CiLight /> : <CiDark />}
               onClick={() => setDarkMode(!darkMode)}
-            >
-              {darkMode ? <CiLight /> : <CiDark />}
-            </button>
+              smStyle="sm:mr-4 mr-2 sm:text-[1.5rem]"
+              mdStyle="md:mr-4  md:text-[1.8rem]"
+              lgStyle="lg:mr-8"
+            />
 
-            <button
-              type="button"
-              className="md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer"
-              onClick={() => {
-                navigate("/search");
-              }}
-            >
-              <CiSearch />
-            </button>
+            <Util
+              icon={<CiSearch />}
+              onClick={() => navigate("/search")}
+              smStyle="sm:text-[1.5rem]"
+              mdStyle="md:text-[1.8rem]"
+            />
 
-            <button
-              type="button"
-              className={`${
-                !userIn ? "block" : "hidden"
-              } lg:ml-8 md:ml-4 sm:ml-4 ml-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem] text-[#f5aa15] cursor-pointer`}
-              onClick={() => {
-                navigate("/auth");
-              }}
-            >
-              <CiUser />
-            </button>
+            <Util
+              icon={<CiUser />}
+              onClick={() => navigate("/auth")}
+              basicStyle="ml-2"
+              smStyle="sm:ml-4 sm:text-[1.5rem]"
+              mdStyle="md:ml-4 md:text-[1.8rem]"
+              lgStyle="lg:ml-8"
+              isHidden={!userIn ? "block" : "hidden"}
+            />
 
             <div
               className={`${
                 userIn ? "block" : "hidden"
               } lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer`}
-              onClick={(e) => {
-                e.preventDefault();
-
-                navigate("/mypage");
-              }}
+              onClick={() => navigate("/mypage")}
             >
               <img
                 className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"

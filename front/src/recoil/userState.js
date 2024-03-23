@@ -15,3 +15,8 @@ export const UserNecessaryDataState = atom({
   key: "UserNecessaryDataState",
   default: {},
 });
+
+export const IsCheckedListKeywordState = atom({
+  key: "IsCheckedListKeywordState",
+  default: [],
+});

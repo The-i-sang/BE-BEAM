@@ -3,11 +3,10 @@ import Button from "./button/Button";
 import { Cookies } from "react-cookie";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  UserDataState,
+  IsCheckedListKeywordState,
   UserNecessaryDataState,
   userState,
 } from "../recoil/userState";
-import { SnsAuthTypeState } from "../recoil/contentState";
 
 import { CiEdit } from "react-icons/ci";
 
@@ -16,32 +15,12 @@ export default function MypageMyProfile() {
   const cookies = new Cookies();
 
   const setUserIn = useSetRecoilState(userState);
-  const snsAuthType = useRecoilValue(SnsAuthTypeState);
-  const userData = useRecoilValue(UserDataState);
+  const isCheckedListKeyword = useRecoilValue(IsCheckedListKeywordState);
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
 
   const { profileImg, userNickname } = userNecessaryData;
 
-  console.log(
-    "userData",
-    userData,
-    "profileImg",
-    profileImg,
-    "userNickname",
-    userNickname,
-    "snsAuthType",
-    snsAuthType
-  );
-
-  const keywordBox = [
-    "산책/크래킹",
-    "가죽공예",
-    "코딩",
-    "자수/뜨개질",
-    "영화",
-    "술",
-    "음악",
-  ];
+  console.log(isCheckedListKeyword);
 
   return (
     <div className="w-full">
@@ -93,16 +72,14 @@ export default function MypageMyProfile() {
           </p>
 
           <div className="w-full mt-5 text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1">
-            {keywordBox?.map((keyword, index) => {
-              return (
-                <p
-                  key={index}
-                  className="bg-[#f6f6f6] dark:bg-black py-1 px-2 mb-2 rounded-3xl border-[1px] border-solid border-[#d9d8d8] dark:border-[#6c6c6c] text-[#7d7d7d] dark:text-white"
-                >
-                  {keyword}
-                </p>
-              );
-            })}
+            {isCheckedListKeyword.map((keyword, index) => (
+              <p
+                key={index}
+                className="bg-[#f6f6f6] dark:bg-black py-1 px-2 mb-2 rounded-3xl border-[1px] border-solid border-[#d9d8d8] dark:border-[#6c6c6c] text-[#7d7d7d] dark:text-white"
+              >
+                {keyword}
+              </p>
+            ))}
           </div>
         </div>
 
