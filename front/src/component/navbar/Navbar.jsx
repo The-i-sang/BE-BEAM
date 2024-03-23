@@ -82,7 +82,12 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [snsAuthType, userData, setUserNecessaryData]);
 
   const { profileImg, userNickname } = userNecessaryData;
-  console.log(userData);
+  console.log(userNecessaryData);
+  // 이메일 => 카카오 : userData.kakao_account.email / 지메일 : userData.emailAddresses[0].value
+  // 닉네임 => 지메일 : userData.nicknames[0].value / 카카오 : 생략
+  // 실명 => 지메일 : userData.names[0].displayName
+  // 생년월일 => 지메일 : userData.birthdays[0].date => {year : 2000, month : 9, day: 21}
+  // 성별 => 지메일 : userData.genders[0].value => female
 
   return (
     <div className="w-full dark:bg-black">

@@ -36,13 +36,32 @@ export function getUserData(snsAuthType, userData) {
     ? userData?.kakao_account?.profile?.profile_image_url
     : "/image/basic_user_profile.jpg";
 
-  const userNickname = googleAuthTrue
-    ? userData?.names[0]?.displayName
-    : kakaoAuthTrue
-    ? userData?.kakao_account?.profile?.nickname
-    : "userName";
+  const userNickname =
+    googleAuthTrue && userData?.nicknames[0]?.value
+      ? userData?.nicknames[0]?.value
+      : googleAuthTrue && !userData?.nicknames[0]?.value
+      ? userData?.names[0]?.displayName
+      : kakaoAuthTrue
+      ? userData?.kakao_account?.profile?.nickname
+      : "userName";
 
-  return { profileImg: profileImg, userNickname: userNickname };
+  const userRealName = googleAuthTrue ? userData?.names[0]?.displayName : "";
+  const userEmail = googleAuthTrue
+    ? userData.emailAddresses[0].value
+    : kakaoAuthTrue
+    ? userData.kakao_account.email
+    : "";
+  const userBirthday = googleAuthTrue ? userData.birthdays[0].date : "";
+  const userGender = googleAuthTrue ? userData.genders[0].value : "";
+
+  return {
+    profileImg,
+    userNickname,
+    userRealName,
+    userEmail,
+    userBirthday,
+    userGender,
+  };
 }
 
 export function handleConsoleError(
