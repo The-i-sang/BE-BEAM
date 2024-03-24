@@ -9,6 +9,7 @@ import {
 } from "../recoil/userState";
 
 import { CiEdit } from "react-icons/ci";
+import { introMyselfState } from "../recoil/authState";
 
 export default function MypageMyProfile() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function MypageMyProfile() {
   const setUserIn = useSetRecoilState(userState);
   const isCheckedListKeyword = useRecoilValue(IsCheckedListKeywordState);
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
+  const introMyself = useRecoilValue(introMyselfState);
 
   const { profileImg, userNickname } = userNecessaryData;
 
@@ -66,7 +68,7 @@ export default function MypageMyProfile() {
             {userNickname}
           </p>
           <p className="text-[0.875rem] text-[#666] dark:text-[#bababa] font-thin">
-            안녕하세요.
+            {introMyself}
           </p>
 
           <div className="w-full mt-5 text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1">
