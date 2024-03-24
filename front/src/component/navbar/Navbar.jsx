@@ -82,7 +82,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [snsAuthType, userData, setUserNecessaryData]);
 
   const { profileImg, userNickname } = userNecessaryData;
-  console.log(userNecessaryData);
   // 이메일 => 카카오 : userData.kakao_account.email / 지메일 : userData.emailAddresses[0].value
   // 닉네임 => 지메일 : userData.nicknames[0].value / 카카오 : 생략
   // 실명 => 지메일 : userData.names[0].displayName

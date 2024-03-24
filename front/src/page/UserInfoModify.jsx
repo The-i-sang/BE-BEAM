@@ -31,7 +31,8 @@ export default function UserInfoModify() {
     IsCheckedListKeywordState
   );
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
-  const { profileImg, userNickname } = userNecessaryData;
+  const { userRealName, userGender, userEmail, userBirthday } =
+    userNecessaryData;
 
   // email이 맞는지 확인하는 useState
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
@@ -112,7 +113,16 @@ export default function UserInfoModify() {
     "패션",
   ];
 
-  useEffect(() => {}, []);
+  console.log(userRealName, userGender, userEmail, userBirthday);
+
+  useEffect(() => {
+    setUserNameInput(userRealName);
+    setEmailInput(userEmail);
+    setBirthdayInput(userBirthday);
+    setIsChecked(
+      userGender === "female" ? "여성" : userGender === "male" ? "남성" : ""
+    );
+  }, []);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
@@ -178,11 +188,6 @@ export default function UserInfoModify() {
                   disabled={userPhoneNumberInput.length !== 11}
                   userPhoneNumberInput={userPhoneNumberInput}
                 />
-
-                {/* <div className="w-[10rem] flex items-center justify-center gap-x-1 text-[0.875rem] text-[#f55]">
-                  <CiCircleCheck className="text-[1.4rem]" />
-                  <p>인증 완료</p>
-                </div> */}
               </div>
 
               <p
