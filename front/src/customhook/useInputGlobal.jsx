@@ -4,7 +4,6 @@ import { useRecoilState } from "recoil";
 
 const useInputGlobal = (recoilState) => {
   const [value, setValue] = useRecoilState(recoilState);
-  console.log(value);
 
   const onChange = (e) => {
     setValue(e.target.value);

@@ -20,8 +20,6 @@ export default function MypageMyProfile() {
 
   const { profileImg, userNickname } = userNecessaryData;
 
-  console.log(isCheckedListKeyword);
-
   return (
     <div className="w-full">
       <div className="w-full flex items-center justify-between">
