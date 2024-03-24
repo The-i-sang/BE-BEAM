@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-
+import { useEffect } from "react";
 import { introMyselfState, nickNameState } from "../recoil/authState";
 import Input from "../component/Input";
 import useInputGlobal from "../customhook/useInputGlobal";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Button from "../component/button/Button";
 import TextArea from "../component/textArea/TextArea";
 
 import { AiOutlineSync } from "react-icons/ai";
+import { UserNecessaryDataState } from "../recoil/userState";
 
 export default function UserProfileModify() {
   const [nicknameInput, onNicknameChange] = useInputGlobal(nickNameState);
@@ -17,11 +17,19 @@ export default function UserProfileModify() {
   const setNicknameInput = useSetRecoilState(nickNameState);
   const setIntroMyselfInput = useSetRecoilState(introMyselfState);
 
-  // 첫 랜더링시 user의 nickname과 introselfInput 데이터를 받아와서 nickNameState, introMyselfState에 담아주기.
   useEffect(() => {
     setNicknameInput("");
     setIntroMyselfInput("");
   }, [setNicknameInput, setIntroMyselfInput]);
+
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
+  const { profileImg, userNickname } = userNecessaryData;
+
+  useEffect(() => {
+    if (userNickname) {
+      setNicknameInput(userNickname);
+    }
+  }, [userNickname]);
 
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
@@ -34,7 +42,7 @@ export default function UserProfileModify() {
           <div className="relative">
             <img
               className="mb-3 sm:w-[120px] w-[100px] h-full object-cover rounded-full"
-              src={process.env.PUBLIC_URL + "/image/basic_user_profile.jpg"}
+              src={process.env.PUBLIC_URL + profileImg}
               alt="user_profile"
             />
 
