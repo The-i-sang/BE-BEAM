@@ -25,43 +25,34 @@ export function identify(
 }
 
 export function getUserData(snsAuthType, userData) {
-  const googleAuthTrue =
-    snsAuthType === "googleAuth" && Object.keys(userData).length > 0;
-  const kakaoAuthTrue =
-    snsAuthType === "kakaoAuth" && Object.keys(userData).length > 0;
+  // 구글 인증이면서 userData가 유효한지 체크
+  const googleAuthTrue = snsAuthType === "googleAuth" && userData;
+  // 카카오 인증이면서 userData가 유효한지 체크
+  const kakaoAuthTrue = snsAuthType === "kakaoAuth" && userData;
 
   const profileImg = googleAuthTrue
-    ? userData?.photos[0]?.url
+    ? userData?.photos?.[0]?.url
     : kakaoAuthTrue
     ? userData?.kakao_account?.profile?.profile_image_url
     : "/image/basic_user_profile.jpg";
 
-  const userNickname =
-    googleAuthTrue && userData?.nicknames[0]?.value
-      ? userData?.nicknames[0]?.value
-      : googleAuthTrue && !userData?.nicknames[0]?.value
-      ? userData?.names[0]?.displayName
-      : kakaoAuthTrue
-      ? userData?.kakao_account?.profile?.nickname
-      : "userName";
+  const userNickname = googleAuthTrue
+    ? userData?.nicknames?.[0]?.value || userData?.names?.[0]?.displayName
+    : kakaoAuthTrue
+    ? userData?.kakao_account?.profile?.nickname
+    : "userName";
 
-  const userRealName =
-    googleAuthTrue && userData?.names[0]?.displayName
-      ? userData?.names[0]?.displayName
-      : "";
+  const userRealName = googleAuthTrue ? userData?.names?.[0]?.displayName : "";
+
   const userEmail = googleAuthTrue
-    ? userData?.emailAddresses[0]?.value
+    ? userData?.emailAddresses?.[0]?.value
     : kakaoAuthTrue
     ? userData?.kakao_account?.email
     : "";
-  const userBirthday =
-    googleAuthTrue && userData?.birthdays[0]?.date
-      ? userData?.birthdays[0]?.date
-      : "";
-  const userGender =
-    googleAuthTrue && userData?.genders[0]?.value
-      ? userData?.genders[0]?.value
-      : "";
+
+  const userBirthday = googleAuthTrue ? userData?.birthdays?.[0]?.date : "";
+
+  const userGender = googleAuthTrue ? userData?.genders?.[0]?.value : "";
 
   return {
     profileImg,
