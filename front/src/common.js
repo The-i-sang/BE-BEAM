@@ -45,14 +45,23 @@ export function getUserData(snsAuthType, userData) {
       ? userData?.kakao_account?.profile?.nickname
       : "userName";
 
-  const userRealName = googleAuthTrue ? userData?.names[0]?.displayName : "";
+  const userRealName =
+    googleAuthTrue && userData?.names[0]?.displayName
+      ? userData?.names[0]?.displayName
+      : "";
   const userEmail = googleAuthTrue
     ? userData.emailAddresses[0].value
     : kakaoAuthTrue
     ? userData.kakao_account.email
     : "";
-  const userBirthday = googleAuthTrue ? userData.birthdays[0].date : "";
-  const userGender = googleAuthTrue ? userData.genders[0].value : "";
+  const userBirthday =
+    googleAuthTrue && userData.birthdays[0].date
+      ? userData.birthdays[0].date
+      : "";
+  const userGender =
+    googleAuthTrue && userData.genders[0].value
+      ? userData.genders[0].value
+      : "";
 
   return {
     profileImg,
