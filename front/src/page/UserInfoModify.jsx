@@ -11,7 +11,7 @@ import useInputGlobal from "../customhook/useInputGlobal.jsx";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Button from "../component/button/Button";
 import InputCheckbox from "../component/InputCheckbox.jsx";
-import { identify } from "../common.js";
+import { formatDate, identify } from "../common.js";
 import {
   IsCheckedListKeywordState,
   UserNecessaryDataState,
@@ -47,6 +47,7 @@ export default function UserInfoModify() {
   // 모든 데이터를 입력받았는지 확인하는 useState
   const [dataComeIn, setDataComeIn] = useState(false);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
+  const [birthday, setBirthday] = useState("");
 
   const datas = ["여성", "남성"];
 
@@ -113,15 +114,21 @@ export default function UserInfoModify() {
     "패션",
   ];
 
-  console.log(userRealName, userGender, userEmail, userBirthday);
+  useEffect(() => {
+    if (userBirthday) {
+      setBirthday(formatDate(userBirthday));
+    }
+  }, [userBirthday, setBirthday]);
 
   useEffect(() => {
-    setUserNameInput(userRealName);
-    setEmailInput(userEmail);
-    setBirthdayInput(userBirthday);
-    setIsChecked(
-      userGender === "female" ? "여성" : userGender === "male" ? "남성" : ""
-    );
+    if (userRealName && userGender && userEmail && birthday) {
+      setUserNameInput(userRealName);
+      setEmailInput(userEmail);
+      setBirthdayInput(birthday);
+      setIsChecked(
+        userGender === "female" ? "여성" : userGender === "male" ? "남성" : ""
+      );
+    }
   }, []);
 
   return (
