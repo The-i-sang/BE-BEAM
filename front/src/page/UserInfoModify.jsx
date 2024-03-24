@@ -129,7 +129,7 @@ export default function UserInfoModify() {
         userGender === "female" ? "여성" : userGender === "male" ? "남성" : ""
       );
     }
-  }, []);
+  }, [userRealName, userGender, userEmail, birthday]);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
