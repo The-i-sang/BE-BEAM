@@ -50,17 +50,17 @@ export function getUserData(snsAuthType, userData) {
       ? userData?.names[0]?.displayName
       : "";
   const userEmail = googleAuthTrue
-    ? userData.emailAddresses[0].value
+    ? userData?.emailAddresses[0]?.value
     : kakaoAuthTrue
-    ? userData.kakao_account.email
+    ? userData?.kakao_account?.email
     : "";
   const userBirthday =
-    googleAuthTrue && userData.birthdays[0].date
-      ? userData.birthdays[0].date
+    googleAuthTrue && userData?.birthdays[0]?.date
+      ? userData?.birthdays[0]?.date
       : "";
   const userGender =
-    googleAuthTrue && userData.genders[0].value
-      ? userData.genders[0].value
+    googleAuthTrue && userData?.genders[0]?.value
+      ? userData?.genders[0]?.value
       : "";
 
   return {
