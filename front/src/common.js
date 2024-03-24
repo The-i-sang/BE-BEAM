@@ -64,6 +64,15 @@ export function getUserData(snsAuthType, userData) {
   };
 }
 
+export function formatDate(dateObj) {
+  const { year, month, day } = dateObj;
+
+  const formattedMonth = month < 10 ? `0${month}` : month;
+  const formattedDay = day < 10 ? `0${day}` : day;
+
+  return `${year}-${formattedMonth}-${formattedDay}`;
+}
+
 export function handleConsoleError(
   isLoading,
   error,
