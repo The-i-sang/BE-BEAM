@@ -88,8 +88,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   // 생년월일 => 지메일 : userData.birthdays[0].date => {year : 2000, month : 9, day: 21}
   // 성별 => 지메일 : userData.genders[0].value => female
 
-  console.log(userNecessaryData);
-
   return (
     <div className="w-full dark:bg-black">
       <div className="w-11/12 sm:max-w-[90%] mx-auto">

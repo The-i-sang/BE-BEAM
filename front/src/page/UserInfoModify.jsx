@@ -51,7 +51,6 @@ export default function UserInfoModify() {
 
   const datas = ["여성", "남성"];
 
-  // 첫 랜더링시 user의 userNameInput, userPhoneNumberInput, emailInput, birthdayInput, isChecked 데이터를 받아와서 userNameInput, userPhoneNumberInput, setEmailInput, setBirthdayInput, setIsChecked에 담아주기.
   useEffect(() => {
     setUserNameInput("");
     setUserPhoneNumberInput("");
@@ -130,6 +129,8 @@ export default function UserInfoModify() {
       );
     }
   }, [userRealName, userGender, userEmail, birthday]);
+
+  console.log(userEmail);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
