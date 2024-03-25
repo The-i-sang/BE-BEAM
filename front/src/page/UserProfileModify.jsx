@@ -41,7 +41,7 @@ export default function UserProfileModify() {
         <div className="w-full mt-5 pt-[1.875rem] bg-[#ffd889] dark:bg-[rgba(255,255,255,0.2)] rounded-2xl border-[1px] border-solid border-[#ddd] dark:border-[#5b5b5b] flex flex-col items-center overflow-hidden">
           <div className="relative">
             <img
-              className="mb-3 sm:w-[120px] w-[100px] h-full object-cover rounded-full"
+              className="mb-3 sm:w-[120px] w-[100px] aspect-square object-cover rounded-full"
               src={process.env.PUBLIC_URL + profileImg}
               alt="user_profile"
             />
