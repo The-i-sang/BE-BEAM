@@ -39,7 +39,7 @@ export default function UserInfoModify() {
 
   const setUserNameInput = useSetRecoilState(userNameState);
   const setUserPhoneNumberInput = useSetRecoilState(userPhoneNumberState);
-  const setEmailInput = useSetRecoilState(emailState);
+  const [emailInputtt, setEmailInput] = useRecoilState(emailState);
   const setBirthdayInput = useSetRecoilState(userBirthdayState);
 
   // 체크박스에 체크되었는지 확인하는 useState
@@ -130,7 +130,7 @@ export default function UserInfoModify() {
     }
   }, [userRealName, userGender, userEmail, birthday]);
 
-  console.log(userEmail);
+  console.log(userEmail, emailInputtt);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
