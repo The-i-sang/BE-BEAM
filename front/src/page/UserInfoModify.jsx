@@ -8,7 +8,7 @@ import {
   userPhoneNumberState,
 } from "../recoil/authState";
 import useInputGlobal from "../customhook/useInputGlobal.jsx";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Button from "../component/button/Button";
 import InputCheckbox from "../component/InputCheckbox.jsx";
 import { formatDate, identify } from "../common.js";
@@ -21,11 +21,15 @@ import { CiSquareInfo, CiCircleCheck } from "react-icons/ci";
 import { FaCircleChevronUp, FaCircleChevronDown } from "react-icons/fa6";
 
 export default function UserInfoModify() {
-  const [userNameInput, onUserNameChange] = useInputGlobal(userNameState);
-  const [userPhoneNumberInput, onUserPhoneNumberChange] =
-    useInputGlobal(userPhoneNumberState);
-  const [emailInput, onEmailChange] = useInputGlobal(emailState);
-  const [userBirthdayInput, onUserBirthdayChange] =
+  const [userNameInput, onUserNameChange, setUserNameInput] =
+    useInputGlobal(userNameState);
+  const [
+    userPhoneNumberInput,
+    onUserPhoneNumberChange,
+    setUserPhoneNumberInput,
+  ] = useInputGlobal(userPhoneNumberState);
+  const [emailInput, onEmailChange, setEmailInput] = useInputGlobal(emailState);
+  const [userBirthdayInput, onUserBirthdayChange, setBirthdayInput] =
     useInputGlobal(userBirthdayState);
   const [isCheckedListKeyword, setIsCheckedListKeyword] = useRecoilState(
     IsCheckedListKeywordState
@@ -37,15 +41,8 @@ export default function UserInfoModify() {
   // email이 맞는지 확인하는 useState
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
 
-  const setUserNameInput = useSetRecoilState(userNameState);
-  const setUserPhoneNumberInput = useSetRecoilState(userPhoneNumberState);
-  const [emailInputtt, setEmailInput] = useRecoilState(emailState);
-  const setBirthdayInput = useSetRecoilState(userBirthdayState);
-
   // 체크박스에 체크되었는지 확인하는 useState
   const [isChecked, setIsChecked] = useState("");
-  // 모든 데이터를 입력받았는지 확인하는 useState
-  const [dataComeIn, setDataComeIn] = useState(false);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
   const [birthday, setBirthday] = useState("");
 
@@ -65,28 +62,14 @@ export default function UserInfoModify() {
     setIsChecked,
   ]);
 
-  useEffect(() => {
-    if (
-      userNameInput &&
-      userPhoneNumberInput &&
-      userPhoneNumberInput.length === 11 &&
-      emailInput &&
-      emailIdentifyCheck &&
-      userBirthdayInput &&
-      isChecked
-    ) {
-      setDataComeIn(true);
-    } else {
-      setDataComeIn(false);
-    }
-  }, [
-    userNameInput,
-    userPhoneNumberInput,
-    emailInput,
-    emailIdentifyCheck,
-    userBirthdayInput,
-    isChecked,
-  ]);
+  const dataComeIn =
+    userNameInput &&
+    userPhoneNumberInput &&
+    userPhoneNumberInput.length === 11 &&
+    emailInput &&
+    emailIdentifyCheck &&
+    userBirthdayInput &&
+    isChecked;
 
   const keywordDatas = [
     "음악",
@@ -130,7 +113,7 @@ export default function UserInfoModify() {
     }
   }, [userRealName, userGender, userEmail, birthday]);
 
-  console.log(userEmail, emailInputtt);
+  console.log(userEmail, emailInput, dataComeIn);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
