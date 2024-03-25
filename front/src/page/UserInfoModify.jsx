@@ -69,7 +69,9 @@ export default function UserInfoModify() {
     emailInput &&
     emailIdentifyCheck &&
     userBirthdayInput &&
-    isChecked;
+    isChecked
+      ? true
+      : false;
 
   const keywordDatas = [
     "음악",
