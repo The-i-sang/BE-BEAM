@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import Input from "../component/Input";
 import {
   emailState,
@@ -38,10 +37,7 @@ export default function UserInfoModify() {
   const { userRealName, userGender, userEmail, userBirthday } =
     userNecessaryData;
 
-  // email이 맞는지 확인하는 useState
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
-
-  // 체크박스에 체크되었는지 확인하는 useState
   const [isChecked, setIsChecked] = useState("");
   const [keywordListOpen, setKeywordListOpen] = useState(false);
   const [birthday, setBirthday] = useState("");
@@ -105,7 +101,7 @@ export default function UserInfoModify() {
   }, [userBirthday, setBirthday]);
 
   useEffect(() => {
-    if (userRealName && userGender && userEmail && birthday) {
+    if (userRealName || userGender || userEmail || birthday) {
       setUserNameInput(userRealName);
       setEmailInput(userEmail);
       setBirthdayInput(birthday);
