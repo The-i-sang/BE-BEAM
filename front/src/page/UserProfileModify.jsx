@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { introMyselfState, nickNameState } from "../recoil/authState";
-import Input from "../component/Input";
+import Input from "../component/input/Input";
 import useInputGlobal from "../customhook/useInputGlobal";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Button from "../component/button/Button";
 import TextArea from "../component/textArea/TextArea";
+import { UserNecessaryDataState } from "../recoil/userState";
 
 import { AiOutlineSync } from "react-icons/ai";
-import { UserNecessaryDataState } from "../recoil/userState";
 
 export default function UserProfileModify() {
   const [nicknameInput, onNicknameChange] = useInputGlobal(nickNameState);
@@ -16,20 +16,22 @@ export default function UserProfileModify() {
 
   const setNicknameInput = useSetRecoilState(nickNameState);
   const setIntroMyselfInput = useSetRecoilState(introMyselfState);
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
+  const { profileImg, userNickname } = userNecessaryData;
 
   useEffect(() => {
     setNicknameInput("");
     setIntroMyselfInput("");
   }, [setNicknameInput, setIntroMyselfInput]);
 
-  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
-  const { profileImg, userNickname } = userNecessaryData;
-
   useEffect(() => {
     if (userNickname) {
       setNicknameInput(userNickname);
     }
   }, [userNickname]);
+
+  const userNicknameComment =
+    nicknameInput.length === 0 && "닉네임을 입력해주세요.";
 
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
@@ -64,16 +66,15 @@ export default function UserProfileModify() {
                   onNicknameChange(e);
                 }}
                 value={nicknameInput}
+                basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
               />
               <p
                 className={`${
                   nicknameInput.length !== 0 ? "opacity-0" : "opacity-100"
-                } ${
-                  nicknameInput.length === 0 && "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
-              >{`${
-                nicknameInput.length === 0 ? "닉네임을 입력해주세요." : ""
-              }`}</p>
+              >
+                {userNicknameComment}
+              </p>
             </div>
 
             <div className="w-full mb-2">
@@ -93,13 +94,11 @@ export default function UserProfileModify() {
 
             <Button
               buttonText="프로필 수정하기"
-              onClick={(e) => {
-                e.preventDefault();
-
+              onClick={() => {
                 // user 닉네임, 한 줄 소개 수정한거 서버로 보내기
               }}
-              disabled={nicknameInput?.length > 0 ? false : true}
-              buttonDisabledStyle={nicknameInput?.length === 0}
+              disabled={nicknameInput.length === 0}
+              basicStyle="mt-2"
             />
           </div>
         </div>

@@ -12,10 +12,10 @@ import { SnsAuthTypeState } from "../../recoil/contentState";
 import MenuList from "./MenuList";
 import MobileMenuList from "./MobileMenuList";
 import { getUserData } from "../../common";
+import Util from "./Util";
 
 import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
 import { CiSearch, CiUser } from "react-icons/ci";
-import Util from "./Util";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
@@ -82,11 +82,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [snsAuthType, userData, setUserNecessaryData]);
 
   const { profileImg, userNickname } = userNecessaryData;
-  // 이메일 => 카카오 : userData.kakao_account.email / 지메일 : userData.emailAddresses[0].value
-  // 닉네임 => 지메일 : userData.nicknames[0].value / 카카오 : 생략
-  // 실명 => 지메일 : userData.names[0].displayName
-  // 생년월일 => 지메일 : userData.birthdays[0].date => {year : 2000, month : 9, day: 21}
-  // 성별 => 지메일 : userData.genders[0].value => female
 
   return (
     <div className="w-full dark:bg-black">
@@ -95,6 +90,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
           <Util
             icon={<CiMenuBurger />}
             onClick={() => setSideBarOpen(true)}
+            basicStyle="text-[1.2rem] text-[#f5aa15]"
             smStyle="sm:hidden"
           />
 
@@ -121,6 +117,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             <Util
               icon={darkMode ? <CiLight /> : <CiDark />}
               onClick={() => setDarkMode(!darkMode)}
+              basicStyle="text-[1.2rem] text-[#f5aa15]"
               smStyle="sm:mr-4 mr-2 sm:text-[1.5rem]"
               mdStyle="md:mr-4  md:text-[1.8rem]"
               lgStyle="lg:mr-8"
@@ -129,6 +126,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             <Util
               icon={<CiSearch />}
               onClick={() => navigate("/search")}
+              basicStyle="text-[1.2rem] text-[#f5aa15]"
               smStyle="sm:text-[1.5rem]"
               mdStyle="md:text-[1.8rem]"
             />
@@ -136,26 +134,23 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             <Util
               icon={<CiUser />}
               onClick={() => navigate("/auth")}
-              basicStyle="ml-2"
+              basicStyle="text-[1.2rem] text-[#f5aa15] ml-2"
               smStyle="sm:ml-4 sm:text-[1.5rem]"
               mdStyle="md:ml-4 md:text-[1.8rem]"
               lgStyle="lg:ml-8"
               isHidden={!userIn ? "block" : "hidden"}
             />
 
-            <div
-              className={`${
-                userIn ? "block" : "hidden"
-              } lg:ml-8 md:ml-4 sm:ml-4 ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium cursor-pointer`}
+            <Util
               onClick={() => navigate("/mypage")}
-            >
-              <img
-                className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
-                src={process.env.PUBLIC_URL + profileImg}
-                alt="profile_img"
-              />
-              <p className="md:block sm:hidden hidden">{userNickname}</p>
-            </div>
+              basicStyle="ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium"
+              smStyle="sm:ml-4"
+              mdStyle="md:ml-4"
+              lgStyle="lg:ml-8"
+              isHidden={userIn ? "block" : "hidden"}
+              profileImg={profileImg}
+              userNickname={userNickname}
+            />
           </div>
         </div>
       </div>

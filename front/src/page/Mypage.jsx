@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { userState } from "../recoil/userState";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import MypageMyProfile from "../component/MypageMyProfile";
-import TabCommonComponent from "../component/TabCommonComponent";
+import MypageMyProfile from "../component/myPage/MypageMyProfile";
+import TabCommonComponent from "../component/myPage/tab/TabCommonComponent";
 
 export default function Mypage() {
   const navigate = useNavigate();

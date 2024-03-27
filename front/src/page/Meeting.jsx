@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TypeWriter from "../component/TypeWriter";
+import TypeWriter from "../component/typeWriter/TypeWriter";
 import Category from "../component/category/Category";
 import SwipeToSlide from "../component/category/SwipeToSlide";
 import { useQuery } from "@tanstack/react-query";

@@ -1,23 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
-import Input from "./Input";
-import useInputGlobal from "../customhook/useInputGlobal";
-
-import { searchNicknameState } from "../recoil/contentState";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useMemo, useState } from "react";
+import Input from "../input/Input";
+import useInputGlobal from "../../customhook/useInputGlobal";
+import { fadeInRight } from "react-animations";
+import { searchNicknameState } from "../../recoil/contentState";
+import styled, { keyframes } from "styled-components";
 import {
   CheckboxContainer,
   HiddenCheckbox,
   Icon,
   StyledCheckbox2,
-} from "../StyledComponents";
-import styled, { keyframes } from "styled-components";
+} from "../../StyledComponents";
 
 import { GoX } from "react-icons/go";
 import { FaMeetup, FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 import { CiSearch, CiSliderHorizontal } from "react-icons/ci";
 import { PiArrowsDownUpThin } from "react-icons/pi";
 
-import { fadeInRight } from "react-animations";
 const fadeInAnimation = keyframes`${fadeInRight}`;
 
 const FadeInDiv = styled.div`
@@ -367,6 +365,7 @@ export default function MeetingParticipantsListModal({
               onSearchNicknameChange(e);
             }}
             value={searchNicknameInput}
+            basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
           />
           <CiSearch className="text-[1.4rem] text-[#f58d15] absolute top-[38%] left-4" />
         </div>
