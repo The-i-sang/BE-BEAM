@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
 import SearchInputForm from "../component/input/SearchInputForm";
 import useInput from "../customhook/useInput";
@@ -35,8 +34,6 @@ export default function Search() {
 
     onSearchTextChange(e);
   };
-
-  console.log(filteredDatas);
 
   return (
     <div className="bg-[#ffffff] dark:bg-black">

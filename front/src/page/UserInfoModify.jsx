@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Input from "../component/Input";
+import Input from "../component/input/Input.jsx";
 import {
   emailState,
   userBirthdayState,
@@ -9,7 +9,7 @@ import {
 import useInputGlobal from "../customhook/useInputGlobal.jsx";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Button from "../component/button/Button";
-import InputCheckbox from "../component/InputCheckbox.jsx";
+import InputCheckbox from "../component/inputCheckbox/InputCheckbox";
 import { formatDate, identify } from "../common.js";
 import {
   IsCheckedListKeywordState,
@@ -42,8 +42,6 @@ export default function UserInfoModify() {
   const [keywordListOpen, setKeywordListOpen] = useState(false);
   const [birthday, setBirthday] = useState("");
 
-  const datas = ["여성", "남성"];
-
   useEffect(() => {
     setUserNameInput("");
     setUserPhoneNumberInput("");
@@ -69,6 +67,7 @@ export default function UserInfoModify() {
       ? true
       : false;
 
+  const datas = ["여성", "남성"];
   const keywordDatas = [
     "음악",
     "그림",
@@ -111,7 +110,20 @@ export default function UserInfoModify() {
     }
   }, [userRealName, userGender, userEmail, birthday]);
 
-  console.log(userEmail, emailInput, dataComeIn);
+  const userNameComment = userNameInput.length === 0 && "이름을 입력해주세요.";
+
+  const userPhoneNumberComment =
+    userPhoneNumberInput.length === 0 && "핸드폰 번호를 입력해주세요.";
+
+  const userEmailComment =
+    emailInput.length !== 0 && emailIdentifyCheck
+      ? ""
+      : emailInput.length !== 0 && !emailIdentifyCheck
+      ? "이메일 양식을 맞춰주세요."
+      : "이메일을 입력하세요.";
+
+  const userBirthdayComment =
+    userBirthdayInput.length === 0 && "생일을 입력해주세요.";
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
@@ -142,16 +154,15 @@ export default function UserInfoModify() {
                   onUserNameChange(e);
                 }}
                 value={userNameInput}
+                basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
               />
               <p
                 className={`${
                   userNameInput.length !== 0 ? "opacity-0" : "opacity-100"
-                } ${
-                  userNameInput.length === 0 && "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
-              >{`${
-                userNameInput.length === 0 ? "이름을 입력해주세요." : ""
-              }`}</p>
+              >
+                {userNameComment}
+              </p>
             </div>
 
             <div className="w-full mb-2">
@@ -169,13 +180,14 @@ export default function UserInfoModify() {
                   }}
                   value={userPhoneNumberInput}
                   maxLength="11"
+                  basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
                 />
 
-                {/* 인증 완료시 인증 완료 문구로 변경 */}
                 <Button
+                  type="button"
                   buttonText="휴대전화 인증"
-                  disabled={userPhoneNumberInput.length !== 11}
-                  userPhoneNumberInput={userPhoneNumberInput}
+                  disabled={userPhoneNumberInput.length < 11}
+                  basicStyle="mt-2 border-[1px] border-solid"
                 />
               </div>
 
@@ -184,14 +196,10 @@ export default function UserInfoModify() {
                   userPhoneNumberInput.length !== 0
                     ? "opacity-0"
                     : "opacity-100"
-                } ${
-                  userPhoneNumberInput.length === 0 && "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
-              >{`${
-                userPhoneNumberInput.length === 0
-                  ? "핸드폰 번호를 입력해주세요."
-                  : ""
-              }`}</p>
+              >
+                {userPhoneNumberComment}
+              </p>
             </div>
 
             <div className="w-full mb-2">
@@ -208,6 +216,7 @@ export default function UserInfoModify() {
                   identify(e.target.value, undefined, setEmailIdentifyCheck);
                 }}
                 value={emailInput}
+                basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
               />
               <p
                 className={`${
@@ -215,13 +224,9 @@ export default function UserInfoModify() {
                 } ${
                   emailInput.length === 0 && "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
-              >{`${
-                emailInput.length !== 0 && emailIdentifyCheck
-                  ? ""
-                  : emailInput.length !== 0 && !emailIdentifyCheck
-                  ? "이메일 양식을 맞춰주세요."
-                  : "이메일을 입력하세요."
-              }`}</p>
+              >
+                {userEmailComment}
+              </p>
             </div>
 
             <div className="w-full mb-2">
@@ -236,16 +241,15 @@ export default function UserInfoModify() {
                   onUserBirthdayChange(e);
                 }}
                 value={userBirthdayInput}
+                basicStyle="text-[0.8rem]"
               />
               <p
                 className={`${
                   userBirthdayInput.length !== 0 ? "opacity-0" : "opacity-100"
-                } ${
-                  userBirthdayInput.length === 0 && "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
-              >{`${
-                userBirthdayInput.length === 0 ? "생일을 입력해주세요." : ""
-              }`}</p>
+              >
+                {userBirthdayComment}
+              </p>
             </div>
 
             <div className="w-full mb-2">
@@ -284,19 +288,15 @@ export default function UserInfoModify() {
                 keywordListOpen={keywordListOpen}
               />
             </div>
-
-            <div>{/* 개인 정보 처리 및 마케팅 수신 동의 */}</div>
           </div>
 
           <Button
-            onClick={(e) => {
-              e.preventDefault();
-
+            onClick={() => {
               // 서버로 수정한 데이터 넘겨주기.
             }}
             buttonText="정보 수정"
-            disabled={dataComeIn ? false : true}
-            buttonDisabledStyle={!dataComeIn}
+            disabled={!dataComeIn}
+            basicStyle="h-[3.75rem] mt-4 border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black"
           />
         </div>
       </div>

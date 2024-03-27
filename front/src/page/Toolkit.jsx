@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Card from "../component/toolkit/Card";
-import TypeWriter from "../component/TypeWriter";
+import TypeWriter from "../component/typeWriter/TypeWriter";
 import SwipeToSlide from "../component/category/SwipeToSlide";
 import Category from "../component/category/Category";
 import { SlidesToShowState } from "../recoil/contentState";

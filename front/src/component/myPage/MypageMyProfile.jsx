@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import Button from "./button/Button";
+import Button from "../button/Button";
 import { Cookies } from "react-cookie";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   IsCheckedListKeywordState,
   UserNecessaryDataState,
   userState,
-} from "../recoil/userState";
+} from "../../recoil/userState";
+import { introMyselfState } from "../../recoil/authState";
 
 import { CiEdit } from "react-icons/ci";
-import { introMyselfState } from "../recoil/authState";
 
 export default function MypageMyProfile() {
   const navigate = useNavigate();
