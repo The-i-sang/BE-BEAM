@@ -3,6 +3,7 @@ import Input from "../component/input/Input.jsx";
 import {
   emailState,
   userBirthdayState,
+  userGenderState,
   userNameState,
   userPhoneNumberState,
 } from "../recoil/authState";
@@ -33,12 +34,13 @@ export default function UserInfoModify() {
   const [isCheckedListKeyword, setIsCheckedListKeyword] = useRecoilState(
     IsCheckedListKeywordState
   );
+  const [isChecked, setIsChecked] = useRecoilState(userGenderState);
+
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const { userRealName, userGender, userEmail, userBirthday } =
     userNecessaryData;
 
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
-  const [isChecked, setIsChecked] = useState("");
   const [keywordListOpen, setKeywordListOpen] = useState(false);
   const [birthday, setBirthday] = useState("");
 
@@ -154,7 +156,7 @@ export default function UserInfoModify() {
                   onUserNameChange(e);
                 }}
                 value={userNameInput}
-                basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
+                basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
               />
               <p
                 className={`${
@@ -180,7 +182,7 @@ export default function UserInfoModify() {
                   }}
                   value={userPhoneNumberInput}
                   maxLength="11"
-                  basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
+                  basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
                 />
 
                 <Button
@@ -216,7 +218,7 @@ export default function UserInfoModify() {
                   identify(e.target.value, undefined, setEmailIdentifyCheck);
                 }}
                 value={emailInput}
-                basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
+                basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
               />
               <p
                 className={`${
@@ -241,7 +243,7 @@ export default function UserInfoModify() {
                   onUserBirthdayChange(e);
                 }}
                 value={userBirthdayInput}
-                basicStyle="text-[0.8rem]"
+                basicStyle="text-[0.8rem] px-6"
               />
               <p
                 className={`${
