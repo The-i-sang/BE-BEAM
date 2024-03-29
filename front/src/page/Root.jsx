@@ -6,6 +6,34 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ScrollRestoration } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styled from "styled-components";
+
+const StyledToastContainer = styled(ToastContainer).attrs({})`
+  @media (max-width: 768px) {
+    width: 90% !important;
+    max-width: none !important;
+    transform: translateX(-50%) !important;
+    left: 50% !important;
+    bottom: 1em !important;
+  }
+
+  .Toastify__toast--default {
+    background-color: #100e10 !important;
+    color: white !important;
+    font-size: 14px !important;
+  }
+
+  .Toastify__close-button {
+    color: white !important;
+    opacity: 0.8 !important;
+  }
+
+  .Toastify__progress-bar {
+    background: #d93c30 !important;
+  }
+`;
 
 export default function Root() {
   const queryClient = new QueryClient();
@@ -61,11 +89,10 @@ export default function Root() {
       <Navbar setSideBarOpen={setSideBarOpen} sideBarOpen={sideBarOpen} />
       <QueryClientProvider client={queryClient}>
         <Outlet />
+        <StyledToastContainer />
       </QueryClientProvider>
-
       <Footer />
 
-      {/* TOP 버튼 */}
       <button
         onClick={scrollToTop}
         className={`${

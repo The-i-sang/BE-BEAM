@@ -66,7 +66,7 @@ export default function UserProfileModify() {
                   onNicknameChange(e);
                 }}
                 value={nicknameInput}
-                basicStyle="placeholder:text-[0.9rem] text-[0.9rem]"
+                basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
               />
               <p
                 className={`${

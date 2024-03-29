@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../button/Button";
-import MeetingParticipantsListModal from "../MeetingParticipantsListModal";
+import MeetingParticipantsListModal from "../meetingParticipantsModal/MeetingParticipantsListModal";
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 

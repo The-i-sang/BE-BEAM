@@ -29,3 +29,8 @@ export const userBirthdayState = atom({
   key: "userBirthdayState",
   default: "",
 });
+
+export const userGenderState = atom({
+  key: "userGenderState",
+  default: "",
+});

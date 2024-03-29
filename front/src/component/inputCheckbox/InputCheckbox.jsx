@@ -10,8 +10,6 @@ export default function InputCheckbox({
   setIsCheckedList,
   keywordListOpen,
 }) {
-  console.log(isCheckedList);
-
   return (
     <>
       {isChecked !== undefined ? (
