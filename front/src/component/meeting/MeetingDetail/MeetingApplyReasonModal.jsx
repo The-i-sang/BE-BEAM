@@ -4,6 +4,7 @@ import Button from "../../button/Button";
 import useInputGlobal from "../../../customhook/useInputGlobal";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../recoil/userState";
+import { useEffect } from "react";
 import {
   userNameState,
   userPhoneNumberState,
@@ -28,6 +29,10 @@ export default function MeetingApplyReasonModal({
   const [meetingApplyReasonInput, onMeetingApplyReasonChange] = useInputGlobal(
     meetingApplyReasonState
   );
+
+  useEffect(() => {
+    setMeetingApplyReasonModal("");
+  }, []);
 
   return (
     <div
@@ -79,10 +84,14 @@ export default function MeetingApplyReasonModal({
                 !userBirthday ||
                 !userGender
               ) {
-                Toast("🍒🍓먼저 마이페이지에서 개인정보를 채워주세요!");
+                Toast(
+                  "🍒🍓 먼저 마이페이지에서 개인정보들을 모두 입력해주세요!"
+                );
+              } else {
+                // 데이터 서버로 넘기기
               }
             } else {
-              Toast("🍇🍋먼저 로그인을 진행해주세요!");
+              Toast("🍇🍋 먼저 로그인을 진행해주세요!");
             }
           }}
           disabled={meetingApplyReasonInput.length === 0}

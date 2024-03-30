@@ -3,13 +3,9 @@ import useInputGlobal from "../../../customhook/useInputGlobal";
 import { searchNicknameState } from "../../../recoil/contentState";
 import SearchInput from "./SearchInput";
 import FilteredMenu from "./FilteredMenu";
-
-import {
-  CheckboxContainer,
-  HiddenCheckbox,
-  Icon,
-  StyledCheckbox2,
-} from "../../../StyledComponents";
+import AcceptOrDeclineApplicationBtn from "../../button/AcceptOrDeclineApplicationBtn";
+import MeetingParticipantsModalSmallContent from "./MeetingParticipantsModalSmallContent";
+import PersonalCheckbox from "./PersonalCheckbox";
 
 export default function MeetingParticipantsModalContent() {
   const [searchNicknameInput, onSearchNicknameChange] =
@@ -230,22 +226,24 @@ export default function MeetingParticipantsModalContent() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage; // 30 - 10 = 20
   const currentPosts = filterData.slice(indexOfFirstPost, indexOfLastPost); // slice(20, 30) => index 20부터 30 전까지
 
-  const [check, setCheck] = useState([]);
+  const initCheckFromUserData = (userData) => {
+    return userData.map((user) => {
+      return { title: `check-${user.pk}`, state: false };
+    });
+  };
+
+  const [check, setCheck] = useState(initCheckFromUserData(userData));
 
   const checkBtnEvent = (pk) => {
-    if (check.findIndex((el) => el.title === `check-${pk}`) === -1) {
-      setCheck((prev) => [...prev, { title: `check-${pk}`, state: true }]);
-    } else {
-      setCheck((prev) =>
-        prev.map((el) => {
-          if (el.title === `check-${pk}`) {
-            return { ...el, state: !el.state };
-          } else {
-            return el;
-          }
-        })
-      );
-    }
+    setCheck((prev) =>
+      prev.map((el) => {
+        if (el.title === `check-${pk}`) {
+          return { ...el, state: !el.state };
+        } else {
+          return el;
+        }
+      })
+    );
   };
 
   return (
@@ -260,7 +258,6 @@ export default function MeetingParticipantsModalContent() {
         filterName={filterName}
         setFilterCount={setFilterCount}
         filterCount={filterCount}
-        filterData={filterData}
         check={check}
         setCheck={setCheck}
         userData={userData}
@@ -269,40 +266,17 @@ export default function MeetingParticipantsModalContent() {
 
       <div className="w-full">
         <div className="modalContentScroll2">
-          {currentPosts.map((post, index) => (
+          {currentPosts.map((post) => (
             <div
               key={post.pk}
               className="w-full py-3 box-border flex items-center gap-x-1 text-left sm:text-[0.83rem] text-[0.8rem] sm:font-normal font-thin word-break: break-all sm:border-none border-b-[1px] border-solid border-[#dcdcdc]"
             >
-              <div className="w-[5%] flex items-center">
-                <CheckboxContainer onClick={() => checkBtnEvent(post.pk)}>
-                  <HiddenCheckbox
-                    type="checkbox"
-                    id={`check-${post.pk}`}
-                    checked={
-                      check[
-                        check?.findIndex(
-                          (el) => el.title === `check-${post.pk}`
-                        )
-                      ]?.state
-                    }
-                  />
-                  <StyledCheckbox2
-                    checked={
-                      check[
-                        check?.findIndex(
-                          (el) => el.title === `check-${post.pk}`
-                        )
-                      ]?.state
-                    }
-                    onChange={() => checkBtnEvent(post.pk)}
-                  >
-                    <Icon viewBox="0 0 24 24" className="scale-75">
-                      <polyline points="20 6 9 17 4 12" />
-                    </Icon>
-                  </StyledCheckbox2>
-                </CheckboxContainer>
-              </div>
+              <PersonalCheckbox
+                post={post}
+                check={check}
+                checkBtnEvent={checkBtnEvent}
+              />
+
               <div className="w-[95%] flex sm:flex-row flex-col sm:items-center justify-center">
                 <div className="sm:w-[20%] flex flex-row sm:mb-0 mb-1">
                   <div className="sm:w-[70%] sm:pr-0 pr-2 sm:font-normal font-semibold text-[0.83rem] ">
@@ -313,39 +287,40 @@ export default function MeetingParticipantsModalContent() {
                   </div>
                 </div>
 
-                <div className="sm:w-[15%] sm:mb-0 mb-1 flex items-center">
-                  <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                    E :{" "}
-                  </p>
-                  {post.email}
-                </div>
+                <MeetingParticipantsModalSmallContent
+                  mobileText="E : "
+                  text={post.email}
+                  basicStyle="mb-1 flex items-center"
+                  smStyle="sm:w-[10%] sm:mb-0"
+                />
 
-                <div className="sm:w-[12%] sm:mb-0 mb-1 flex items-center">
-                  <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                    H.P :{" "}
-                  </p>
-                  {post.phoneNumber}
-                </div>
+                <MeetingParticipantsModalSmallContent
+                  mobileText="H.P : "
+                  text={post.phoneNumber}
+                  basicStyle="mb-1 flex items-center"
+                  smStyle="sm:w-[10%] sm:mb-0"
+                />
 
-                <div className="sm:w-[10%] sm:mb-0 mb-1 flex items-center">
-                  <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                    신청일 :{" "}
-                  </p>
-                  {post.applyDay}
-                </div>
+                <MeetingParticipantsModalSmallContent
+                  mobileText="신청일 : "
+                  text={post.applyDay}
+                  basicStyle="mb-1 flex items-center"
+                  smStyle="sm:w-[10%] sm:mb-0"
+                />
 
-                <div className="sm:w-[20%] sm:bg-transparent sm:my-0 my-2 sm:p-0 p-2 box-border bg-[#ebebeb] rounded-md">
-                  <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                    신청 이유 :{" "}
-                  </p>
-                  {post.applyDes}
-                </div>
+                <MeetingParticipantsModalSmallContent
+                  mobileText="신청 이유 : "
+                  text={post.applyDes}
+                  basicStyle="my-2 p-2 box-border bg-[#ebebeb] rounded-md"
+                  smStyle="sm:w-[20%] sm:bg-transparent sm:my-0 sm:p-0"
+                />
 
                 <div className="sm:w-[18%] sm:my-0 my-1 flex sm:flex-col flex-row sm:items-start items-center sm:gap-y-1 gap-x-1 text-[0.75rem]">
-                  <button
+                  <AcceptOrDeclineApplicationBtn
+                    btnText="신청 수락"
                     onClick={() => {
                       setUserData((prev) =>
-                        prev?.map((user) => {
+                        prev.map((user) => {
                           if (user.pk === post.pk) {
                             return { ...user, YesOrNo: true };
                           } else {
@@ -354,14 +329,13 @@ export default function MeetingParticipantsModalContent() {
                         })
                       );
                     }}
-                    className="px-4 py-1 box-border border-[1px] border-solid border-[#282828] rounded-sm bg-[#282828] text-white"
-                  >
-                    신청 수락
-                  </button>
-                  <button
+                    basicStyle="border-[#282828] bg-[#282828] text-white"
+                  />
+                  <AcceptOrDeclineApplicationBtn
+                    btnText="신청 거절"
                     onClick={() => {
                       setUserData((prev) =>
-                        prev?.map((user) => {
+                        prev.map((user) => {
                           if (user.pk === post.pk) {
                             return { ...user, YesOrNo: false };
                           } else {
@@ -370,15 +344,13 @@ export default function MeetingParticipantsModalContent() {
                         })
                       );
                     }}
-                    className="px-4 py-1 box-border border-[1px] border-solid border-[#bebebe] rounded-sm"
-                  >
-                    신청 거절
-                  </button>
+                    basicStyle="border-[#bebebe]"
+                  />
                 </div>
 
                 <div className="sm:w-[5%] flex items-center">
                   <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
-                    수락 여부 :{" "}
+                    수락 여부 :
                   </p>
                   {post.YesOrNo === false ? "거절" : "수락"}
                 </div>
