@@ -1,12 +1,6 @@
 import { useState } from "react";
-
-import {
-  CheckboxContainer,
-  HiddenCheckbox,
-  Icon,
-  StyledCheckbox2,
-} from "../../../StyledComponents";
 import { Toast } from "../../toast/Toast";
+import AllCheckbox from "./AllCheckbox";
 
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 import { CiSliderHorizontal } from "react-icons/ci";
@@ -17,7 +11,6 @@ export default function FilteredMenu({
   filterName,
   setFilterCount,
   filterCount,
-  filterData,
   check,
   setCheck,
   userData,
@@ -26,51 +19,24 @@ export default function FilteredMenu({
   const filterTitle = ["이름", "이메일", "전화번호", "신청일"];
 
   const [allCheck, setAllCheck] = useState(false);
-  const [allCheckCount, setAllCheckCount] = useState(0);
 
   const allBtnEvent = () => {
-    setAllCheckCount((prev) => prev + 1);
+    setAllCheck(!allCheck);
 
-    if (allCheck === false) {
-      setAllCheck(true);
-
-      if (allCheckCount === 0) {
-        for (let i = 0; i < filterData?.length; i++) {
-          const user = filterData[i];
-          if (
-            check?.findIndex((el) => el.title === `check-${user.pk}`) === -1
-          ) {
-            setCheck((prev) => [
-              ...prev,
-              { title: `check-${user.pk}`, state: true },
-            ]);
-          }
-        }
-      } else {
-        setCheck((prev) =>
-          prev?.map((check) => {
-            return { ...check, state: true };
-          })
-        );
-      }
-    } else {
-      setAllCheck(false);
-
-      setCheck((prev) =>
-        prev?.map((check) => {
-          return { ...check, state: false };
-        })
-      );
-    }
+    setCheck((prev) =>
+      prev.map((check) => {
+        return { ...check, state: !allCheck };
+      })
+    );
   };
 
   const peopleLimitCount = 6;
   const remainPeopleLimitCount =
     peopleLimitCount - userData.filter((user) => user.YesOrNo === true).length;
 
-  const checkedIndexes = check.reduce((acc, cur) => {
+  const checkedIndexs = check.reduce((acc, cur) => {
     if (cur.state) {
-      const index = cur.title.split("-")[1]; // pk만 잘라내기
+      const index = cur.title.split("-")[1];
       acc.push(index);
     }
     return acc;
@@ -78,33 +44,21 @@ export default function FilteredMenu({
 
   return (
     <div className="w-full mt-4 px-[0.625rem] py-3 box-border bg-[#ebebeb] rounded-lg flex items-center text-[0.75rem] text-[#525252]">
-      <div className="w-[5%] flex items-center">
-        <CheckboxContainer onClick={allBtnEvent}>
-          <HiddenCheckbox type="checkbox" id="all-check" checked={allCheck} />
-          <StyledCheckbox2 checked={allCheck} onChange={allBtnEvent}>
-            <Icon viewBox="0 0 24 24" className="scale-75">
-              <polyline points="20 6 9 17 4 12" />
-            </Icon>
-          </StyledCheckbox2>
-        </CheckboxContainer>
-      </div>
+      <AllCheckbox allCheck={allCheck} allBtnEvent={allBtnEvent} />
 
       <div className="w-[95%] flex items-center justify-between gap-x-10">
         <div className="w-[20%] flex items-center gap-x-1">
           <button
             onClick={() => {
-              // [0, 2, 4] index의 체크박스를 체크하여 수락으로 바꾸려고 한다.
-              // [0, 2, 4] index의 YesOrNo가 false라면 isCheckedIndexes 배열에 index들을 담아준다.
-              // 남은 모임신청 사람수(remainPeopleLimitCount)가 더 isCheckedIndexs 배열의 길이보다 크거나 같으면 useData의 해당 index들의 YesOrNo를 true로 바꿔준다.
-              const isCheckedIndexes = checkedIndexes.filter(
+              const ischeckedIndexs = checkedIndexs.filter(
                 (index) =>
                   !userData[userData.findIndex((data) => data.pk === index)]
                     .YesOrNo
               );
 
-              if (remainPeopleLimitCount >= isCheckedIndexes.length) {
+              if (remainPeopleLimitCount >= ischeckedIndexs.length) {
                 const newUserData = userData.map((user) => {
-                  if (isCheckedIndexes.includes(user.pk)) {
+                  if (ischeckedIndexs.includes(user.pk)) {
                     return { ...user, YesOrNo: true };
                   }
                   return user;
@@ -121,7 +75,7 @@ export default function FilteredMenu({
           <button
             onClick={() => {
               const newUserData = userData.map((user) => {
-                if (checkedIndexes.includes(user.pk)) {
+                if (checkedIndexs.includes(user.pk)) {
                   return { ...user, YesOrNo: false };
                 }
                 return user;
