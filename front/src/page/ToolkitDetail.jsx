@@ -88,7 +88,7 @@ export default function ToolkitDetail() {
           {toolkit.title}
         </h1>
 
-        <div className="w-full flex md:flex-row sm:flex-col flex-col md:items-start md:justify-between">
+        <div className="flex flex-col w-full md:flex-row sm:flex-col md:items-start md:justify-between">
           <div className="lg:w-[500px] md:w-[380px] sm:w-full w-full">
             {toolkit && <DetailSlider t={toolkit.image} />}
           </div>
@@ -109,7 +109,7 @@ export default function ToolkitDetail() {
               {toolkit.description}
             </p>
 
-            <div className="sm:mb-10 mb-6">
+            <div className="mb-6 sm:mb-10">
               <DetailToolkitSmallTitle
                 icon={<PiThumbsUpDuotone />}
                 title="다음과 같은 분들에게 유용해요"
@@ -118,7 +118,7 @@ export default function ToolkitDetail() {
               <ul className="ml-10 sm:mt-3 mt-1 sm:text-[1rem] text-[0.9rem]">
                 {toolkit.benefit.map((b, idx) => {
                   return (
-                    <li key={idx} className="list-disc mb-1">
+                    <li key={idx} className="mb-1 list-disc">
                       {b}
                     </li>
                   );
@@ -126,14 +126,14 @@ export default function ToolkitDetail() {
               </ul>
             </div>
 
-            <div className="flex items-center sm:mb-10 mb-6">
+            <div className="flex items-center mb-6 sm:mb-10">
               <DetailToolkitSmallTitle icon={<PiStairsFill />} title="난이도" />
               <p className="ml-3 sm:text-[1rem] text-[0.9rem]">
                 {toolkit.option.level}
               </p>
             </div>
 
-            <div className="flex items-center sm:mb-10 mb-6">
+            <div className="flex items-center mb-6 sm:mb-10">
               <DetailToolkitSmallTitle
                 icon={<PiTimerDuotone />}
                 title="예상 소요시간"
@@ -143,7 +143,7 @@ export default function ToolkitDetail() {
               </p>
             </div>
 
-            <div className="flex items-center flex-wrap sm:mb-20 mb-14">
+            <div className="flex flex-wrap items-center sm:mb-20 mb-14">
               <DetailToolkitSmallTitle icon={<CiHashtag />} title="태그" />
               {toolkit.keyword?.map((hashtag) => (
                 <p className="ml-3 sm:text-[1rem] text-[0.9rem]">#{hashtag}</p>
@@ -179,7 +179,7 @@ export default function ToolkitDetail() {
                 }}
                 className="w-full sm:py-10 py-5 box-border flex flex-row justify-between items-center text-[#282828] cursor-pointer"
               >
-                <div className="sm:w-3/4 w-3/4 flex items-center">
+                <div className="flex items-center w-3/4 sm:w-3/4">
                   <img
                     className="sm:w-[60px] w-[40px] object-cover"
                     src={
@@ -192,7 +192,7 @@ export default function ToolkitDetail() {
                     alt="img"
                   />
 
-                  <div className="sm:w-recomended-w-1calc w-recomended-w-2calc px-4 box-border flex flex-col dark:text-white">
+                  <div className="box-border flex flex-col px-4 sm:w-recomended-w-1calc w-recomended-w-2calc dark:text-white">
                     <p className="sm:text-[0.875rem] text-[0.74rem]">
                       Another Toolkit Recommendation
                     </p>

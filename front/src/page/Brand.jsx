@@ -3,10 +3,10 @@ import img3 from "../assets/3.png";
 import img4 from "../assets/4.png";
 import img5 from "../assets/5.png";
 import img6 from "../assets/6.png";
-import MainIntroContentLeft from "../component/main/MainIntroContentLeft";
-import MainIntroContentRight from "../component/main/MainIntroContentRight";
+import MainIntroContentLeft from "../component/brand/MainIntroContentLeft";
+import MainIntroContentRight from "../component/brand/MainIntroContentRight";
 
-export default function Main() {
+export default function Brand() {
   const [scrollHeight, setScrollHeight] = useState(0);
 
   function onScroll() {

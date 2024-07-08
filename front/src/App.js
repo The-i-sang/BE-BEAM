@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NotFoundPage from "./page/NotFoundPage";
-import Main from "./page/Main";
+import Brand from "./page/Brand";
 import ToolkitDetail from "./page/ToolkitDetail";
 import Root from "./page/Root";
 import Toolkit from "./page/Toolkit";
@@ -44,7 +44,7 @@ function App() {
         },
         {
           path: "/brand",
-          element: <Main />,
+          element: <Brand />,
         },
         { path: "/search", element: <Search /> },
         {
