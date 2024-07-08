@@ -7,6 +7,7 @@ import MeetingCard from "../component/meeting/MeetingCard";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
+import Popup from "../component/popUp/Popup";
 
 import { FaKissWinkHeart } from "react-icons/fa";
 
@@ -26,6 +27,9 @@ export default function Meeting() {
   const slidesToShow = useRecoilValue(SlidesToShowState);
   const [category1, setCategory1] = useState("ALL");
   const [category2, setCategory2] = useState("ALL");
+  const [popupOn, setPopupOn] = useState(false);
+
+  const [filteredMeetings, setFilteredMeetings] = useState([]);
 
   const {
     isLoading,
@@ -37,8 +41,6 @@ export default function Meeting() {
   });
 
   const data = datas?.activities;
-
-  const [filteredMeetings, setFilteredMeetings] = useState([]);
 
   useEffect(() => {
     if (!Array.isArray(data)) return;
@@ -69,9 +71,15 @@ export default function Meeting() {
     ? "모집 마감된 활동이 없어요...!"
     : null;
 
+  useEffect(() => {
+    setPopupOn(true);
+  }, []);
+
   return (
     <div className="w-full pt-16 dark:bg-black dark:text-white">
-      <div className="w-11/12 mx-auto mb-28 flex lg:flex-row flex-col lg:justify-between items-center">
+      {popupOn ? <Popup setPopupOn={setPopupOn} /> : null}
+
+      <div className="flex flex-col items-center w-11/12 mx-auto mb-28 lg:flex-row lg:justify-between">
         <TypeWriter
           type="Meeting Community"
           icon={<FaKissWinkHeart />}
@@ -108,7 +116,7 @@ export default function Meeting() {
           />
         </SwipeToSlide>
 
-        <div className="w-full px-4 pt-6 py-24 box-border">
+        <div className="box-border w-full px-4 py-24 pt-6">
           <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
             {comment}
           </p>

@@ -3,7 +3,6 @@ import img3 from "../assets/3.png";
 import img4 from "../assets/4.png";
 import img5 from "../assets/5.png";
 import img6 from "../assets/6.png";
-import Popup from "../component/popUp/Popup";
 import MainIntroContentLeft from "../component/main/MainIntroContentLeft";
 import MainIntroContentRight from "../component/main/MainIntroContentRight";
 
@@ -21,12 +20,6 @@ export default function Main() {
     };
   }, []);
 
-  const [popupOn, setPopupOn] = useState(false);
-
-  useEffect(() => {
-    setPopupOn(true);
-  }, []);
-
   const content1 =
     "💡 안녕하세요! 부산에서 청년 커뮤니티를 기획운영하고 있는 BE:BEAM입니다. BE:BEAM(비빔)은 비빔밥의 재료처럼 다양한 청년들이 모여, 빛줄기(BEAM)처럼 따뜻한 연결망을 이어나간다는 의미가 있습니다. 2022년 소셜다이닝을 시작으로 여러 활동을 준비하고 진행하고 있습니다. 또 저희는 커뮤니티를 기획운영하는 것에서 그치지 않고, 누구나 사회참여활동을 시작하실 수 있도록 그 문턱을 낮추는 활동도 함께 진행하고 있습니다. 많은 관심 부탁드립니다:)";
   const content2 =
@@ -41,10 +34,8 @@ export default function Main() {
     "연결망 (SOCIAL NETWORK) :\n사람과 사람간, 지역과 사람간 느슨한 연결망을 만드는 활동을 진행합니다.\n\n청년 (YOUTH) :\n청년의 주체성 있는 사회참여활동을 기반으로 합니다.\n\n행동 (ACTION) :\n주체성이 담긴 행동을 통해서 사회 구성원의 인식 및 행동의 변화를 이끌어냅니다.\n\n공감 (SYMPATHY) :\n사회 구성원에 대한 공감대를 기반으로 서로에게 즐겁고, 따뜻한 활동을 진행합니다.\n\n안정 (STABILITY) :\n서로를 존중하고 배려하여 서로에게 안정감을 줄 수 있는 활동을 진행합니다.\n\n의사소통 (COMMUNICATION) :\n서로의 이야기를 경청하고, 존중하는 대화를 통해 활동을 진행합니다.";
 
   return (
-    <div className="w-full mx-auto pt-4 sm:pb-32 pb-20 dark:bg-black dark:text-white">
-      {popupOn ? <Popup setPopupOn={setPopupOn} /> : null}
-
-      <div className="w-full relative">
+    <div className="w-full pt-4 pb-20 mx-auto sm:pb-32 dark:bg-black dark:text-white">
+      <div className="relative w-full">
         <div
           className={`${
             scrollHeight > 100
@@ -67,7 +58,7 @@ export default function Main() {
               : "sm:max-w-[90%] max-w-[470px] top-96"
           } w-full mx-auto sm:h-[720px] h-[400px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_50%] text-white relative transition-all duration-700`}
         >
-          <div className="w-full h-full bg-black opacity-20 absolute top-0 left-0" />
+          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20" />
         </div>
       </div>
 
