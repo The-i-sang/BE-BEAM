@@ -37,14 +37,14 @@ function App() {
       element: <Root />,
       errorElement: <NotFoundPage />,
       children: [
-        { index: true, element: <Main /> },
-        {
-          path: "/meeting",
-          element: <Meeting />,
-        },
+        { index: true, element: <Meeting /> },
         {
           path: "/meeting/detail/:id",
           element: <MeetingDetail />,
+        },
+        {
+          path: "/brand",
+          element: <Main />,
         },
         { path: "/search", element: <Search /> },
         {

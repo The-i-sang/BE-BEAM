@@ -23,8 +23,8 @@ export default function MobileMenuList({ setSideBarOpen, sideBarOpen }) {
 
         <ul className="w-full h-full mx-[1.3rem] mt-[-30px] dark:text-[#f5aa15] text-white text-[1.6rem] flex flex-col justify-center gap-y-10">
           <MobileMenu
-            path={AppPage.home}
-            title="Brand"
+            path={AppPage.meeting}
+            title="Meeting"
             setSideBarOpen={setSideBarOpen}
           />
           <MobileMenu
@@ -33,8 +33,8 @@ export default function MobileMenuList({ setSideBarOpen, sideBarOpen }) {
             setSideBarOpen={setSideBarOpen}
           />
           <MobileMenu
-            path={AppPage.meeting}
-            title="Meeting"
+            path={AppPage.home}
+            title="Brand"
             setSideBarOpen={setSideBarOpen}
           />
         </ul>
