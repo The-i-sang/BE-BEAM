@@ -44,10 +44,10 @@ export default function SearchInputForm({
   return (
     <form
       onSubmit={handleSearchData}
-      className={`${formStyle} w-full relative`}
+      className={`${formStyle} w-full relative dark:text-white`}
     >
       <input
-        className={`${inputStyle} w-full sm:p-8 p-5 box-border rounded-full border-[2px] border-solid sm:text-[1.2rem] text-[0.9rem] outline-none sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]`}
+        className={`${inputStyle} w-full sm:p-8 p-5 box-border rounded-full dark:bg-transparent border-[2px] border-solid sm:text-[1.2rem] text-[0.9rem] outline-none sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]`}
         type="text"
         placeholder={placeholder}
         onChange={onChange}

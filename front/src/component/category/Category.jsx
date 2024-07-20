@@ -13,9 +13,9 @@ export default function Category({
 }) {
   return (
     <div
-      className={`${bgColor} w-full px-4 py-2 box-border dark:bg-white text-white dark:text-[#232426]`}
+      className={`${bgColor} w-full px-4 py-2 box-border dark:bg-[#383a4a] text-white`}
     >
-      <div className="w-full flex flex-row items-center">
+      <div className="flex flex-row items-center w-full">
         <motion.div
           initial={{ scale: 2 }}
           animate={{ rotate: 360, scale: 1 }}

@@ -34,7 +34,7 @@ export default function Brand() {
     "연결망 (SOCIAL NETWORK) :\n사람과 사람간, 지역과 사람간 느슨한 연결망을 만드는 활동을 진행합니다.\n\n청년 (YOUTH) :\n청년의 주체성 있는 사회참여활동을 기반으로 합니다.\n\n행동 (ACTION) :\n주체성이 담긴 행동을 통해서 사회 구성원의 인식 및 행동의 변화를 이끌어냅니다.\n\n공감 (SYMPATHY) :\n사회 구성원에 대한 공감대를 기반으로 서로에게 즐겁고, 따뜻한 활동을 진행합니다.\n\n안정 (STABILITY) :\n서로를 존중하고 배려하여 서로에게 안정감을 줄 수 있는 활동을 진행합니다.\n\n의사소통 (COMMUNICATION) :\n서로의 이야기를 경청하고, 존중하는 대화를 통해 활동을 진행합니다.";
 
   return (
-    <div className="w-full pt-4 pb-20 mx-auto sm:pb-32 dark:bg-black dark:text-white">
+    <div className="w-full pt-4 pb-20 mx-auto sm:pb-32">
       <div className="relative w-full">
         <div
           className={`${

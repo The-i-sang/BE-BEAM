@@ -4,9 +4,9 @@ export default function Card({ data, onClick, thumbnailImg, bgColor }) {
   return (
     <li
       onClick={onClick}
-      className={`${bgColor} w-full mb-5 sm:p-5 p-3 box-border rounded-3xl text-white group transition-all duration-700 shadow-[0_5px_5px_2px_#ebebeb]`}
+      className={`${bgColor} w-full mb-5 sm:p-5 p-3 box-border dark:bg-[#383a4a] rounded-md text-white group transition-all duration-700 shadow-[0_5px_5px_2px_#ebebeb] dark:shadow-none`}
     >
-      <div className="w-full rounded-2xl overflow-hidden relative">
+      <div className="relative w-full overflow-hidden rounded-md">
         <div className="w-full aspect-square bg-[rgba(0,0,0,0.3)] absolute top-0 left-0 z-[99] opacity-0 group-hover:opacity-100 transition-all duration-700" />
 
         <button
@@ -16,7 +16,7 @@ export default function Card({ data, onClick, thumbnailImg, bgColor }) {
         </button>
 
         <img
-          className="w-full aspect-square object-cover"
+          className="object-cover w-full aspect-square"
           src={process.env.PUBLIC_URL + thumbnailImg.replace("./", "/")}
           alt={data.alt}
         />

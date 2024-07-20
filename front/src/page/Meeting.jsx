@@ -76,7 +76,7 @@ export default function Meeting() {
   }, []);
 
   return (
-    <div className="w-full pt-16 dark:bg-black dark:text-white">
+    <div className="w-full pt-16">
       {popupOn ? <Popup setPopupOn={setPopupOn} /> : null}
 
       <div className="flex flex-col items-center w-11/12 mx-auto mb-28 lg:flex-row lg:justify-between">

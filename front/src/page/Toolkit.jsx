@@ -127,10 +127,10 @@ export default function Toolkit() {
     : null;
 
   return (
-    <div className="w-full bg-[#ffffff] dark:bg-black pt-16 flex flex-col justify-between items-center font-medium">
-      <div className="w-full flex flex-col items-center">
+    <div className="flex flex-col items-center justify-between w-full pt-16 font-medium">
+      <div className="flex flex-col items-center w-full">
         <div className="w-11/12 mx-auto">
-          <div className="w-full mb-10 flex lg:flex-row flex-col lg:justify-between items-center">
+          <div className="flex flex-col items-center w-full mb-10 lg:flex-row lg:justify-between">
             <TypeWriter
               type="Toolkit"
               icon={<CiPen />}
@@ -191,7 +191,7 @@ export default function Toolkit() {
           </SwipeToSlide>
         </div>
 
-        <div className="w-full px-4 pt-6 py-24 box-border dark:bg-[#191919]">
+        <div className="box-border w-full px-4 py-24 pt-6">
           <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
             {comment}
           </p>

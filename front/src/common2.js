@@ -3,13 +3,14 @@
 export const AppPage = {
   home: "/", // Meeting page
   meetingDetail: "/meeting/detail",
-  brand: "/brand",
-  auth: "/auth",
-  mypage: "mypage",
-  search: "/search",
+  applyForm: "/applyForm",
+  communityReviews: "/communityReviews",
   toolkit: "/toolkit",
   toolkitDetail: "/toolkit/detail",
-  applyForm: "/applyForm",
+  brand: "/brand",
+  search: "/search",
+  mypage: "mypage",
   userInfoModify: "/mypage/userInfoModify",
   userProfileModify: "/mypage/userProfileModify",
+  auth: "/auth",
 };

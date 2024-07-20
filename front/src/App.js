@@ -1,4 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { userState } from "./recoil/userState";
+import { Cookies } from "react-cookie";
+
+import Meeting from "./page/Meeting";
+import MeetingDetail from "./page/MeetingDetail";
 import NotFoundPage from "./page/NotFoundPage";
 import Brand from "./page/Brand";
 import ToolkitDetail from "./page/ToolkitDetail";
@@ -7,17 +14,12 @@ import Toolkit from "./page/Toolkit";
 import Search from "./page/Search";
 import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
+import GoogleAuth from "./page/GoogleAuth";
+import KakakoAuth from "./page/KakaoAuth";
 import Mypage from "./page/Mypage";
-import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
-import { userState } from "./recoil/userState";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
-import Meeting from "./page/Meeting";
-import MeetingDetail from "./page/MeetingDetail";
-import GoogleAuth from "./page/GoogleAuth";
-import { Cookies } from "react-cookie";
-import KakakoAuth from "./page/KakaoAuth";
+import CommunityReviews from "./page/CommunityReviews";
 
 function App() {
   const cookies = new Cookies();
@@ -43,10 +45,13 @@ function App() {
           element: <MeetingDetail />,
         },
         {
-          path: "/brand",
-          element: <Brand />,
+          path: "/communityReviews",
+          element: <CommunityReviews />,
         },
-        { path: "/search", element: <Search /> },
+        {
+          path: "/applyForm",
+          element: <ApplyForm />,
+        },
         {
           path: "/toolkit",
           element: <Toolkit />,
@@ -55,14 +60,22 @@ function App() {
           path: "/toolkit/detail/:id",
           element: <ToolkitDetail />,
         },
-        { path: "*", element: <NotFoundPage /> },
         {
-          path: "/applyForm",
-          element: <ApplyForm />,
+          path: "/brand",
+          element: <Brand />,
         },
+        { path: "/search", element: <Search /> },
         {
           path: "/auth",
           element: <Auth />,
+        },
+        {
+          path: "/googleAuth",
+          element: <GoogleAuth />,
+        },
+        {
+          path: "/kakaoAuth",
+          element: <KakakoAuth />,
         },
         {
           path: "/mypage",
@@ -76,14 +89,7 @@ function App() {
           path: "/mypage/userProfileModify",
           element: <UserProfileModify />,
         },
-        {
-          path: "/googleAuth",
-          element: <GoogleAuth />,
-        },
-        {
-          path: "/kakaoAuth",
-          element: <KakakoAuth />,
-        },
+        { path: "*", element: <NotFoundPage /> },
       ],
     },
   ]);
