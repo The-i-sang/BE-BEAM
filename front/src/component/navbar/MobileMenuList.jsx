@@ -28,6 +28,11 @@ export default function MobileMenuList({ setSideBarOpen, sideBarOpen }) {
             setSideBarOpen={setSideBarOpen}
           />
           <MobileMenu
+            path={AppPage.communityReviews}
+            title="Community-Reviews"
+            setSideBarOpen={setSideBarOpen}
+          />
+          <MobileMenu
             path={AppPage.toolkit}
             title="Toolkit"
             setSideBarOpen={setSideBarOpen}

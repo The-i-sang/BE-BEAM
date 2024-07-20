@@ -14,7 +14,7 @@ export default function MeetingDetail() {
   const [meetingApplyReasonModal, setMeetingApplyReasonModal] = useState(false);
 
   return (
-    <div className="w-full pt-10 dark:bg-black dark:text-white font-light">
+    <div className="w-full pt-10 font-light">
       <MeetingDetailTop activity={activity} />
 
       <MeetingDetailContent activity={activity} />

@@ -8,19 +8,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background-color: #535252;
   /* 트랙의 배경 색상 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232426;
+  background: #252525;
   border-radius: 10px;
   /* 핸들의 배경 색상 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #232426; /* 마우스 오버 시 핸들의 배경 색상 */
+  background: #252525; /* 마우스 오버 시 핸들의 배경 색상 */
 }
+
+/* 다크모드 스크롤바 스타일 */
+/* .dark::-webkit-scrollbar-thumb */
 
 body {
   margin: 0;

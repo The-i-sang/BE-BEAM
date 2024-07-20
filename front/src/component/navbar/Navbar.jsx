@@ -84,9 +84,9 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const { profileImg, userNickname } = userNecessaryData;
 
   return (
-    <div className="w-full dark:bg-black">
+    <div className="w-full dark:bg-black dark:text-white">
       <div className="w-11/12 sm:max-w-[90%] mx-auto">
-        <div className="w-full sm:py-12 py-8 flex justify-between items-center sm:static relative">
+        <div className="relative flex items-center justify-between w-full py-8 sm:py-12 sm:static">
           <Util
             icon={<CiMenuBurger />}
             onClick={() => setSideBarOpen(true)}
@@ -99,7 +99,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             onClick={() => navigate("/")}
           >
             <img
-              className="w-full object-cover mx-auto cursor-pointer"
+              className="object-cover w-full mx-auto cursor-pointer"
               src={
                 process.env.PUBLIC_URL + "/logo/logo2.png".replace("./", "/")
               }
