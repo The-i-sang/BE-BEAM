@@ -38,9 +38,9 @@ export default function MeetingApplyReasonModal({
     <div
       className={`${
         meetingApplyReasonModal ? "opacity-100 z-[99]" : "opacity-0 z-[-99]"
-      } sm:w-[30rem] w-[28rem] h-[24rem] p-6 box-border bg-white drop-shadow-xl border-[1px] border-solid border-[#ccc] rounded-2xl fixed top-[50%] mt-[-12rem] left-[50%] sm:ml-[-15rem] ml-[-14rem] transition-all duration-700`}
+      } w-11/12 max-w-[760px] p-6 box-border bg-white drop-shadow-xl border-[1px] border-solid border-[#ccc] rounded-2xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700`}
     >
-      <div className="w-full flex items-center justify-end">
+      <div className="flex items-center justify-end w-full">
         <button
           onClick={() => {
             setMeetingApplyReasonModal(false);
