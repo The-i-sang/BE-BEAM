@@ -20,7 +20,7 @@ export const GoogleAuthTokenFetch = async (code) => {
       code: code,
       client_id: process.env.REACT_APP_GOOGLE_API_CLIENT_ID,
       client_secret: process.env.REACT_APP_GOOGLE_API_CLIENT_SECRET,
-      redirect_uri: "https://the-isang-site.vercel.app/googleAuth",
+      redirect_uri: "http://localhost:3000/googleAuth",
       grant_type: "authorization_code",
     },
   });
@@ -53,7 +53,7 @@ export const KakaoAuthTokenFetch = async (code) => {
     data: {
       code: code,
       client_id: process.env.REACT_APP_KAKAO_API_KEY,
-      redirect_uri: "https://the-isang-site.vercel.app/kakaoAuth",
+      redirect_uri: "http://localhost:3000/kakaoAuth",
       grant_type: "authorization_code",
     },
   });

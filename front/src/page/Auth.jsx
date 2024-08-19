@@ -23,7 +23,8 @@ function Auth() {
   function doGoogleLogin() {
     const clientId =
       "235917139656-hk7j40seofglv9o6jqpt6akhu4t1su56.apps.googleusercontent.com";
-    const redirectUrl = "https://the-isang-site.vercel.app/googleAuth";
+    const redirectUrl = "http://localhost:3000/googleAuth";
+    // const redirectUrl = "https://be-beam.vercel.app/googleAuth";
 
     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code&scope=email profile openid https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/user.addresses.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.gender.read`;
 
@@ -31,7 +32,8 @@ function Auth() {
   }
 
   function doKakaoLogin() {
-    const redirectUrl = "https://the-isang-site.vercel.app/kakaoAuth";
+    const redirectUrl = "http://localhost:3000/kakaoAuth";
+    // const redirectUrl = "https://be-beam.vercel.app/kakaoAuth";
 
     const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${redirectUrl}&scope=profile_nickname,profile_image,account_email`;
     window.location.href = url;
