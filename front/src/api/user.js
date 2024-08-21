@@ -20,7 +20,8 @@ export const GoogleAuthTokenFetch = async (code) => {
       code: code,
       client_id: process.env.REACT_APP_GOOGLE_API_CLIENT_ID,
       client_secret: process.env.REACT_APP_GOOGLE_API_CLIENT_SECRET,
-      redirect_uri: "http://localhost:3000/googleAuth",
+      redirect_uri: "https://be-beam.vercel.app/googleAuth",
+      // redirect_uri: "http://localhost:3000/googleAuth",
       grant_type: "authorization_code",
     },
   });
