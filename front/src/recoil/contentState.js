@@ -10,6 +10,11 @@ export const SlidesToShowState = atom({
   default: 2,
 });
 
+export const CommunityReviewSlidesToShowState = atom({
+  key: "CommunityReviewSlidesToShowState",
+  default: 5,
+});
+
 export const searchNicknameState = atom({
   key: "searchNicknameState",
   default: "",

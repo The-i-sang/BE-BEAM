@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "react-slick";
 import NextArrow from "../slider/NextArrow";
 import PrevArrow from "../slider/PrevArrow";
@@ -8,9 +7,7 @@ import { BsArrowLeftSquare } from "react-icons/bs";
 
 export default function SwipeToSlide({ children, slidesToShow }) {
   const settings = {
-    className: "center",
-    infinite: false,
-    centerPadding: "50px",
+    infinite: true,
     slidesToShow,
     nextArrow: <NextArrow toolkitType={false} icon={<BsArrowRightSquare />} />,
     prevArrow: <PrevArrow toolkitType={false} icon={<BsArrowLeftSquare />} />,

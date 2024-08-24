@@ -5,7 +5,10 @@ import Footer from "../component/footer/Footer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ScrollRestoration } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { SlidesToShowState } from "../recoil/contentState";
+import {
+  CommunityReviewSlidesToShowState,
+  SlidesToShowState,
+} from "../recoil/contentState";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
@@ -42,6 +45,9 @@ export default function Root() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const setSlidesToShow = useSetRecoilState(SlidesToShowState);
+  const setCommunityReviewSlidesToShow = useSetRecoilState(
+    CommunityReviewSlidesToShowState
+  );
 
   const scrollToTop = () => {
     // ref가 가리키는 요소의 높이를 이용하여 스크롤
@@ -65,10 +71,21 @@ export default function Root() {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width < 1024) {
-        setSlidesToShow(1);
-      } else {
+      if (width > 1280) {
         setSlidesToShow(2);
+        setCommunityReviewSlidesToShow(5);
+      } else if (width > 1024 && width < 1280) {
+        setSlidesToShow(2);
+        setCommunityReviewSlidesToShow(4);
+      } else if (width < 1024 && width > 768) {
+        setSlidesToShow(1);
+        setCommunityReviewSlidesToShow(3);
+      } else if (width < 768 && width > 640) {
+        setSlidesToShow(1);
+        setCommunityReviewSlidesToShow(2);
+      } else if (width < 640) {
+        setSlidesToShow(1);
+        setCommunityReviewSlidesToShow(1);
       }
     };
 
@@ -76,14 +93,14 @@ export default function Root() {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [setSlidesToShow]);
+  }, [setSlidesToShow, setCommunityReviewSlidesToShow]);
 
   return (
     <div
       ref={contentWrapRef}
       className={`${
         sideBarOpen ? "h-[100vh] overflow-hidden" : "h-auto"
-      } font-medium tracking-tighter whitespace-pre-wrap leading-normal list-none dark:bg-black dark:text-white`}
+      } font-medium tracking-tighter whitespace-pre-wrap leading-normal list-none dark:bg-bg-dark-default dark:text-text-dark-default`}
     >
       <ScrollRestoration />
       <Navbar setSideBarOpen={setSideBarOpen} sideBarOpen={sideBarOpen} />

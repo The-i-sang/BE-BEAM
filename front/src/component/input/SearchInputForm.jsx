@@ -6,48 +6,16 @@ export default function SearchInputForm({
   searchText,
   onChange,
   setSearchText,
-  data,
-  setFilteredDatas,
+  handleSearchData,
   formStyle,
   inputStyle,
+  deleteBtnStyle,
+  searchBtnStyle,
 }) {
-  const handleSearchData = (e) => {
-    e.preventDefault();
-
-    if (!Array.isArray(data)) return;
-
-    let filtered = data;
-
-    const trimmedSearchTerm = searchText.trim();
-
-    if (searchText.length > 0 && trimmedSearchTerm === "") {
-      setFilteredDatas([]);
-    } else {
-      const refinedSearchTerm = searchText.replace(/\s+/g, "").toLowerCase();
-
-      const filteredResults = filtered.filter(
-        (data) =>
-          data?.title
-            .replace(/\s+/g, "")
-            .toLowerCase()
-            .includes(refinedSearchTerm) ||
-          data?.description
-            .replace(/\s+/g, "")
-            .toLowerCase()
-            .includes(refinedSearchTerm)
-      );
-
-      setFilteredDatas(filteredResults);
-    }
-  };
-
   return (
-    <form
-      onSubmit={handleSearchData}
-      className={`${formStyle} w-full relative dark:text-white`}
-    >
+    <form onSubmit={handleSearchData} className={`${formStyle} relative`}>
       <input
-        className={`${inputStyle} w-full sm:p-8 p-5 box-border rounded-full dark:bg-transparent border-[2px] border-solid sm:text-[1.2rem] text-[0.9rem] outline-none sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]`}
+        className={`${inputStyle} w-full box-border dark:bg-transparent border-[2px] border-solid outline-none`}
         type="text"
         placeholder={placeholder}
         onChange={onChange}
@@ -55,7 +23,9 @@ export default function SearchInputForm({
       />
 
       <button
-        className="sm:text-[2.4rem] text-[1.5rem] absolute sm:top-[30%] top-[36%] sm:right-20 right-12"
+        className={`${deleteBtnStyle} ${
+          searchText.length > 0 ? "opacity-100" : "opacity-0"
+        } absolute transition-all duration-700`}
         type="button"
         onClick={() => {
           setSearchText("");
@@ -64,10 +34,7 @@ export default function SearchInputForm({
         <GoX />
       </button>
 
-      <button
-        type="submit"
-        className="sm:text-[2.4rem] text-[1.5rem] absolute sm:right-7 right-4 sm:top-[30%] top-[36%]"
-      >
+      <button type="submit" className={`${searchBtnStyle} absolute`}>
         <CiSearch />
       </button>
     </form>

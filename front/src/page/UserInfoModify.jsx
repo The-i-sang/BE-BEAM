@@ -39,7 +39,6 @@ export default function UserInfoModify() {
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const { userRealName, userGender, userEmail, userBirthday } =
     userNecessaryData;
-
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
   const [birthday, setBirthday] = useState("");
@@ -172,7 +171,7 @@ export default function UserInfoModify() {
                 휴대전화 번호
               </label>
 
-              <div className="w-full flex items-center gap-x-5">
+              <div className="flex items-center w-full gap-x-5">
                 <Input
                   type="text"
                   id="phoneNumber"
@@ -266,7 +265,7 @@ export default function UserInfoModify() {
             </div>
 
             <div>
-              <div className="w-full mt-2 mb-4 flex items-center gap-x-2">
+              <div className="flex items-center w-full mt-2 mb-4 gap-x-2">
                 <p className="text-[0.8125rem] font-thin">
                   키워드에 맞는 콘텐츠를 추천해드려요!
                 </p>

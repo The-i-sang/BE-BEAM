@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import Category from "../component/category/Category";
 import SwipeToSlide from "../component/category/SwipeToSlide";
@@ -77,7 +77,7 @@ export default function Meeting() {
 
   return (
     <div className="w-full pt-16">
-      {popupOn ? <Popup setPopupOn={setPopupOn} /> : null}
+      <Popup popupOn={popupOn} setPopupOn={setPopupOn} />
 
       <div className="flex flex-col items-center w-11/12 mx-auto mb-28 lg:flex-row lg:justify-between">
         <TypeWriter
@@ -87,7 +87,7 @@ export default function Meeting() {
           titleBack="<br/>다양하게 어우러지는 모임"
           subTitleFirst="다양한 사람들이 다양하게 어우러지는 모임,"
           subTitleBack="관심사에 맞게 모임을 Pick 하세요!"
-          textColor="text-[#ffc655]"
+          textColor="text-meeting"
         />
         <img
           className="w-full lg:max-w-[450px] max-w-[600px] aspect-square animate-fadeIn"
@@ -101,7 +101,7 @@ export default function Meeting() {
           <Category
             title="Meeting Type"
             iconImg={"/image/meeting_icon1.png"}
-            bgColor="bg-[#ffc655]"
+            bgColor="bg-meeting"
             arr={meetingType}
             category={category1}
             setCategory={setCategory1}
@@ -109,7 +109,7 @@ export default function Meeting() {
           <Category
             title="Recruitment Status"
             iconImg={"/image/meeting_icon2.png"}
-            bgColor="bg-[#ffc655]"
+            bgColor="bg-meeting"
             arr={recruitmentStatus}
             category={category2}
             setCategory={setCategory2}
@@ -126,7 +126,7 @@ export default function Meeting() {
               <MeetingCard
                 key={data.id}
                 activity={data}
-                bgColor="bg-[#ffc655]"
+                bgColor="bg-meeting"
                 shadow="shadow-[0_10px_8px_2px_#e9a30d]"
               />
             ))}

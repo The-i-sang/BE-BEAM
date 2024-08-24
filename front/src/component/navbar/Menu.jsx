@@ -14,7 +14,7 @@ export default function Menu({ path, title }) {
         path === pathName
           ? "text-white font-semibold before:opacity-100"
           : "before:opacity-0"
-      } md:w-1/5 sm:w-[23%] py-2 before:absolute before:-inset-1 before:-skew-y-3 before:bg-orange-300 hover:before:opacity-100 relative inline-block cursor-pointer hover:font-semibold hover:text-white transition-all duration-700 before:transition-all before:duration-700`}
+      } md:w-1/5 sm:w-[23%] py-2 before:absolute before:-inset-1 before:-skew-y-3 before:bg-mainColor hover:before:opacity-100 relative inline-block cursor-pointer hover:font-semibold dark:text-text-dark-default hover:text-white transition-all duration-700 before:transition-all before:duration-700`}
     >
       <span className="relative">{title}</span>
     </li>

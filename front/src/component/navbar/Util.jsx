@@ -2,14 +2,14 @@
 
 export default function Util({
   icon,
+  text,
+  children,
   onClick,
   basicStyle,
   smStyle,
   mdStyle,
   lgStyle,
   isHidden,
-  profileImg,
-  userNickname,
 }) {
   return (
     <button
@@ -17,18 +17,8 @@ export default function Util({
       className={`${basicStyle} ${smStyle} ${mdStyle} ${lgStyle} ${isHidden} cursor-pointer`}
       onClick={onClick}
     >
-      {icon ? (
-        icon
-      ) : (
-        <>
-          <img
-            className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
-            src={process.env.PUBLIC_URL + profileImg}
-            alt="profile_img"
-          />
-          <p className="md:block sm:hidden hidden">{userNickname}</p>
-        </>
-      )}
+      {icon ?? text}
+      {children}
     </button>
   );
 }

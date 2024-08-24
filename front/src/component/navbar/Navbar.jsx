@@ -90,7 +90,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
           <Util
             icon={<CiMenuBurger />}
             onClick={() => setSideBarOpen(true)}
-            basicStyle="text-[1.2rem] text-[#f5aa15]"
+            basicStyle="text-[1.2rem] text-mainColor"
             smStyle="sm:hidden"
           />
 
@@ -117,7 +117,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             <Util
               icon={darkMode ? <CiLight /> : <CiDark />}
               onClick={() => setDarkMode(!darkMode)}
-              basicStyle="text-[1.2rem] text-[#f5aa15]"
+              basicStyle="text-[1.2rem] text-mainColor"
               smStyle="sm:mr-4 mr-2 sm:text-[1.5rem]"
               mdStyle="md:mr-4  md:text-[1.8rem]"
               lgStyle="lg:mr-8"
@@ -126,7 +126,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             <Util
               icon={<CiSearch />}
               onClick={() => navigate("/search")}
-              basicStyle="text-[1.2rem] text-[#f5aa15]"
+              basicStyle="text-[1.2rem] text-mainColor"
               smStyle="sm:text-[1.5rem]"
               mdStyle="md:text-[1.8rem]"
             />
@@ -134,7 +134,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             <Util
               icon={<CiUser />}
               onClick={() => navigate("/auth")}
-              basicStyle="text-[1.2rem] text-[#f5aa15] ml-2"
+              basicStyle="text-[1.2rem] text-mainColor ml-2"
               smStyle="sm:ml-4 sm:text-[1.5rem]"
               mdStyle="md:ml-4 md:text-[1.8rem]"
               lgStyle="lg:ml-8"
@@ -143,14 +143,21 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
 
             <Util
               onClick={() => navigate("/mypage")}
-              basicStyle="ml-2 flex items-center gap-x-2 text-[0.875rem] font-medium"
+              basicStyle="ml-2 flex items-center gap-x-2 text-[0.875rem] text-mainColor font-medium"
               smStyle="sm:ml-4"
               mdStyle="md:ml-4"
               lgStyle="lg:ml-8"
               isHidden={userIn ? "block" : "hidden"}
               profileImg={profileImg}
               userNickname={userNickname}
-            />
+            >
+              <img
+                className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
+                src={process.env.PUBLIC_URL + profileImg}
+                alt="profile_img"
+              />
+              <p className="hidden md:block sm:hidden">{userNickname}</p>
+            </Util>
           </div>
         </div>
       </div>

@@ -116,102 +116,130 @@ export default function Toolkit() {
     setSearchToolkitText("");
   };
 
+  const handleSearchData = (e) => {
+    e.preventDefault();
+
+    if (!Array.isArray(data)) return;
+
+    let filtered = data;
+
+    const trimmedSearchTerm = searchToolkitText.trim();
+
+    if (searchToolkitText.length > 0 && trimmedSearchTerm === "") {
+      setFilteredToolkits([]);
+    } else {
+      const refinedSearchTerm = searchToolkitText
+        .replace(/\s+/g, "")
+        .toLowerCase();
+
+      const filteredResults = filtered.filter(
+        (data) =>
+          data?.title
+            .replace(/\s+/g, "")
+            .toLowerCase()
+            .includes(refinedSearchTerm) ||
+          data?.description
+            .replace(/\s+/g, "")
+            .toLowerCase()
+            .includes(refinedSearchTerm)
+      );
+
+      setFilteredToolkits(filteredResults);
+    }
+  };
+
   const comment = isLoading
     ? "Loading..."
     : error
     ? "An error has occurred...!"
-    : searchToolkitText.length > 0 && filteredToolkits.length === 0
+    : (searchToolkitText.length > 0 || searchToolkitText.length === 0) &&
+      filteredToolkits.length === 0
     ? "검색 결과가 없습니다."
-    : searchToolkitText.length === 0 && filteredToolkits.length === 0
-    ? "툴킷이 없습니다."
     : null;
 
   return (
     <div className="flex flex-col items-center justify-between w-full pt-16 font-medium">
-      <div className="flex flex-col items-center w-full">
-        <div className="w-11/12 mx-auto">
-          <div className="flex flex-col items-center w-full mb-10 lg:flex-row lg:justify-between">
-            <TypeWriter
-              type="Toolkit"
-              icon={<CiPen />}
-              titleFirst="다양한 사회 문제들을"
-              titleBack="<br/>다양하게 풀어내는 툴킷"
-              subTitleFirst="다양한 사회 문제들을 다양하게 풀어내는 툴킷,"
-              subTitleBack="관심사에 맞게 툴킷을 Pick 하세요!"
-              textColor="text-[#79B1FF]"
-            />
-            <img
-              className="w-full lg:max-w-[450px] max-w-[600px] aspect-square animate-fadeIn"
-              src="image/toolkit_main_img.png"
-              alt="main_img"
-            />
-          </div>
-
-          <SearchInputForm
-            placeholder="툴킷을 검색하세요."
-            searchText={searchToolkitText}
-            onChange={onHandleSearchTextChange}
-            setSearchText={setSearchToolkitText}
-            data={data}
-            setFilteredDatas={setFilteredToolkits}
-            formStyle="text-[#232426]"
-            inputStyle="border-[#79B1FF] placeholder:text-[#79B1FF]"
+      <div className="w-full mx-auto max-w-[91.666667%]">
+        <div className="flex flex-col items-center w-full mb-10 lg:flex-row lg:justify-between">
+          <TypeWriter
+            type="Toolkit"
+            icon={<CiPen />}
+            titleFirst="다양한 사회 문제들을"
+            titleBack="<br/>다양하게 풀어내는 툴킷"
+            subTitleFirst="다양한 사회 문제들을 다양하게 풀어내는 툴킷,"
+            subTitleBack="관심사에 맞게 툴킷을 Pick 하세요!"
+            textColor="text-toolkit"
+          />
+          <img
+            className="w-full lg:max-w-[450px] max-w-[600px] aspect-square animate-fadeIn"
+            src="image/toolkit_main_img.png"
+            alt="main_img"
           />
         </div>
 
-        <div className="w-full mt-10">
-          <SwipeToSlide slidesToShow={slidesToShow}>
-            <Category
-              title="Toolkit Type"
-              iconImg={"/image/toolkit_icon1.png"}
-              bgColor="bg-[#79B1FF]"
-              arr={toolkitType}
-              category={category1}
-              setCategory={setCategory1}
-              onClickCategoryMenu={onClickCategoryMenu}
-            />
-            <Category
-              title="Person Type"
-              iconImg={"/image/toolkit_icon2.png"}
-              bgColor="bg-[#79B1FF]"
-              arr={personType}
-              category={category2}
-              setCategory={setCategory2}
-              onClickCategoryMenu={onClickCategoryMenu}
-            />
-            <Category
-              title="Creator"
-              iconImg={"/image/toolkit_icon3.png"}
-              bgColor="bg-[#79B1FF]"
-              arr={creator}
-              category={category3}
-              setCategory={setCategory3}
-              onClickCategoryMenu={onClickCategoryMenu}
-            />
-          </SwipeToSlide>
-        </div>
+        <SearchInputForm
+          placeholder="툴킷을 검색하세요."
+          searchText={searchToolkitText}
+          onChange={onHandleSearchTextChange}
+          setSearchText={setSearchToolkitText}
+          handleSearchData={handleSearchData}
+          formStyle="w-full rounded-full text-text-light-90 dark:text-text-dark-default sm:text-[1.2rem] text-[0.9rem]"
+          inputStyle="w-full sm:p-8 p-5 rounded-full border-toolkit placeholder:text-toolkit sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]"
+          deleteBtnStyle="sm:text-[2.4rem] text-[1.5rem] sm:top-[30%] top-[36%] sm:right-20 right-12"
+          searchBtnStyle="sm:text-[2.4rem] text-[1.5rem] sm:right-7 right-4 sm:top-[30%] top-[36%]"
+        />
+      </div>
 
-        <div className="box-border w-full px-4 py-24 pt-6">
-          <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
-            {comment}
-          </p>
+      <div className="w-full mt-10">
+        <SwipeToSlide slidesToShow={slidesToShow}>
+          <Category
+            title="Toolkit Type"
+            iconImg={"/image/toolkit_icon1.png"}
+            bgColor="bg-toolkit"
+            arr={toolkitType}
+            category={category1}
+            setCategory={setCategory1}
+            onClickCategoryMenu={onClickCategoryMenu}
+          />
+          <Category
+            title="Person Type"
+            iconImg={"/image/toolkit_icon2.png"}
+            bgColor="bg-toolkit"
+            arr={personType}
+            category={category2}
+            setCategory={setCategory2}
+            onClickCategoryMenu={onClickCategoryMenu}
+          />
+          <Category
+            title="Creator"
+            iconImg={"/image/toolkit_icon3.png"}
+            bgColor="bg-toolkit"
+            arr={creator}
+            category={category3}
+            setCategory={setCategory3}
+            onClickCategoryMenu={onClickCategoryMenu}
+          />
+        </SwipeToSlide>
+      </div>
 
-          <ul className="w-full md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-x-5">
-            {filteredToolkits.map((data) => (
-              <Card
-                data={data}
-                key={data.id}
-                onClick={() => {
-                  navigate(`/toolkit/detail/${data.id}`, {
-                    state: { toolkit: data },
-                  });
-                }}
-                thumbnailImg={data.squareImage}
-                bgColor="bg-[#79b1ff]"
-              />
-            ))}
-          </ul>
-        </div>
+      <div className="box-border w-full px-4 py-24 pt-6 lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
+        {comment}
+
+        <ul className="w-full md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-x-5">
+          {filteredToolkits.map((data) => (
+            <Card
+              data={data}
+              key={data.id}
+              onClick={() => {
+                navigate(`/toolkit/detail/${data.id}`, {
+                  state: { toolkit: data },
+                });
+              }}
+              thumbnailImg={data.squareImage}
+              bgColor="bg-toolkit"
+            />
+          ))}
+        </ul>
       </div>
     </div>
   );
