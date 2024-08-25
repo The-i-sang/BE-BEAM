@@ -8,20 +8,24 @@ export default function MobileMenuList({ setSideBarOpen, sideBarOpen }) {
     <ul
       className={`${
         sideBarOpen ? "w-full" : "w-0"
-      } h-full block sm:hidden fixed top-0 left-0 z-[999] py-5 bg-gradient-to-r dark:from-[#1c1b1b] dark:to-black from-[#f5aa15] to-[#ff9100] box-border transition-all duration-700 overflow-hidden`}
+      } h-full block sm:hidden fixed top-0 left-0 z-[999] py-5 bg-gradient-to-r dark:from-bg-dark-90 dark:to-bg-dark-default from-mainColor to-subColor box-border transition-all duration-700 overflow-hidden text-text-light-10 dark:text-mainColor`}
     >
-      <div className={`${sideBarOpen ? "block" : "hidden"} w-full h-full`}>
+      <div
+        className={`${
+          sideBarOpen ? "block" : "hidden"
+        } w-full h-full text-[1.6rem]`}
+      >
         <button
           onClick={(e) => {
             e.preventDefault();
             setSideBarOpen(false);
           }}
-          className="mx-[1rem] text-[1.4rem] dark:text-[#f5aa15] text-white mt-[30px] transition-all duration-700"
+          className="mx-[1rem] text-[1.4rem] mt-[30px] transition-all duration-700"
         >
           <GoX />
         </button>
 
-        <ul className="w-full h-full mx-[1.3rem] mt-[-30px] dark:text-[#f5aa15] text-white text-[1.6rem] flex flex-col justify-center gap-y-10">
+        <ul className="w-full h-full mx-[1.3rem] mt-[-30px] flex flex-col justify-center gap-y-10">
           <MobileMenu
             path={AppPage.home}
             title="Meeting"

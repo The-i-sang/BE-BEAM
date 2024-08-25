@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleAuthTokenFetch } from "../api/user";
 import { Cookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -42,8 +42,6 @@ export const GoogleAuth = () => {
       navigate("/");
     }
   }, [cookies, googleToken, setUserIn, setSnsAuthType, pathname]);
-
-  console.log(googleToken);
 
   return <></>;
 };

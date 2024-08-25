@@ -21,8 +21,10 @@ export default function MeetingDetailSmallContent({
 
         {Array.isArray(des) ? (
           <ul className="mt-2 sm:text-[1rem] text-[0.875rem] dark:text-[rgba(80,59,59,0.7)]">
-            {des.map((data) => (
-              <li className="sm:mb-0 mb-1">· {data}</li>
+            {des.map((data, idx) => (
+              <li key={idx} className="mb-1 sm:mb-0">
+                · {data}
+              </li>
             ))}
           </ul>
         ) : (

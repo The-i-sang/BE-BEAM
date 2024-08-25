@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@babel/runtime": "^7.25.4",
     "@headlessui/react": "^1.7.17",
     "react-animations": "^1.0.0",
     "react-cookie": "^7.1.0",

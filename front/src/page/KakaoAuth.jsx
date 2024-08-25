@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../recoil/userState";
 import { KakaoAuthTokenFetch } from "../api/user";
@@ -42,8 +42,6 @@ export default function KakakoAuth() {
       navigate("/");
     }
   }, [cookies, kakaoToken, setUserIn, setSnsAuthType, pathname]);
-
-  console.log(kakaoToken);
 
   return <></>;
 }

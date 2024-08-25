@@ -1,4 +1,3 @@
-import React from "react";
 import Typewriter from "typewriter-effect";
 
 export default function TypeWriter({
@@ -11,7 +10,7 @@ export default function TypeWriter({
   textColor,
 }) {
   return (
-    <div className="w-full mb-6 flex flex-col justify-center lg:items-start items-center">
+    <div className="flex flex-col items-center justify-center w-full mb-6 lg:items-start">
       <div
         className={`w-full sm:text-[1.5rem] text-[1.2rem] flex lg:justify-start justify-center items-center ${textColor}`}
       >
@@ -19,7 +18,7 @@ export default function TypeWriter({
         <p className="ml-3 font-semibold">{type}</p>
       </div>
 
-      <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] dark:text-white font-extrabold lg:text-left text-center">
+      <div className="sm:mt-6 mt-3 sm:text-[2.8rem] text-[2.2rem] text-text-light-default dark:text-text-dark-default font-extrabold lg:text-left text-center">
         <Typewriter
           onInit={(typewriter) => {
             typewriter
@@ -32,7 +31,7 @@ export default function TypeWriter({
         />
       </div>
 
-      <p className="sm:mt-7 mt-3 text-[#383535] dark:text-white sm:text-[1.4rem] text-[1.1rem] lg:text-left text-center sm:font-normal font-light tracking-tighter">
+      <p className="sm:mt-7 mt-3 text-text-light-90 dark:text-text-dark-80 sm:text-[1.4rem] text-[1.1rem] lg:text-left text-center sm:font-normal font-light tracking-tighter">
         {subTitleFirst}
         <br />
         {subTitleBack}

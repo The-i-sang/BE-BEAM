@@ -82,7 +82,7 @@ export default function ToolkitDetail() {
   }, [randomIndex]);
 
   return (
-    <div className="w-full py-10 bg-[#ffffff] dark:bg-black">
+    <div className="w-full py-10 bg-bg-light-default dark:bg-bg-dark-default">
       <div className="w-11/12 max-w-[90%] mx-auto">
         <h1 className="w-full mb:mb-20 sm:mb-14 mb-4 text-center sm:text-[3rem] text-[2.3rem] font-semibold dark:text-white">
           {toolkit.title}

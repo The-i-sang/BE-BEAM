@@ -282,7 +282,7 @@ export default function MeetingParticipantsModalContent() {
                   <div className="sm:w-[70%] sm:pr-0 pr-2 sm:font-normal font-semibold text-[0.83rem] ">
                     {post.name}
                   </div>
-                  <div className="sm:w-[30%] sm:pl-0 pl-2 sm:border-none border-l-[1px] border-solid border-[#d1d1d1] sm:text-[#000] text-[#c15d5d]">
+                  <div className="sm:w-[30%] sm:pl-0 pl-2 sm:border-none border-l-[1px] border-solid border-[#d1d1d1] sm:text-text-light-defualt text-[#c15d5d]">
                     {post.sex}
                   </div>
                 </div>
@@ -349,7 +349,7 @@ export default function MeetingParticipantsModalContent() {
                 </div>
 
                 <div className="sm:w-[5%] flex items-center">
-                  <p className="sm:hidden block sm:text-[#000] text-[#939393] font-normal">
+                  <p className="sm:hidden block sm:text-text-light-defualt text-[#939393] font-normal">
                     수락 여부 :
                   </p>
                   {post.YesOrNo === false ? "거절" : "수락"}
@@ -362,7 +362,7 @@ export default function MeetingParticipantsModalContent() {
           {pageNumbers.map((number) => (
             <button
               onClick={() => paginate(number)}
-              className="mx-1 px-3 py-1 border rounded"
+              className="px-3 py-1 mx-1 border rounded"
             >
               {number}
             </button>

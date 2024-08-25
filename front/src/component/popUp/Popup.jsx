@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { TbAlertCircle } from "react-icons/tb";
 import { GoX } from "react-icons/go";
 
-export default function Popup({ setPopupOn }) {
+export default function Popup() {
+  const [popupOn, setPopupOn] = useState(true);
+
   const closePopup = (expireDays) => {
     let expire = new Date();
     expire.setTime(expire.getTime() + expireDays * 24 * 60 * 60 * 1000);
@@ -11,14 +13,11 @@ export default function Popup({ setPopupOn }) {
   };
 
   const checkPopupClose = () => {
-    const expireDay = localStorage.getItem("popupNoShow");
+    const expireDay = Number(localStorage.getItem("popupNoShow")) || 0;
     let today = new Date();
 
-    if (today.getTime() > expireDay) {
-      return false;
-    } else {
-      return true;
-    }
+    // 현재 날짜가 만료 날짜보다 크면 팝업을 보여줌.
+    return today.getTime() >= expireDay;
   };
 
   const closePopupToday = () => {
@@ -27,28 +26,30 @@ export default function Popup({ setPopupOn }) {
   };
 
   useEffect(() => {
-    checkPopupClose() ? setPopupOn(false) : setPopupOn(true);
-  }, []);
+    setPopupOn(checkPopupClose());
+  }, [setPopupOn]);
 
   return (
-    <div className="w-full sm:max-w-[400px] max-w-[400px] sm:h-[250px] h-[220px] mx-auto sm:p-6 p-4 box-border sm:fixed top-10 left-10 bg-black dark:bg-white z-[999] rounded-2xl">
-      <div className="w-full flex justify-end">
-        <button
-          className="sm:w-8 sm:h-8 w-7 h-7 bg-white dark:bg-black rounded-full flex items-center justify-center text-[1.4rem] hover:[transform:rotateY(360deg)] transition-all duration-700"
-          onClick={() => {
-            setPopupOn(false);
-          }}
-        >
-          <GoX />
-        </button>
-      </div>
+    <div
+      className={`${
+        popupOn ? "block" : "hidden"
+      } w-full sm:max-w-[400px] max-w-[400px] sm:h-[250px] h-[220px] mx-auto sm:p-6 p-4 box-border sm:fixed top-10 left-10 bg-bg-light-90 dark:bg-bg-dark-10 text-text-light-10 dark:text-text-dark-90 z-[999] rounded-2xl`}
+    >
+      <button
+        className="sm:w-8 sm:h-8 w-7 h-7 bg-bg-light-default dark:bg-bg-dark-default rounded-full flex items-center justify-center text-[1.4rem] text-text-light-default dark:text-text-dark-default hover:[transform:rotateY(360deg)] transition-all duration-700 ml-auto"
+        onClick={() => {
+          setPopupOn(false);
+        }}
+      >
+        <GoX />
+      </button>
 
       <div className="text-center">
-        <div className="w-full flex items-center justify-center text-white dark:text-black sm:text-[2.2rem] text-[1.6rem] text-center">
+        <div className="w-full flex items-center justify-center sm:text-[2.2rem] text-[1.6rem]">
           <TbAlertCircle />
-          <span>공지사항</span>
+          공지사항
         </div>
-        <p className="mt-5 sm:text-[1.0625rem] text-[0.9rem] text-white dark:text-black">
+        <p className="mt-5 sm:text-[1.0625rem] text-[0.9rem]">
           현재 모임 참여 기능이 개발 중에 있습니다. <br />
           현재 툴킷 다운로드 기능만 사용이 가능합니다.
         </p>
@@ -58,7 +59,7 @@ export default function Popup({ setPopupOn }) {
           onClick={closePopupToday}
         >
           <input
-            className="w-5 h-5 rounded focus:ring-[#ffc35c]"
+            className="w-5 h-5 rounded focus:ring-mainColor"
             type="checkbox"
             id="check"
           />
