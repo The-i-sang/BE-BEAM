@@ -5,6 +5,7 @@ import { userState } from "./recoil/userState";
 import { Cookies } from "react-cookie";
 
 import Meeting from "./page/Meeting";
+import CreateSmallGroup from "./page/CreateSmallGroup";
 import MeetingDetail from "./page/MeetingDetail";
 import NotFoundPage from "./page/NotFoundPage";
 import Brand from "./page/Brand";
@@ -43,6 +44,10 @@ function App() {
         {
           path: "/meeting/detail/:id",
           element: <MeetingDetail />,
+        },
+        {
+          path: "/meeting/createSmallGroup",
+          element: <CreateSmallGroup />,
         },
         {
           path: "/communityReviews",
