@@ -1,12 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "front/package.json",
-      "use": "@vercel/static-build",
-      "config": { "command": "yarn build" }
-    }
-  ],
   "routes": [
     {
       "src": "^/(.*)",
