@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { TbAlertCircle } from "react-icons/tb";
 import { GoX } from "react-icons/go";
 
-export default function Popup({ popupOn, setPopupOn }) {
+export default function Popup() {
+  const [popupOn, setPopupOn] = useState(true);
+
   const closePopup = (expireDays) => {
     let expire = new Date();
     expire.setTime(expire.getTime() + expireDays * 24 * 60 * 60 * 1000);
@@ -11,15 +13,11 @@ export default function Popup({ popupOn, setPopupOn }) {
   };
 
   const checkPopupClose = () => {
-    const expireDay = localStorage.getItem("popupNoShow");
+    const expireDay = Number(localStorage.getItem("popupNoShow")) || 0;
     let today = new Date();
 
-    if (today.getTime() > expireDay) {
-      console.log(today.getTime(), expireDay);
-      return false;
-    } else {
-      return true;
-    }
+    // 현재 날짜가 만료 날짜보다 크면 팝업을 보여줌.
+    return today.getTime() >= expireDay;
   };
 
   const closePopupToday = () => {
@@ -28,8 +26,8 @@ export default function Popup({ popupOn, setPopupOn }) {
   };
 
   useEffect(() => {
-    checkPopupClose() ? setPopupOn(false) : setPopupOn(true);
-  }, [popupOn]);
+    setPopupOn(checkPopupClose());
+  }, [setPopupOn]);
 
   return (
     <div

@@ -30,7 +30,7 @@ export default function Card({ data }) {
           className="w-full border-t-[1px] border-solid border-[#a0a0a0] py-4 flex items-center gap-x-4 cursor-pointer"
         >
           <img
-            src={process.env.PUBLIC_URL + "/../" + data.meeting.thumbnail}
+            src={data.meeting.thumbnail}
             alt="meeting_thumbnail"
             className="object-cover w-1/5 rounded-lg aspect-square"
           />

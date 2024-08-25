@@ -27,7 +27,6 @@ export default function Meeting() {
   const slidesToShow = useRecoilValue(SlidesToShowState);
   const [category1, setCategory1] = useState("ALL");
   const [category2, setCategory2] = useState("ALL");
-  const [popupOn, setPopupOn] = useState(false);
 
   const [filteredMeetings, setFilteredMeetings] = useState([]);
 
@@ -71,13 +70,9 @@ export default function Meeting() {
     ? "모집 마감된 활동이 없어요...!"
     : null;
 
-  useEffect(() => {
-    setPopupOn(true);
-  }, []);
-
   return (
     <div className="w-full pt-16">
-      <Popup popupOn={popupOn} setPopupOn={setPopupOn} />
+      <Popup />
 
       <div className="flex flex-col items-center w-11/12 mx-auto mb-28 lg:flex-row lg:justify-between">
         <TypeWriter

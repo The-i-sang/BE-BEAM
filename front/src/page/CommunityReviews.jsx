@@ -15,7 +15,6 @@ import { UserDataState } from "../recoil/userState";
 export default function CommunityReviews() {
   const slidesToShow = useRecoilValue(CommunityReviewSlidesToShowState);
   const userData = useRecoilValue(UserDataState);
-  console.log(userData);
 
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [searchText, onSearchTextChange, setSearchText] = useInput("");
@@ -38,7 +37,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "6a1d506d-4899-4311-a90f-ddd54e99e359",
         title: "사진출사모임 : 나를 기록하는 사진관 (정기모임) (모집마감)",
-        thumbnail: "./image/activity_img/picture_0.png",
+        thumbnail: "/image/activity_img/picture_0.png",
         averageRating: 4.5,
         reviewNum: 2,
       },
@@ -65,7 +64,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "437a4e23-df25-4345-a70a-4d65dfdc06a4",
         title: "소셜다이닝 : 이상식탁",
-        thumbnail: "./image/activity_img/dining_0.png",
+        thumbnail: "/image/activity_img/dining_0.png",
         averageRating: 3,
         reviewNum: 1,
       },
@@ -88,7 +87,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "8319ee81-e21a-4abb-9f17-876ae19ddd51",
         title: "독서모임: 북페어링 (상시모집)",
-        thumbnail: "./image/activity_img/book_0.png",
+        thumbnail: "/image/activity_img/book_0.png",
         averageRating: 4,
         reviewNum: 1,
       },
@@ -110,7 +109,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "6c070b2c-f228-4065-b93b-ab3579faaf5e",
         title: "운동모임:정기산행 (상시모집)",
-        thumbnail: "./image/activity_img/hiking_0.png",
+        thumbnail: "/image/activity_img/hiking_0.png",
         averageRating: 2,
         reviewNum: 1,
       },
@@ -132,7 +131,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "e799ab56-566d-4b73-b645-816b24f1f7e3",
         title: "운동모임 : 선셋 러닝 (상시모집) (모집중)",
-        thumbnail: "./image/activity_img/jogging_0.png",
+        thumbnail: "/image/activity_img/jogging_0.png",
         averageRating: 5,
         reviewNum: 1,
       },
@@ -157,7 +156,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "6a1d506d-4899-4311-a90f-ddd54e99e359",
         title: "사진출사모임 : 나를 기록하는 사진관 (정기모임) (모집마감)",
-        thumbnail: "./image/activity_img/picture_0.png",
+        thumbnail: "/image/activity_img/picture_0.png",
         averageRating: 5,
         reviewNum: 1,
       },
@@ -184,7 +183,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "437a4e23-df25-4345-a70a-4d65dfdc06a4",
         title: "소셜다이닝 : 이상식탁",
-        thumbnail: "./image/activity_img/dining_0.png",
+        thumbnail: "/image/activity_img/dining_0.png",
         averageRating: 3,
         reviewNum: 1,
       },
@@ -207,7 +206,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "8319ee81-e21a-4abb-9f17-876ae19ddd51",
         title: "독서모임: 북페어링 (상시모집)",
-        thumbnail: "./image/activity_img/book_0.png",
+        thumbnail: "/image/activity_img/book_0.png",
         averageRating: 4,
         reviewNum: 1,
       },
@@ -229,7 +228,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "6c070b2c-f228-4065-b93b-ab3579faaf5e",
         title: "운동모임:정기산행 (상시모집)",
-        thumbnail: "./image/activity_img/hiking_0.png",
+        thumbnail: "/image/activity_img/hiking_0.png",
         averageRating: 2,
         reviewNum: 1,
       },
@@ -249,7 +248,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "6a1d506d-4899-4311-a90f-ddd54e99e359",
         title: "사진출사모임 : 나를 기록하는 사진관 (정기모임) (모집마감)",
-        thumbnail: "./image/activity_img/picture_0.png",
+        thumbnail: "/image/activity_img/picture_0.png",
         averageRating: 4.5,
         reviewNum: 2,
       },
@@ -271,7 +270,7 @@ export default function CommunityReviews() {
       meeting: {
         id: "e799ab56-566d-4b73-b645-816b24f1f7e3",
         title: "운동모임 : 선셋 러닝 (상시모집) (모집중)",
-        thumbnail: "./image/activity_img/jogging_0.png",
+        thumbnail: "/image/activity_img/jogging_0.png",
         averageRating: 5,
         reviewNum: 1,
       },
@@ -431,8 +430,9 @@ export default function CommunityReviews() {
                     </p>
 
                     <div className="grid items-center w-full grid-cols-1 mt-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-3 sm:gap-y-0 gap-y-3">
-                      {data?.image?.map((img) => (
+                      {data?.image?.map((img, idx) => (
                         <img
+                          key={idx}
                           className="w-full rounded-lg"
                           src={img}
                           alt="reviewImg"
@@ -489,7 +489,7 @@ export default function CommunityReviews() {
                             })
                           );
                         }}
-                        disabled={!userData}
+                        disabled={Object.keys(userData).length === 0}
                       >
                         <CiHeart />
                         좋아요
