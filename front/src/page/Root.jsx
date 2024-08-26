@@ -7,6 +7,7 @@ import { ScrollRestoration } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import {
   CommunityReviewSlidesToShowState,
+  ResponsiveSize,
   SlidesToShowState,
 } from "../recoil/contentState";
 import { ToastContainer } from "react-toastify";
@@ -48,6 +49,7 @@ export default function Root() {
   const setCommunityReviewSlidesToShow = useSetRecoilState(
     CommunityReviewSlidesToShowState
   );
+  const setResponsiveSize = useSetRecoilState(ResponsiveSize);
 
   const scrollToTop = () => {
     // ref가 가리키는 요소의 높이를 이용하여 스크롤
@@ -71,21 +73,34 @@ export default function Root() {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width > 1280) {
+      if (width >= 1536) {
         setSlidesToShow(2);
         setCommunityReviewSlidesToShow(5);
-      } else if (width > 1024 && width < 1280) {
+        setResponsiveSize("2xl");
+      } else if (width >= 1280 && width < 1536) {
+        setSlidesToShow(2);
+        setCommunityReviewSlidesToShow(5);
+        setResponsiveSize("xl");
+      } else if (width >= 1024 && width < 1280) {
         setSlidesToShow(2);
         setCommunityReviewSlidesToShow(4);
-      } else if (width < 1024 && width > 768) {
+        setResponsiveSize("lg");
+      } else if (width < 1024 && width >= 768) {
         setSlidesToShow(1);
         setCommunityReviewSlidesToShow(3);
-      } else if (width < 768 && width > 640) {
+        setResponsiveSize("md");
+      } else if (width < 768 && width >= 640) {
         setSlidesToShow(1);
         setCommunityReviewSlidesToShow(2);
-      } else if (width < 640) {
+        setResponsiveSize("sm");
+      } else if (width < 640 && width >= 500) {
         setSlidesToShow(1);
         setCommunityReviewSlidesToShow(1);
+        setResponsiveSize("2sm");
+      } else if (width < 500) {
+        setSlidesToShow(1);
+        setCommunityReviewSlidesToShow(1);
+        setResponsiveSize("3sm");
       }
     };
 
@@ -93,7 +108,7 @@ export default function Root() {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [setSlidesToShow, setCommunityReviewSlidesToShow]);
+  }, [setSlidesToShow, setCommunityReviewSlidesToShow, setResponsiveSize]);
 
   return (
     <div
