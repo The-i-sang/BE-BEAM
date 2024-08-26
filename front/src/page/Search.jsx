@@ -100,7 +100,7 @@ export default function Search() {
               onClick={() => {
                 if (data.finish_type) {
                   navigate(`/meeting/detail/${data.id}`, {
-                    state: { activity: data },
+                    state: { id: data.id },
                   });
                 } else {
                   navigate(`/toolkit/detail/${data.id}`, {

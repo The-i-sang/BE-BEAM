@@ -25,3 +25,9 @@ export const meetingApplyReasonState = atom({
   key: "meetingApplyReasonState",
   default: "",
 });
+
+// tailwindCSS가 아닌 다른 style 환경에서의 미디어 쿼리
+export const ResponsiveSize = atom({
+  key: "ResoponsiveSize",
+  default: "",
+});
