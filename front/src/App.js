@@ -20,6 +20,7 @@ import Mypage from "./page/Mypage";
 import UserInfoModify from "./page/UserInfoModify";
 import UserProfileModify from "./page/UserProfileModify";
 import CommunityReviews from "./page/CommunityReviews";
+import CreateSmallGroup from "./page/CreateSmallGroup";
 
 function App() {
   const cookies = new Cookies();
@@ -43,6 +44,10 @@ function App() {
         {
           path: "/meeting/detail/:id",
           element: <MeetingDetail />,
+        },
+        {
+          path: "/meeting/createSmallGroup",
+          element: <CreateSmallGroup />,
         },
         {
           path: "/communityReviews",
