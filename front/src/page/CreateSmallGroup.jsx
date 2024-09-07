@@ -12,10 +12,10 @@ function CreateSmallGroup() {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-8 max-w-4xl">
       <h1 className="text-2xl font-bold mb-4">소모임 개설하기</h1>
       <div className="border p-6 rounded-lg shadow-lg">
-
+        
         {/* 첫 번째 페이지: 소모임 정보 입력하기 */}
         {currentPage === 1 && (
           <div>
@@ -24,7 +24,7 @@ function CreateSmallGroup() {
               <label className="block text-sm font-medium mb-2" htmlFor="groupName">소모임 이름 <span className="text-red-500">*</span></label>
               <input type="text" id="groupName" placeholder="소모임 이름을 입력해주세요" className="w-full px-3 py-2 border rounded-md"/>
             </div>
-            <div className="mb-4 grid grid-cols-2 gap-4">
+            <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="minPeople">최소인원</label>
                 <input type="number" id="minPeople" placeholder="최소인원" className="w-full px-3 py-2 border rounded-md"/>
@@ -40,8 +40,8 @@ function CreateSmallGroup() {
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">선호옵션</label>
-              <div className="flex items-center">
-                <button className="bg-yellow-400 text-white px-4 py-2 rounded-lg mr-4">실내형</button>
+              <div className="flex flex-wrap items-center space-x-4">
+                <button className="bg-yellow-400 text-white px-4 py-2 rounded-lg">실내형</button>
                 <button className="bg-yellow-400 text-white px-4 py-2 rounded-lg">실외형</button>
               </div>
             </div>
@@ -52,36 +52,37 @@ function CreateSmallGroup() {
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">소모임 사진 등록</label>
               <input type="file" className="mb-2"/>
-              <div className="flex space-x-2">
-                <img src="https://via.placeholder.com/80" alt="preview" className="w-20 h-20 object-cover"/>
-                <img src="https://via.placeholder.com/80" alt="preview" className="w-20 h-20 object-cover"/>
-                <img src="https://via.placeholder.com/80" alt="preview" className="w-20 h-20 object-cover"/>
-                <img src="https://via.placeholder.com/80" alt="preview" className="w-20 h-20 object-cover"/>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <img src="https://via.placeholder.com/80" alt="preview" className="w-full h-20 object-cover"/>
+                <img src="https://via.placeholder.com/80" alt="preview" className="w-full h-20 object-cover"/>
+                <img src="https://via.placeholder.com/80" alt="preview" className="w-full h-20 object-cover"/>
+                <img src="https://via.placeholder.com/80" alt="preview" className="w-full h-20 object-cover"/>
               </div>
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="location">모임 장소</label>
               <input type="text" id="location" placeholder="모임 장소를 입력해주세요" className="w-full px-3 py-2 border rounded-md"/>
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">소모임 회차 설정</label>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <input type="date" className="px-3 py-2 border rounded-md"/>
-                  <input type="text" placeholder="소모임 내용을 입력하세요" className="flex-grow px-3 py-2 border rounded-md"/>
-                  <button className="bg-red-500 text-white px-3 py-2 rounded-lg">-</button>
+
+            <div className="mb-4 w-full">
+            <label className="block text-sm font-medium mb-2">소모임 회차 설정</label>
+            <div className="space-y-2 w-full">
+                <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                <input type="date" className="px-3 py-2 border rounded-md w-full sm:w-1/3 h-12"/>
+                <input type="text" placeholder="소모임 내용을 입력하세요" className="px-3 py-2 border rounded-md w-full sm:w-full h-12"/>
+                <button className="bg-red-500 text-white px-3 py-2 rounded-lg w-12 h-12">-</button>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <input type="date" className="px-3 py-2 border rounded-md"/>
-                  <input type="text" placeholder="소모임 내용을 입력하세요" className="flex-grow px-3 py-2 border rounded-md"/>
-                  <button className="bg-red-500 text-white px-3 py-2 rounded-lg">-</button>
+                <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                <input type="date" className="px-3 py-2 border rounded-md w-full sm:w-1/3 h-12"/>
+                <input type="text" placeholder="소모임 내용을 입력하세요" className="px-3 py-2 border rounded-md w-full sm:w-full h-12"/>
+                <button className="bg-red-500 text-white px-3 py-2 rounded-lg w-12 h-12">-</button>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <input type="date" className="px-3 py-2 border rounded-md"/>
-                  <input type="text" placeholder="소모임 내용을 입력하세요" className="flex-grow px-3 py-2 border rounded-md"/>
-                  <button className="bg-green-500 text-white px-3 py-2 rounded-lg">+</button>
+                <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                <input type="date" className="px-3 py-2 border rounded-md w-full sm:w-1/3 h-12"/>
+                <input type="text" placeholder="소모임 내용을 입력하세요" className="px-3 py-2 border rounded-md w-full sm:w-full h-12"/>
+                <button className="bg-green-500 text-white px-3 py-2 rounded-lg w-12 h-12">+</button>
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         )}
@@ -130,7 +131,7 @@ function CreateSmallGroup() {
         {/* 이전/다음/소모임 생성 버튼 */}
         <div className="flex justify-between mt-8">
           {currentPage > 1 && (
-            <button onClick={prevPage} className="bg-gray-300 text-black px-6 py-2 rounded-lg">
+            <button onClick={prevPage} className="bg-black text-white px-6 py-2 rounded-lg">
               이전
             </button>
           )}
