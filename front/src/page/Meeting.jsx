@@ -10,6 +10,7 @@ import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
 import Popup from "../component/popUp/Popup";
 
 import { FaKissWinkHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Meeting() {
   const meetingType = [
@@ -91,6 +92,7 @@ export default function Meeting() {
         />
       </div>
 
+
       <div className="w-full">
         <SwipeToSlide slidesToShow={slidesToShow}>
           <Category
@@ -110,6 +112,15 @@ export default function Meeting() {
             setCategory={setCategory2}
           />
         </SwipeToSlide>
+
+        <div className="flex justify-center my-4">
+          <Link to="/meeting/createSmallGroup">
+            <button className="bg-[#ffc655] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#e9a30d] transition duration-300">
+              소그룹 생성하기
+            </button>
+          </Link>
+        </div>
+        
 
         <div className="box-border w-full px-4 py-24 pt-6">
           <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
