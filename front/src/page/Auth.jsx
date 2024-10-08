@@ -58,13 +58,13 @@ function Auth() {
         </div>
 
         <div className="w-full mt-8">
-          <SnsBtn
+          {/* <SnsBtn
             onClick={doGoogleLogin}
             buttonText="구글"
             icon={<FcGoogle />}
             btnStyles="w-full mb-4 py-2 rounded-lg border-[1px] border-solid border-[#ccc] text-[1.125rem] hover:bg-bg-light-80 hover:text-white"
             IconStyles="text-[2.4rem]"
-          />
+          /> */}
           <SnsBtn
             onClick={doKakaoLogin}
             buttonText="카카오톡"

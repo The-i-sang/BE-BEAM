@@ -153,7 +153,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
             >
               <img
                 className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
-                src={process.env.PUBLIC_URL + profileImg}
+                src={profileImg}
                 alt="profile_img"
               />
               <p className="hidden md:block sm:hidden">{userNickname}</p>

@@ -27,7 +27,7 @@ export default function MeetingDetail() {
 
   useEffect(() => {
     if (data) setActivity(data?.find((d) => d.id === id));
-  }, [data, activity]);
+  }, [data, activity, id]);
 
   const comment = isLoading
     ? "Loading..."
@@ -42,7 +42,7 @@ export default function MeetingDetail() {
       {comment}
 
       <MeetingDetailTop activity={activity} />
-      <MeetingDetailContent activity={activity} />
+      <MeetingDetailContent activity={activity} meetingData={activity} />
       <MeetingApplyAndLikeBtnWrap
         activity={activity}
         setMeetingApplyReasonModal={setMeetingApplyReasonModal}

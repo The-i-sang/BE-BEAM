@@ -1,5 +1,12 @@
+import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { UserNecessaryDataState, userState } from "../../../recoil/userState";
 import MeetingDetailSmallContent from "./MeetingDetailSmallContent";
 import SubTitle from "./SubTitle";
+import TextArea from "../../textArea/TextArea";
+import WriteRatingStar from "../../rating/WriteRatingStar";
+import { MeetingReviewsState } from "../../../recoil/meetingState";
+import CommunityReviewsWrap from "../../communityReview/CommunityReviewsWrap";
 
 import { FaLocationDot } from "react-icons/fa6";
 import {
@@ -9,8 +16,86 @@ import {
 } from "react-icons/bs";
 import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
+import { GoX } from "react-icons/go";
+import { TiCamera } from "react-icons/ti";
 
-export default function MeetingDetailContent({ activity }) {
+import { v4 as uuidv4 } from "uuid";
+
+export default function MeetingDetailContent({ activity, meetingData }) {
+  const userIn = useRecoilValue(userState);
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
+  const { profileImg, userNickname, userEmail, userRealName } =
+    userNecessaryData;
+  const [images, setImages] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [reviewDatas, setReviewDatas] = useRecoilState(MeetingReviewsState);
+  const [reviewComment, setReviewComment] = useState("");
+
+  const filterReviewData = reviewDatas.filter(
+    (review) => review.meeting.id === meetingData.id
+  );
+
+  const handleChange = (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length + images.length > 5) {
+      alert("최대 5개의 이미지만 업로드할 수 있습니다.");
+      return;
+    }
+
+    const newImages = files.map((file) => URL.createObjectURL(file));
+    setImages((prevImages) => [...prevImages, ...newImages]);
+  };
+
+  const handleRemoveImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const addCommunityReview = () => {
+    if (!userIn) {
+      alert("로그인 후 리뷰를 작성해주세요!");
+    } else {
+      if (
+        filterReviewData.filter((data) => data.userEmail === userEmail)
+          .length === 1
+      ) {
+        alert("리뷰가 이미 작성되었습니다!");
+      } else {
+        const newReviewData = {
+          reviewId: uuidv4(),
+          creatingAt: Date.now(),
+          profileImg: profileImg,
+          name: userRealName,
+          nickName: userNickname,
+          userEmail: userEmail,
+          text: reviewComment,
+          image: images,
+          rating: rating,
+          likes: [],
+          meeting: {
+            id: meetingData.id,
+            type: meetingData.type,
+            title: meetingData.title,
+            thumbnail: meetingData.thumbnail,
+            averageRating: 4,
+            reviewNum: filterReviewData.length + 1,
+          },
+        };
+
+        setReviewDatas((prev) => {
+          return [...prev, newReviewData];
+        });
+
+        alert("리뷰 작성이 완료되었습니다!");
+      }
+    }
+
+    setImages([]);
+    setRating(0);
+    setReviewComment("");
+  };
+
+  const writeReviewBtnDisabled = !rating || reviewComment === "";
+
   return (
     <div>
       <div className="w-11/12 sm:max-w-[90%] mx-auto md:mt-16 sm:mt-8 mt-8 sm:mb-12 mb-5 flex md:flex-row sm:flex-col flex-col">
@@ -132,12 +217,91 @@ export default function MeetingDetailContent({ activity }) {
         </div>
       </div>
 
-      <div className="w-11/12 sm:max-w-[90%] mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
-        <SubTitle title="문의사항" des="문의사항은 여기로 보내주세요." />
+      <div className="w-full bg-transparent border-b-[1px] border-solid border-[#d0d0d0] dark:border-[#444]">
+        <div className="w-11/12 sm:max-w-[90%] mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
+          <SubTitle title="문의사항" des="문의사항은 여기로 보내주세요." />
 
-        <p className="sm:mt-4 mt-2 sm:text-[1rem] text-[0.875rem] text-black dark:text-white">
-          {activity.request}
-        </p>
+          <p className="sm:mt-4 mt-2 sm:text-[1rem] text-[0.875rem] text-black dark:text-white">
+            {activity.request}
+          </p>
+        </div>
+      </div>
+
+      <div className="w-11/12 sm:max-w-[90%] mx-auto sm:py-14 pt-5 pb-10 text-[0.9rem] text-[#666]">
+        <SubTitle
+          title="비빔 멤버들은 이 모임을 어떻게 생각할까요?"
+          des="이 모임에 참여하고 있는 멤버들의 생각 들어다보기:)"
+        />
+
+        <div className="flex items-center w-full mt-8 gap-x-5">
+          <img
+            className="lg:w-[54px] sm:w-[50px] w-[50px] border-[1px] border-solid border-[#ccc] aspect-square object-cover rounded-full"
+            src={userIn ? profileImg : "/image/basic_user_profile.jpg"}
+            alt="editor_profile_img"
+          />
+
+          <div className="w-full">
+            <div className="flex items-center gap-x-4">
+              <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleChange}
+                  className="hidden"
+                />
+                <TiCamera className="text-[2rem] text-gray-500" />
+                <p>사진 {images?.length}/5</p>
+              </label>
+
+              <div className="flex items-center gap-x-4">
+                {images.map((image, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={image}
+                      alt={`Preview ${index}`}
+                      className="object-cover w-32 h-32 rounded-lg border-[1px] border-solid border-[#ccc]"
+                    />
+                    <button
+                      onClick={() => handleRemoveImage(index)}
+                      className="absolute top-0 right-0 p-1 text-white text-[1.2rem]"
+                    >
+                      <GoX />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <WriteRatingStar
+              value={rating}
+              onChange={(event, newValue) => {
+                setRating(newValue);
+              }}
+              ratingStyles={{ fontSize: "2rem", marginTop: "20px" }}
+              commentStyles="mt-[-10px] mb-2"
+            />
+            <TextArea
+              placeholder="리뷰를 작성해주세요..."
+              onChange={(e) => setReviewComment(e.target.value)}
+              value={reviewComment}
+              styles="border-[#a4a4a4] placeholder:text-[#a4a4a4]"
+            />
+            <button
+              onClick={addCommunityReview}
+              className="w-full py-3 bg-[#282828] rounded-lg text-white"
+              disabled={writeReviewBtnDisabled}
+            >
+              리뷰 쓰기
+            </button>
+          </div>
+        </div>
+
+        <CommunityReviewsWrap
+          datas={filterReviewData}
+          styles="mt-10"
+          isMeetingDetail={true}
+        />
       </div>
     </div>
   );

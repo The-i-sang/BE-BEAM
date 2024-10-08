@@ -33,6 +33,7 @@
     "tailwindcss-gradients": "^3.0.0",
     "typewriter-effect": "^2.21.0",
     "typing-effect-reactjs": "^1.4.1",
+    "uuid": "^10.0.0",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

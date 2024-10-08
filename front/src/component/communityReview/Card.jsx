@@ -4,7 +4,7 @@ import RatingStar from "../rating/RatingStar";
 
 export default function Card({ data }) {
   const navigate = useNavigate();
-
+  
   return (
     <li
       className="box-border relative p-4 mx-2 overflow-hidden text-white bg-center bg-cover rounded-lg text-[0.875rem]"
