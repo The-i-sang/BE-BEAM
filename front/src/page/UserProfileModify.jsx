@@ -89,6 +89,7 @@ export default function UserProfileModify() {
                   onIntroMyselfChange(e);
                 }}
                 value={introMyselfInput}
+                styles="mt-2 border-[#f5aa15] placeholder:text-[#F5AA15]"
               />
             </div>
 
