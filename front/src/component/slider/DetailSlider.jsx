@@ -1,41 +1,20 @@
-import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
 
-import { BsArrowLeft } from "react-icons/bs";
-import { BsArrowRight } from "react-icons/bs";
-
 export default function DetailSlider({ autoplay = true, t, slidesToShow = 1 }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   const settings = {
     dots: true,
     infinite: true,
     speed: 900,
-    slidesToShow: 1,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
     autoplay: Boolean(autoplay),
     autoplaySpeed: typeof autoplay === "boolean" ? 3000 : autoplay,
-    nextArrow: (
-      <NextArrow
-        toolkitType={true}
-        icon={<BsArrowRight />}
-        currentSlide={currentSlide}
-        slideCount={t.length}
-        slidesToShow={slidesToShow}
-      />
-    ),
-    prevArrow: (
-      <PrevArrow
-        toolkitType={true}
-        icon={<BsArrowLeft />}
-        currentSlide={currentSlide}
-      />
-    ),
-    afterChange: (current) => setCurrentSlide(current),
+    nextArrow: <NextArrow toolkitType={true} />,
+    prevArrow: <PrevArrow toolkitType={true} />,
   };
 
   return (
@@ -44,7 +23,7 @@ export default function DetailSlider({ autoplay = true, t, slidesToShow = 1 }) {
         {t.map((a, index) => (
           <div key={index} className="w-full h-[640px]">
             <img
-              className="lg:w-4/6 md:w-5/6 sm:w-4/6 w-4/6 h-full object-contain mx-auto"
+              className="object-contain w-4/6 h-full mx-auto lg:w-4/6 md:w-5/6 sm:w-4/6"
               src={process.env.PUBLIC_URL + a.replace("./", "/")}
               alt="detail_img"
             />

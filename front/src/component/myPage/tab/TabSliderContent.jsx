@@ -1,80 +1,21 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../../button/Button";
-import MeetingParticipantsListModal from "../meetingParticipantsModal/MeetingParticipantsListModal";
+import { LeftAlignSlider } from "../../slider/LeftAlignSlider";
+import { Tab } from "@headlessui/react";
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 
-export const Slide = ({
-  index,
-  data,
-  slideIndex,
-  slideShowNum,
-  title,
-  tabCount,
-}) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  useEffect(() => {
-    const slides = document.querySelectorAll(".animate-slide-in");
-
-    slides.forEach((slide) => {
-      slide.classList.remove("animate-slide-in");
-
-      void slide.offsetWidth;
-      slide.classList.add("animate-slide-in");
-    });
-  }, [slideIndex]);
-
-  const isHidden =
-    (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
-    (slideIndex > slideShowNum && index >= slideIndex) ||
-    (slideIndex === slideShowNum && index > slideShowNum - 1);
-
-  return (
-    <>
-      <div
-        onClick={() => {
-          if (title === "나의 모임" && tabCount === 1) {
-            setModalOpen(true);
-          }
-        }}
-        className={`${
-          isHidden ? "hidden" : "block"
-        } p-4 box-border bg-[#ffac07] transition-all duration-700 animate-slide-in rounded-lg aspect-w-1 aspect-h-1 aspect-square cursor-pointer flex flex-col items-center justify-center text-center`}
-      >
-        <img
-          className="w-[60%] aspect-w-1 aspect-h-1 aspect-square object-cover mx-auto rounded-full"
-          src={process.env.PUBLIC_URL + data.thumbnail?.replace("./", "/")}
-          alt="thumbnail"
-        />
-        <p className="mt-[10px] px-2 py-[1px] bg-white rounded-2xl text-[#ffac07] text-[0.75rem]">
-          {data.type}
-        </p>
-        <p className="mt-1 text-white text-[0.85rem] line-clamp-1">
-          {data.title}
-        </p>
-      </div>
-
-      <MeetingParticipantsListModal
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        data={data}
-      />
-    </>
-  );
-};
-
-export default function TabContent({ title, tabCount, datas }) {
-  const navigate = useNavigate();
-
+export default function TabSliderContent({
+  datas,
+  tabTitle,
+  isLikeBtn,
+  children,
+}) {
   const [slideIndex, setSlideIndex] = useState(8);
   const [slideShowNum, setSlideShowNum] = useState(8);
 
   const nextSlide = () => {
     setSlideIndex((prev) => prev + 1);
   };
-
   const prevSlide = () => {
     setSlideIndex((prev) => prev - 1);
   };
@@ -134,7 +75,7 @@ export default function TabContent({ title, tabCount, datas }) {
       : "grid-cols-1";
 
   return (
-    <>
+    <Tab.Panel>
       <div
         className={`${
           datas.length > 0 ? "block" : "hidden"
@@ -152,21 +93,20 @@ export default function TabContent({ title, tabCount, datas }) {
 
         <div className={`${gridNum} w-full grid gap-x-3`}>
           {datas.map((data, index) => (
-            <Slide
+            <LeftAlignSlider
               key={index}
               index={index}
               data={data}
               slideIndex={slideIndex}
               slideShowNum={slideShowNum}
-              title={title}
-              tabCount={tabCount}
+              isLikeBtn={isLikeBtn}
             />
           ))}
         </div>
 
         <button
           onClick={nextSlide}
-          disabled={!slideIndex < datas.length}
+          disabled={!(slideIndex < datas.length)}
           className={`${
             slideIndex < datas.length ? "text-[#474545]" : "text-[#a8a5a5]"
           } xl:w-[50px] md:w-[40px] sm:w-[30px] w-[40px] xl:h-[50px] md:h-[40px] sm:h-[30px] h-[40px] bg-white border-[1px] border-solid border-[#dfdfdf] rounded-2xl flex items-center justify-center text-[2rem]`}
@@ -181,26 +121,11 @@ export default function TabContent({ title, tabCount, datas }) {
         } w-full py-12 flex flex-col items-center`}
       >
         <h1 className="text-[1.06rem] text-[#3f3f3f] font-semibold">
-          찜한 모임이 없어요.
+          {tabTitle}이 없어요.
         </h1>
 
-        <div className="w-full mt-6 flex items-center justify-center gap-x-3">
-          <Button
-            onClick={() => {
-              navigate("/community");
-            }}
-            buttonText="정기모임 구경하기"
-            basicStyle="max-w-[20rem]"
-          />
-          <Button
-            onClick={() => {
-              navigate("/activity");
-            }}
-            buttonText="소모임 구경하기"
-            basicStyle="max-w-[20rem]"
-          />
-        </div>
+        {children}
       </div>
-    </>
+    </Tab.Panel>
   );
 }

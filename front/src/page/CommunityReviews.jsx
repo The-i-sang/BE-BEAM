@@ -1,20 +1,19 @@
 // 실시간 커뮤니티 리뷰 페이지
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useRecoilValue } from "recoil";
+
+import { useMemo } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { CommunityReviewSlidesToShowState } from "../recoil/contentState";
 import { MeetingReviewsState } from "../recoil/meetingState";
 import SwipeToSlide from "../component/category/SwipeToSlide";
 import Card from "../component/communityReview/Card";
 import TypeWriter from "../component/typeWriter/TypeWriter";
-import useInput from "../customhook/useInput";
 import CommunityReviewsWrap from "../component/communityReview/CommunityReviewsWrap";
 
 import { CiMemoPad } from "react-icons/ci";
 
 export default function CommunityReviews() {
   const slidesToShow = useRecoilValue(CommunityReviewSlidesToShowState);
-
-  const reviewDatas = useRecoilValue(MeetingReviewsState);
+  const [reviewDatas, setReviewDatas] = useRecoilState(MeetingReviewsState);
   const bestReviewDatas = useMemo(
     () => [
       {
@@ -174,7 +173,10 @@ export default function CommunityReviews() {
           </SwipeToSlide>
 
           <div className="w-full mt-10">
-            <CommunityReviewsWrap datas={reviewDatas} />
+            <CommunityReviewsWrap
+              datas={reviewDatas}
+              setReviewDatas={setReviewDatas}
+            />
           </div>
         </div>
       </div>
