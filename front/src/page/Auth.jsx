@@ -32,8 +32,8 @@ function Auth() {
   }
 
   function doKakaoLogin() {
-    const redirectUrl = "http://localhost:3000/kakaoAuth";
-    // const redirectUrl = "https://be-beam.vercel.app/kakaoAuth";
+    // const redirectUrl = "http://localhost:3000/kakaoAuth";
+    const redirectUrl = "https://be-beam.vercel.app/kakaoAuth";
 
     const url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${redirectUrl}&scope=profile_nickname,profile_image,account_email`;
     window.location.href = url;

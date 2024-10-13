@@ -7,6 +7,7 @@ import TextArea from "../../textArea/TextArea";
 import WriteRatingStar from "../../rating/WriteRatingStar";
 import { MeetingReviewsState } from "../../../recoil/meetingState";
 import CommunityReviewsWrap from "../../communityReview/CommunityReviewsWrap";
+import { v4 as uuidv4 } from "uuid";
 
 import { FaLocationDot } from "react-icons/fa6";
 import {
@@ -18,8 +19,6 @@ import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
 import { GoX } from "react-icons/go";
 import { TiCamera } from "react-icons/ti";
-
-import { v4 as uuidv4 } from "uuid";
 
 export default function MeetingDetailContent({ activity, meetingData }) {
   const userIn = useRecoilValue(userState);
@@ -241,7 +240,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           />
 
           <div className="w-full">
-            <div className="flex items-center gap-x-4">
+            <div className="flex flex-wrap items-center gap-4">
               <label className="flex flex-col items-center justify-center w-32 h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer">
                 <input
                   type="file"
@@ -254,7 +253,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
                 <p>사진 {images?.length}/5</p>
               </label>
 
-              <div className="flex items-center gap-x-4">
+              <div className="flex flex-wrap items-center gap-4">
                 {images.map((image, index) => (
                   <div key={index} className="relative">
                     <img
@@ -285,7 +284,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
               placeholder="리뷰를 작성해주세요..."
               onChange={(e) => setReviewComment(e.target.value)}
               value={reviewComment}
-              styles="border-[#a4a4a4] placeholder:text-[#a4a4a4]"
+              styles="border-[#a4a4a4] placeholder:text-[#a4a4a4] dark:bg-transparent dark:text-white"
             />
             <button
               onClick={addCommunityReview}
@@ -301,6 +300,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           datas={filterReviewData}
           styles="mt-10"
           isMeetingDetail={true}
+          setReviewDatas={setReviewDatas}
         />
       </div>
     </div>

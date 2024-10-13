@@ -13,6 +13,7 @@ export default function CommunityReviewsWrap({
   datas,
   styles,
   isMeetingDetail,
+  setReviewDatas,
 }) {
   const responsiveSize = useRecoilValue(ResponsiveSize);
   const userData = useRecoilValue(UserDataState);
@@ -150,7 +151,7 @@ export default function CommunityReviewsWrap({
                 responsiveSize === "2sm" || responsiveSize === "3sm"
                   ? "14px"
                   : 0,
-              display: isMeetingDetail ? "none" : "block",
+              display: isMeetingDetail ? "none" : "",
             }}
           >
             <InputLabel id="review-topic">리뷰 주제</InputLabel>
@@ -240,7 +241,7 @@ export default function CommunityReviewsWrap({
           >
             <div className="flex items-center w-full gap-x-2">
               <img
-                className="w-10 h-10 rounded-full"
+                className="object-cover w-10 h-10 rounded-full"
                 src={data.profileImg}
                 alt="profileImg"
               />
@@ -296,12 +297,11 @@ export default function CommunityReviewsWrap({
                     : "bg-transparent dark:text-text-dark-default"
                 } flex items-center gap-x-2 border-[1px] border-solid border-[#dadada] rounded-full px-4 py-2 font-bold text-text-light-60 transition-all duration-700`}
                 onClick={() => {
-                  setFilteredDatas((prev) =>
+                  setReviewDatas((prev) =>
                     prev.map((d) => {
                       if (d.reviewId === data.reviewId) {
-                        const userEmail =
-                          userData?.kakao_account?.email ??
-                          userData?.emailAddresses[0]?.value;
+                        const userEmail = userData?.kakao_account?.email;
+                        // ?? userData?.emailAddresses[0]?.value;
                         if (!d.likes.includes(userEmail)) {
                           return {
                             ...d,

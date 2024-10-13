@@ -1,4 +1,6 @@
-export default function PrevArrow({ onClick, toolkitType, icon }) {
+import { BsArrowLeft } from "react-icons/bs";
+
+export default function PrevArrow({ onClick, toolkitType }) {
   return (
     <>
       <div
@@ -9,7 +11,7 @@ export default function PrevArrow({ onClick, toolkitType, icon }) {
             : "left-0 text-text-light-90 top-[46%]"
         } text-[2.4rem] dark:text-text-dark-default absolute z-[9999] cursor-pointer`}
       >
-        {icon}
+        <BsArrowLeft />
       </div>
     </>
   );

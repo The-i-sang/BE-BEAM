@@ -1,6 +1,6 @@
-import React from "react";
+import { BsArrowRight } from "react-icons/bs";
 
-export default function NextArrow({ onClick, toolkitType, icon }) {
+export default function NextArrow({ onClick, toolkitType }) {
   return (
     <>
       <div
@@ -11,7 +11,7 @@ export default function NextArrow({ onClick, toolkitType, icon }) {
             : "text-text-light-90 right-0 top-[46%]"
         } text-[2.4rem] dark:text-text-dark-default absolute z-[9999] cursor-pointer`}
       >
-        {icon}
+        <BsArrowRight />
       </div>
     </>
   );

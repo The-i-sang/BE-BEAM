@@ -54,8 +54,8 @@ export const KakaoAuthTokenFetch = async (code) => {
     data: {
       code: code,
       client_id: process.env.REACT_APP_KAKAO_API_KEY,
-      // redirect_uri: "https://be-beam.vercel.app/kakaoAuth",
-      redirect_uri: "http://localhost:3000/kakaoAuth",
+      redirect_uri: "https://be-beam.vercel.app/kakaoAuth",
+      // redirect_uri: "http://localhost:3000/kakaoAuth",
       grant_type: "authorization_code",
     },
   });
