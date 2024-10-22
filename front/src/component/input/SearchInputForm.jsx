@@ -1,3 +1,5 @@
+import Button from "../button/Button";
+
 import { CiSearch } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 
@@ -9,8 +11,9 @@ export default function SearchInputForm({
   handleSearchData,
   formStyle,
   inputStyle,
-  deleteBtnStyle,
-  searchBtnStyle,
+  deleteBtnPositionStyles,
+  searchBtnPositionStyles,
+  btnStyles,
 }) {
   return (
     <form onSubmit={handleSearchData} className={`${formStyle} relative`}>
@@ -22,21 +25,21 @@ export default function SearchInputForm({
         value={searchText}
       />
 
-      <button
-        className={`${deleteBtnStyle} ${
-          searchText.length > 0 ? "opacity-100" : "opacity-0"
-        } absolute transition-all duration-700`}
-        type="button"
+      <Button
+        icon={<GoX />}
         onClick={() => {
           setSearchText("");
         }}
-      >
-        <GoX />
-      </button>
+        styles={`${deleteBtnPositionStyles} ${btnStyles} ${
+          searchText.length > 0 ? "opacity-100" : "opacity-0"
+        } absolute transition-all duration-700`}
+      />
 
-      <button type="submit" className={`${searchBtnStyle} absolute`}>
-        <CiSearch />
-      </button>
+      <Button
+        type="submit"
+        icon={<CiSearch />}
+        styles={`${searchBtnPositionStyles} ${btnStyles} absolute`}
+      />
     </form>
   );
 }

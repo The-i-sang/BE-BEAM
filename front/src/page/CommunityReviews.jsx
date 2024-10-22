@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CommunityReviewSlidesToShowState } from "../recoil/contentState";
 import { MeetingReviewsState } from "../recoil/meetingState";
-import SwipeToSlide from "../component/category/SwipeToSlide";
+import BasicSlider from "../component/slider/BasicSlider";
 import Card from "../component/communityReview/Card";
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import CommunityReviewsWrap from "../component/communityReview/CommunityReviewsWrap";
@@ -166,11 +166,11 @@ export default function CommunityReviews() {
         </div>
 
         <div className="relative w-full">
-          <SwipeToSlide slidesToShow={slidesToShow}>
+          <BasicSlider slidesToShow={slidesToShow} isDots={false}>
             {bestReviewDatas.map((data) => (
               <Card key={data.reviewId} data={data} />
             ))}
-          </SwipeToSlide>
+          </BasicSlider>
 
           <div className="w-full mt-10">
             <CommunityReviewsWrap

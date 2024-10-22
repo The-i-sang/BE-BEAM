@@ -1,3 +1,5 @@
+// 프로젝트에서 공통으로 사용하는 함수들을 모아둔 곳.
+
 export function identify(
   emailInput,
   passwordInput,
@@ -24,35 +26,21 @@ export function identify(
   }
 }
 
-export function getUserData(snsAuthType, userData) {
-  // 구글 인증이면서 userData가 유효한지 체크
-  const googleAuthTrue = snsAuthType === "googleAuth" && userData;
-  // 카카오 인증이면서 userData가 유효한지 체크
-  const kakaoAuthTrue = snsAuthType === "kakaoAuth" && userData;
-
-  const profileImg = googleAuthTrue
-    ? userData?.photos?.[0]?.url
-    : kakaoAuthTrue
+export function getUserData(userData) {
+  const profileImg = userData
     ? userData?.kakao_account?.profile?.profile_image_url
-    : "/image/basic_user_profile.jpg";
+    : null;
 
-  const userNickname = googleAuthTrue
-    ? userData?.nicknames?.[0]?.value || userData?.names?.[0]?.displayName
-    : kakaoAuthTrue
+  const userNickname = userData
     ? userData?.kakao_account?.profile?.nickname
-    : "userName";
+    : null;
 
-  const userRealName = googleAuthTrue ? userData?.names?.[0]?.displayName : "";
+  const userRealName = "";
 
-  const userEmail = googleAuthTrue
-    ? userData?.emailAddresses?.[0]?.value
-    : kakaoAuthTrue
-    ? userData?.kakao_account?.email
-    : "";
+  const userEmail = userData ? userData?.kakao_account?.email : null;
 
-  const userBirthday = googleAuthTrue ? userData?.birthdays?.[0]?.date : "";
-
-  const userGender = googleAuthTrue ? userData?.genders?.[0]?.value : "";
+  const userBirthday = "";
+  const userGender = "";
 
   return {
     profileImg,

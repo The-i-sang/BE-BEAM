@@ -14,3 +14,13 @@ export const AppPage = {
   userProfileModify: "/mypage/userProfileModify",
   auth: "/auth",
 };
+
+export const btnBasicStyle = {
+  border: "border-solid flex items-center justify-center",
+  circle: "aspect-square rounded-full flex items-center justify-center",
+};
+
+export const btnStyle = {
+  navbar:
+    "lg:mr-8 md:mr-4 sm:mr-4 mr-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem]",
+};

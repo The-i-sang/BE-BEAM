@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserNecessaryDataState } from "../../../recoil/userState";
 import { MeetingReviewsState } from "../../../recoil/meetingState";
 import BasicSlider from "../../slider/BasicSlider";
-import { UserDataState } from "../../../recoil/userState";
 
 import { GoChevronUp, GoChevronDown } from "react-icons/go";
 import { PiHeartStraightLight, PiHeartStraightFill } from "react-icons/pi";
@@ -20,11 +20,11 @@ export default function MyPageCard({
   styles,
 }) {
   const [dropDown, setDropDown] = useState(false);
-  const userData = useRecoilValue(UserDataState);
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const setReviewDatas = useSetRecoilState(MeetingReviewsState);
 
   const isFillLikeBtn = data?.likes?.find(
-    (like) => like === userData?.kakao_account?.email
+    (like) => like === userNecessaryData.userEmail
   );
 
   return (
@@ -51,10 +51,11 @@ export default function MyPageCard({
           setReviewDatas((prev) =>
             prev.map((d) => {
               if (d.reviewId === data.reviewId) {
-                const userEmail = userData?.kakao_account?.email;
                 return {
                   ...d,
-                  likes: d.likes.filter((like) => like !== userEmail),
+                  likes: d.likes.filter(
+                    (like) => like !== userNecessaryData.userEmail
+                  ),
                 };
               } else if (d.reviewId !== data.reviewId) {
                 return d;

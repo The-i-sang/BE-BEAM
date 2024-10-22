@@ -1,18 +1,13 @@
-import { BsArrowLeft } from "react-icons/bs";
+import Button from "../button/Button";
 
-export default function PrevArrow({ onClick, toolkitType }) {
+import { GoChevronLeft } from "react-icons/go";
+
+export default function PrevArrow({ onClick, styles, fontStyles }) {
   return (
-    <>
-      <div
-        onClick={onClick}
-        className={`${
-          !toolkitType
-            ? "left-2 text-text-light-10 top-[40%]"
-            : "left-0 text-text-light-90 top-[46%]"
-        } text-[2.4rem] dark:text-text-dark-default absolute z-[9999] cursor-pointer`}
-      >
-        <BsArrowLeft />
-      </div>
-    </>
+    <Button
+      icon={<GoChevronLeft />}
+      onClick={onClick}
+      styles={`${styles} ${fontStyles} absolute z-[9999] drop-shadow-lg cursor-pointer`}
+    />
   );
 }
