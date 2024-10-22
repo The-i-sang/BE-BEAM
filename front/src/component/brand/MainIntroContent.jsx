@@ -5,13 +5,14 @@ export default function MainIntroContent({
   titleMiddle,
   titleBack,
   content,
-  isEven,
+  isEven = false,
+  divStyles,
 }) {
   return (
     <div
       className={`${
         isEven ? "sm:flex-col-reverse flex-col-reverse" : "sm:flex-col flex-col"
-      } w-full lg:mb-32 sm:mb-20 mb-10 flex lg:flex-row lg:items-center group text-[#282828] dark:text-white text-center`}
+      } ${divStyles} w-full flex lg:flex-row lg:items-center group text-[#282828] dark:text-white text-center`}
     >
       <div
         className={`${
@@ -37,7 +38,7 @@ export default function MainIntroContent({
       <img
         className={`${
           isEven ? "order-2" : "order-1"
-        } xl:w-[700px] lg:w-[600px] sm:w-[94%] w-[94%] lg:mx-0 sm:mx-auto mx-auto aspect-w-1 aspect-h-1 aspect-square`}
+        } xl:w-[700px] lg:w-[600px] sm:w-[94%] w-[94%] object-cover aspect-w-1 aspect-h-1 aspect-square`}
         src={img}
         alt="intro_img"
       />

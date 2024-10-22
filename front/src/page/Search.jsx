@@ -1,24 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
-import SearchInputForm from "../component/input/SearchInputForm";
+import { useQuery } from "@tanstack/react-query";
 import useInput from "../customhook/useInput";
+import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
 import { handleConsoleError } from "../common";
-import Card from "../component/toolkit/Card";
+
+import SearchInputForm from "../component/input/SearchInputForm";
+import Card from "../component/card/Card";
 
 export default function Search() {
   const navigate = useNavigate();
-
-  const { isLoading, error, data } = useQuery(["data"], async () => {
-    const result = await MeetingAndToolkitDataFetch();
-    return result;
-  });
 
   const [datas, setDatas] = useState([]);
   const [searchText, onSearchTextChange, setSearchText] = useInput("");
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [comment, setComment] = useState("");
+
+  const { isLoading, error, data } = useQuery(["data"], async () => {
+    const result = await MeetingAndToolkitDataFetch();
+    return result;
+  });
 
   useEffect(() => {
     if (data?.toolkits && data?.activities)
@@ -68,8 +69,14 @@ export default function Search() {
 
   return (
     <div className="text-center text-white bg-bg-light-default dark:bg-bg-dark-default">
-      <div className="w-full sm:h-[780px] h-[500px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_50%] flex flex-col justify-center items-center relative">
-        <div className="w-full h-full bg-[rgba(0,0,0,0.2)] absolute" />
+      <div
+        className="w-full sm:h-[780px] h-[500px] bg-cover bg-fixed bg-no-repeat bg-[center_bottom_50%] flex flex-col justify-center items-center relative"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1615192606632-9c9d005f6a2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        }}
+      >
+        <div className="w-full h-full bg-[rgba(0,0,0,0.3)] absolute" />
         <div className="w-11/12 h-full max-w-[90%] absolute top-0 flex flex-col justify-center">
           <h1 className="w-full z-[99] sm:text-[3rem] text-[2rem] sm:mb-20 mb-14 font-semibold">
             지금 무엇을 찾고 계신가요?
@@ -83,8 +90,9 @@ export default function Search() {
             handleSearchData={handleSearchData}
             formStyle="w-full max-w-[760px] mx-auto text-white sm:text-[1.2rem] text-[0.9rem]"
             inputStyle="sm:p-8 p-5 rounded-full bg-[rgba(0,0,0,0.2)] border-white placeholder:text-[rgba(255,255,255,0.6)] sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]"
-            deleteBtnStyle="sm:text-[2.4rem] text-[1.5rem] sm:top-[30%] top-[36%] sm:right-20 right-12"
-            searchBtnStyle="sm:text-[2.4rem] text-[1.5rem] sm:right-7 right-4 sm:top-[30%] top-[36%]"
+            deleteBtnPositionStyles="sm:top-[30%] top-[36%] sm:right-20 right-12"
+            searchBtnPositionStyles="sm:right-7 right-4 sm:top-[30%] top-[36%]"
+            btnStyles="sm:text-[2.4rem] text-[1.5rem]"
           />
         </div>
       </div>
@@ -95,7 +103,6 @@ export default function Search() {
         <ul className="w-full text-left md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-x-5">
           {filteredDatas.map((data) => (
             <Card
-              data={data}
               key={data.id}
               onClick={() => {
                 if (data.finish_type) {
@@ -108,6 +115,8 @@ export default function Search() {
                   });
                 }
               }}
+              title={data.title}
+              des={data.description}
               thumbnailImg={data.thumbnail}
               bgColor="bg-[#8db88f]"
             />

@@ -1,45 +1,55 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import Card from "../component/toolkit/Card";
-import TypeWriter from "../component/typeWriter/TypeWriter";
-import SwipeToSlide from "../component/category/SwipeToSlide";
-import Category from "../component/category/Category";
-import { SlidesToShowState } from "../recoil/contentState";
-import { useRecoilValue } from "recoil";
-import useInput from "../customhook/useInput";
-import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
-import SearchInputForm from "../component/input/SearchInputForm";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
+import { SlidesToShowState } from "../recoil/contentState";
+import { dataFetch } from "../api/meetingAndToolkit";
+import { handleConsoleError } from "../common";
+
+import BasicSlider from "../component/slider/BasicSlider";
+import Card from "../component/card/Card";
+import TypeWriter from "../component/typeWriter/TypeWriter";
+import Category from "../component/category/Category";
+import SearchInputForm from "../component/input/SearchInputForm";
 
 import { CiPen } from "react-icons/ci";
 
 export default function Toolkit() {
   const navigate = useNavigate();
-
-  const {
-    isLoading,
-    error,
-    data: datas,
-  } = useQuery(["data"], async () => {
-    const result = await MeetingAndToolkitDataFetch();
-    return result;
-  });
-
-  const data = datas?.toolkits;
+  const slidesToShow = useRecoilValue(SlidesToShowState);
 
   const [filteredToolkits, setFilteredToolkits] = useState([]);
-  const [searchToolkitText, onSearchToolkitTextChange, setSearchToolkitText] =
-    useInput("");
+  const [searchText, setSearchText] = useState("");
   const [category1, setCategory1] = useState("ALL");
   const [category2, setCategory2] = useState("ALL");
   const [category3, setCategory3] = useState("ALL");
   const categories = [category1, category2, category3];
   const setCategories = [setCategory1, setCategory2, setCategory3];
 
-  const slidesToShow = useRecoilValue(SlidesToShowState);
+  const {
+    isLoading,
+    data: datas,
+    error,
+  } = useQuery(["toolkitDatas"], async () => {
+    const result = await dataFetch("toolkits");
+    return result.toolkits;
+  });
+
+  // 임시로 추가하는 toolkitType, personType, creator => server에서 들어오는 데이터가 수정되면 지울 코드
+  const editToolkitDatas = useMemo(
+    () =>
+      datas?.map((toolkit) => ({
+        ...toolkit,
+        toolkitType: "커뮤니티",
+        personType: toolkit.id === 10 ? "커뮤니티 구성원" : "커뮤니티 기획자",
+        creator: "비빔",
+      })),
+    [datas]
+  );
 
   const toolkitType = [
     { title: "ALL", icon: "image/toolkit_category_icon12.png" },
+    { title: "커뮤니티", icon: "image/toolkit_category_icon0.png" },
     { title: "청년", icon: "image/toolkit_category_icon1.png" },
     { title: "퀴어", icon: "image/toolkit_category_icon2.png" },
     { title: "시각장애", icon: "image/toolkit_category_icon3.png" },
@@ -61,29 +71,22 @@ export default function Toolkit() {
     { title: "아카이브", icon: "image/toolkit_category_icon11.png" },
   ];
 
-  const onHandleSearchTextChange = (e) => {
-    onSearchToolkitTextChange(e);
-
-    setCategory1("");
-    setCategory2("");
-    setCategory3("");
-  };
-
   useEffect(() => {
-    if (searchToolkitText.length === 0) {
-      if (!Array.isArray(data)) return;
-
-      /**
-       * @type {{ type: string; type2: string; creator : string; }[]}
-       */
-      let filtered = data;
+    // 나중에 server toolkit search api로 변경하기.
+    if (searchText.length === 0) {
+      if (!Array.isArray(editToolkitDatas)) return;
+      let filtered = editToolkitDatas;
 
       if (category1 !== "ALL") {
-        filtered = filtered.filter((toolkit) => toolkit.type === category1);
+        filtered = filtered.filter(
+          (toolkit) => toolkit.toolkitType === category1
+        );
       }
 
       if (category2 !== "ALL") {
-        filtered = filtered.filter((toolkit) => toolkit.type2 === category2);
+        filtered = filtered.filter(
+          (toolkit) => toolkit.personType === category2
+        );
       }
 
       if (category3 !== "ALL") {
@@ -94,43 +97,37 @@ export default function Toolkit() {
     }
     return;
   }, [
-    searchToolkitText,
+    searchText,
     category1,
     category2,
     category3,
     setFilteredToolkits,
-    data,
+    editToolkitDatas,
   ]);
 
   useEffect(() => {
-    if (searchToolkitText.length === 0) {
+    if (searchText.length === 0) {
       categories.forEach((category, i) => {
         if (category === "") {
           setCategories[i]("ALL");
         }
       });
     }
-  }, [searchToolkitText, ...categories, ...setCategories]);
-
-  const onClickCategoryMenu = () => {
-    setSearchToolkitText("");
-  };
+  }, [searchText, ...categories, ...setCategories]);
 
   const handleSearchData = (e) => {
     e.preventDefault();
 
-    if (!Array.isArray(data)) return;
+    if (!Array.isArray(editToolkitDatas)) return;
 
-    let filtered = data;
+    let filtered = editToolkitDatas;
 
-    const trimmedSearchTerm = searchToolkitText.trim();
+    const trimmedSearchTerm = searchText.trim();
 
-    if (searchToolkitText.length > 0 && trimmedSearchTerm === "") {
+    if (searchText.length > 0 && trimmedSearchTerm === "") {
       setFilteredToolkits([]);
     } else {
-      const refinedSearchTerm = searchToolkitText
-        .replace(/\s+/g, "")
-        .toLowerCase();
+      const refinedSearchTerm = searchText.replace(/\s+/g, "").toLowerCase();
 
       const filteredResults = filtered.filter(
         (data) =>
@@ -148,14 +145,12 @@ export default function Toolkit() {
     }
   };
 
-  const comment = isLoading
-    ? "Loading..."
-    : error
-    ? "An error has occurred...!"
-    : (searchToolkitText.length > 0 || searchToolkitText.length === 0) &&
-      filteredToolkits.length === 0
-    ? "검색 결과가 없습니다."
-    : null;
+  const comment = handleConsoleError(
+    isLoading,
+    error,
+    searchText,
+    filteredToolkits
+  );
 
   return (
     <div className="flex flex-col items-center justify-between w-full pt-16 font-medium">
@@ -179,19 +174,33 @@ export default function Toolkit() {
 
         <SearchInputForm
           placeholder="툴킷을 검색하세요."
-          searchText={searchToolkitText}
-          onChange={onHandleSearchTextChange}
-          setSearchText={setSearchToolkitText}
+          searchText={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+
+            setCategory1("");
+            setCategory2("");
+            setCategory3("");
+          }}
+          setSearchText={setSearchText}
           handleSearchData={handleSearchData}
           formStyle="w-full rounded-full text-text-light-90 dark:text-text-dark-default sm:text-[1.2rem] text-[0.9rem]"
           inputStyle="w-full sm:p-8 p-5 rounded-full border-toolkit placeholder:text-toolkit sm:placeholder:text-[1.2rem] placeholder:text-[0.9rem]"
-          deleteBtnStyle="sm:text-[2.4rem] text-[1.5rem] sm:top-[30%] top-[36%] sm:right-20 right-12"
-          searchBtnStyle="sm:text-[2.4rem] text-[1.5rem] sm:right-7 right-4 sm:top-[30%] top-[36%]"
+          deleteBtnPositionStyles="sm:top-[30%] top-[36%] sm:right-20 right-12"
+          searchBtnPositionStyles="sm:right-7 right-4 sm:top-[30%] top-[36%]"
+          btnStyles="sm:text-[2.4rem] text-[1.5rem]"
         />
       </div>
 
       <div className="w-full mt-10">
-        <SwipeToSlide slidesToShow={slidesToShow}>
+        <BasicSlider
+          slidesToShow={slidesToShow}
+          isAutoplay={false}
+          isDots={false}
+          prevArrowStyles="top-[36%] left-0"
+          nextArrowStyles="top-[36%] right-0"
+          arrowFontStyles="text-[4rem] text-white"
+        >
           <Category
             title="Toolkit Type"
             iconImg={"/image/toolkit_icon1.png"}
@@ -199,7 +208,7 @@ export default function Toolkit() {
             arr={toolkitType}
             category={category1}
             setCategory={setCategory1}
-            onClickCategoryMenu={onClickCategoryMenu}
+            onClickCategoryMenu={() => setSearchText("")}
           />
           <Category
             title="Person Type"
@@ -208,7 +217,7 @@ export default function Toolkit() {
             arr={personType}
             category={category2}
             setCategory={setCategory2}
-            onClickCategoryMenu={onClickCategoryMenu}
+            onClickCategoryMenu={() => setSearchText("")}
           />
           <Category
             title="Creator"
@@ -217,9 +226,9 @@ export default function Toolkit() {
             arr={creator}
             category={category3}
             setCategory={setCategory3}
-            onClickCategoryMenu={onClickCategoryMenu}
+            onClickCategoryMenu={() => setSearchText("")}
           />
-        </SwipeToSlide>
+        </BasicSlider>
       </div>
 
       <div className="box-border w-full px-4 py-24 pt-6 lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
@@ -228,13 +237,14 @@ export default function Toolkit() {
         <ul className="w-full md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-x-5">
           {filteredToolkits.map((data) => (
             <Card
-              data={data}
               key={data.id}
               onClick={() => {
                 navigate(`/toolkit/detail/${data.id}`, {
-                  state: { toolkit: data },
+                  state: { toolkitId: data.id },
                 });
               }}
+              title={data.title}
+              des={data.description}
               thumbnailImg={data.squareImage}
               bgColor="bg-toolkit"
             />

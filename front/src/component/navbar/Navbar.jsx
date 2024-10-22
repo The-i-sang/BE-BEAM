@@ -1,70 +1,57 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  AccessTokenState,
   UserDataState,
   UserNecessaryDataState,
   userState,
 } from "../../recoil/userState";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { Cookies } from "react-cookie";
-import { GoogleUserDataFetch, KakaoUserDataFetch } from "../../api/user";
-import { SnsAuthTypeState } from "../../recoil/contentState";
+import { getUserData } from "../../common";
+import { getUserProfile } from "../../api/user";
+
 import MenuList from "./MenuList";
 import MobileMenuList from "./MobileMenuList";
-import { getUserData } from "../../common";
-import Util from "./Util";
+import Button from "../button/Button";
+import { btnStyle } from "../../common2";
 
-import { CiDark, CiLight, CiMenuBurger } from "react-icons/ci";
-import { CiSearch, CiUser } from "react-icons/ci";
+import {
+  CiDark,
+  CiLight,
+  CiMenuBurger,
+  CiSearch,
+  CiUser,
+} from "react-icons/ci";
 
 export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const navigate = useNavigate();
 
   const userIn = useRecoilValue(userState);
-
-  const [snsAuthType, setSnsAuthType] = useRecoilState(SnsAuthTypeState);
+  const accessToken = useRecoilValue(AccessTokenState);
   const [userData, setUserData] = useRecoilState(UserDataState);
   const [userNecessaryData, setUserNecessaryData] = useRecoilState(
     UserNecessaryDataState
   );
 
-  const cookies = new Cookies();
-  const accessToken = cookies.get("accessToken");
-
   useEffect(() => {
-    if (localStorage.getItem("snsAuthType")) {
-      setSnsAuthType(localStorage.getItem("snsAuthType"));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (accessToken && snsAuthType) {
+    if (accessToken) {
       const fetchData = async () => {
-        const fetchFunction =
-          snsAuthType === "googleAuth"
-            ? GoogleUserDataFetch
-            : KakaoUserDataFetch;
-        setUserData(await fetchFunction(accessToken));
+        setUserData(await getUserProfile(accessToken));
       };
-
       fetchData();
     }
-  }, [accessToken, setUserData, snsAuthType]);
+  }, [accessToken, setUserData]);
+  console.log(userData);
 
-  // useState의 초기 상태를 함수로 설정하면, 이 함수는 컴포넌트가 처음 렌더링될 때 한 번만 호출됨.
-  // 이를 이용하면 컴포넌트가 렌더링되기 전에 localStorage의 값을 읽어와 상태를 설정할 수 있음.
-  // 이 방법은 컴포넌트가 렌더링되기 전에 필요한 작업을 처리하는 데 유용.
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";
   });
 
-  // 컴포넌트가 마운트될 때 로컬 스토리지에서 다크 모드 설정을 불러옴.
   useEffect(() => {
     const isDark = localStorage.getItem("darkMode") === "true";
     setDarkMode(isDark);
   }, []);
 
-  // 다크 모드 상태가 변경될 때마다 이를 로컬 스토리지에 저장.
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -76,10 +63,10 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   }, [darkMode]);
 
   useEffect(() => {
-    if (snsAuthType && userData) {
-      setUserNecessaryData(getUserData(snsAuthType, userData));
+    if (userData) {
+      setUserNecessaryData(getUserData(userData));
     }
-  }, [snsAuthType, userData, setUserNecessaryData]);
+  }, [userData, setUserNecessaryData]);
 
   const { profileImg, userNickname } = userNecessaryData;
 
@@ -87,25 +74,23 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     <div className="w-full dark:bg-black dark:text-white">
       <div className="w-11/12 sm:max-w-[90%] mx-auto">
         <div className="relative flex items-center justify-between w-full py-8 sm:py-12 sm:static">
-          <Util
+          <Button
             icon={<CiMenuBurger />}
             onClick={() => setSideBarOpen(true)}
-            basicStyle="text-[1.2rem] text-mainColor"
-            smStyle="sm:hidden"
+            styles="text-[1.2rem] sm:hidden"
+            enableStyles="text-mainColor"
           />
 
-          <div
-            className="md:w-[80px] sm:w-[70px] w-[60px] sm:static absolute top-4 left-[50%] sm:ml-0 ml-[-30px]"
+          <Button
+            styles="sm:static absolute top-4 left-[50%] sm:ml-0 ml-[-30px]"
             onClick={() => navigate("/")}
           >
             <img
-              className="object-cover w-full mx-auto cursor-pointer"
-              src={
-                process.env.PUBLIC_URL + "/logo/logo2.png".replace("./", "/")
-              }
+              className="md:w-[80px] sm:w-[70px] w-[60px] object-cover"
+              src={"/logo/logo2.png"}
               alt="logo"
             />
-          </div>
+          </Button>
 
           <MenuList />
           <MobileMenuList
@@ -114,50 +99,43 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
           />
 
           <div className="flex items-center">
-            <Util
+            <Button
               icon={darkMode ? <CiLight /> : <CiDark />}
               onClick={() => setDarkMode(!darkMode)}
-              basicStyle="text-[1.2rem] text-mainColor"
-              smStyle="sm:mr-4 mr-2 sm:text-[1.5rem]"
-              mdStyle="md:mr-4  md:text-[1.8rem]"
-              lgStyle="lg:mr-8"
+              styles={btnStyle.navbar}
+              enableStyles="text-mainColor"
             />
 
-            <Util
+            <Button
               icon={<CiSearch />}
               onClick={() => navigate("/search")}
-              basicStyle="text-[1.2rem] text-mainColor"
-              smStyle="sm:text-[1.5rem]"
-              mdStyle="md:text-[1.8rem]"
+              styles={btnStyle.navbar}
+              enableStyles="text-mainColor"
             />
 
-            <Util
-              icon={<CiUser />}
-              onClick={() => navigate("/auth")}
-              basicStyle="text-[1.2rem] text-mainColor ml-2"
-              smStyle="sm:ml-4 sm:text-[1.5rem]"
-              mdStyle="md:ml-4 md:text-[1.8rem]"
-              lgStyle="lg:ml-8"
-              isHidden={!userIn ? "block" : "hidden"}
-            />
-
-            <Util
-              onClick={() => navigate("/mypage")}
-              basicStyle="ml-2 flex items-center gap-x-2 text-[0.875rem] text-mainColor font-medium"
-              smStyle="sm:ml-4"
-              mdStyle="md:ml-4"
-              lgStyle="lg:ml-8"
-              isHidden={userIn ? "block" : "hidden"}
-              profileImg={profileImg}
-              userNickname={userNickname}
+            <Button
+              icon={userIn ? null : <CiUser />}
+              onClick={() => {
+                userIn ? navigate("/mypage") : navigate("/auth");
+              }}
+              styles={
+                userIn
+                  ? "text-[0.875rem] gap-x-1"
+                  : "md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem]"
+              }
+              enableStyles="text-mainColor"
             >
               <img
-                className="lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full"
+                className={`${
+                  userIn ? "" : "hidden"
+                } lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full`}
                 src={profileImg}
                 alt="profile_img"
               />
-              <p className="hidden md:block sm:hidden">{userNickname}</p>
-            </Util>
+              <p className={userIn ? "md:block sm:hidden hidden" : "hidden"}>
+                {userNickname}
+              </p>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
-import { Cookies } from "react-cookie";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   IsCheckedListKeywordState,
@@ -13,7 +12,6 @@ import { CiEdit } from "react-icons/ci";
 
 export default function MypageMyProfile() {
   const navigate = useNavigate();
-  const cookies = new Cookies();
 
   const setUserIn = useSetRecoilState(userState);
   const isCheckedListKeyword = useRecoilValue(IsCheckedListKeywordState);
@@ -24,7 +22,7 @@ export default function MypageMyProfile() {
 
   return (
     <div className="w-full">
-      <div className="w-full flex items-center justify-between">
+      <div className="flex items-center justify-between w-full">
         <p className="text-[1.125rem] font-semibold dark:text-white">
           나의 프로필
         </p>
@@ -32,7 +30,7 @@ export default function MypageMyProfile() {
         <button
           type="button"
           onClick={() => {
-            cookies.remove("accessToken");
+            localStorage.removeItem("accessToken");
             setUserIn(false);
 
             navigate("/");

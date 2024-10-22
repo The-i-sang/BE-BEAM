@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { ResponsiveSize } from "../../recoil/contentState";
-import SearchInputForm from "../input/SearchInputForm";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { UserDataState } from "../../recoil/userState";
+import { UserNecessaryDataState } from "../../recoil/userState";
 import { formatTimeAgo } from "../../common";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+
+import SearchInputForm from "../input/SearchInputForm";
 import useInput from "../../customhook/useInput";
 
 import { CiHeart } from "react-icons/ci";
@@ -16,7 +17,7 @@ export default function CommunityReviewsWrap({
   setReviewDatas,
 }) {
   const responsiveSize = useRecoilValue(ResponsiveSize);
-  const userData = useRecoilValue(UserDataState);
+  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const [topic, setTopic] = useState("all");
   const [type, setType] = useState("텍스트");
   const [sort, setSort] = useState("최신순");
@@ -136,8 +137,9 @@ export default function CommunityReviewsWrap({
             handleSearchData={handleSearchData}
             formStyle="sm:w-[260px] w-full text-text-light-default dark:text-text-dark-default sm:text-[1rem] text-[0.875rem]"
             inputStyle="sm:px-2 sm:py-2 px-2 py-2 rounded-lg bg-[#f2f2f2] border-white placeholder:text-text-light-20 sm:placeholder:text-[1rem] placeholder:text-[0.875rem]"
-            deleteBtnStyle="sm:text-[1.4rem] text-[1.2rem] sm:top-[24%] top-[26%] sm:right-10 right-8"
-            searchBtnStyle="sm:text-[1.4rem] text-[1.2rem] sm:right-3 right-2 sm:top-[24%] top-[26%]"
+            deleteBtnPositionStyles="sm:top-[24%] top-[26%] sm:right-10 right-8"
+            searchBtnPositionStyles="sm:right-3 right-2 sm:top-[24%] top-[26%]"
+            btnStyles="sm:text-[1.4rem] text-[1.2rem]"
           />
 
           <FormControl
@@ -288,10 +290,7 @@ export default function CommunityReviewsWrap({
               <button
                 className={`${
                   data?.likes?.find(
-                    (like) => like === userData?.kakao_account?.email
-                    // (userData?.emailAddresses?.length > 0
-                    //   ? userData?.emailAddresses[0]?.value
-                    //   : null)
+                    (like) => like === userNecessaryData.userEmail
                   )
                     ? "bg-[#dadada] dark:text-text-dark-70"
                     : "bg-transparent dark:text-text-dark-default"
@@ -300,8 +299,7 @@ export default function CommunityReviewsWrap({
                   setReviewDatas((prev) =>
                     prev.map((d) => {
                       if (d.reviewId === data.reviewId) {
-                        const userEmail = userData?.kakao_account?.email;
-                        // ?? userData?.emailAddresses[0]?.value;
+                        const userEmail = userNecessaryData.userEmail;
                         if (!d.likes.includes(userEmail)) {
                           return {
                             ...d,
@@ -319,7 +317,7 @@ export default function CommunityReviewsWrap({
                     })
                   );
                 }}
-                disabled={Object.keys(userData).length === 0}
+                disabled={Object.keys(userNecessaryData).length === 0}
               >
                 <CiHeart />
                 좋아요

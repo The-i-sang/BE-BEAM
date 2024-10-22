@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import img3 from "../assets/3.png";
-import img4 from "../assets/4.png";
-import img5 from "../assets/5.png";
-import img6 from "../assets/6.png";
 import MainIntroContent from "../component/brand/MainIntroContent";
 
 export default function Brand() {
@@ -28,15 +24,17 @@ export default function Brand() {
   const content4 =
     "연결망 (SOCIAL NETWORK) :\n사람과 사람간, 지역과 사람간 느슨한 연결망을 만드는 활동을 진행합니다.\n\n청년 (YOUTH) :\n청년의 주체성 있는 사회참여활동을 기반으로 합니다.\n\n행동 (ACTION) :\n주체성이 담긴 행동을 통해서 사회 구성원의 인식 및 행동의 변화를 이끌어냅니다.\n\n공감 (SYMPATHY) :\n사회 구성원에 대한 공감대를 기반으로 서로에게 즐겁고, 따뜻한 활동을 진행합니다.\n\n안정 (STABILITY) :\n서로를 존중하고 배려하여 서로에게 안정감을 줄 수 있는 활동을 진행합니다.\n\n의사소통 (COMMUNICATION) :\n서로의 이야기를 경청하고, 존중하는 대화를 통해 활동을 진행합니다.";
 
+  const divStyles = "lg:mb-32 sm:mb-20 mb-10";
+
   return (
-    <div className="w-full pt-4 pb-20 mx-auto sm:pb-32">
+    <div className="w-full pt-4 pb-20 mx-auto sm:pb-20">
       <div className="relative w-full">
         <div
           className={`${
             scrollHeight > 100
-              ? "absolute sm:top-[22rem] top-[13rem] text-white"
-              : "absolute top-0"
-          } w-full h-[300px] text-center sm:text-[2.4rem] text-[1.4rem] transition-all duration-1000 z-[99] flex flex-col justify-center items-center`}
+              ? "sm:top-[22rem] top-[13rem] text-white"
+              : "top-0"
+          } w-full h-[300px] text-center sm:text-[2.4rem] text-[1.4rem] transition-all duration-1000 z-[99] flex flex-col justify-center items-center absolute`}
         >
           <h1 className="mb-2 sm:text-[4.8rem] text-[3rem] font-extrabold">
             BE:BEAM
@@ -50,8 +48,12 @@ export default function Brand() {
               ? "top-40"
               : "sm:max-w-[90%] max-w-[470px] top-96"
           } w-full mx-auto sm:h-[720px] h-[400px] my-custom-bg-class bg-cover bg-fixed bg-no-repeat bg-[center_bottom_50%] text-white relative transition-all duration-700`}
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1615192606632-9c9d005f6a2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          }}
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.3)]" />
         </div>
       </div>
 
@@ -66,35 +68,38 @@ export default function Brand() {
           </h2>
 
           <MainIntroContent
-            img={img5}
+            img="/image/brand/1.png"
             subTitle="What does it mean?"
             titleFront="BE:BEAM이"
             titleMiddle="의미"
             titleBack="하는 것은?"
             content={content1}
+            divStyles={divStyles}
           />
 
           <MainIntroContent
-            img={img4}
+            img="/image/brand/2.png"
             subTitle="What is the vision of this?"
             titleFront="BE:BEAM의"
             titleMiddle="비전"
             titleBack="은?"
             content={content3}
             isEven={true}
+            divStyles={divStyles}
           />
 
           <MainIntroContent
-            img={img6}
+            img="/image/brand/3.png"
             subTitle="What is the purpose?"
             titleFront="BE:BEAM의"
             titleMiddle="목적"
             titleBack="은?"
             content={content2}
+            divStyles={divStyles}
           />
 
           <MainIntroContent
-            img={img3}
+            img="/image/brand/4.png"
             subTitle=" What is the core value of this?"
             titleFront="BE:BEAM의"
             titleMiddle="가치"

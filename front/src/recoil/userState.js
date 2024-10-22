@@ -1,5 +1,11 @@
 import { atom } from "recoil";
 
+// accessToken
+export const AccessTokenState = atom({
+  key: "AccessTokenState",
+  default: "",
+});
+
 // 로그인이 되었는가, 안 되었는가.
 export const userState = atom({
   key: "userState",

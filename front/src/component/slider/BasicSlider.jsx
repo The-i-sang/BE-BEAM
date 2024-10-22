@@ -10,6 +10,9 @@ export default function BasicSlider({
   slidesToShow = 1,
   isDots = true,
   isArrows = true,
+  prevArrowStyles,
+  nextArrowStyles,
+  arrowFontStyles,
   children,
 }) {
   const settings = {
@@ -19,9 +22,17 @@ export default function BasicSlider({
     speed: 900,
     slidesToShow: slidesToShow,
     autoplay: isAutoplay,
-    nextArrow: <NextArrow toolkitType={true} />,
-    prevArrow: <PrevArrow toolkitType={true} />,
+    prevArrow: (
+      <PrevArrow styles={prevArrowStyles} fontStyles={arrowFontStyles} />
+    ),
+    nextArrow: (
+      <NextArrow styles={nextArrowStyles} fontStyles={arrowFontStyles} />
+    ),
   };
 
-  return <Slider {...settings}>{children}</Slider>;
+  return (
+    <div className="relative">
+      <Slider {...settings}>{children}</Slider>
+    </div>
+  );
 }

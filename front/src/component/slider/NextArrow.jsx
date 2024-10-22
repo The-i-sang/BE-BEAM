@@ -1,18 +1,13 @@
-import { BsArrowRight } from "react-icons/bs";
+import Button from "../button/Button";
 
-export default function NextArrow({ onClick, toolkitType }) {
+import { GoChevronRight } from "react-icons/go";
+
+export default function NextArrow({ onClick, styles, fontStyles }) {
   return (
-    <>
-      <div
-        onClick={onClick}
-        className={`${
-          !toolkitType
-            ? "text-text-light-10 right-2 top-[40%]"
-            : "text-text-light-90 right-0 top-[46%]"
-        } text-[2.4rem] dark:text-text-dark-default absolute z-[9999] cursor-pointer`}
-      >
-        <BsArrowRight />
-      </div>
-    </>
+    <Button
+      icon={<GoChevronRight />}
+      onClick={onClick}
+      styles={`${styles} ${fontStyles} absolute z-[9999] drop-shadow-lg cursor-pointer`}
+    />
   );
 }

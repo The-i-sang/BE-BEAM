@@ -14,3 +14,16 @@ export const MeetingAndToolkitDataFetch = async () => {
   const result = await res.data.items;
   return result;
 };
+
+export const dataFetch = async (detailUrl) => {
+  const res = await axios({
+    method: "get",
+    url: `https://prod.be-beam.site/api/web/v1/${detailUrl}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const result = await res.data.result;
+  return result;
+};

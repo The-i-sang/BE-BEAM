@@ -1,7 +1,7 @@
-import { meetingApplyReasonState } from "../../../recoil/contentState";
-import { useRecoilValue } from "recoil";
-import { userState } from "../../../recoil/userState";
 import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { meetingApplyReasonState } from "../../../recoil/contentState";
+import { userState } from "../../../recoil/userState";
 import {
   userNameState,
   userPhoneNumberState,
@@ -9,12 +9,12 @@ import {
   userBirthdayState,
   userGenderState,
 } from "../../../recoil/authState";
-import Button from "../../button/Button";
 import useInputGlobal from "../../../customhook/useInputGlobal";
+import Button from "../../button/Button";
 import TextArea from "../../textArea/TextArea";
+import { Toast } from "../../toast/Toast";
 
 import { GoX } from "react-icons/go";
-import { Toast } from "../../toast/Toast";
 
 export default function MeetingApplyReasonModal({
   meetingApplyReasonModal,

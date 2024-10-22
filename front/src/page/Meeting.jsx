@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
-import TypeWriter from "../component/typeWriter/TypeWriter";
-import Category from "../component/category/Category";
-import SwipeToSlide from "../component/category/SwipeToSlide";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import MeetingCard from "../component/meeting/MeetingCard";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
+
+import TypeWriter from "../component/typeWriter/TypeWriter";
+import BasicSlider from "../component/slider/BasicSlider";
+import Category from "../component/category/Category";
+import MeetingCard from "../component/meeting/MeetingCard";
 import Popup from "../component/popUp/Popup";
 
 import { FaKissWinkHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 export default function Meeting() {
+  const navigate = useNavigate();
+
   const meetingType = [
     { title: "ALL", icon: "image/meeting_category_icon5.png" },
     { title: "소모임", icon: "image/meeting_category_icon1.png" },
@@ -30,6 +33,19 @@ export default function Meeting() {
   const [category2, setCategory2] = useState("ALL");
 
   const [filteredMeetings, setFilteredMeetings] = useState([]);
+
+  // const { data: datassssssss } = useQuery(["datassssssss"], async () => {
+  //   const res = await axios({
+  //     method: "get",
+  //     url: `http://localhost:8080/api/web/v1/meetings`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const result = await res.data;
+  //   return result;
+  // });
+  // console.log("server에서 들어오는 데이터 확인", datassssssss);s
 
   const {
     isLoading,
@@ -71,6 +87,8 @@ export default function Meeting() {
     ? "모집 마감된 활동이 없어요...!"
     : null;
 
+  const isHostGrade = false;
+
   return (
     <div className="w-full pt-16">
       <Popup />
@@ -92,9 +110,21 @@ export default function Meeting() {
         />
       </div>
 
-
       <div className="w-full">
-        <SwipeToSlide slidesToShow={slidesToShow}>
+        <div
+          className={`${
+            isHostGrade ? "block" : "hidden"
+          } box-border flex justify-end w-full px-4`}
+        >
+          <button
+            onClick={() => navigate("/meeting/createSmallGroup")}
+            className="bg-[#ffc655] text-white py-2 px-4 mb-5 rounded-lg shadow-md hover:bg-[#e9a30d] transition duration-300"
+          >
+            소그룹 생성하기
+          </button>
+        </div>
+
+        <BasicSlider slidesToShow={slidesToShow} isDots={false}>
           <Category
             title="Meeting Type"
             iconImg={"/image/meeting_icon1.png"}
@@ -111,16 +141,7 @@ export default function Meeting() {
             category={category2}
             setCategory={setCategory2}
           />
-        </SwipeToSlide>
-
-        <div className="flex justify-center my-4">
-          <Link to="/meeting/createSmallGroup">
-            <button className="bg-[#ffc655] text-white py-2 px-4 rounded-lg shadow-md hover:bg-[#e9a30d] transition duration-300">
-              소그룹 생성하기
-            </button>
-          </Link>
-        </div>
-        
+        </BasicSlider>
 
         <div className="box-border w-full px-4 py-24 pt-6">
           <p className="lg:text-[1.1rem] sm:text-[1rem] text-[0.875rem] text-center">
