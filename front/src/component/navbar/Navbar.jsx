@@ -32,14 +32,15 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const [userNecessaryData, setUserNecessaryData] = useRecoilState(
     UserNecessaryDataState
   );
+  console.log(accessToken);
 
   useEffect(() => {
-    if (accessToken) {
-      const fetchData = async () => {
+    const fetchData = async () => {
+      if (accessToken) {
         setUserData(await getUserProfile(accessToken));
-      };
-      fetchData();
-    }
+      }
+    };
+    fetchData();
   }, [accessToken, setUserData]);
   console.log(userData);
 
