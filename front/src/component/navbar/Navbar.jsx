@@ -33,15 +33,15 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     UserNecessaryDataState
   );
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (accessToken) {
-  //       setUserData(await getUserProfile(accessToken));
-  //     }
-  //   };
-  //   fetchData();
-  // }, [accessToken, setUserData]);
-  // console.log(userData, accessToken);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (accessToken) {
+        setUserData(await getUserProfile(accessToken));
+      }
+    };
+    fetchData();
+  }, [accessToken, setUserData]);
+  console.log(userData, accessToken);
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";
