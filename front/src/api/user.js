@@ -85,6 +85,7 @@ export const editUserProfile = async (
       },
       data: formData,
     });
+    console.log(res.data.result);
     return res.data.result;
   } catch (error) {
     console.error("Error fetching User Profile:", error);

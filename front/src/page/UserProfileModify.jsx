@@ -55,7 +55,7 @@ export default function UserProfileModify() {
         nickname,
         description
       );
-      setUserData(editUserProfileData);
+      setUserData((prev) => ({ ...prev, ...editUserProfileData }));
       Toast("🥨🎂 프로필 수정을 완료했습니다!");
       navigate("/mypage");
     } catch (error) {
