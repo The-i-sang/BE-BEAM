@@ -20,6 +20,7 @@ export default function UserProfileModify() {
   const userData = useRecoilValue(UserDataState);
   const accessToken = useRecoilValue(AccessTokenState);
   const [profileImage, setProfileImage] = useState("");
+  const [newProfileImage, setNewProfileImage] = useState(null);
   const [nickname, setNickname] = useState("");
   const [description, setDescription] = useState("");
 
@@ -40,6 +41,7 @@ export default function UserProfileModify() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfileImage(reader.result);
+        setNewProfileImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -47,7 +49,12 @@ export default function UserProfileModify() {
 
   const handleProfileEdit = async () => {
     try {
-      await editUserProfile(accessToken, profileImage, nickname, description);
+      await editUserProfile(
+        accessToken,
+        newProfileImage,
+        nickname,
+        description
+      );
       Toast("🥨🎂 프로필 수정을 완료했습니다!");
       navigate("/mypage");
     } catch (error) {

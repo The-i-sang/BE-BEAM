@@ -49,15 +49,20 @@ const base64ToFile = (base64, filename) => {
 
 export const editUserProfile = async (
   accessToken,
-  profileImage,
+  newProfileImage,
   nickname,
   description
 ) => {
   try {
-    const changeBase64StringToFile = base64ToFile(profileImage, "profile.jpg");
-
     const formData = new FormData();
-    formData.append("profileImage", changeBase64StringToFile);
+
+    if (newProfileImage) {
+      const changeBase64StringToFile = base64ToFile(
+        newProfileImage,
+        "profile.jpg"
+      );
+      formData.append("profileImage", changeBase64StringToFile);
+    }
 
     formData.append(
       "data",
@@ -80,7 +85,7 @@ export const editUserProfile = async (
       },
       data: formData,
     });
-    return res.data.result; // 응답 데이터를 확인하기 위해 res.data로 변경
+    return res.data.result;
   } catch (error) {
     console.error("Error fetching User Profile:", error);
     throw error;
