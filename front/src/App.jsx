@@ -32,23 +32,21 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!accessToken) {
+      if (accessToken === "") {
         const token = await changeCookieToToken();
-        localStorage.setItem("accessToken", JSON.stringify(token));
+        localStorage.setItem("accessToken", token);
+        setAccessToken(token);
       }
     };
 
     fetchData();
-  }, [accessToken]);
+  }, [accessToken, setAccessToken]);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (accessToken) {
-      setAccessToken(accessToken);
+    if (accessToken !== "") {
       setUserIn(true);
     }
-  }, [setAccessToken, setUserIn]);
+  }, [accessToken, setUserIn]);
 
   function onScroll() {
     setContentHeight(window.scrollY);
