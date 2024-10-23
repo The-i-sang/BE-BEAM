@@ -39,9 +39,9 @@ export default function UserProfileModify() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result); // 로컬 이미지를 상태에 저장
+        setProfileImage(reader.result);
       };
-      reader.readAsDataURL(file); // 파일을 데이터 URL로 읽기
+      reader.readAsDataURL(file);
     }
   };
 
@@ -54,6 +54,8 @@ export default function UserProfileModify() {
       Toast("프로필 수정에 실패했습니다. 다시 시도해주세요.😢");
     }
   };
+
+  console.log(userData);
 
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
