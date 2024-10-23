@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AccessTokenState, UserDataState } from "../recoil/userState";
+import { editUserProfile } from "../api/user";
 
 import Input from "../component/input/Input";
 import Button from "../component/button/Button";
@@ -10,14 +11,13 @@ import { Toast } from "../component/toast/Toast";
 
 import { AiOutlineSync } from "react-icons/ai";
 import { btnBasicStyle } from "../common2";
-import { editUserProfile } from "../api/user";
 
 export default function UserProfileModify() {
   const navigate = useNavigate();
 
   const fileInputRef = useRef(null);
 
-  const userData = useRecoilValue(UserDataState);
+  const [userData, setUserData] = useRecoilState(UserDataState);
   const accessToken = useRecoilValue(AccessTokenState);
   const [profileImage, setProfileImage] = useState("");
   const [newProfileImage, setNewProfileImage] = useState(null);
@@ -49,12 +49,13 @@ export default function UserProfileModify() {
 
   const handleProfileEdit = async () => {
     try {
-      await editUserProfile(
+      const editUserProfileData = await editUserProfile(
         accessToken,
         newProfileImage,
         nickname,
         description
       );
+      setUserData(editUserProfileData);
       Toast("🥨🎂 프로필 수정을 완료했습니다!");
       navigate("/mypage");
     } catch (error) {
