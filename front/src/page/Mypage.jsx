@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { MeetingReviewsState } from "../recoil/meetingState.js";
-import { UserNecessaryDataState, userState } from "../recoil/userState";
+import {
+  UserDataState,
+  UserNecessaryDataState,
+  userState,
+} from "../recoil/userState";
 import MypageMyProfile from "../component/myPage/MypageMyProfile";
 import BasicTab from "../component/myPage/tab/BasicTab.jsx";
 import TabSliderContent from "../component/myPage/tab/TabSliderContent";
@@ -15,6 +19,8 @@ export default function Mypage() {
   const userIn = useRecoilValue(userState);
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const { userEmail } = userNecessaryData;
+  const userData = useRecoilValue(UserDataState);
+  console.log(userData);
 
   const reviewDatas = useRecoilValue(MeetingReviewsState);
   const filterMyReviewDatas = reviewDatas.filter(
