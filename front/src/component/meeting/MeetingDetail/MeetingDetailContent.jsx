@@ -122,12 +122,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
             </p>
             <img
               className="md:w-[384px] sm:w-[320px] w-full rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
-              src={
-                activity?.image?.length > 0
-                  ? process.env.PUBLIC_URL +
-                    activity.image[0].replace("./", "/")
-                  : ""
-              }
+              src={activity?.image?.length > 0 ? activity.image[0] : ""}
               alt="comunity_desc_img"
             />
           </div>

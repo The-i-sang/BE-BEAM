@@ -27,7 +27,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const userIn = useRecoilValue(userState);
   const accessToken = useRecoilValue(AccessTokenState);
   const [userData, setUserData] = useRecoilState(UserDataState);
-  console.log(userData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,7 +106,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
               }}
               styles={
                 userIn
-                  ? "text-[0.875rem] gap-x-1"
+                  ? "text-[0.875rem] flex items-center gap-x-1"
                   : "md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem]"
               }
               enableStyles="text-mainColor"
