@@ -4,10 +4,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   AccessTokenState,
   UserDataState,
-  UserNecessaryDataState,
   userState,
 } from "../../recoil/userState";
-import { getUserData } from "../../common";
 import { getUserProfile } from "../../api/user";
 
 import MenuList from "./MenuList";
@@ -29,9 +27,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const userIn = useRecoilValue(userState);
   const accessToken = useRecoilValue(AccessTokenState);
   const [userData, setUserData] = useRecoilState(UserDataState);
-  const [userNecessaryData, setUserNecessaryData] = useRecoilState(
-    UserNecessaryDataState
-  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +36,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
     };
     fetchData();
   }, [accessToken, setUserData]);
-  console.log(userData, accessToken);
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";
@@ -61,14 +55,6 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
       localStorage.setItem("darkMode", "false");
     }
   }, [darkMode]);
-
-  useEffect(() => {
-    if (userData) {
-      setUserNecessaryData(getUserData(userData));
-    }
-  }, [userData, setUserNecessaryData]);
-
-  const { profileImg, userNickname } = userNecessaryData;
 
   return (
     <div className="w-full dark:bg-black dark:text-white">
@@ -129,11 +115,11 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
                 className={`${
                   userIn ? "" : "hidden"
                 } lg:w-[40px] sm:w-[36px] w-[36px] aspect-square object-cover rounded-full`}
-                src={profileImg}
+                src={userData.profileImage}
                 alt="profile_img"
               />
               <p className={userIn ? "md:block sm:hidden hidden" : "hidden"}>
-                {userNickname}
+                {userData.nickName}
               </p>
             </Button>
           </div>
