@@ -32,17 +32,16 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
   const [userNecessaryData, setUserNecessaryData] = useRecoilState(
     UserNecessaryDataState
   );
-  console.log(accessToken);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (accessToken) {
-        setUserData(await getUserProfile(accessToken));
-      }
-    };
-    fetchData();
-  }, [accessToken, setUserData]);
-  console.log(userData);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (accessToken) {
+  //       setUserData(await getUserProfile(accessToken));
+  //     }
+  //   };
+  //   fetchData();
+  // }, [accessToken, setUserData]);
+  // console.log(userData, accessToken);
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";

@@ -3,7 +3,7 @@ import { atom } from "recoil";
 // accessToken
 export const AccessTokenState = atom({
   key: "AccessTokenState",
-  default: "",
+  default: localStorage.getItem("accessToken") ?? "",
 });
 
 // 로그인이 되었는가, 안 되었는가.
