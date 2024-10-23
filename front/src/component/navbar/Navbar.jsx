@@ -120,7 +120,7 @@ export default function Navbar({ setSideBarOpen, sideBarOpen }) {
                 alt="profile_img"
               />
               <p className={userIn ? "md:block sm:hidden hidden" : "hidden"}>
-                {userData.nickName}
+                {userData.nickname}
               </p>
             </Button>
           </div>
