@@ -1,16 +1,20 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState, UserDataState } from "../recoil/userState";
 
 import Input from "../component/input/Input";
 import Button from "../component/button/Button";
 import TextArea from "../component/textArea/TextArea";
+import { Toast } from "../component/toast/Toast";
 
 import { AiOutlineSync } from "react-icons/ai";
 import { btnBasicStyle } from "../common2";
 import { editUserProfile } from "../api/user";
 
 export default function UserProfileModify() {
+  const navigate = useNavigate();
+
   const fileInputRef = useRef(null);
 
   const userData = useRecoilValue(UserDataState);
@@ -18,8 +22,6 @@ export default function UserProfileModify() {
   const [profileImage, setProfileImage] = useState("");
   const [nickname, setNickname] = useState("");
   const [description, setDescription] = useState("");
-
-  console.log(userData, profileImage);
 
   useEffect(() => {
     if (userData) {
@@ -40,6 +42,16 @@ export default function UserProfileModify() {
         setProfileImage(reader.result); // 로컬 이미지를 상태에 저장
       };
       reader.readAsDataURL(file); // 파일을 데이터 URL로 읽기
+    }
+  };
+
+  const handleProfileEdit = async () => {
+    try {
+      await editUserProfile(accessToken, profileImage, nickname, description);
+      Toast("🥨🎂 프로필 수정을 완료했습니다!");
+      navigate("/mypage");
+    } catch (error) {
+      Toast("프로필 수정에 실패했습니다. 다시 시도해주세요.😢");
     }
   };
 
@@ -111,14 +123,7 @@ export default function UserProfileModify() {
 
             <Button
               buttonText="프로필 수정하기"
-              onClick={async () => {
-                await editUserProfile(
-                  accessToken,
-                  profileImage,
-                  nickname,
-                  description
-                );
-              }}
+              onClick={handleProfileEdit}
               disabled={nickname?.length === 0}
               basicStyle="mt-2"
             />

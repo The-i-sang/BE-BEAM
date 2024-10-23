@@ -80,8 +80,6 @@ export const editUserProfile = async (
       },
       data: formData,
     });
-
-    alert("file upload success");
     return res.data.result; // 응답 데이터를 확인하기 위해 res.data로 변경
   } catch (error) {
     console.error("Error fetching User Profile:", error);
