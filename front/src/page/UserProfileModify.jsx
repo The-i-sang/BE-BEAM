@@ -55,15 +55,22 @@ export default function UserProfileModify() {
         nickname,
         description
       );
-      setUserData((prev) => ({ ...prev, ...editUserProfileData }));
+
+      const updatedDate = newProfileImage
+        ? { ...editUserProfileData }
+        : {
+            nickname: editUserProfileData.nickname,
+            introduction: editUserProfileData.introduction,
+          };
+
+      setUserData((prev) => ({ ...prev, ...updatedDate }));
       Toast("🥨🎂 프로필 수정을 완료했습니다!");
       navigate("/mypage");
+      setNewProfileImage(null);
     } catch (error) {
       Toast("프로필 수정에 실패했습니다. 다시 시도해주세요.😢");
     }
   };
-
-  console.log(userData);
 
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
