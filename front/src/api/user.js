@@ -60,12 +60,13 @@ export const editUserProfile = async (
       method: "patch",
       url: "https://prod.be-beam.site/api/web/v1/users/my-profile",
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${accessToken}`,
       },
-      body: formData,
+      data: formData,
     });
-    console.log(res.result);
+
+    alert("file upload success");
+    return res.data.result; // 응답 데이터를 확인하기 위해 res.data로 변경
   } catch (error) {
     console.error("Error fetching User Profile:", error);
     throw error;
