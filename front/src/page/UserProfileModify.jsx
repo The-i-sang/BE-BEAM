@@ -98,7 +98,7 @@ export default function UserProfileModify() {
             </Button>
           </div>
 
-          <div className="w-full mt-5 py-[1.875rem] px-[1.25rem] box-border bg-white rounded-t-3xl shadow-inner">
+          <div className="w-full mt-5 py-[1.875rem] px-[1.25rem] box-border bg-bg-light-default dark:bg-[rgba(255,255,255,0.2)] rounded-t-3xl shadow-inner">
             <div className="w-full mb-2">
               <label htmlFor="nickname" className="font-bold">
                 닉네임

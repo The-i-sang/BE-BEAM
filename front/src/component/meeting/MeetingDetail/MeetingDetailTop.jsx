@@ -4,9 +4,11 @@ import { IoPeopleCircle } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { BsFillCalendarCheckFill, BsPersonFill } from "react-icons/bs";
 import { ImPriceTag } from "react-icons/im";
+import { formatDateAndTime } from "../../../common";
 
-export default function MeetingDetailTop({ activity }) {
-  const price = activity.price === 0 ? "무료" : activity.price + "원";
+export default function MeetingDetailTop({ data }) {
+  const price =
+    data?.paymentAmount === 0 ? "무료" : `월 ${data?.paymentAmount}원`;
 
   const basicStyle =
     "md:h-auto sm:h-[60px] md:mb-0 sm:mb-4 sm:p-0 py-4 border-[#DADCE0]";
@@ -17,17 +19,17 @@ export default function MeetingDetailTop({ activity }) {
     <div className="w-11/12 max-w-[90%] mx-auto sm:text-[1.2rem] text-[1rem]">
       <div className="w-full flex items-center gap-x-2 text-[1.5rem] text-[#f5aa15] font-medium">
         <IoPeopleCircle />
-        <p className="sm:text-[1.1rem] text-[0.9rem]">{activity.type}</p>
+        <p className="sm:text-[1.1rem] text-[0.9rem]">{data?.finish_type}</p>
       </div>
 
       <h1 className="sm:mt-3 mt-1 sm:text-[1.8rem] text-[1.5rem] font-semibold">
-        {activity.title}
+        {data?.name}
       </h1>
 
       <ul className="w-full mt-8 font-medium sm:grid md:grid-cols-4 sm:grid-cols-2 text-text-light-80 dark:text-text-dark-10">
         <TopSmallContent
           icon={<FaLocationDot />}
-          title={activity.place}
+          title={data?.location}
           styles={`${basicStyle} sm:border-r-[1px] sm:border-b-0 border-b-[1px]`}
           iconStyle={iconStyle}
           textStyle={textStyle}
@@ -35,7 +37,7 @@ export default function MeetingDetailTop({ activity }) {
         />
         <TopSmallContent
           icon={<BsFillCalendarCheckFill />}
-          title={activity.schedule}
+          title={`${formatDateAndTime(data?.meetingDatetime)} 모집 마감`}
           styles={`${basicStyle} md:border-r-[1px] sm:px-4 sm:border-b-0 border-b-[1px]`}
           iconStyle={iconStyle}
           textStyle={textStyle}
@@ -43,7 +45,7 @@ export default function MeetingDetailTop({ activity }) {
         />
         <TopSmallContent
           icon={<BsPersonFill />}
-          title={activity.member}
+          title={`최소 ${data?.minParticipants}명, 최대 ${data?.maxParticipants}명`}
           styles={`${basicStyle} md:px-4 sm:border-r-[1px] sm:border-b-0 border-b-[1px]`}
           iconStyle={iconStyle}
           textStyle={textStyle}

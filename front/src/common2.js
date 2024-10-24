@@ -16,9 +16,10 @@ export const AppPage = {
 };
 
 export const btnBasicStyle = {
-  basic: "flex items-center justify-center",
-  border: "border-solid flex items-center justify-center",
-  circle: "aspect-square rounded-full flex items-center justify-center",
+  basic: "flex items-center justify-center box-border",
+  border: "border-solid flex items-center justify-center box-border",
+  circle:
+    "aspect-square rounded-full flex items-center justify-center box-border",
 };
 
 export const btnStyle = {

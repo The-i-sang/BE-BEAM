@@ -72,8 +72,8 @@ export function handleConsoleError(
     ? "Loading..."
     : error
     ? "An error has occurred...!"
-    : (searchText.length === 0 || searchText.length > 0) &&
-      filteredDatas.length === 0
+    : (searchText?.length === 0 || searchText?.length > 0) &&
+      filteredDatas?.length === 0
     ? "검색 결과가 없습니다."
     : null;
 
@@ -118,3 +118,16 @@ export const changePhoneNumberRepresentation = (phoneNumber) => {
   const formattedNumber = input.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3");
   return formattedNumber;
 };
+
+// ex: 2024-10-15 6시
+export function formatDateAndTime(dateString) {
+  const date = new Date(dateString);
+
+  // 날짜 및 시간 포맷 설정
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더함
+  const day = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hour}시`;
+}

@@ -19,8 +19,9 @@ import { ImPriceTag } from "react-icons/im";
 import { AiFillPushpin } from "react-icons/ai";
 import { GoX } from "react-icons/go";
 import { TiCamera } from "react-icons/ti";
+import { formatDateAndTime } from "../../../common";
 
-export default function MeetingDetailContent({ activity, meetingData }) {
+export default function MeetingDetailContent({ data }) {
   const userIn = useRecoilValue(userState);
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const { profileImg, userNickname, userEmail, userRealName } =
@@ -31,7 +32,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
   const [reviewComment, setReviewComment] = useState("");
 
   const filterReviewData = reviewDatas.filter(
-    (review) => review.meeting.id === meetingData.id
+    (review) => review.meeting.id === data?.id
   );
 
   const handleChange = (event) => {
@@ -71,10 +72,10 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           rating: rating,
           likes: [],
           meeting: {
-            id: meetingData.id,
-            type: meetingData.type,
-            title: meetingData.title,
-            thumbnail: meetingData.thumbnail,
+            id: data.id,
+            type: data.finish_type,
+            title: data.name,
+            thumbnail: data.thumbnailImage,
             averageRating: 4,
             reviewNum: filterReviewData.length + 1,
           },
@@ -95,18 +96,21 @@ export default function MeetingDetailContent({ activity, meetingData }) {
 
   const writeReviewBtnDisabled = !rating || reviewComment === "";
 
+  const price =
+    data?.paymentAmount === 0 ? "무료" : `월 ${data?.paymentAmount}원`;
+
   return (
     <div>
       <div className="w-11/12 sm:max-w-[90%] mx-auto md:mt-16 sm:mt-8 mt-8 sm:mb-12 mb-5 flex md:flex-row sm:flex-col flex-col">
         <img
           className="lg:w-[600px] md:w-[460px] sm:w-full object-cover object-center rounded-lg"
-          src={process.env.PUBLIC_URL + activity?.thumbnail?.replace("./", "/")}
+          src={data?.thumbnailImage}
           alt="img"
         />
         <div className="box-border py-5 md:px-10 sm:px-0 sm:py-5">
-          <p className="font-semibold">모임의 host, {activity.host}</p>
+          <p className="font-semibold">모임의 host, {data?.hostName}</p>
           <p className="mt-2 whitespace-pre-line sm:mt-4">
-            {activity.host_desc}
+            {data?.hostDescription}
           </p>
         </div>
       </div>
@@ -118,11 +122,11 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           </h1>
           <div className="w-full sm:mt-3 mt-2 flex sm:flex-row flex-col justify-between sm:text-[1rem] text-[0.875rem]">
             <p className="box-border w-full mb-5 md:w-2/5 sm:w-3/5 sm:mb-0 sm:pr-4">
-              {activity.description}
+              {data?.introduction}
             </p>
             <img
               className="md:w-[384px] sm:w-[320px] w-full rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
-              src={activity?.image?.length > 0 ? activity.image[0] : ""}
+              src={data?.thumbnailImage}
               alt="comunity_desc_img"
             />
           </div>
@@ -135,43 +139,34 @@ export default function MeetingDetailContent({ activity, meetingData }) {
 
           <ul className="mt-4 sm:mt-0">
             <MeetingDetailSmallContent
-              hiddenBoolean={!activity.summary}
-              firstContent={true}
-              icon={<AiFillPushpin />}
-              subTitle="모집 개요"
-              des={activity.summary}
-            />
-
-            <MeetingDetailSmallContent
               icon={<FaLocationDot />}
-              subTitle={activity.place}
+              subTitle={data?.location}
             />
 
             <MeetingDetailSmallContent
               icon={<BsFillCalendarCheckFill />}
-              subTitle={activity.schedule}
+              subTitle={`${formatDateAndTime(data?.meetingDatetime)} 모집 마감`}
             />
 
             <MeetingDetailSmallContent
               icon={<BsPersonFill />}
-              subTitle={activity.member}
+              subTitle={`최소 ${data?.minParticipants}명, 최대 ${data?.maxParticipants}명`}
             />
 
             <MeetingDetailSmallContent
               icon={<ImPriceTag />}
-              subTitle={activity.detail_price}
+              subTitle={price}
               des={
-                activity.price !== 0
+                data?.paymentAmount !== 0
                   ? "입금계좌 : 참가 인원으로 뽑힐시, 토스뱅크 1000-5552-9626(비빔모임용_김성원)으로 입금."
                   : null
               }
             />
 
-            <MeetingDetailSmallContent
+            {/*<MeetingDetailSmallContent
               icon={<BsFillCalendarDateFill />}
               subTitle="활동일정"
-              des={activity.activitySchedule}
-            />
+              des={data.schedules}/>*/}
           </ul>
         </div>
       </div>
@@ -186,7 +181,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           />
 
           <ul className="w-full mt-6 sm:mt-8 sm:grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-3">
-            {activity.image?.map((i, idx) => (
+            {data?.meetingImages?.map((i, idx) => (
               <li key={idx} className="mb-3 sm:mb-0">
                 <img
                   className="object-cover w-full rounded-lg"
@@ -204,8 +199,8 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           <SubTitle title="안내사항" />
 
           <ul className="sm:mt-3 mt-1 sm:text-[1rem] text-[0.875rem]">
-            {activity.info?.map((i) => (
-              <li>- {i}</li>
+            {data?.info?.map((i, idx) => (
+              <li key={idx}>- {i}</li>
             ))}
           </ul>
         </div>
@@ -216,7 +211,7 @@ export default function MeetingDetailContent({ activity, meetingData }) {
           <SubTitle title="문의사항" des="문의사항은 여기로 보내주세요." />
 
           <p className="sm:mt-4 mt-2 sm:text-[1rem] text-[0.875rem] text-black dark:text-white">
-            {activity.request}
+            문의사항.
           </p>
         </div>
       </div>

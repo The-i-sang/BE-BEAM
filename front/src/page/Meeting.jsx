@@ -3,19 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
-import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
+import { AccessTokenState } from "../recoil/userState";
+import { dataFetch } from "../api/meetingAndToolkit";
 
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import BasicSlider from "../component/slider/BasicSlider";
 import Category from "../component/category/Category";
-import MeetingCard from "../component/meeting/MeetingCard";
+import MeetingCard from "../component/card/meeting/MeetingCard";
 import Popup from "../component/popUp/Popup";
 
 import { FaKissWinkHeart } from "react-icons/fa";
 
 export default function Meeting() {
   const navigate = useNavigate();
-
   const meetingType = [
     { title: "ALL", icon: "image/meeting_category_icon5.png" },
     { title: "소모임", icon: "image/meeting_category_icon1.png" },
@@ -24,66 +24,54 @@ export default function Meeting() {
 
   const recruitmentStatus = [
     { title: "ALL", icon: "image/meeting_category_icon6.png" },
-    { title: "모집 중", icon: "image/meeting_category_icon3.png" },
-    { title: "모집 마감", icon: "image/meeting_category_icon4.png" },
+    { title: "모집중", icon: "image/meeting_category_icon3.png" },
+    { title: "모집완료", icon: "image/meeting_category_icon4.png" },
   ];
 
-  const slidesToShow = useRecoilValue(SlidesToShowState);
+  const accessToken = useRecoilValue(AccessTokenState);
+  const [filteredMeetings, setFilteredMeetings] = useState([]);
   const [category1, setCategory1] = useState("ALL");
   const [category2, setCategory2] = useState("ALL");
-
-  const [filteredMeetings, setFilteredMeetings] = useState([]);
-
-  // const { data: datassssssss } = useQuery(["datassssssss"], async () => {
-  //   const res = await axios({
-  //     method: "get",
-  //     url: `http://localhost:8080/api/web/v1/meetings`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const result = await res.data;
-  //   return result;
-  // });
-  // console.log("server에서 들어오는 데이터 확인", datassssssss);s
+  const slidesToShow = useRecoilValue(SlidesToShowState);
 
   const {
     isLoading,
     error,
     data: datas,
-  } = useQuery(["data"], async () => {
-    const result = await MeetingAndToolkitDataFetch();
-    return result;
+  } = useQuery(["meetingDatas", accessToken], async () => {
+    const result = await dataFetch(accessToken, "meetings");
+    return result.meetings;
   });
 
-  const data = datas?.activities;
+  console.log(datas);
 
   useEffect(() => {
-    if (!Array.isArray(data)) return;
+    if (!Array.isArray(datas)) return;
 
-    /**
-     * @type {{ type: string; state: string; }[]}
-     */
-    let filtered = data;
+    let filtered = datas;
 
     if (category1 !== "ALL") {
-      filtered = filtered.filter((meeting) => meeting.type === category1);
+      filtered = filtered.filter(
+        (meeting) => meeting.recruitmentType === category1
+      );
     }
 
     if (category2 !== "ALL") {
-      filtered = filtered.filter((meeting) => meeting.state === category2);
+      filtered = filtered.filter(
+        (meeting) => meeting.recruitmentStatus === category2
+      );
     }
 
     setFilteredMeetings(filtered);
-  }, [category1, category2, setFilteredMeetings, data]);
+  }, [category1, category2, setFilteredMeetings, datas]);
 
   const comment = isLoading
     ? "Loading..."
     : error
     ? "An error has occurred...!"
-    : filteredMeetings.length === 0 && category2 === "모집 중"
+    : filteredMeetings.length === 0 && category2 === "모집중"
     ? "현재 모집 중인 활동이 없어요...!"
-    : filteredMeetings.length === 0 && category2 === "모집 마감"
+    : filteredMeetings.length === 0 && category2 === "모집완료"
     ? "모집 마감된 활동이 없어요...!"
     : null;
 
@@ -152,7 +140,8 @@ export default function Meeting() {
             {filteredMeetings.map((data) => (
               <MeetingCard
                 key={data.id}
-                activity={data}
+                data={data}
+                accessToken={accessToken}
                 bgColor="bg-meeting"
                 shadow="shadow-[0_10px_8px_2px_#e9a30d]"
               />

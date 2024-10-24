@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserPersonalInfoState, userState } from "../../recoil/userState";
+import {
+  AccessTokenState,
+  UserPersonalInfoState,
+  userState,
+} from "../../recoil/userState";
 
 import Button from "../button/Button";
 import { btnBasicStyle } from "../../common2";
@@ -11,6 +15,7 @@ export default function MypageMyProfile({ userData }) {
   const navigate = useNavigate();
 
   const setUserIn = useSetRecoilState(userState);
+  const setAccessToken = useSetRecoilState(AccessTokenState);
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
 
   return (
@@ -25,6 +30,7 @@ export default function MypageMyProfile({ userData }) {
           onClick={() => {
             localStorage.removeItem("accessToken");
             setUserIn(false);
+            setAccessToken("");
 
             navigate("/");
           }}

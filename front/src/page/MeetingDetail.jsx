@@ -5,50 +5,39 @@ import MeetingApplyReasonModal from "../component/meeting/MeetingDetail/MeetingA
 import MeetingApplyAndLikeBtnWrap from "../component/meeting/MeetingDetail/MeetingApplyAndLikeBtnWrap";
 import MeetingDetailTop from "../component/meeting/MeetingDetail/MeetingDetailTop";
 import MeetingDetailContent from "../component/meeting/MeetingDetail/MeetingDetailContent";
-import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
+import { dataFetch } from "../api/meetingAndToolkit";
+import { handleConsoleError } from "../common";
+import { useRecoilValue } from "recoil";
+import { AccessTokenState } from "../recoil/userState";
 
 export default function MeetingDetail() {
   const {
     state: { id },
   } = useLocation();
 
-  const [activity, setActivity] = useState({});
+  const { isLoading, error, data } = useQuery(
+    ["meetingDetailData"],
+    async () => {
+      const result = await dataFetch(accessToken, `meetings/${id}`);
+      return result;
+    }
+  );
 
-  const {
-    isLoading,
-    error,
-    data: datas,
-  } = useQuery(["data"], async () => {
-    const result = await MeetingAndToolkitDataFetch();
-    return result;
-  });
+  const comment = handleConsoleError(isLoading, error);
 
-  const data = datas?.activities;
-
-  useEffect(() => {
-    if (data) setActivity(data?.find((d) => d.id === id));
-  }, [data, activity, id]);
-
-  const comment = isLoading
-    ? "Loading..."
-    : error
-    ? "An error has occurred...!"
-    : null;
-
+  const accessToken = useRecoilValue(AccessTokenState);
   const [meetingApplyReasonModal, setMeetingApplyReasonModal] = useState(false);
+  console.log(data);
 
   return (
     <div className="w-full pt-10 font-light sm:text-[1rem] text-[0.875rem]">
       {comment}
 
-      <MeetingDetailTop activity={activity} />
-      <MeetingDetailContent activity={activity} meetingData={activity} />
+      <MeetingDetailTop data={data} />
+      <MeetingDetailContent data={data} />
       <MeetingApplyAndLikeBtnWrap
-        activity={activity}
-        setMeetingApplyReasonModal={setMeetingApplyReasonModal}
-      />
-      <MeetingApplyReasonModal
-        meetingApplyReasonModal={meetingApplyReasonModal}
+        data={data}
+        accessToken={accessToken}
         setMeetingApplyReasonModal={setMeetingApplyReasonModal}
       />
     </div>
