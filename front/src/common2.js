@@ -16,6 +16,7 @@ export const AppPage = {
 };
 
 export const btnBasicStyle = {
+  basic: "flex items-center justify-center",
   border: "border-solid flex items-center justify-center",
   circle: "aspect-square rounded-full flex items-center justify-center",
 };

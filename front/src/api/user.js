@@ -6,7 +6,7 @@ export const changeCookieToToken = async () => {
   try {
     const res = await axios({
       method: "get",
-      url: "https://prod.be-beam.site/api/web/oauth2-jwt-header",
+      url: "http://localhost:8080/api/web/oauth2-jwt-header",
       withCredentials: true,
     });
     return res.data.result;
@@ -85,10 +85,26 @@ export const editUserProfile = async (
       },
       data: formData,
     });
-    console.log(res.data.result);
     return res.data.result;
   } catch (error) {
     console.error("Error fetching User Profile:", error);
+    throw error;
+  }
+};
+
+export const getUserPersonalInfo = async (accessToken) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: "https://prod.be-beam.site/api/web/v1/users/my-info",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error fetching User Personal Information:", error);
     throw error;
   }
 };

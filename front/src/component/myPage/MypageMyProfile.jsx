@@ -1,24 +1,17 @@
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../recoil/userState";
+
 import Button from "../button/Button";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  IsCheckedListKeywordState,
-  UserNecessaryDataState,
-  userState,
-} from "../../recoil/userState";
-import { introMyselfState } from "../../recoil/authState";
+import { btnBasicStyle } from "../../common2";
 
 import { CiEdit } from "react-icons/ci";
 
-export default function MypageMyProfile() {
+export default function MypageMyProfile({ userData }) {
   const navigate = useNavigate();
 
   const setUserIn = useSetRecoilState(userState);
-  const isCheckedListKeyword = useRecoilValue(IsCheckedListKeywordState);
-  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
-  const introMyself = useRecoilValue(introMyselfState);
-
-  const { profileImg, userNickname } = userNecessaryData;
+  const keywords = [];
 
   return (
     <div className="w-full">
@@ -43,36 +36,36 @@ export default function MypageMyProfile() {
 
       <div className="w-full mt-5 pt-[1.875rem] pb-[1.25rem] px-[1.25rem] box-border bg-white dark:bg-[rgba(255,255,255,0.2)] rounded-2xl border-[1px] border-solid border-[#ddd] dark:border-[#5b5b5b] flex flex-col items-center">
         <div className="w-full pb-[1.25rem] border-b-[1px] border-solid border-[#ddd] dark:border-[#7a7a7a] flex flex-col items-center">
-          <div className="relative">
+          <div className="relative mb-5">
             <img
-              className="mb-3 sm:w-[100px] w-[80px] aspect-square object-cover rounded-full"
-              src={profileImg}
+              className="sm:w-[120px] w-[100px] aspect-square object-cover rounded-full shadow-lg"
+              src={userData.profileImage}
               alt="user_profile"
             />
 
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-
-                navigate("/mypage/userProfileModify");
-              }}
-              className="w-[25px] h-[25px] bg-white dark:bg-black border-[1px] border-solid border-[#cacaca] dark:border-[#d9d8d8] rounded-full flex items-center justify-center absolute top-0 right-0"
-            >
-              <CiEdit className="text-[#818181] dark:text-white" />
-            </button>
+            <Button
+              icon={<CiEdit />}
+              onClick={() => navigate("/mypage/userProfileModify")}
+              basicStyle={btnBasicStyle.circle}
+              styles="w-7 h-7 bg-[#282828] text-white absolute top-3 right-0"
+            />
           </div>
 
-          <p className="mb-4 text-[1.125rem] dark:text-white font-semibold">
-            {userNickname}
+          <p className="mb-1 text-[1.125rem] dark:text-white font-semibold">
+            {userData.nickname}
           </p>
           <p className="text-[0.875rem] text-[#666] dark:text-[#bababa] font-thin">
-            {introMyself}
+            {userData.introduction}
           </p>
 
-          <div className="w-full mt-5 text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1">
-            {isCheckedListKeyword.map((keyword, index) => (
+          <div
+            className={`${
+              keywords?.length === 0 ? "" : "mt-5"
+            } w-full text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1`}
+          >
+            {keywords.map((keyword, idx) => (
               <p
-                key={index}
+                key={idx}
                 className="bg-[#f6f6f6] dark:bg-black py-1 px-2 mb-2 rounded-3xl border-[1px] border-solid border-[#d9d8d8] dark:border-[#6c6c6c] text-[#7d7d7d] dark:text-white"
               >
                 {keyword}
@@ -82,15 +75,12 @@ export default function MypageMyProfile() {
         </div>
 
         <Button
-          onClick={() => {
-            navigate("/mypage/userInfoModify");
-          }}
-          type="button"
           buttonText="개인 정보 수정"
-          basicStyle="max-w-[20rem] h-[3.75rem] mt-4 border-[1px] border-solid border-[#F5AA15] dark:border-white dark:bg-black hover:bg-transparent hover:text-[#F5AA15]"
-        >
-          개인 정보 수정
-        </Button>
+          onClick={() => navigate("/mypage/userInfoModify")}
+          basicStyle={btnBasicStyle.basic}
+          styles="w-full mt-5 py-3 rounded-lg text-white"
+          enableStyles="bg-[#282828]"
+        />
       </div>
     </div>
   );

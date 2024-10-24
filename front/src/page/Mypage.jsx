@@ -115,7 +115,7 @@ export default function Mypage() {
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
       <div className="w-11/12 mx-auto pt-[3.75rem] pb-[2rem]">
-        <MypageMyProfile />
+        <MypageMyProfile userData={userData} />
 
         <BasicTab
           title="내가 찜한 모임"

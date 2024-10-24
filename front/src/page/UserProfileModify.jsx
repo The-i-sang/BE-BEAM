@@ -14,7 +14,6 @@ import { btnBasicStyle } from "../common2";
 
 export default function UserProfileModify() {
   const navigate = useNavigate();
-
   const fileInputRef = useRef(null);
 
   const [userData, setUserData] = useRecoilState(UserDataState);
@@ -31,9 +30,6 @@ export default function UserProfileModify() {
       setDescription(userData.introduction ?? "");
     }
   }, [userData, setProfileImage, setNickname, setDescription]);
-
-  const userNicknameComment =
-    nickname?.length === 0 && "닉네임을 입력해주세요.";
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -117,10 +113,10 @@ export default function UserProfileModify() {
               />
               <p
                 className={`${
-                  nickname?.length !== 0 ? "opacity-0" : "opacity-100"
+                  nickname !== "" ? "opacity-0" : "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >
-                {userNicknameComment}
+                닉네임을 입력해주세요.
               </p>
             </div>
 
@@ -139,10 +135,12 @@ export default function UserProfileModify() {
             </div>
 
             <Button
+              basicStyle={btnBasicStyle.basic}
+              styles="w-full mt-2 py-2 rounded-lg text-white"
+              enableStyles="bg-[#282828]"
               buttonText="프로필 수정하기"
               onClick={handleProfileEdit}
-              disabled={nickname?.length === 0}
-              basicStyle="mt-2"
+              disabled={nickname === ""}
             />
           </div>
         </div>

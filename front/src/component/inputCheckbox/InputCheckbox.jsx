@@ -13,10 +13,10 @@ export default function InputCheckbox({
   return (
     <>
       {isChecked !== undefined ? (
-        <div className="mt-3 mb-6 flex items-center justify-between gap-x-2">
-          {datas?.map((data) => {
+        <div className="flex items-center justify-between mt-3 mb-6 gap-x-2">
+          {datas?.map((data, idx) => {
             return (
-              <div className="w-1/2">
+              <div key={idx} className="w-1/2">
                 <input
                   className="sr-only"
                   type="checkbox"
@@ -67,9 +67,9 @@ export default function InputCheckbox({
             keywordListOpen ? "h-auto opacity-100" : "h-0 opacity-0"
           } w-full mt-3 mb-6 flex items-center flex-wrap gap-x-2 transition-all duration-700 overflow-hidden`}
         >
-          {datas?.map((data) => {
+          {datas?.map((data, idx) => {
             return (
-              <div className="mb-2">
+              <div key={idx} className="mb-2">
                 <input
                   className="sr-only"
                   type="checkbox"

@@ -1,78 +1,58 @@
 import { useEffect, useState } from "react";
-import Input from "../component/input/Input.jsx";
-import {
-  emailState,
-  userBirthdayState,
-  userGenderState,
-  userNameState,
-  userPhoneNumberState,
-} from "../recoil/authState";
-import useInputGlobal from "../customhook/useInputGlobal.jsx";
-import { useRecoilState, useRecoilValue } from "recoil";
-import Button from "../component/button/Button";
-import InputCheckbox from "../component/inputCheckbox/InputCheckbox";
+import { useRecoilValue } from "recoil";
+import { AccessTokenState } from "../recoil/userState.js";
+
 import { formatDate, identify } from "../common.js";
-import {
-  IsCheckedListKeywordState,
-  UserNecessaryDataState,
-} from "../recoil/userState.js";
+
+import Input from "../component/input/Input.jsx";
+import InputCheckbox from "../component/inputCheckbox/InputCheckbox";
+import Button from "../component/button/Button";
 
 import { CiSquareInfo, CiCircleCheck } from "react-icons/ci";
 import { FaCircleChevronUp, FaCircleChevronDown } from "react-icons/fa6";
+import { getUserPersonalInfo } from "../api/user.js";
 
 export default function UserInfoModify() {
-  const [userNameInput, onUserNameChange, setUserNameInput] =
-    useInputGlobal(userNameState);
-  const [
-    userPhoneNumberInput,
-    onUserPhoneNumberChange,
-    setUserPhoneNumberInput,
-  ] = useInputGlobal(userPhoneNumberState);
-  const [emailInput, onEmailChange, setEmailInput] = useInputGlobal(emailState);
-  const [userBirthdayInput, onUserBirthdayChange, setBirthdayInput] =
-    useInputGlobal(userBirthdayState);
-  const [isCheckedListKeyword, setIsCheckedListKeyword] = useRecoilState(
-    IsCheckedListKeywordState
-  );
-  const [isChecked, setIsChecked] = useRecoilState(userGenderState);
+  const accessToken = useRecoilValue(AccessTokenState);
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [keywords, setKeywords] = useState([]);
+  const [sex, setSex] = useState("");
+  const [allPersonalInfo, setAllPersonalInfo] = useState({});
 
-  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
-  const { userRealName, userGender, userEmail, userBirthday } =
-    userNecessaryData;
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
-  const [birthday, setBirthday] = useState("");
 
   useEffect(() => {
-    setUserNameInput("");
-    setUserPhoneNumberInput("");
-    setEmailInput("");
-    setBirthdayInput("");
-    setIsChecked("");
-  }, [
-    setUserNameInput,
-    setUserPhoneNumberInput,
-    setEmailInput,
-    setBirthdayInput,
-    setIsChecked,
-  ]);
+    const fetchUserPersonalInfo = async () => {
+      const userPersonalInfo = await getUserPersonalInfo();
+      setAllPersonalInfo(userPersonalInfo);
+    };
+    fetchUserPersonalInfo(accessToken);
+  }, [accessToken]);
+  console.log(allPersonalInfo);
+
+  useEffect(() => {
+    setName("");
+    setPhoneNumber("");
+    setEmail("");
+    setBirthday("");
+    setSex("");
+  }, []);
 
   const dataComeIn =
-    userNameInput &&
-    userPhoneNumberInput &&
-    userPhoneNumberInput.length === 11 &&
-    emailInput &&
-    emailIdentifyCheck &&
-    userBirthdayInput &&
-    isChecked
+    name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex
       ? true
       : false;
 
-  const datas = ["여성", "남성"];
+  const sexDatas = ["여성", "남성"];
   const keywordDatas = [
     "음악",
     "그림",
     "음식",
+    "맛집",
     "드라마",
     "영화",
     "사진",
@@ -92,39 +72,22 @@ export default function UserInfoModify() {
     "독서",
     "연기",
     "패션",
+    "코딩",
+    "운동",
   ];
 
   useEffect(() => {
-    if (userBirthday) {
-      setBirthday(formatDate(userBirthday));
+    if (birthday) {
+      setBirthday(formatDate(birthday));
     }
-  }, [userBirthday, setBirthday]);
-
-  useEffect(() => {
-    if (userRealName || userGender || userEmail || birthday) {
-      setUserNameInput(userRealName);
-      setEmailInput(userEmail);
-      setBirthdayInput(birthday);
-      setIsChecked(
-        userGender === "female" ? "여성" : userGender === "male" ? "남성" : ""
-      );
-    }
-  }, [userRealName, userGender, userEmail, birthday]);
-
-  const userNameComment = userNameInput.length === 0 && "이름을 입력해주세요.";
-
-  const userPhoneNumberComment =
-    userPhoneNumberInput.length === 0 && "핸드폰 번호를 입력해주세요.";
+  }, [birthday, setBirthday]);
 
   const userEmailComment =
-    emailInput.length !== 0 && emailIdentifyCheck
+    email !== "" && emailIdentifyCheck
       ? ""
-      : emailInput.length !== 0 && !emailIdentifyCheck
+      : email !== "" && !emailIdentifyCheck
       ? "이메일 양식을 맞춰주세요."
       : "이메일을 입력하세요.";
-
-  const userBirthdayComment =
-    userBirthdayInput.length === 0 && "생일을 입력해주세요.";
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
@@ -151,18 +114,16 @@ export default function UserInfoModify() {
                 type="text"
                 id="userName"
                 placeholder="이름을 입력해주세요."
-                onChange={(e) => {
-                  onUserNameChange(e);
-                }}
-                value={userNameInput}
+                onChange={(e) => setName(e.target.value)}
+                value={name}
                 basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
               />
               <p
                 className={`${
-                  userNameInput.length !== 0 ? "opacity-0" : "opacity-100"
+                  name !== "" ? "opacity-0" : "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >
-                {userNameComment}
+                이름을 입력해주세요.{" "}
               </p>
             </div>
 
@@ -176,30 +137,26 @@ export default function UserInfoModify() {
                   type="text"
                   id="phoneNumber"
                   placeholder="핸드폰 번호를 입력해주세요."
-                  onChange={(e) => {
-                    onUserPhoneNumberChange(e);
-                  }}
-                  value={userPhoneNumberInput}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  value={phoneNumber}
                   maxLength="11"
                   basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
                 />
 
                 <Button
-                  type="button"
                   buttonText="휴대전화 인증"
-                  disabled={userPhoneNumberInput.length < 11}
-                  basicStyle="mt-2 border-[1px] border-solid"
+                  styles="mt-2 px-2 rounded-lg text-white"
+                  enableStyles="bg-[#282828]"
+                  disabled={phoneNumber.length < 11}
                 />
               </div>
 
               <p
                 className={`${
-                  userPhoneNumberInput.length !== 0
-                    ? "opacity-0"
-                    : "opacity-100"
+                  phoneNumber !== "" ? "opacity-0" : "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >
-                {userPhoneNumberComment}
+                핸드폰 번호를 입력해주세요.
               </p>
             </div>
 
@@ -212,18 +169,17 @@ export default function UserInfoModify() {
                 id="email"
                 placeholder="이메일을 입력해주세요."
                 onChange={(e) => {
-                  onEmailChange(e);
-
+                  setEmail(e.target.value);
                   identify(e.target.value, undefined, setEmailIdentifyCheck);
                 }}
-                value={emailInput}
+                value={email}
                 basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
               />
               <p
                 className={`${
-                  emailIdentifyCheck ? "opacity-0" : "opacity-100"
-                } ${
-                  emailInput.length === 0 && "opacity-100"
+                  email !== "" && emailIdentifyCheck
+                    ? "opacity-0"
+                    : "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >
                 {userEmailComment}
@@ -238,18 +194,16 @@ export default function UserInfoModify() {
                 type="date"
                 id="birth"
                 placeholder="생일을 입력해주세요."
-                onChange={(e) => {
-                  onUserBirthdayChange(e);
-                }}
-                value={userBirthdayInput}
+                onChange={(e) => setBirthday(e.target.value)}
+                value={birthday}
                 basicStyle="text-[0.8rem] px-6"
               />
               <p
                 className={`${
-                  userBirthdayInput.length !== 0 ? "opacity-0" : "opacity-100"
+                  birthday !== "" ? "opacity-0" : "opacity-100"
                 } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
               >
-                {userBirthdayComment}
+                생일을 입력해주세요.
               </p>
             </div>
 
@@ -258,9 +212,9 @@ export default function UserInfoModify() {
                 성별
               </label>
               <InputCheckbox
-                datas={datas}
-                isChecked={isChecked}
-                setIsChecked={setIsChecked}
+                datas={sexDatas}
+                isChecked={sex}
+                setIsChecked={setSex}
               />
             </div>
 
@@ -272,29 +226,27 @@ export default function UserInfoModify() {
 
                 <button
                   onClick={() => setKeywordListOpen((prev) => !prev)}
-                  className="text-[1.4rem]"
+                  className="text-[1.4rem] text-[#ffc85b]"
                 >
                   {keywordListOpen ? (
-                    <FaCircleChevronUp className="text-[#ffc85b]" />
+                    <FaCircleChevronUp />
                   ) : (
-                    <FaCircleChevronDown className="text-[#ffc85e]" />
+                    <FaCircleChevronDown />
                   )}
                 </button>
               </div>
 
               <InputCheckbox
                 datas={keywordDatas}
-                isCheckedList={isCheckedListKeyword}
-                setIsCheckedList={setIsCheckedListKeyword}
+                isCheckedList={keywords}
+                setIsCheckedList={setKeywords}
                 keywordListOpen={keywordListOpen}
               />
             </div>
           </div>
 
           <Button
-            onClick={() => {
-              // 서버로 수정한 데이터 넘겨주기.
-            }}
+            onClick={() => {}}
             buttonText="정보 수정"
             disabled={!dataComeIn}
             basicStyle="h-[3.75rem] mt-4 border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black"
