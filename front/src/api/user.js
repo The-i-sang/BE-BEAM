@@ -124,6 +124,7 @@ export const editUserPersonalInfo = async (
       method: "patch",
       url: "https://prod.be-beam.site/api/web/v1/users/my-info",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       data: {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../recoil/userState.js";
-import { changePhoneNumberRepresentation, identify } from "../common.js";
+import { identify } from "../common.js";
 import {
   btnBasicStyle,
   inputStyle,

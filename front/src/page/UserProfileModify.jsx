@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AccessTokenState, UserDataState } from "../recoil/userState";
 import { editUserProfile } from "../api/user";
+import { btnBasicStyle, inputStyle } from "../common2";
 
 import Input from "../component/input/Input";
 import Button from "../component/button/Button";
@@ -10,7 +11,6 @@ import TextArea from "../component/textArea/TextArea";
 import { Toast } from "../component/toast/Toast";
 
 import { AiOutlineSync } from "react-icons/ai";
-import { btnBasicStyle } from "../common2";
 
 export default function UserProfileModify() {
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ export default function UserProfileModify() {
                 placeholder="사용하실 닉네임을 입력해주세요."
                 onChange={(e) => setNickname(e.target.value)}
                 value={nickname}
-                basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
+                basicStyle={inputStyle.userInfoModify}
               />
               <p
                 className={`${
