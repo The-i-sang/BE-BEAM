@@ -109,7 +109,7 @@ export default function UserProfileModify() {
                 placeholder="사용하실 닉네임을 입력해주세요."
                 onChange={(e) => setNickname(e.target.value)}
                 value={nickname}
-                basicStyle={inputStyle.userInfoModify}
+                styles={inputStyle.userInfoModify}
               />
               <p
                 className={`${
