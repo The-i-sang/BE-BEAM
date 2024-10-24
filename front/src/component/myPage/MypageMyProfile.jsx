@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { userState } from "../../recoil/userState";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserPersonalInfoState, userState } from "../../recoil/userState";
 
 import Button from "../button/Button";
 import { btnBasicStyle } from "../../common2";
@@ -11,7 +11,7 @@ export default function MypageMyProfile({ userData }) {
   const navigate = useNavigate();
 
   const setUserIn = useSetRecoilState(userState);
-  const keywords = [];
+  const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
 
   return (
     <div className="w-full">
@@ -59,10 +59,10 @@ export default function MypageMyProfile({ userData }) {
 
           <div
             className={`${
-              keywords?.length === 0 ? "" : "mt-5"
+              userPersonalInfo.hashtags?.length === 0 ? "" : "mt-5"
             } w-full text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1`}
           >
-            {keywords.map((keyword, idx) => (
+            {userPersonalInfo.hashtags?.map((keyword, idx) => (
               <p
                 key={idx}
                 className="bg-[#f6f6f6] dark:bg-black py-1 px-2 mb-2 rounded-3xl border-[1px] border-solid border-[#d9d8d8] dark:border-[#6c6c6c] text-[#7d7d7d] dark:text-white"

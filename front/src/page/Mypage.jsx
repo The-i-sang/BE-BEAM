@@ -20,7 +20,6 @@ export default function Mypage() {
   const userNecessaryData = useRecoilValue(UserNecessaryDataState);
   const { userEmail } = userNecessaryData;
   const userData = useRecoilValue(UserDataState);
-  console.log(userData);
 
   const reviewDatas = useRecoilValue(MeetingReviewsState);
   const filterMyReviewDatas = reviewDatas.filter(

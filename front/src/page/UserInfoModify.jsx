@@ -11,6 +11,7 @@ import {
   inputStyle,
   validityStatementStyle,
 } from "../common2.js";
+import { editUserPersonalInfo } from "../api/user.js";
 
 import Input from "../component/input/Input.jsx";
 import InputCheckbox from "../component/inputCheckbox/InputCheckbox";
@@ -19,7 +20,6 @@ import { Toast } from "../component/toast/Toast";
 
 import { CiSquareInfo } from "react-icons/ci";
 import { FaCircleChevronUp, FaCircleChevronDown } from "react-icons/fa6";
-import { editUserPersonalInfo, getUserPersonalInfo } from "../api/user.js";
 
 export default function UserInfoModify() {
   const navigate = useNavigate();
@@ -31,43 +31,31 @@ export default function UserInfoModify() {
   const [birthday, setBirthday] = useState("");
   const [hashtags, setHashtags] = useState([]);
   const [sex, setSex] = useState("");
-  const [allPersonalInfo, setAllPersonalInfo] = useState({});
 
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
-  console.log(userPersonalInfo);
 
   useEffect(() => {
-    const fetchUserPersonalInfo = async () => {
-      if (accessToken) {
-        const userPersonalInfo = await getUserPersonalInfo(accessToken);
-        setAllPersonalInfo(userPersonalInfo);
-      }
-    };
-    fetchUserPersonalInfo();
-  }, [accessToken]);
-
-  useEffect(() => {
-    setName(allPersonalInfo.name ?? "");
-    setPhoneNumber(allPersonalInfo.phoneNumber?.replace(/-/g, "") ?? "");
-    setEmail(allPersonalInfo.email ?? "");
-    setBirthday(allPersonalInfo.birthday ?? "");
+    setName(userPersonalInfo.name ?? "");
+    setPhoneNumber(userPersonalInfo.phoneNumber?.replace(/-/g, "") ?? "");
+    setEmail(userPersonalInfo.email ?? "");
+    setBirthday(userPersonalInfo.birthday ?? "");
     setSex(
-      allPersonalInfo.gender === "여성"
+      userPersonalInfo.gender === "여성"
         ? "WOMEN"
-        : allPersonalInfo.gender === "남성"
+        : userPersonalInfo.gender === "남성"
         ? "MEN"
         : ""
     );
-    setHashtags(allPersonalInfo.hashtags);
-  }, [allPersonalInfo]);
+    setHashtags(userPersonalInfo.hashtags);
+  }, [userPersonalInfo]);
 
   useEffect(() => {
-    if (allPersonalInfo.email) {
-      identify(allPersonalInfo.email, undefined, setEmailIdentifyCheck);
+    if (userPersonalInfo.email) {
+      identify(userPersonalInfo.email, undefined, setEmailIdentifyCheck);
     }
-  }, [allPersonalInfo]);
+  }, [userPersonalInfo]);
 
   const hashTagsDatas = [
     "음악",
@@ -105,7 +93,7 @@ export default function UserInfoModify() {
       ? "이메일 양식을 맞춰주세요."
       : "이메일을 입력하세요.";
 
-  const handleEditUserPersonalInfo = async () => {
+  const handleEdituserPersonalInfo = async () => {
     try {
       await editUserPersonalInfo(
         accessToken,
@@ -323,7 +311,7 @@ export default function UserInfoModify() {
 
           <Button
             buttonText="정보 수정"
-            onClick={handleEditUserPersonalInfo}
+            onClick={handleEdituserPersonalInfo}
             basicStyle={btnBasicStyle.basic}
             styles="w-full py-3 rounded-lg text-white"
             enableStyles="bg-[#282828]"
