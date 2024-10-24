@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   AccessTokenState,
   UserPersonalInfoState,
@@ -34,7 +34,9 @@ export default function UserInfoModify() {
 
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
-  const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
+  const [userPersonalInfo, setUserPersonalInfo] = useRecoilState(
+    UserPersonalInfoState
+  );
 
   useEffect(() => {
     setName(userPersonalInfo.name ?? "");
@@ -108,6 +110,7 @@ export default function UserInfoModify() {
       Toast("🥨🎂 개인정보 수정을 완료했습니다!");
       navigate("/mypage");
 
+      setUserPersonalInfo((prev) => ({ ...prev, hashtags: hashtags }));
       setName("");
       setPhoneNumber("");
       setEmail("");
