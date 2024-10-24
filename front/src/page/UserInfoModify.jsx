@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { AccessTokenState } from "../recoil/userState.js";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  AccessTokenState,
+  UserPersonalInfoState,
+} from "../recoil/userState.js";
 import { identify } from "../common.js";
 import {
   btnBasicStyle,
@@ -32,6 +35,9 @@ export default function UserInfoModify() {
 
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
+  const [userPersonalInfo, setUserPersonalInfo] = useRecoilState(
+    UserPersonalInfoState
+  );
 
   useEffect(() => {
     const fetchUserPersonalInfo = async () => {
@@ -45,10 +51,16 @@ export default function UserInfoModify() {
 
   useEffect(() => {
     setName(allPersonalInfo.name ?? "");
-    setPhoneNumber(allPersonalInfo.phoneNumber ?? "");
+    setPhoneNumber(allPersonalInfo.phoneNumber?.replace(/-/g, "") ?? "");
     setEmail(allPersonalInfo.email ?? "");
     setBirthday(allPersonalInfo.birthday ?? "");
-    setSex(allPersonalInfo.gender ?? "");
+    setSex(
+      allPersonalInfo.gender === "여성"
+        ? "WOMEN"
+        : allPersonalInfo.gender === "남성"
+        ? "MEN"
+        : ""
+    );
     setHashtags(allPersonalInfo.hashtags);
   }, [allPersonalInfo]);
 
@@ -57,6 +69,12 @@ export default function UserInfoModify() {
       identify(allPersonalInfo.email, undefined, setEmailIdentifyCheck);
     }
   }, [allPersonalInfo]);
+
+  useEffect(() => {
+    if (allPersonalInfo) {
+      setUserPersonalInfo(allPersonalInfo);
+    }
+  }, [allPersonalInfo, setUserPersonalInfo]);
 
   const hashTagsDatas = [
     "음악",
@@ -122,6 +140,8 @@ export default function UserInfoModify() {
 
   const dataComeIn =
     name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex;
+
+  console.log(userPersonalInfo);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">

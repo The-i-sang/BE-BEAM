@@ -29,3 +29,9 @@ export const IsCheckedListKeywordState = atom({
   key: "IsCheckedListKeywordState",
   default: [],
 });
+
+// 유저 개인정보
+export const UserPersonalInfoState = atom({
+  key: "UserPersonalInfoState",
+  default: {},
+});
