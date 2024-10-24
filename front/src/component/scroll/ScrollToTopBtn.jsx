@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
 
 const ScrollToTopBtn = forwardRef(({ contentHeight }, ref) => {
-  console.log(ref);
   const scrollToTop = () => {
     // ref가 가리키는 요소의 높이를 이용하여 스크롤
     window.scrollTo({

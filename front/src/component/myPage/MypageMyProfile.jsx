@@ -42,7 +42,6 @@ export default function MypageMyProfile({ userData }) {
               src={userData.profileImage}
               alt="user_profile"
             />
-
             <Button
               icon={<CiEdit />}
               onClick={() => navigate("/mypage/userProfileModify")}

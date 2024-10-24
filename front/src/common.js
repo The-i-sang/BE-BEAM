@@ -111,3 +111,10 @@ export function formatTimeAgo(timestamp) {
     return `방금 전`;
   }
 }
+
+// phoneNumber 사이에 -가 삽입되도록
+export const changePhoneNumberRepresentation = (phoneNumber) => {
+  const input = phoneNumber.replace(/\D/g, ""); // 숫자만 남기기
+  const formattedNumber = input.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3");
+  return formattedNumber;
+};

@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../recoil/userState.js";
-
-import { formatDate, identify } from "../common.js";
+import { changePhoneNumberRepresentation, identify } from "../common.js";
+import {
+  btnBasicStyle,
+  inputStyle,
+  validityStatementStyle,
+} from "../common2.js";
 
 import Input from "../component/input/Input.jsx";
 import InputCheckbox from "../component/inputCheckbox/InputCheckbox";
 import Button from "../component/button/Button";
+import { Toast } from "../component/toast/Toast";
 
-import { CiSquareInfo, CiCircleCheck } from "react-icons/ci";
+import { CiSquareInfo } from "react-icons/ci";
 import { FaCircleChevronUp, FaCircleChevronDown } from "react-icons/fa6";
-import { getUserPersonalInfo } from "../api/user.js";
+import { editUserPersonalInfo, getUserPersonalInfo } from "../api/user.js";
 
 export default function UserInfoModify() {
+  const navigate = useNavigate();
+
   const accessToken = useRecoilValue(AccessTokenState);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [keywords, setKeywords] = useState([]);
+  const [hashtags, setHashtags] = useState([]);
   const [sex, setSex] = useState("");
   const [allPersonalInfo, setAllPersonalInfo] = useState({});
 
@@ -27,28 +35,30 @@ export default function UserInfoModify() {
 
   useEffect(() => {
     const fetchUserPersonalInfo = async () => {
-      const userPersonalInfo = await getUserPersonalInfo();
-      setAllPersonalInfo(userPersonalInfo);
+      if (accessToken) {
+        const userPersonalInfo = await getUserPersonalInfo(accessToken);
+        setAllPersonalInfo(userPersonalInfo);
+      }
     };
-    fetchUserPersonalInfo(accessToken);
+    fetchUserPersonalInfo();
   }, [accessToken]);
-  console.log(allPersonalInfo);
 
   useEffect(() => {
-    setName("");
-    setPhoneNumber("");
-    setEmail("");
-    setBirthday("");
-    setSex("");
-  }, []);
+    setName(allPersonalInfo.name ?? "");
+    setPhoneNumber(allPersonalInfo.phoneNumber ?? "");
+    setEmail(allPersonalInfo.email ?? "");
+    setBirthday(allPersonalInfo.birthday ?? "");
+    setSex(allPersonalInfo.gender ?? "");
+    setHashtags(allPersonalInfo.hashtags);
+  }, [allPersonalInfo]);
 
-  const dataComeIn =
-    name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex
-      ? true
-      : false;
+  useEffect(() => {
+    if (allPersonalInfo.email) {
+      identify(allPersonalInfo.email, undefined, setEmailIdentifyCheck);
+    }
+  }, [allPersonalInfo]);
 
-  const sexDatas = ["여성", "남성"];
-  const keywordDatas = [
+  const hashTagsDatas = [
     "음악",
     "그림",
     "음식",
@@ -74,13 +84,8 @@ export default function UserInfoModify() {
     "패션",
     "코딩",
     "운동",
+    "카페",
   ];
-
-  useEffect(() => {
-    if (birthday) {
-      setBirthday(formatDate(birthday));
-    }
-  }, [birthday, setBirthday]);
 
   const userEmailComment =
     email !== "" && emailIdentifyCheck
@@ -88,6 +93,46 @@ export default function UserInfoModify() {
       : email !== "" && !emailIdentifyCheck
       ? "이메일 양식을 맞춰주세요."
       : "이메일을 입력하세요.";
+
+  const handleEditUserPersonalInfo = async () => {
+    await editUserPersonalInfo(
+      accessToken,
+      name,
+      phoneNumber,
+      email,
+      birthday,
+      sex,
+      hashtags
+    );
+
+    Toast("🥨🎂 프로필 수정을 완료했습니다!");
+    navigate("/mypage");
+
+    setName("");
+    setPhoneNumber("");
+    setEmail("");
+    setBirthday("");
+    setSex("");
+    setHashtags([]);
+  };
+
+  const dataComeIn =
+    name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex;
+
+  console.log(
+    "name",
+    name,
+    "phoneNumber",
+    phoneNumber,
+    "email",
+    email,
+    "brithday",
+    birthday,
+    "sex",
+    sex,
+    "hashtags",
+    hashtags
+  );
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
@@ -111,19 +156,18 @@ export default function UserInfoModify() {
                 이름
               </label>
               <Input
-                type="text"
                 id="userName"
                 placeholder="이름을 입력해주세요."
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
+                styles={inputStyle.userInfoModify}
               />
               <p
                 className={`${
-                  name !== "" ? "opacity-0" : "opacity-100"
-                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                  name !== "" ? "opacity-0 h-0" : "opacity-100 h-5"
+                } ${validityStatementStyle.userInfoModify}`}
               >
-                이름을 입력해주세요.{" "}
+                이름을 입력해주세요.
               </p>
             </div>
 
@@ -134,13 +178,12 @@ export default function UserInfoModify() {
 
               <div className="flex items-center w-full gap-x-5">
                 <Input
-                  type="text"
                   id="phoneNumber"
                   placeholder="핸드폰 번호를 입력해주세요."
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   value={phoneNumber}
                   maxLength="11"
-                  basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
+                  styles={inputStyle.userInfoModify}
                 />
 
                 <Button
@@ -153,8 +196,8 @@ export default function UserInfoModify() {
 
               <p
                 className={`${
-                  phoneNumber !== "" ? "opacity-0" : "opacity-100"
-                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                  phoneNumber !== "" ? "opacity-0 h-0" : "opacity-100 h-5"
+                } ${validityStatementStyle.userInfoModify}`}
               >
                 핸드폰 번호를 입력해주세요.
               </p>
@@ -165,7 +208,6 @@ export default function UserInfoModify() {
                 이메일
               </label>
               <Input
-                type="text"
                 id="email"
                 placeholder="이메일을 입력해주세요."
                 onChange={(e) => {
@@ -173,14 +215,14 @@ export default function UserInfoModify() {
                   identify(e.target.value, undefined, setEmailIdentifyCheck);
                 }}
                 value={email}
-                basicStyle="placeholder:text-[0.9rem] text-[0.9rem] px-6"
+                styles={inputStyle.userInfoModify}
               />
               <p
                 className={`${
                   email !== "" && emailIdentifyCheck
                     ? "opacity-0"
                     : "opacity-100"
-                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                } ${validityStatementStyle.userInfoModify}`}
               >
                 {userEmailComment}
               </p>
@@ -196,12 +238,12 @@ export default function UserInfoModify() {
                 placeholder="생일을 입력해주세요."
                 onChange={(e) => setBirthday(e.target.value)}
                 value={birthday}
-                basicStyle="text-[0.8rem] px-6"
+                styles={inputStyle.userInfoModify}
               />
               <p
                 className={`${
-                  birthday !== "" ? "opacity-0" : "opacity-100"
-                } w-full h-5 mt-2 text-[0.875rem] text-[#ff0000] font-thin transition-all duration-700`}
+                  birthday !== "" ? "opacity-0 h-0" : "opacity-100 h-5"
+                } ${validityStatementStyle.userInfoModify}`}
               >
                 생일을 입력해주세요.
               </p>
@@ -212,10 +254,25 @@ export default function UserInfoModify() {
                 성별
               </label>
               <InputCheckbox
-                datas={sexDatas}
+                datas={["WOMEN", "MEN"]}
+                texts={["여성", "남성"]}
                 isChecked={sex}
-                setIsChecked={setSex}
+                name="sex"
+                styles="w-full mt-3 grid grid-cols-2"
+                enableStyles="bg-[#ffbd4c] border-[#ffa228] text-white"
+                onChange={(e) => {
+                  if (e.currentTarget.checked) {
+                    setSex(e.target.value);
+                  }
+                }}
               />
+              <p
+                className={`${
+                  sex !== "" ? "opacity-0 h-0" : "opacity-100 h-5"
+                } ${validityStatementStyle.userInfoModify}`}
+              >
+                성별을 입력해주세요.
+              </p>
             </div>
 
             <div>
@@ -237,19 +294,40 @@ export default function UserInfoModify() {
               </div>
 
               <InputCheckbox
-                datas={keywordDatas}
-                isCheckedList={keywords}
-                setIsCheckedList={setKeywords}
-                keywordListOpen={keywordListOpen}
+                datas={hashTagsDatas}
+                isCheckedList={hashtags}
+                name="interest"
+                styles={`${
+                  keywordListOpen ? "h-auto opacity-100 mb-4" : "h-0 opacity-0"
+                } w-full mt-3 flex flex-wrap items-center gap-y-2 transition-all duration-700 overflow-hidden`}
+                labelStyles="px-6"
+                enableStyles="bg-[#ffbd4c] border-[#ffa228] text-white"
+                onChange={(e) => {
+                  if (hashtags?.length < 5) {
+                    if (!hashtags.includes(e.target.value)) {
+                      setHashtags((prev) => [...prev, e.target.value]);
+                    } else {
+                      setHashtags((prev) =>
+                        prev?.filter((hashtag) => hashtag !== e.target.value)
+                      );
+                    }
+                  } else {
+                    setHashtags((prev) =>
+                      prev?.filter((hashtag) => hashtag !== e.target.value)
+                    );
+                  }
+                }}
               />
             </div>
           </div>
 
           <Button
-            onClick={() => {}}
             buttonText="정보 수정"
+            onClick={handleEditUserPersonalInfo}
+            basicStyle={btnBasicStyle.basic}
+            styles="w-full py-3 rounded-lg text-white"
+            enableStyles="bg-[#282828]"
             disabled={!dataComeIn}
-            basicStyle="h-[3.75rem] mt-4 border-[1px] border-solid dark:border-[#6c6c6c] dark:bg-black"
           />
         </div>
       </div>

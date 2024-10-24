@@ -1,6 +1,7 @@
 // kakao
 
 import axios from "axios";
+import { changePhoneNumberRepresentation } from "../common";
 
 export const changeCookieToToken = async () => {
   try {
@@ -103,6 +104,38 @@ export const getUserPersonalInfo = async (accessToken) => {
       },
     });
     return res.data.result;
+  } catch (error) {
+    console.error("Error fetching User Personal Information:", error);
+    throw error;
+  }
+};
+
+export const editUserPersonalInfo = async (
+  accessToken,
+  name,
+  phoneNumber,
+  email,
+  birthday,
+  sex,
+  hashtags
+) => {
+  try {
+    const res = await axios({
+      method: "patch",
+      url: "https://prod.be-beam.site/api/web/v1/users/my-info",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: {
+        name: name,
+        phoneNumber: changePhoneNumberRepresentation(phoneNumber),
+        email: email,
+        birthday: birthday,
+        gender: sex,
+        keywords: hashtags,
+      },
+    });
+    alert(res.data.result);
   } catch (error) {
     console.error("Error fetching User Personal Information:", error);
     throw error;
