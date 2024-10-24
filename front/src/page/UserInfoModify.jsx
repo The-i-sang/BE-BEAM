@@ -95,44 +95,33 @@ export default function UserInfoModify() {
       : "이메일을 입력하세요.";
 
   const handleEditUserPersonalInfo = async () => {
-    await editUserPersonalInfo(
-      accessToken,
-      name,
-      phoneNumber,
-      email,
-      birthday,
-      sex,
-      hashtags
-    );
+    try {
+      await editUserPersonalInfo(
+        accessToken,
+        name,
+        phoneNumber,
+        email,
+        birthday,
+        sex,
+        hashtags
+      );
 
-    Toast("🥨🎂 프로필 수정을 완료했습니다!");
-    navigate("/mypage");
+      Toast("🥨🎂 개인정보 수정을 완료했습니다!");
+      navigate("/mypage");
 
-    setName("");
-    setPhoneNumber("");
-    setEmail("");
-    setBirthday("");
-    setSex("");
-    setHashtags([]);
+      setName("");
+      setPhoneNumber("");
+      setEmail("");
+      setBirthday("");
+      setSex("");
+      setHashtags([]);
+    } catch (error) {
+      Toast("개인정보 수정에 실패했습니다. 다시 시도해주세요.😢");
+    }
   };
 
   const dataComeIn =
     name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex;
-
-  console.log(
-    "name",
-    name,
-    "phoneNumber",
-    phoneNumber,
-    "email",
-    email,
-    "brithday",
-    birthday,
-    "sex",
-    sex,
-    "hashtags",
-    hashtags
-  );
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">

@@ -133,7 +133,7 @@ export const editUserPersonalInfo = async (
         email: email,
         birthday: birthday,
         gender: sex,
-        keywords: hashtags,
+        hashtags: hashtags,
       },
     });
     alert(res.data.result);
