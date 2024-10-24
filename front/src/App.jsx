@@ -2,13 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { AccessTokenState, userState } from "./recoil/userState";
+import {
+  AccessTokenState,
+  UserPersonalInfoState,
+  userState,
+} from "./recoil/userState";
 import {
   CommunityReviewSlidesToShowState,
   ResponsiveSize,
   SlidesToShowState,
 } from "./recoil/contentState";
-import { changeCookieToToken } from "./api/user";
+import { changeCookieToToken, getUserPersonalInfo } from "./api/user";
 
 import Navbar from "./component/navbar/Navbar";
 import Footer from "./component/footer/Footer";
@@ -29,6 +33,7 @@ function App() {
     CommunityReviewSlidesToShowState
   );
   const setResponsiveSize = useSetRecoilState(ResponsiveSize);
+  const setUserPersonalInfo = useSetRecoilState(UserPersonalInfoState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,6 +103,16 @@ function App() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, [setSlidesToShow, setCommunityReviewSlidesToShow, setResponsiveSize]);
+
+  useEffect(() => {
+    const fetchUserPersonalInfo = async () => {
+      if (accessToken) {
+        const userPersonalInfo = await getUserPersonalInfo(accessToken);
+        setUserPersonalInfo(userPersonalInfo);
+      }
+    };
+    fetchUserPersonalInfo();
+  }, [accessToken, setUserPersonalInfo]);
 
   return (
     <div

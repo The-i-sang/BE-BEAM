@@ -136,7 +136,6 @@ export const editUserPersonalInfo = async (
         hashtags: hashtags,
       },
     });
-    alert(res.data.result);
   } catch (error) {
     console.error("Error fetching User Personal Information:", error);
     throw error;
