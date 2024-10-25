@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { MeetingReviewsState } from "../recoil/meetingState.js";
+import { MeetingReviewsState } from "../recoil/contentState.js";
 import {
   UserDataState,
   UserNecessaryDataState,
   userState,
 } from "../recoil/userState";
+
 import MypageMyProfile from "../component/myPage/MypageMyProfile";
-import BasicTab from "../component/myPage/tab/BasicTab.jsx";
-import TabSliderContent from "../component/myPage/tab/TabSliderContent";
+import BasicTab from "../component/tab/BasicTab.jsx";
+import TabSliderContent from "../component/tab/TabSliderContent.jsx";
 import Button from "../component/button/Button.jsx";
 
 export default function Mypage() {

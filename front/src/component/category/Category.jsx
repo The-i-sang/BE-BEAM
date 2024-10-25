@@ -12,7 +12,7 @@ export default function Category({
 }) {
   return (
     <div
-      className={`${bgColor} w-full px-4 py-2 box-border dark:bg-bg-dark-80 text-white 2xl:text-[2.3rem] xl:text-[2rem] lg:text-[1.8rem] sm:text-[2rem] text-[1.8rem]`}
+      className={`${bgColor} w-full px-4 py-2 box-border dark:bg-bg-dark-70 text-white 2xl:text-[2.3rem] xl:text-[2rem] lg:text-[1.8rem] sm:text-[2rem] text-[1.8rem]`}
     >
       <div className="flex flex-row items-center w-full">
         <motion.div

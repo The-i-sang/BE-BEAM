@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CommunityReviewSlidesToShowState } from "../recoil/contentState";
-import { MeetingReviewsState } from "../recoil/meetingState";
+import { MeetingReviewsState } from "../recoil/contentState";
 import BasicSlider from "../component/slider/BasicSlider";
 import Card from "../component/communityReview/Card";
 import TypeWriter from "../component/typeWriter/TypeWriter";

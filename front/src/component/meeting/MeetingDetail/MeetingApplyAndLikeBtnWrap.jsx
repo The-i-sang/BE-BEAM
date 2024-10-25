@@ -1,30 +1,32 @@
+import { useMutation } from "@tanstack/react-query";
+import { fetchMeetingLikeOrCancel } from "../../../api/meetingAndToolkit";
+
+import { Toast } from "../../toast/Toast";
 import Button from "../../button/Button";
 import { btnBasicStyle } from "../../../common2";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-import { fetchMeetingLikeOrCancel } from "../../../api/meetingAndToolkit";
 
 export default function MeetingApplyAndLikeBtnWrap({
   data,
   accessToken,
+  updateMeetingData,
   setMeetingApplyReasonModal,
 }) {
-  const queryClient = useQueryClient();
-
-  const changeMeetingLikeMutation2 = useMutation(
-    () =>
+  const changeMeetingLikeMutation2 = useMutation({
+    mutationFn: () =>
       fetchMeetingLikeOrCancel(
         accessToken,
         data.id,
         data?.liked ? "delete" : "post"
       ),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["meetingDetailData"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      updateMeetingData();
+      Toast(
+        data?.liked ? "💔좋아요를 취소했습니다XD" : "💖좋아요를 눌렀습니다XD"
+      );
+    },
+  });
 
   const price = data?.paymentAmount === 0 ? "무료" : data?.paymentAmount + "원";
 
@@ -41,12 +43,12 @@ export default function MeetingApplyAndLikeBtnWrap({
         </div>
 
         <Button
-          buttonText={data?.state}
+          buttonText={!data?.hasApplied ? data?.state : "참여신청 중"}
           onClick={() => setMeetingApplyReasonModal(true)}
           basicStyle={btnBasicStyle.basic}
           styles="w-full flex-1 rounded-lg sm:text-[1rem] text-[0.875rem]"
           enableStyles="bg-[#282828] text-white"
-          disabled={data?.state === "모집완료"}
+          disabled={data?.state === "모집완료" || data?.hasApplied}
         />
         <Button
           icon={data?.liked ? <BsHeartFill /> : <BsHeart />}

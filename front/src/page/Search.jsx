@@ -6,7 +6,7 @@ import { MeetingAndToolkitDataFetch } from "../api/meetingAndToolkit";
 import { handleConsoleError } from "../common";
 
 import SearchInputForm from "../component/input/SearchInputForm";
-import Card from "../component/card/Card";
+import Card from "../component/card/BasicCard";
 
 export default function Search() {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LeftAlignSlider } from "../../slider/LeftAlignSlider";
+import { LeftAlignSlider } from "../slider/LeftAlignSlider";
 import { Tab } from "@headlessui/react";
 
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";

@@ -24,12 +24,6 @@ export const UserNecessaryDataState = atom({
   default: {},
 });
 
-// 유저가 관심 있는 커뮤니티 키워드(5개까지)(나중에 삭제할 것)
-export const IsCheckedListKeywordState = atom({
-  key: "IsCheckedListKeywordState",
-  default: [],
-});
-
 // 유저 개인정보
 export const UserPersonalInfoState = atom({
   key: "UserPersonalInfoState",

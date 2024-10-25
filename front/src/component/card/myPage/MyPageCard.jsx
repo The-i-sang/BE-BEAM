@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { UserNecessaryDataState } from "../../../recoil/userState";
-import { MeetingReviewsState } from "../../../recoil/meetingState";
+import { MeetingReviewsState } from "../../../recoil/contentState";
 import BasicSlider from "../../slider/BasicSlider";
 
 import { GoChevronUp, GoChevronDown } from "react-icons/go";

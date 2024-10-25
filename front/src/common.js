@@ -120,7 +120,7 @@ export const changePhoneNumberRepresentation = (phoneNumber) => {
 };
 
 // ex: 2024-10-15 6시
-export function formatDateAndTime(dateString) {
+export const formatDateAndTime = (dateString) => {
   const date = new Date(dateString);
 
   // 날짜 및 시간 포맷 설정
@@ -130,4 +130,15 @@ export function formatDateAndTime(dateString) {
   const hour = String(date.getHours()).padStart(2, "0");
 
   return `${year}-${month}-${day} ${hour}시`;
-}
+};
+
+// 유저의 개인정보(객체)의 프로퍼티 값이 하나라도 비어 있는지 확인
+export const isValid = (obj) => {
+  for (const key in obj) {
+    const value = obj[key];
+    if (value === "" || (Array.isArray(value) && value.length === 0)) {
+      return false;
+    }
+  }
+  return true;
+};

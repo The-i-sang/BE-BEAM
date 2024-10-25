@@ -34,13 +34,22 @@ export default function Meeting() {
   const [category2, setCategory2] = useState("ALL");
   const slidesToShow = useRecoilValue(SlidesToShowState);
 
+  const [meetingDataQueryKeyPostFix, setMeetingDataQueryKeyPostFix] =
+    useState(0);
+  const updateMeetingData = () => {
+    setMeetingDataQueryKeyPostFix(Date.now());
+  };
+
   const {
     isLoading,
     error,
     data: datas,
-  } = useQuery(["meetingDatas", accessToken], async () => {
-    const result = await dataFetch(accessToken, "meetings");
-    return result.meetings;
+  } = useQuery({
+    queryKey: ["meetingDatas", accessToken, meetingDataQueryKeyPostFix],
+    queryFn: async () => {
+      const result = await dataFetch(accessToken, "meetings");
+      return result.meetings;
+    },
   });
 
   console.log(datas);
@@ -144,6 +153,7 @@ export default function Meeting() {
                 accessToken={accessToken}
                 bgColor="bg-meeting"
                 shadow="shadow-[0_10px_8px_2px_#e9a30d]"
+                updateMeetingData={updateMeetingData}
               />
             ))}
           </ul>

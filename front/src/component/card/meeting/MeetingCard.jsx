@@ -1,31 +1,37 @@
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { formatDateAndTime } from "../../../common";
+import { fetchMeetingLikeOrCancel } from "../../../api/meetingAndToolkit";
 
 import Button from "../../button/Button";
+import { Toast } from "../../toast/Toast";
 
 import { FaLocationDot } from "react-icons/fa6";
 import { GoHeart, GoHeartFill } from "react-icons/go";
-import { fetchMeetingLikeOrCancel } from "../../../api/meetingAndToolkit";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function MeetingCard({ data, accessToken, bgColor, shadow }) {
+export default function MeetingCard({
+  data,
+  accessToken,
+  bgColor,
+  shadow,
+  updateMeetingData,
+}) {
   const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
-
-  const changeMeetingLikeMutation = useMutation(
-    () =>
+  const changeMeetingLikeMutation = useMutation({
+    mutationFn: () =>
       fetchMeetingLikeOrCancel(
         accessToken,
         data.id,
         data?.liked ? "delete" : "post"
       ),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["meetingDatas", accessToken]);
-      },
-    }
-  );
+    onSuccess: () => {
+      updateMeetingData();
+      Toast(
+        data?.liked ? "💔좋아요를 취소했습니다XD" : "💖좋아요를 눌렀습니다XD"
+      );
+    },
+  });
 
   return (
     <li
@@ -78,7 +84,7 @@ export default function MeetingCard({ data, accessToken, bgColor, shadow }) {
           </p>
           <div className="flex items-center lg:text-[0.9rem] sm:text-[0.8rem] text-[0.8rem] text-white">
             <FaLocationDot className="lg:text-[1.3rem] sm:text-[1.2rem] text-[1.2rem]" />
-            <p>{data.location}</p>
+            {data.location}
           </div>
         </div>
       </div>

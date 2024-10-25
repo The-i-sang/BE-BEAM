@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AccessTokenState, UserDataState } from "../recoil/userState";
 import { editUserProfile } from "../api/user";
-import { btnBasicStyle, inputStyle } from "../common2";
 
 import Input from "../component/input/Input";
 import Button from "../component/button/Button";
 import TextArea from "../component/textArea/TextArea";
 import { Toast } from "../component/toast/Toast";
+import { btnBasicStyle, inputStyle } from "../common2";
 
 import { AiOutlineSync } from "react-icons/ai";
 

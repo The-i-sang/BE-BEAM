@@ -7,7 +7,7 @@ import { dataFetch } from "../api/meetingAndToolkit";
 import { handleConsoleError } from "../common";
 
 import BasicSlider from "../component/slider/BasicSlider";
-import Card from "../component/card/Card";
+import Card from "../component/card/BasicCard";
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import Category from "../component/category/Category";
 import SearchInputForm from "../component/input/SearchInputForm";
