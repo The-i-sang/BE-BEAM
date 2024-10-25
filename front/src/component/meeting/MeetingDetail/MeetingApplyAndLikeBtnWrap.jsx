@@ -11,13 +11,19 @@ export default function MeetingApplyAndLikeBtnWrap({
   setMeetingApplyReasonModal,
 }) {
   const queryClient = useQueryClient();
-  const { mutate: meetingDetailPageLikeOrCancelMutate } = useMutation(
-    async () =>
-      await fetchMeetingLikeOrCancel(
+
+  const changeMeetingLikeMutation2 = useMutation(
+    () =>
+      fetchMeetingLikeOrCancel(
         accessToken,
         data.id,
         data?.liked ? "delete" : "post"
-      )
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["meetingDetailData"]);
+      },
+    }
   );
 
   const price = data?.paymentAmount === 0 ? "무료" : data?.paymentAmount + "원";
@@ -44,16 +50,7 @@ export default function MeetingApplyAndLikeBtnWrap({
         />
         <Button
           icon={data?.liked ? <BsHeartFill /> : <BsHeart />}
-          onClick={() =>
-            meetingDetailPageLikeOrCancelMutate({
-              onSuccess: () => {
-                return queryClient.invalidateQueries(["meetingDetailData"]);
-              },
-              onError: (err) => {
-                console.log(err);
-              },
-            })
-          }
+          onClick={() => changeMeetingLikeMutation2.mutate()}
           basicStyle={btnBasicStyle.border}
           styles="w-[60px] h-[60px] p-2 ml-[6px] border-[1px] border-[#b0b0b0] rounded-lg flex-col gap-y-[2px] text-[1.2rem] font-semibold text-black"
         >

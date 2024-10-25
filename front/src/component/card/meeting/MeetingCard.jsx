@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatDateAndTime } from "../../../common";
 
 import Button from "../../button/Button";
@@ -7,18 +6,25 @@ import Button from "../../button/Button";
 import { FaLocationDot } from "react-icons/fa6";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { fetchMeetingLikeOrCancel } from "../../../api/meetingAndToolkit";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function MeetingCard({ data, accessToken, bgColor, shadow }) {
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
-  const { mutate: meetingPageLikeOrCancelMutate } = useMutation(
-    async () =>
-      await fetchMeetingLikeOrCancel(
+
+  const changeMeetingLikeMutation = useMutation(
+    () =>
+      fetchMeetingLikeOrCancel(
         accessToken,
         data.id,
         data?.liked ? "delete" : "post"
-      )
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["meetingDatas", accessToken]);
+      },
+    }
   );
 
   return (
@@ -50,19 +56,7 @@ export default function MeetingCard({ data, accessToken, bgColor, shadow }) {
           <Button
             icon={data.liked ? <GoHeartFill /> : <GoHeart />}
             styles="text-[1.5rem] dark:text-text-dark-default"
-            onClick={() =>
-              meetingPageLikeOrCancelMutate({
-                onSuccess: () => {
-                  return queryClient.invalidateQueries([
-                    "meetingDatas",
-                    accessToken,
-                  ]);
-                },
-                onError: (err) => {
-                  console.log(err);
-                },
-              })
-            }
+            onClick={() => changeMeetingLikeMutation.mutate()}
           />
         </div>
 
