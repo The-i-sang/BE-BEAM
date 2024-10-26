@@ -21,6 +21,8 @@ export default function WriteCommunityReview({
   const [reviewComment, setReviewComment] = useState("");
   const accessToken = useRecoilValue(AccessTokenState);
 
+  console.log(images);
+
   const handleChange = (event) => {
     const files = Array.from(event.target.files);
     if (files.length + images.length > 5) {

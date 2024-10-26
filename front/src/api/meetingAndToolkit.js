@@ -96,28 +96,17 @@ export const meetingReviewFetch = async (meetingId, filter) => {
   }
 };
 
-// base64 string[] => File[] 변환
-function base64ToFileArray(base64Array) {
-  const files = base64Array.map((base64String, index) => {
-    // Base64 문자열에서 메타데이터를 제거
-    const [header, data] = base64String.split(",");
-    const mimeType = header.match(/:(.*?);/)[1];
-
-    // Base64 문자열을 디코드하여 Blob 객체 생성
-    const byteCharacters = atob(data);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: mimeType });
-
-    // Blob을 File 객체로 변환
-    return new File([blob], `image_${index + 1}.png`, { type: mimeType });
+// Blob URL[] => File[] 변환
+const convertBlobUrlToFileArray = async (blobUrlArray) => {
+  const filePromises = blobUrlArray.map(async (blobUrl) => {
+    const response = await fetch(blobUrl);
+    const blob = await response.blob();
+    const fileName = blobUrl.split("/").pop().split("#")[0]; // URL에서 파일 이름 추출
+    return new File([blob], fileName, { type: blob.type });
   });
 
-  return files;
-}
+  return Promise.all(filePromises);
+};
 
 // 모임 후기 생성
 export const createMeetingReview = async (
@@ -131,11 +120,11 @@ export const createMeetingReview = async (
     const formData = new FormData();
 
     if (meetingImgList) {
-      const changeBase64StringToFileArray = base64ToFileArray(
-        meetingImgList,
-        "profile.jpg"
-      );
-      formData.append("files", changeBase64StringToFileArray);
+      const changeBlobURLToFileArray =
+        convertBlobUrlToFileArray(meetingImgList);
+      changeBlobURLToFileArray.forEach((file) => {
+        formData.append("files", file);
+      });
     }
 
     formData.append(
