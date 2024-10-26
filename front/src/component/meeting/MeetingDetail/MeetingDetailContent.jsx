@@ -1,14 +1,18 @@
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import {
   UserDataState,
   UserPersonalInfoState,
 } from "../../../recoil/userState";
-import { formatDateAndTime } from "../../../common";
+import { meetingReviewFetch } from "../../../api/meetingAndToolkit";
+import { formatDateAndTime, handleConsoleError } from "../../../common";
 
 import SubTitle from "./SubTitle";
 import MeetingDetailSmallContent from "./MeetingDetailSmallContent";
 import WriteCommunityReview from "./WriteCommunityReview";
 import CommunityReviewsWrap from "../../communityReview/CommunityReviewsWrap";
+import CommunityReviewsWrap2 from "../../communityReview/CommunityReviewsWrap2";
 
 import { FaLocationDot } from "react-icons/fa6";
 import {
@@ -18,18 +22,40 @@ import {
 } from "react-icons/bs";
 import { ImPriceTag } from "react-icons/im";
 
-
 export default function MeetingDetailContent({ data }) {
   const userData = useRecoilValue(UserDataState);
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
   console.log(userData, userPersonalInfo, data);
 
-  // const filterReviewData = reviewDatas.filter(
-  //   (review) => review.meeting.id === data?.id
-  // );
+  const [filter, setFilter] = useState({
+    search: "",
+    sort: "recent",
+    type: "text",
+  });
+  const [
+    meetingReviewDataQueryKeyPostFix,
+    setMeetingReviewDataQueryKeyPostFix,
+  ] = useState(0);
+  const updateMeetingData = () => {
+    setMeetingReviewDataQueryKeyPostFix(Date.now());
+  };
 
   const price =
     data?.paymentAmount === 0 ? "무료" : `월 ${data?.paymentAmount}원`;
+
+  const {
+    isLoading,
+    error,
+    data: datas,
+  } = useQuery({
+    queryKey: ["meetingReviewData", filter, meetingReviewDataQueryKeyPostFix],
+    queryFn: async () => {
+      const result = await meetingReviewFetch(data.id, filter);
+      return result;
+    },
+  });
+  const comment = handleConsoleError(isLoading, error);
+  console.log("datas", datas);
 
   return (
     <div className="w-full sm:text-[1rem] text-[0.875rem]">
@@ -97,7 +123,7 @@ export default function MeetingDetailContent({ data }) {
             <MeetingDetailSmallContent
               icon={<BsFillCalendarDateFill />}
               subTitle="활동일정"
-              desList={data.schedules}
+              desList={data?.schedules}
             />
           </ul>
         </div>
@@ -154,7 +180,20 @@ export default function MeetingDetailContent({ data }) {
           des="이 모임에 참여하고 있는 멤버들의 생각 들어다보기:)"
         />
 
-        <WriteCommunityReview userData={userData} userPersonalInfo={userPersonalInfo}/>
+        <WriteCommunityReview
+          userData={userData}
+          meetingId={data?.id}
+          userPersonalInfo={userPersonalInfo}
+          updateMeetingData={updateMeetingData}
+        />
+
+        <CommunityReviewsWrap2
+          comment={comment}
+          datas={datas}
+          filter={filter}
+          setFilter={setFilter}
+          styles="mt-10"
+        />
 
         {/* <CommunityReviewsWrap
           datas={filterReviewData}

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userState } from "../../../recoil/userState";
-import { MeetingReviewsState } from "../../../recoil/contentState";
+import { useMutation } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
+import { AccessTokenState } from "../../../recoil/userState";
+import { createMeetingReview } from "../../../api/meetingAndToolkit";
 
 import WriteRatingStar from "../../rating/WriteRatingStar";
 import TextArea from "../../textArea/TextArea";
@@ -10,13 +11,15 @@ import { Toast } from "../../toast/Toast";
 import { TiCamera } from "react-icons/ti";
 import { GoX } from "react-icons/go";
 
-export default function WriteCommunityReview({ userData, userPersonalInfo }) {
+export default function WriteCommunityReview({
+  userData,
+  meetingId,
+  updateMeetingData,
+}) {
   const [images, setImages] = useState([]);
   const [rating, setRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
-
-  const userIn = useRecoilValue(userState);
-  const [reviewDatas, setReviewDatas] = useRecoilState(MeetingReviewsState);
+  const accessToken = useRecoilValue(AccessTokenState);
 
   const handleChange = (event) => {
     const files = Array.from(event.target.files);
@@ -33,45 +36,34 @@ export default function WriteCommunityReview({ userData, userPersonalInfo }) {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+  const createMeetingReviewMutation = useMutation({
+    mutationFn: () =>
+      createMeetingReview(
+        accessToken,
+        meetingId,
+        images,
+        rating,
+        reviewComment
+      ),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😍리뷰 작성을 완료하였습니다!XD");
+    },
+  });
+
   const addCommunityReview = () => {
-    if (!userIn) {
-      alert("로그인 후 리뷰를 작성해주세요!");
-    } else {
-      if (
-        // filterReviewData.filter(
-        //   (data) => data.userEmail === userPersonalInfo.email
-        // ).length === 1
-        ""
-      ) {
-        Toast("리뷰가 이미 작성되었습니다!");
-      } else {
-        // const newReviewData = {
-        //   reviewId: uuidv4(),
-        //   creatingAt: Date.now(),
-        //   profileImg: userData.profileImage,
-        //   name: userPersonalInfo.name,
-        //   nickName: userData.nickname,
-        //   userEmail: userPersonalInfo.email,
-        //   text: reviewComment,
-        //   image: images,
-        //   rating: rating,
-        //   likes: [],
-        //   meeting: {
-        //     id: data.id,
-        //     type: data.finish_type,
-        //     title: data.name,
-        //     thumbnail: data.thumbnailImage,
-        //     averageRating: 4,
-        //     reviewNum: filterReviewData.length + 1,
-        //   },
-        // };
-
-        // setReviewDatas((prev) => {
-        //   return [...prev, newReviewData];
-        // });
-
-        alert("리뷰 작성이 완료되었습니다!");
-      }
+    if (accessToken) {
+      createMeetingReviewMutation.mutate();
+      // if (
+      //   // filterReviewData.filter(
+      //   //   (data) => data.userEmail === userPersonalInfo.email
+      //   // ).length === 1
+      //   ""
+      // ) {
+      //   Toast("리뷰가 이미 작성되었습니다!");
+      // } else {
+      //   alert("리뷰 작성이 완료되었습니다!");
+      // }
     }
 
     setImages([]);
@@ -79,7 +71,8 @@ export default function WriteCommunityReview({ userData, userPersonalInfo }) {
     setReviewComment("");
   };
 
-  const writeReviewBtnDisabled = !rating || reviewComment === "";
+  const writeReviewBtnDisabled =
+    accessToken === "" || !rating || reviewComment === "";
 
   return (
     <div className="flex items-center w-full mt-8 gap-x-5 text-[0.9rem]">
