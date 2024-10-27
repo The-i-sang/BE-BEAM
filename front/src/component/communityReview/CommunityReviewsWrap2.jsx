@@ -30,7 +30,7 @@ export default function CommunityReviewsWrap2({
                 />
                 <p>
                   <span className="mr-1 font-bold text-text-light-default dark:text-text-dark-default">
-                    {data.nickName}
+                    {data.nickname}
                   </span>
                   님
                 </p>

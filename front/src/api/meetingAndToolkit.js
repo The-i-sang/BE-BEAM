@@ -123,10 +123,9 @@ export const createMeetingReview = async (
       const changeBlobURLToFileArray = await convertBlobUrlToFileArray(
         meetingImgList
       );
-      // changeBlobURLToFileArray.forEach((file) => {
-      //   formData.append("files", file);
-      // });
-      formData.append("files", changeBlobURLToFileArray);
+      changeBlobURLToFileArray.forEach((file) => {
+        formData.append("files", file);
+      });
     }
 
     formData.append(
