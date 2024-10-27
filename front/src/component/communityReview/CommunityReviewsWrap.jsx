@@ -1,3 +1,5 @@
+// 나중에 없앨 컴포넌트
+
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { ResponsiveSize } from "../../recoil/contentState";

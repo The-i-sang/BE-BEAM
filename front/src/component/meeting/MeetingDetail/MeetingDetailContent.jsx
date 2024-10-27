@@ -5,13 +5,12 @@ import {
   UserDataState,
   UserPersonalInfoState,
 } from "../../../recoil/userState";
-import { meetingReviewFetch } from "../../../api/meetingAndToolkit";
-import { formatDateAndTime, handleConsoleError } from "../../../common";
+import { oneMeetingReviewFetch } from "../../../api/meetingAndToolkit";
+import { formatDateAndTime, handleConsoleError2 } from "../../../common";
 
 import SubTitle from "./SubTitle";
 import MeetingDetailSmallContent from "./MeetingDetailSmallContent";
 import WriteCommunityReview from "./WriteCommunityReview";
-import CommunityReviewsWrap from "../../communityReview/CommunityReviewsWrap";
 import CommunityReviewsWrap2 from "../../communityReview/CommunityReviewsWrap2";
 
 import { FaLocationDot } from "react-icons/fa6";
@@ -22,7 +21,7 @@ import {
 } from "react-icons/bs";
 import { ImPriceTag } from "react-icons/im";
 
-export default function MeetingDetailContent({ data }) {
+export default function MeetingDetailContent({ data, accessToken }) {
   const userData = useRecoilValue(UserDataState);
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
   console.log(userData, userPersonalInfo, data);
@@ -50,11 +49,11 @@ export default function MeetingDetailContent({ data }) {
   } = useQuery({
     queryKey: ["meetingReviewData", filter, meetingReviewDataQueryKeyPostFix],
     queryFn: async () => {
-      const result = await meetingReviewFetch(data.id, filter);
+      const result = await oneMeetingReviewFetch(accessToken, data.id, filter);
       return result;
     },
   });
-  const comment = handleConsoleError(isLoading, error);
+  const comment = handleConsoleError2(isLoading, error, datas);
   console.log("datas", datas);
 
   return (
@@ -192,15 +191,10 @@ export default function MeetingDetailContent({ data }) {
           datas={datas}
           filter={filter}
           setFilter={setFilter}
+          accessToken={accessToken}
+          updateMeetingData={updateMeetingData}
           styles="mt-10"
         />
-
-        {/* <CommunityReviewsWrap
-          datas={filterReviewData}
-          styles="mt-10"
-          isMeetingDetail={true}
-          setReviewDatas={setReviewDatas}
-        /> */}
       </div>
     </div>
   );

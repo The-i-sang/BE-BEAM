@@ -80,32 +80,21 @@ export const fetchSendMeetingApplyReason = async (
 };
 
 // 특정 모임 후기 받아오기 및 필터링
-export const meetingReviewFetch = async (meetingId, filter) => {
+export const oneMeetingReviewFetch = async (accessToken, meetingId, filter) => {
   try {
     const res = await axios({
       method: "get",
       url: `https://prod.be-beam.site/api/web/v1/meetings/${meetingId}/reviews?search=${filter.search}&sort=${filter.sort}&type=${filter.type}`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
     });
-    return res.data.result.reviews;
+    return res.data.result;
   } catch (error) {
     console.error("Error fetching Meeting Review Fetch:", error);
     throw error;
   }
-};
-
-// Blob URL[] => File[] 변환
-export const convertBlobUrlToFileArray = async (blobUrlArray) => {
-  const filePromises = blobUrlArray.map(async (blobUrl) => {
-    const response = await fetch(blobUrl);
-    const blob = await response.blob();
-    const fileName = blobUrl.split("/").pop().split("#")[0]; // URL에서 파일 이름 추출
-    return new File([blob], fileName, { type: blob.type });
-  });
-
-  return Promise.all(filePromises);
 };
 
 // 모임 후기 생성
@@ -149,6 +138,23 @@ export const createMeetingReview = async (
     return res.data.result;
   } catch (error) {
     console.error("Error Create Meeting Review:", error);
+    throw error;
+  }
+};
+
+// 모임 삭제하기
+export const fetchDeleteMeetingReview = async (accessToken, reviewId) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `https://prod.be-beam.site/api/web/v1/reviews/${reviewId}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error Delete Meeting Review:", error);
     throw error;
   }
 };

@@ -37,12 +37,14 @@ export default function MeetingDetail() {
     data?.paymentAmount !== 0 &&
     `이후에 "토스뱅크 1000-5552-9626"으로 "${data?.paymentAmount}원"을 입금해주시면 됩니다.`;
 
+  console.log(data);
+
   return (
     <div className="w-full pt-10 font-light sm:text-[1rem] text-[0.875rem]">
       {comment}
 
       <MeetingDetailTop data={data} />
-      <MeetingDetailContent data={data} />
+      <MeetingDetailContent data={data} accessToken={accessToken} />
       <MeetingApplyAndLikeBtnWrap
         data={data}
         accessToken={accessToken}

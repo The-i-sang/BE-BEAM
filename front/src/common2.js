@@ -25,6 +25,7 @@ export const btnBasicStyle = {
 export const btnStyle = {
   navbar:
     "lg:mr-8 md:mr-4 sm:mr-4 mr-2 md:text-[1.8rem] sm:text-[1.5rem] text-[1.2rem]",
+  blackBg: "bg-[#282828] rounded-lg text-white",
 };
 
 export const inputStyle = {

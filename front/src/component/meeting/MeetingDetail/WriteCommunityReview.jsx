@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../../../recoil/userState";
-import {
-  convertBlobUrlToFileArray,
-  createMeetingReview,
-} from "../../../api/meetingAndToolkit";
+import { createMeetingReview } from "../../../api/meetingAndToolkit";
 
 import WriteRatingStar from "../../rating/WriteRatingStar";
 import TextArea from "../../textArea/TextArea";

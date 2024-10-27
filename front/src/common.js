@@ -62,6 +62,7 @@ export function formatDate(dateObj) {
   return `${year}-${formattedMonth}-${formattedDay}`;
 }
 
+// 나중에 없앨 함수
 export function handleConsoleError(
   isLoading,
   error,
@@ -74,6 +75,18 @@ export function handleConsoleError(
     ? "An error has occurred...!"
     : (searchText?.length === 0 || searchText?.length > 0) &&
       filteredDatas?.length === 0
+    ? "검색 결과가 없습니다."
+    : null;
+
+  return comment;
+}
+
+export function handleConsoleError2(isLoading, error, datas) {
+  const comment = isLoading
+    ? "Loading..."
+    : error
+    ? "An error has occurred...!"
+    : datas?.length === 0
     ? "검색 결과가 없습니다."
     : null;
 

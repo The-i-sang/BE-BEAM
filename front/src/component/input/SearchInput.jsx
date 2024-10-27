@@ -1,24 +1,19 @@
-// 나중에 지울 컴포넌트
-
 import Button from "../button/Button";
 
-import { CiSearch } from "react-icons/ci";
 import { GoX } from "react-icons/go";
 
-export default function SearchInputForm({
+export default function SearchInput({
   placeholder,
   searchText,
   onChange,
-  setSearchText,
-  handleSearchData,
-  formStyle,
+  handleDeleteText,
+  wrapStyle,
   inputStyle,
   deleteBtnPositionStyles,
-  searchBtnPositionStyles,
   btnStyles,
 }) {
   return (
-    <form onSubmit={handleSearchData} className={`${formStyle} relative`}>
+    <div className={`${wrapStyle} relative`}>
       <input
         className={`${inputStyle} w-full box-border dark:bg-transparent border-[2px] border-solid outline-none`}
         type="text"
@@ -29,19 +24,11 @@ export default function SearchInputForm({
 
       <Button
         icon={<GoX />}
-        onClick={() => {
-          setSearchText("");
-        }}
+        onClick={handleDeleteText}
         styles={`${deleteBtnPositionStyles} ${btnStyles} ${
           searchText.length > 0 ? "opacity-100" : "opacity-0"
         } absolute transition-all duration-700`}
       />
-
-      <Button
-        type="submit"
-        icon={<CiSearch />}
-        styles={`${searchBtnPositionStyles} ${btnStyles} absolute`}
-      />
-    </form>
+    </div>
   );
 }
