@@ -146,6 +146,7 @@ export const createMeetingReview = async (
       url: `https://prod.be-beam.site/api/web/v1/meetings/${meetingId}/reviews`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "multipart/form-data",
       },
       data: formData,
     });
