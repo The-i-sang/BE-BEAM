@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../../../recoil/userState";
-import { createMeetingReview } from "../../../api/meetingAndToolkit";
+import {
+  convertBlobUrlToFileArray,
+  createMeetingReview,
+} from "../../../api/meetingAndToolkit";
 
 import WriteRatingStar from "../../rating/WriteRatingStar";
 import TextArea from "../../textArea/TextArea";
@@ -17,11 +20,11 @@ export default function WriteCommunityReview({
   updateMeetingData,
 }) {
   const [images, setImages] = useState([]);
+  const [images2, setImages2] = useState(null);
   const [rating, setRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
   const accessToken = useRecoilValue(AccessTokenState);
-
-  console.log(images);
+  console.log(reviewComment, rating, images2, images2);
 
   const handleChange = (event) => {
     const files = Array.from(event.target.files);
@@ -75,6 +78,15 @@ export default function WriteCommunityReview({
 
   const writeReviewBtnDisabled =
     accessToken === "" || !rating || reviewComment === "";
+
+  useEffect(() => {
+    const sffffs = async () => {
+      if (images.length > 0) {
+        setImages2(await convertBlobUrlToFileArray(images));
+      }
+    };
+    sffffs();
+  }, [setImages2, images]);
 
   return (
     <div className="flex items-center w-full mt-8 gap-x-5 text-[0.9rem]">

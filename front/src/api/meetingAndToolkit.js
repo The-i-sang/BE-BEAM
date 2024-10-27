@@ -97,7 +97,7 @@ export const meetingReviewFetch = async (meetingId, filter) => {
 };
 
 // Blob URL[] => File[] 변환
-const convertBlobUrlToFileArray = async (blobUrlArray) => {
+export const convertBlobUrlToFileArray = async (blobUrlArray) => {
   const filePromises = blobUrlArray.map(async (blobUrl) => {
     const response = await fetch(blobUrl);
     const blob = await response.blob();
@@ -123,9 +123,10 @@ export const createMeetingReview = async (
       const changeBlobURLToFileArray = await convertBlobUrlToFileArray(
         meetingImgList
       );
-      changeBlobURLToFileArray.forEach((file) => {
-        formData.append("files", file);
-      });
+      // changeBlobURLToFileArray.forEach((file) => {
+      //   formData.append("files", file);
+      // });
+      formData.append("files", changeBlobURLToFileArray);
     }
 
     formData.append(
