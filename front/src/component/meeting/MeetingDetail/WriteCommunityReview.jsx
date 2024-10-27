@@ -20,25 +20,31 @@ export default function WriteCommunityReview({
   updateMeetingData,
 }) {
   const [images, setImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
   const [rating, setRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
   const accessToken = useRecoilValue(AccessTokenState);
-  console.log(reviewComment, rating, images);
+  console.log(reviewComment, rating, images, previewImages);
 
   const handleChange = (event) => {
     const files = Array.from(event.target.files);
-    if (files.length + images.length > 5) {
-      alert("최대 5개의 이미지만 업로드할 수 있습니다.");
+    if (files.length + images.length > 10) {
+      alert("최대 10개의 이미지만 업로드할 수 있습니다.");
       return;
     }
 
+    setImages((prev) => [...prev, ...files]);
+
     const newImages = files.map((file) => URL.createObjectURL(file));
-    setImages((prevImages) => [...prevImages, ...newImages]);
+    setPreviewImages((prevImages) => [...prevImages, ...newImages]);
   };
 
   const handleRemoveImage = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setPreviewImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
+
+  console.log(images);
 
   const createMeetingReviewMutation = useMutation({
     mutationFn: () =>
@@ -101,7 +107,7 @@ export default function WriteCommunityReview({
           </label>
 
           <div className="flex flex-wrap items-center gap-4">
-            {images.map((image, index) => (
+            {previewImages.map((image, index) => (
               <div key={index} className="relative">
                 <img
                   src={image}

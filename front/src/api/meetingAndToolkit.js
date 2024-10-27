@@ -119,11 +119,8 @@ export const createMeetingReview = async (
   try {
     const formData = new FormData();
 
-    if (meetingImgList.length > 0) {
-      const changeBlobURLToFileArray = await convertBlobUrlToFileArray(
-        meetingImgList
-      );
-      changeBlobURLToFileArray.forEach((file) => {
+    if (meetingImgList.length) {
+      meetingImgList.forEach((file) => {
         formData.append("files", file);
       });
     }
@@ -146,7 +143,6 @@ export const createMeetingReview = async (
       url: `https://prod.be-beam.site/api/web/v1/meetings/${meetingId}/reviews`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
       data: formData,
     });
