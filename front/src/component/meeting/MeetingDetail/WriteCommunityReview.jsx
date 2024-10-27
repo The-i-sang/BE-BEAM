@@ -24,7 +24,6 @@ export default function WriteCommunityReview({
   const [rating, setRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
   const accessToken = useRecoilValue(AccessTokenState);
-  console.log(reviewComment, rating, images, previewImages);
 
   const handleChange = (event) => {
     const files = Array.from(event.target.files);
@@ -44,8 +43,6 @@ export default function WriteCommunityReview({
     setPreviewImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-  console.log(images);
-
   const createMeetingReviewMutation = useMutation({
     mutationFn: () =>
       createMeetingReview(
@@ -60,6 +57,7 @@ export default function WriteCommunityReview({
       Toast("😍리뷰 작성을 완료하였습니다!XD");
 
       setImages([]);
+      setPreviewImages([]);
       setRating(0);
       setReviewComment("");
     },
@@ -103,7 +101,7 @@ export default function WriteCommunityReview({
               className="hidden"
             />
             <TiCamera className="text-[2rem] text-gray-500" />
-            <p>사진 {images?.length}/5</p>
+            <p>사진 {images?.length}/10</p>
           </label>
 
           <div className="flex flex-wrap items-center gap-4">
