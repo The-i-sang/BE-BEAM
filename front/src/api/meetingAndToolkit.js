@@ -119,7 +119,7 @@ export const createMeetingReview = async (
   try {
     const formData = new FormData();
 
-    if (meetingImgList) {
+    if (meetingImgList.length > 0) {
       const changeBlobURLToFileArray = await convertBlobUrlToFileArray(
         meetingImgList
       );

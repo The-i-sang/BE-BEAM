@@ -62,7 +62,7 @@ export default function CommunityReviewsWrap2({
                 />
               ))}
             </div>
-            <p className="mt-2 text-[0.95rem]">{data?.meeting?.title}</p>
+            <p className="mt-2 text-[0.95rem]">{data.meeting.name}</p>
 
             <div className="flex items-center justify-end w-full mt-5 gap-x-4 sm:mt-0">
               <p>

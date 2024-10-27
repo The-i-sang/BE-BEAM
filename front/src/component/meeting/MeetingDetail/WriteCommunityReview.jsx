@@ -52,6 +52,10 @@ export default function WriteCommunityReview({
     onSuccess: () => {
       updateMeetingData();
       Toast("😍리뷰 작성을 완료하였습니다!XD");
+
+      setImages([]);
+      setRating(0);
+      setReviewComment("");
     },
   });
 
