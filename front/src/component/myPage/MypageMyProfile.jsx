@@ -7,7 +7,7 @@ import {
 } from "../../recoil/userState";
 
 import Button from "../button/Button";
-import { btnBasicStyle } from "../../common2";
+import { borderStyle, btnBasicStyle, btnStyle } from "../../common2";
 
 import { CiEdit } from "react-icons/ci";
 
@@ -21,12 +21,12 @@ export default function MypageMyProfile({ userData }) {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between w-full">
-        <p className="text-[1.125rem] font-semibold dark:text-white">
+        <p className="text-[1.125rem] font-semibold dark:text-text-dark-default">
           나의 프로필
         </p>
 
-        <button
-          type="button"
+        <Button
+          buttonText="로그아웃"
           onClick={() => {
             localStorage.removeItem("accessToken");
             setUserIn(false);
@@ -34,14 +34,14 @@ export default function MypageMyProfile({ userData }) {
 
             navigate("/");
           }}
-          className="text-[0.875rem] text-[#828282] dark:text-[#bababa] font-thin"
-        >
-          로그아웃
-        </button>
+          styles="text-[0.875rem] text-text-light-60 dark:text-text-dark-20"
+        />
       </div>
 
       <div className="w-full mt-5 pt-[1.875rem] pb-[1.25rem] px-[1.25rem] box-border bg-white dark:bg-[rgba(255,255,255,0.2)] rounded-2xl border-[1px] border-solid border-[#ddd] dark:border-[#5b5b5b] flex flex-col items-center">
-        <div className="w-full pb-[1.25rem] border-b-[1px] border-solid border-[#ddd] dark:border-[#7a7a7a] flex flex-col items-center">
+        <div
+          className={`${borderStyle.basic} w-full pb-[1.25rem] border-b-[1px] flex flex-col items-center`}
+        >
           <div className="relative mb-5">
             <img
               className="sm:w-[120px] w-[100px] aspect-square object-cover rounded-full shadow-lg"
@@ -56,10 +56,10 @@ export default function MypageMyProfile({ userData }) {
             />
           </div>
 
-          <p className="mb-1 text-[1.125rem] dark:text-white font-semibold">
+          <p className="mb-1 text-[1.125rem] dark:text-text-dark-default font-semibold">
             {userData.nickname}
           </p>
-          <p className="text-[0.875rem] text-[#666] dark:text-[#bababa] font-thin">
+          <p className="text-[0.875rem] text-text-light-70 dark:text-text-dark-20 font-thin">
             {userData.introduction}
           </p>
 
@@ -69,12 +69,12 @@ export default function MypageMyProfile({ userData }) {
             } w-full text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1`}
           >
             {userPersonalInfo.hashtags?.map((keyword, idx) => (
-              <p
+              <div
                 key={idx}
-                className="bg-[#f6f6f6] dark:bg-black py-1 px-2 mb-2 rounded-3xl border-[1px] border-solid border-[#d9d8d8] dark:border-[#6c6c6c] text-[#7d7d7d] dark:text-white"
+                className="bg-bg-light-10 dark:bg-bg-dark-default py-2 px-4 mb-2 rounded-3xl border-[1px] border-solid border-bg-light-20 dark:border-bg-dark-30 text-text-light-70 dark:text-text-dark-default"
               >
                 {keyword}
-              </p>
+              </div>
             ))}
           </div>
         </div>
@@ -83,8 +83,7 @@ export default function MypageMyProfile({ userData }) {
           buttonText="개인 정보 수정"
           onClick={() => navigate("/mypage/userInfoModify")}
           basicStyle={btnBasicStyle.basic}
-          styles="w-full mt-5 py-3 rounded-lg text-white"
-          enableStyles="bg-[#282828]"
+          styles={`${btnStyle.blackBg} w-full mt-5 py-3`}
         />
       </div>
     </div>

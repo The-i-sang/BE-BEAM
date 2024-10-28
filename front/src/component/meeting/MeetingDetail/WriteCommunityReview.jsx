@@ -6,6 +6,8 @@ import { createMeetingReview } from "../../../api/meetingAndToolkit";
 
 import WriteRatingStar from "../../rating/WriteRatingStar";
 import TextArea from "../../textArea/TextArea";
+import Button from "../../button/Button";
+import { btnBasicStyle, btnStyle } from "../../../common2";
 import { Toast } from "../../toast/Toast";
 
 import { TiCamera } from "react-icons/ti";
@@ -134,13 +136,14 @@ export default function WriteCommunityReview({
           value={reviewComment}
           styles="border-[#a4a4a4] placeholder:text-[#a4a4a4] dark:bg-transparent dark:text-white"
         />
-        <button
+        <Button
+          buttonText="리뷰 쓰기"
           onClick={addCommunityReview}
-          className="w-full py-3 bg-[#282828] rounded-lg text-white"
           disabled={writeReviewBtnDisabled}
-        >
-          리뷰 쓰기
-        </button>
+          basicStyle={btnBasicStyle.basic}
+          styles="w-full py-3 rounded-lg"
+          enableStyles={btnStyle.enableBlackBg}
+        />
       </div>
     </div>
   );

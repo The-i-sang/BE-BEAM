@@ -33,6 +33,23 @@ export const dataFetch = async (accessToken, detailUrl) => {
   }
 };
 
+// 툴킷 다운로드 하기
+export const fetchDownloadToolkit = async (pdfUrl) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `https://prod.be-beam.site/api/web/v1/toolkits/download?pdf=${pdfUrl}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error fetching Download Toolkit:", error);
+    throw error;
+  }
+};
+
 // 모임 좋아요 누르기 및 취소
 export const fetchMeetingLikeOrCancel = async (
   accessToken,
@@ -142,7 +159,7 @@ export const createMeetingReview = async (
   }
 };
 
-// 모임 삭제하기
+// 모임 리뷰 삭제하기
 export const fetchDeleteMeetingReview = async (accessToken, reviewId) => {
   try {
     const res = await axios({
@@ -155,6 +172,27 @@ export const fetchDeleteMeetingReview = async (accessToken, reviewId) => {
     });
   } catch (error) {
     console.error("Error Delete Meeting Review:", error);
+    throw error;
+  }
+};
+
+// 모임 립리뷰 좋아요 및 취소
+export const fetchMeetingReviewLikeOrCancel = async (
+  accessToken,
+  reviewId,
+  method
+) => {
+  try {
+    const res = await axios({
+      method: method,
+      url: `https://prod.be-beam.site/api/web/v1/reviews/${reviewId}/like`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error Meeting Review Like:", error);
     throw error;
   }
 };

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { formatTimeAgo } from "../../../common";
-import { fetchDeleteMeetingReview } from "../../../api/meetingAndToolkit";
+import {
+  fetchDeleteMeetingReview,
+  fetchMeetingReviewLikeOrCancel,
+} from "../../../api/meetingAndToolkit";
 
 import Button from "../../button/Button";
 import { btnBasicStyle, btnStyle } from "../../../common2";
@@ -21,6 +24,24 @@ export default function CommunityReviewCard({
     onSuccess: () => {
       updateMeetingData();
       Toast("😳후기를 삭제하였습니다.!");
+    },
+  });
+
+  const MeetingReviewLikeMutation = useMutation({
+    mutationFn: () =>
+      fetchMeetingReviewLikeOrCancel(accessToken, data.reviewId, "post"),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😊좋아요를 눌렀습니다.!");
+    },
+  });
+
+  const MeetingReviewLikeCancelMutation = useMutation({
+    mutationFn: () =>
+      fetchMeetingReviewLikeOrCancel(accessToken, data.reviewId, "delete"),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😂좋아요를 취소했습니다.!");
     },
   });
 
@@ -91,22 +112,29 @@ export default function CommunityReviewCard({
 
         <div className="flex items-center justify-end ml-auto gap-x-4 sm:mt-0">
           <p>
-            {data.likesCount
+            {data.likesCount === 0
               ? "첫 번째 좋아요 어때요!?"
               : `${data.likesCount}명이 좋아합니다!`}
           </p>
 
-          <button
-            className={`${
+          <Button
+            icon={<CiHeart />}
+            onClick={() => {
+              if (data.liked) {
+                MeetingReviewLikeCancelMutation.mutate();
+              } else {
+                MeetingReviewLikeMutation.mutate();
+              }
+            }}
+            basicStyle={btnBasicStyle.basic}
+            styles={`${
               data.liked
                 ? "bg-[#dadada] dark:text-text-dark-70"
                 : "bg-transparent dark:text-text-dark-default"
-            } flex items-center gap-x-2 border-[1px] border-solid border-[#dadada] rounded-full px-4 py-2 font-bold text-text-light-60 transition-all duration-700`}
-            onClick={() => {}}
+            } gap-x-2 border-[1px] border-solid border-[#dadada] rounded-full px-4 py-2 font-bold text-text-light-60 transition-all duration-700`}
           >
-            <CiHeart />
             좋아요
-          </button>
+          </Button>
         </div>
       </div>
     </li>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
+import { AccessTokenState } from "../recoil/userState";
 import { dataFetch } from "../api/meetingAndToolkit";
 import { handleConsoleError } from "../common";
 
@@ -16,6 +17,8 @@ import { CiPen } from "react-icons/ci";
 
 export default function Toolkit() {
   const navigate = useNavigate();
+
+  const accessToken = useRecoilValue(AccessTokenState);
   const slidesToShow = useRecoilValue(SlidesToShowState);
 
   const [filteredToolkits, setFilteredToolkits] = useState([]);
@@ -28,11 +31,14 @@ export default function Toolkit() {
 
   const {
     isLoading,
-    data: datas,
     error,
-  } = useQuery(["toolkitDatas"], async () => {
-    const result = await dataFetch("toolkits");
-    return result.toolkits;
+    data: datas,
+  } = useQuery({
+    queryKey: ["toolkitDatas", accessToken],
+    queryFn: async () => {
+      const result = await dataFetch(accessToken, "toolkits");
+      return result.toolkits;
+    },
   });
 
   // 임시로 추가하는 toolkitType, personType, creator => server에서 들어오는 데이터가 수정되면 지울 코드
