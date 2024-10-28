@@ -42,8 +42,9 @@ export const fetchDownloadToolkit = async (pdfUrl) => {
       headers: {
         "Content-Type": "application/json",
       },
+      responseType: "blob",
     });
-    return res.data.result;
+    return res.data;
   } catch (error) {
     console.error("Error fetching Download Toolkit:", error);
     throw error;

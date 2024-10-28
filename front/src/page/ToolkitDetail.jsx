@@ -8,6 +8,8 @@ import { handleConsoleError } from "../common";
 import DetailToolkitSmallTitle from "../component/toolkit/DetailToolkitSmallTitle";
 import BasicSlider from "../component/slider/BasicSlider";
 import { Toast } from "../component/toast/Toast";
+import Button from "../component/button/Button";
+import { btnBasicStyle, btnStyle } from "../common2";
 
 import {
   PiThumbsUpDuotone,
@@ -16,8 +18,6 @@ import {
 } from "react-icons/pi";
 import { BsDownload, BsArrowRight } from "react-icons/bs";
 import { CiHashtag } from "react-icons/ci";
-import Button from "../component/button/Button";
-import { btnBasicStyle, btnStyle } from "../common2";
 
 export default function ToolkitDetail() {
   const navigate = useNavigate();
@@ -116,8 +116,10 @@ export default function ToolkitDetail() {
 
             <div className="flex flex-wrap items-center sm:mb-20 mb-14">
               <DetailToolkitSmallTitle icon={<CiHashtag />} title="태그" />
-              {data?.keywords?.map((keyword) => (
-                <p className="ml-3 sm:text-[1rem] text-[0.9rem]">#{keyword}</p>
+              {data?.keywords?.map((keyword, idx) => (
+                <p key={idx} className="ml-3 sm:text-[1rem] text-[0.9rem]">
+                  #{keyword}
+                </p>
               ))}
             </div>
 
@@ -128,7 +130,14 @@ export default function ToolkitDetail() {
                   onClick={() => {
                     const handleDownloadToolkit = async () => {
                       try {
-                        await fetchDownloadToolkit(data?.file);
+                        const blob = await fetchDownloadToolkit(data?.file);
+                        const downloadUrl = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.href = downloadUrl;
+                        link.download = "Toolkit.pdf";
+                        link.click();
+                        URL.revokeObjectURL(downloadUrl);
+
                         Toast("툴킷 다운로드를 성공했습니다.!😍");
                       } catch (error) {
                         Toast("툴킷 다운로드에 실패했습니다...😢");
@@ -171,10 +180,13 @@ export default function ToolkitDetail() {
                 </div>
               </div>
 
-              <button className="sm:w-1/4 w-1/4 flex justify-end items-center sm:text-[0.875rem] text-[0.8rem] dark:text-white">
-                <p>자세히 보기</p>
+              <Button
+                buttonText="자세히 보기"
+                basicStyle={btnBasicStyle.basic}
+                styles="sm:text-[0.875rem] text-[0.8rem] dark:text-white"
+              >
                 <BsArrowRight className="ml-1" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
