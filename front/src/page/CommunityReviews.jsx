@@ -39,7 +39,7 @@ export default function CommunityReviews() {
   } = useQuery({
     queryKey: ["meetingReviewDatas"],
     queryFn: async () => {
-      const result = await MeetingReviewsFetch(accessToken);
+      const result = await MeetingReviewsFetch();
       return result;
     },
   });
