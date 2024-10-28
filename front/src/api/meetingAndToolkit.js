@@ -39,9 +39,6 @@ export const fetchDownloadToolkit = async (pdfUrl) => {
     const res = await axios({
       method: "get",
       url: `https://prod.be-beam.site/api/web/v1/toolkits/download?pdf=${pdfUrl}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
     return res.data.result;
   } catch (error) {
