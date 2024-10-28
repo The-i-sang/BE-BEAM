@@ -109,7 +109,7 @@ export const oneMeetingReviewFetch = async (accessToken, meetingId, filter) => {
     });
     return res.data.result;
   } catch (error) {
-    console.error("Error fetching Meeting Review Fetch:", error);
+    console.error("Error fetching One Meeting Review Fetch:", error);
     throw error;
   }
 };
@@ -193,6 +193,24 @@ export const fetchMeetingReviewLikeOrCancel = async (
     });
   } catch (error) {
     console.error("Error Meeting Review Like:", error);
+    throw error;
+  }
+};
+
+// 전체 모임 후기 받아오기 및 필터링
+export const MeetingReviewsFetch = async () => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `https://prod.be-beam.site/api/web/v1/reviews`,
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error fetching Meeting Reviews Fetch:", error);
     throw error;
   }
 };

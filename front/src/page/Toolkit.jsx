@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 import { AccessTokenState } from "../recoil/userState";
 import { dataFetch } from "../api/meetingAndToolkit";
-import { handleConsoleError } from "../common";
+import { handleConsoleError2 } from "../common";
 
 import BasicSlider from "../component/slider/BasicSlider";
 import Card from "../component/card/BasicCard";
@@ -40,6 +40,8 @@ export default function Toolkit() {
       return result.toolkits;
     },
   });
+
+  const comment = handleConsoleError2(isLoading, error, datas);
 
   // 임시로 추가하는 toolkitType, personType, creator => server에서 들어오는 데이터가 수정되면 지울 코드
   const editToolkitDatas = useMemo(
@@ -150,13 +152,6 @@ export default function Toolkit() {
       setFilteredToolkits(filteredResults);
     }
   };
-
-  const comment = handleConsoleError(
-    isLoading,
-    error,
-    searchText,
-    filteredToolkits
-  );
 
   return (
     <div className="flex flex-col items-center justify-between w-full pt-16 font-medium">

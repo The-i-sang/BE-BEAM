@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 import { AccessTokenState } from "../recoil/userState";
 import { dataFetch } from "../api/meetingAndToolkit";
+import { handleConsoleError2 } from "../common";
 
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import BasicSlider from "../component/slider/BasicSlider";
@@ -52,6 +53,8 @@ export default function Meeting() {
     },
   });
 
+  const comment = handleConsoleError2(isLoading, error, datas);
+
   console.log(datas);
 
   useEffect(() => {
@@ -74,16 +77,6 @@ export default function Meeting() {
     setFilteredMeetings(filtered);
   }, [category1, category2, setFilteredMeetings, datas]);
 
-  const comment = isLoading
-    ? "Loading..."
-    : error
-    ? "An error has occurred...!"
-    : filteredMeetings.length === 0 && category2 === "모집중"
-    ? "현재 모집 중인 활동이 없어요...!"
-    : filteredMeetings.length === 0 && category2 === "모집완료"
-    ? "모집 마감된 활동이 없어요...!"
-    : null;
-
   const isHostGrade = false;
 
   return (
@@ -91,6 +84,8 @@ export default function Meeting() {
       <Popup />
 
       <div className="flex flex-col items-center w-11/12 mx-auto mb-28 lg:flex-row lg:justify-between">
+        {comment}
+
         <TypeWriter
           type="Meeting Community"
           icon={<FaKissWinkHeart />}
@@ -121,7 +116,13 @@ export default function Meeting() {
           </button>
         </div>
 
-        <BasicSlider slidesToShow={slidesToShow} isDots={false}>
+        <BasicSlider
+          slidesToShow={slidesToShow}
+          isDots={false}
+          prevArrowStyles="top-[36%] left-0"
+          nextArrowStyles="top-[36%] right-0"
+          arrowFontStyles="text-[4rem] text-white"
+        >
           <Category
             title="Meeting Type"
             iconImg={"/image/meeting_icon1.png"}

@@ -20,8 +20,10 @@ export default function BasicSelect({
           height: "43px",
         }}
       >
-        {datas.map((data) => (
-          <MenuItem value={data.value}>{data.title}</MenuItem>
+        {datas.map((data, idx) => (
+          <MenuItem key={idx} value={data.value}>
+            {data.title}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

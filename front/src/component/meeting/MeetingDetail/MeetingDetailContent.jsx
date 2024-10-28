@@ -11,7 +11,7 @@ import { formatDateAndTime, handleConsoleError2 } from "../../../common";
 import SubTitle from "./SubTitle";
 import MeetingDetailSmallContent from "./MeetingDetailSmallContent";
 import WriteCommunityReview from "./WriteCommunityReview";
-import CommunityReviewsWrap2 from "../../communityReview/CommunityReviewsWrap2";
+import CommunityReviewsWrap from "../../communityReview/CommunityReviewsWrap";
 
 import { FaLocationDot } from "react-icons/fa6";
 import {
@@ -186,7 +186,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
           updateMeetingData={updateMeetingData}
         />
 
-        <CommunityReviewsWrap2
+        <CommunityReviewsWrap
           comment={comment}
           datas={datas}
           filter={filter}

@@ -48,7 +48,12 @@ export default function ToolkitDetail() {
 
         <div className="flex flex-col w-full md:flex-row sm:flex-col md:items-start md:justify-between">
           <div className="lg:w-[500px] md:w-[380px] sm:w-full w-full">
-            <BasicSlider>
+            <BasicSlider
+              isDots={false}
+              prevArrowStyles="top-[42%] left-0"
+              nextArrowStyles="top-[42%] right-0"
+              arrowFontStyles="text-[4rem] text-white"
+            >
               {data?.images?.map((img, idx) => (
                 <div key={idx} className="w-full h-[640px]">
                   <img
