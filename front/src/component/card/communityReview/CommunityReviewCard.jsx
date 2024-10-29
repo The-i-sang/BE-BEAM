@@ -8,6 +8,7 @@ import {
 
 import Button from "../../button/Button";
 import { btnBasicStyle, btnStyle } from "../../../common2";
+import RatingStar from "../../rating/RatingStar";
 import { Toast } from "../../toast/Toast";
 
 import { CiHeart } from "react-icons/ci";
@@ -23,7 +24,7 @@ export default function CommunityReviewCard({
     mutationFn: () => fetchDeleteMeetingReview(accessToken, data.reviewId),
     onSuccess: () => {
       updateMeetingData();
-      Toast("😳후기를 삭제하였습니다.!");
+      Toast("😳리뷰를 삭제하였습니다.!");
     },
   });
 
@@ -41,7 +42,7 @@ export default function CommunityReviewCard({
       fetchMeetingReviewLikeOrCancel(accessToken, data.reviewId, "delete"),
     onSuccess: () => {
       updateMeetingData();
-      Toast("😂좋아요를 취소했습니다.!");
+      Toast("😂좋아요를 취소하였습니다.!");
     },
   });
 
@@ -72,7 +73,7 @@ export default function CommunityReviewCard({
           </p>
           |<p>{formatTimeAgo(data.createdAt)}</p>
         </div>
-        <p>{data.rating}</p>
+        <RatingStar rating={data.rating} />
       </div>
 
       <p className="mt-4 text-[1.1rem] text-text-light-90 dark:text-text-dark-80">
@@ -104,7 +105,15 @@ export default function CommunityReviewCard({
 
           <Button
             buttonText="삭제하기"
-            onClick={() => deleteMeetingReviewMutation.mutate()}
+            onClick={() => {
+              if (window.confirm("정말 리뷰를 삭제하시겠습니까?")) {
+                try {
+                  deleteMeetingReviewMutation.mutate();
+                } catch (error) {
+                  Toast("리뷰 삭제를 실패하였습니다...😢");
+                }
+              }
+            }}
             basicStyle={btnBasicStyle.basic}
             styles={`${btnStyle.blackBg} px-4 py-3`}
           />

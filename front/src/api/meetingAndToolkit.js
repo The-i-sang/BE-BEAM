@@ -76,12 +76,11 @@ export const fetchMeetingLikeOrCancel = async (
 export const fetchSendMeetingApplyReason = async (
   accessToken,
   meetingId,
-  meetingApplyReason,
-  method
+  meetingApplyReason
 ) => {
   try {
     const res = await axios({
-      method: method,
+      method: "post",
       url: `https://prod.be-beam.site/api/web/v1/meetings/${meetingId}/join`,
       headers: {
         "Content-Type": "application/json",
@@ -93,6 +92,23 @@ export const fetchSendMeetingApplyReason = async (
     });
   } catch (error) {
     console.error("Error Send Meeting Apply Reason:", error);
+    throw error;
+  }
+};
+
+// 모임 참여 신청 취소하기
+export const fetchCancelMeetingApplyReason = async (accessToken, meetingId) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `https://prod.be-beam.site/api/web/v1/meetings/${meetingId}/join`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error Cancel Meeting Apply Reason:", error);
     throw error;
   }
 };
@@ -177,7 +193,7 @@ export const fetchDeleteMeetingReview = async (accessToken, reviewId) => {
   }
 };
 
-// 모임 립리뷰 좋아요 및 취소
+// 모임 리뷰 좋아요 및 취소
 export const fetchMeetingReviewLikeOrCancel = async (
   accessToken,
   reviewId,
@@ -199,19 +215,36 @@ export const fetchMeetingReviewLikeOrCancel = async (
 };
 
 // 전체 모임 후기 받아오기 및 필터링
-export const MeetingReviewsFetch = async () => {
+export const MeetingReviewsFetch = async (accessToken, filter) => {
   try {
     const res = await axios({
       method: "get",
-      url: `https://prod.be-beam.site/api/web/v1/reviews`,
+      url: `https://prod.be-beam.site/api/web/v1/reviews?search=${filter.search}&sort=${filter.sort}&type=${filter.type}&recruitmentType=${filter.recruitmentType}`,
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return res.data.result;
   } catch (error) {
     console.error("Error fetching Meeting Reviews Fetch:", error);
+    throw error;
+  }
+};
+
+// 최신 리뷰 5개 받아오기
+export const RecentMeetingReviewsFetch = async () => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `https://prod.be-beam.site/api/web/v1/reviews/recent`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error fetching Recent Meeting Reviews Fetch:", error);
     throw error;
   }
 };

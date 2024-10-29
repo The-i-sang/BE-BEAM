@@ -13,6 +13,7 @@ export default function CommunityReviewsWrap({
   accessToken,
   updateMeetingData,
   styles,
+  isHidden,
 }) {
   const responsiveSize = useRecoilValue(ResponsiveSize);
 
@@ -94,6 +95,23 @@ export default function CommunityReviewsWrap({
               { value: "image", title: "사진" },
             ]}
             wrapStyle={selectStyles}
+          />
+          <BasicSelect
+            id="meeting-type"
+            typeText="모임 종류"
+            value={filter.recruitmentType}
+            onChange={(e) =>
+              setFilter((prev) => ({
+                ...prev,
+                recruitmentType: e.target.value,
+              }))
+            }
+            datas={[
+              { value: "all", title: "전체" },
+              { value: "regular", title: "정기모임" },
+              { value: "small", title: "소모임" },
+            ]}
+            wrapStyle={`${isHidden ? "hidden" : ""} ${selectStyles}`}
           />
         </div>
 

@@ -1,37 +1,67 @@
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserNecessaryDataState } from "../../../recoil/userState";
-import { MeetingReviewsState } from "../../../recoil/contentState";
-import BasicSlider from "../../slider/BasicSlider";
+import { useMutation } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
+import { AccessTokenState } from "../../../recoil/userState";
+import {
+  fetchCancelMeetingApplyReason,
+  fetchDeleteMeetingReview,
+  fetchMeetingReviewLikeOrCancel,
+} from "../../../api/meetingAndToolkit";
 
-import { GoChevronUp, GoChevronDown } from "react-icons/go";
+import Button from "../../button/Button";
+import { borderStyle, btnBasicStyle } from "../../../common2";
+import { Toast } from "../../toast/Toast";
+
+import { GoChevronUp, GoChevronDown, GoX } from "react-icons/go";
 import { PiHeartStraightLight, PiHeartStraightFill } from "react-icons/pi";
 
 export default function MyPageCard({
+  id,
   idx,
   isHidden,
-  data,
   subTitle,
   title,
   des,
   bg,
-  imgs,
-  isLikeBtn = false,
+  img,
   styles,
+  isLike,
+  isCancelApplication,
+  isDeleteReview,
+  updateMeetingData,
 }) {
+  const accessToken = useRecoilValue(AccessTokenState);
   const [dropDown, setDropDown] = useState(false);
-  const userNecessaryData = useRecoilValue(UserNecessaryDataState);
-  const setReviewDatas = useSetRecoilState(MeetingReviewsState);
 
-  const isFillLikeBtn = data?.likes?.find(
-    (like) => like === userNecessaryData.userEmail
-  );
+  const deleteMeetingReviewMutation = useMutation({
+    mutationFn: () => fetchDeleteMeetingReview(accessToken, id),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😳리뷰를 삭제하였습니다.!");
+    },
+  });
+
+  const MeetingReviewLikeCancelMutation = useMutation({
+    mutationFn: () => fetchMeetingReviewLikeOrCancel(accessToken, id, "delete"),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😂좋아요를 취소하였습니다.!");
+    },
+  });
+
+  const MeetingApplyReasonCancelMutation = useMutation({
+    mutationFn: () => fetchCancelMeetingApplyReason(accessToken, id),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😂모임 신청을 취소하였습니다.!");
+    },
+  });
 
   return (
     <div
-      className={`${
-        isHidden ? "hidden" : "block"
-      } ${styles} px-[6px] pb-[6px] box-border rounded-lg shadow-[0_10px_8px_2px_#cdcdcd] dark:shadow-[0_10px_8px_2px_#252525] text-white transition-all duration-700 animate-slide-in cursor-pointer relative overflow-hidden`}
+      className={`${isHidden ? "hidden" : "block"} ${styles} ${
+        borderStyle.basic
+      } px-[6px] pb-[6px] box-border border-[1px] rounded-lg shadow-[0_10px_8px_2px_#cdcdcd] dark:shadow-[0_10px_8px_2px_#252525] text-white transition-all duration-700 animate-slide-in cursor-pointer relative overflow-hidden`}
       style={{
         backgroundImage: `url(${bg})`,
         backgroundPosition: "center",
@@ -44,43 +74,46 @@ export default function MyPageCard({
         {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
       </p>
 
-      <button
+      <Button
+        icon={isLike ? <PiHeartStraightLight /> : <GoX />}
         onClick={() => {
-          // 내가 좋아요 눌렀던 모임 취소 기능 구현 X
-          // 내가 좋아요 눌렀던 리뷰 취소 기능
-          setReviewDatas((prev) =>
-            prev.map((d) => {
-              if (d.reviewId === data.reviewId) {
-                return {
-                  ...d,
-                  likes: d.likes.filter(
-                    (like) => like !== userNecessaryData.userEmail
-                  ),
-                };
-              } else if (d.reviewId !== data.reviewId) {
-                return d;
+          if (isLike) {
+            try {
+              MeetingReviewLikeCancelMutation.mutate();
+            } catch (error) {
+              Toast("좋아요 취소를 실패하였습니다...😢");
+            }
+          } else if (isCancelApplication) {
+            if (window.confirm("정말 모임 신청을 취소하시겠습니까?")) {
+              try {
+                MeetingApplyReasonCancelMutation.mutate();
+              } catch (error) {
+                Toast("모임 신청 취소를 실패하였습니다...😢");
               }
-            })
-          );
+            }
+          } else {
+            if (window.confirm("정말 리뷰를 삭제하시겠습니까?")) {
+              try {
+                deleteMeetingReviewMutation.mutate();
+              } catch (error) {
+                Toast("리뷰 삭제를 실패하였습니다...😢");
+              }
+            }
+          }
         }}
-        className={`${
-          isLikeBtn ? "" : "hidden"
-        } absolute w-8 h-8 bg-[rgba(0,0,0,0.5)] rounded-full top-2 left-2 flex items-center justify-center`}
-      >
-        {isFillLikeBtn ? <PiHeartStraightFill /> : <PiHeartStraightLight />}
-      </button>
+        basicStyle={btnBasicStyle.circle}
+        styles={`${
+          isLike || isCancelApplication || isDeleteReview ? "" : "hidden"
+        } w-8 h-8 bg-[rgba(0,0,0,0.5)] absolute top-2 left-2`}
+      />
 
-      <BasicSlider isDots={false} isArrows={false}>
-        {imgs?.map((img) => (
-          <div>
-            <img
-              className="object-cover w-full rounded-lg aspect-square"
-              src={img}
-              alt="img"
-            />
-          </div>
-        ))}
-      </BasicSlider>
+      <img
+        className={`${
+          img ? "" : "hidden"
+        } object-cover w-full rounded-lg aspect-square`}
+        src={img}
+        alt="img"
+      />
 
       <div className="mt-2 text-[rgba(255,255,255,0.7)] text-[0.875rem]">
         <p>{subTitle}</p>

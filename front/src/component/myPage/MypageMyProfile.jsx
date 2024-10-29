@@ -1,22 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  AccessTokenState,
-  UserPersonalInfoState,
-  userState,
-} from "../../recoil/userState";
+import { useSetRecoilState } from "recoil";
+import { AccessTokenState, userState } from "../../recoil/userState";
 
 import Button from "../button/Button";
 import { borderStyle, btnBasicStyle, btnStyle } from "../../common2";
 
 import { CiEdit } from "react-icons/ci";
 
-export default function MypageMyProfile({ userData }) {
+export default function MypageMyProfile({
+  profileImage,
+  nickname,
+  hashtags,
+  introduction,
+}) {
   const navigate = useNavigate();
 
   const setUserIn = useSetRecoilState(userState);
   const setAccessToken = useSetRecoilState(AccessTokenState);
-  const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
 
   return (
     <div className="w-full">
@@ -45,7 +45,7 @@ export default function MypageMyProfile({ userData }) {
           <div className="relative mb-5">
             <img
               className="sm:w-[120px] w-[100px] aspect-square object-cover rounded-full shadow-lg"
-              src={userData.profileImage}
+              src={profileImage}
               alt="user_profile"
             />
             <Button
@@ -57,18 +57,18 @@ export default function MypageMyProfile({ userData }) {
           </div>
 
           <p className="mb-1 text-[1.125rem] dark:text-text-dark-default font-semibold">
-            {userData.nickname}
+            {nickname}
           </p>
           <p className="text-[0.875rem] text-text-light-70 dark:text-text-dark-20 font-thin">
-            {userData.introduction}
+            {introduction}
           </p>
 
           <div
             className={`${
-              userPersonalInfo.hashtags?.length === 0 ? "" : "mt-5"
+              hashtags?.length === 0 ? "" : "mt-5"
             } w-full text-[0.8125rem] font-medium flex justify-center items-center flex-wrap sm:gap-x-2 gap-x-1`}
           >
-            {userPersonalInfo.hashtags?.map((keyword, idx) => (
+            {hashtags?.map((keyword, idx) => (
               <div
                 key={idx}
                 className="bg-bg-light-10 dark:bg-bg-dark-default py-2 px-4 mb-2 rounded-3xl border-[1px] border-solid border-bg-light-20 dark:border-bg-dark-30 text-text-light-70 dark:text-text-dark-default"

@@ -3,6 +3,7 @@
 import axios from "axios";
 import { changePhoneNumberRepresentation } from "../common";
 
+// 쿠키를 토큰으로 변경하기
 export const changeCookieToToken = async () => {
   try {
     const res = await axios({
@@ -17,6 +18,7 @@ export const changeCookieToToken = async () => {
   }
 };
 
+// 프로필 가져오기
 export const getUserProfile = async (accessToken) => {
   try {
     const res = await axios({
@@ -48,6 +50,7 @@ const base64ToFile = (base64, filename) => {
   return new File([u8arr], filename, { type: mime });
 };
 
+// 프로필 수정
 export const editUserProfile = async (
   accessToken,
   newProfileImage,
@@ -93,6 +96,7 @@ export const editUserProfile = async (
   }
 };
 
+// 개인정보 가져오기
 export const getUserPersonalInfo = async (accessToken) => {
   try {
     const res = await axios({
@@ -110,6 +114,7 @@ export const getUserPersonalInfo = async (accessToken) => {
   }
 };
 
+// 개인정보 수정
 export const editUserPersonalInfo = async (
   accessToken,
   name,
@@ -138,6 +143,24 @@ export const editUserPersonalInfo = async (
     });
   } catch (error) {
     console.error("Error Edit User Personal Information:", error);
+    throw error;
+  }
+};
+
+// 마이페이지 정보 가져오기
+export const fetchMypageInfo = async (accessToken) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: "https://prod.be-beam.site/api/web/v1/users/my-page",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error Fetch Mypage Information:", error);
     throw error;
   }
 };

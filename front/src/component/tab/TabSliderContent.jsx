@@ -7,7 +7,10 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 export default function TabSliderContent({
   datas,
   tabTitle,
-  isLikeBtn,
+  isLike,
+  isCancelApplication,
+  isDeleteReview,
+  updateMeetingData,
   children,
 }) {
   const [slideIndex, setSlideIndex] = useState(8);
@@ -78,7 +81,7 @@ export default function TabSliderContent({
     <Tab.Panel>
       <div
         className={`${
-          datas.length > 0 ? "block" : "hidden"
+          datas?.length > 0 ? "block" : "hidden"
         } w-full py-[2rem] px-[1.25rem] box-border flex items-center gap-x-2`}
       >
         <button
@@ -92,23 +95,26 @@ export default function TabSliderContent({
         </button>
 
         <div className={`${gridNum} w-full grid gap-x-3`}>
-          {datas.map((data, index) => (
+          {datas?.map((data, index) => (
             <LeftAlignSlider
               key={index}
               index={index}
               data={data}
               slideIndex={slideIndex}
               slideShowNum={slideShowNum}
-              isLikeBtn={isLikeBtn}
+              isLike={isLike}
+              isCancelApplication={isCancelApplication}
+              isDeleteReview={isDeleteReview}
+              updateMeetingData={updateMeetingData}
             />
           ))}
         </div>
 
         <button
           onClick={nextSlide}
-          disabled={!(slideIndex < datas.length)}
+          disabled={!(slideIndex < datas?.length)}
           className={`${
-            slideIndex < datas.length ? "text-[#474545]" : "text-[#a8a5a5]"
+            slideIndex < datas?.length ? "text-[#474545]" : "text-[#a8a5a5]"
           } xl:w-[50px] md:w-[40px] sm:w-[30px] w-[40px] xl:h-[50px] md:h-[40px] sm:h-[30px] h-[40px] bg-white border-[1px] border-solid border-[#dfdfdf] rounded-2xl flex items-center justify-center text-[2rem]`}
         >
           <GoChevronRight />
@@ -117,11 +123,13 @@ export default function TabSliderContent({
 
       <div
         className={`${
-          datas.length === 0 ? "block" : "hidden"
+          datas?.length === 0 ? "block" : "hidden"
         } w-full py-12 flex flex-col items-center`}
       >
         <h1 className="text-[1.06rem] text-[#3f3f3f] font-semibold">
-          {tabTitle}이 없어요.
+          {`${tabTitle}${
+            tabTitle?.[tabTitle?.length - 1] === "뷰" ? "가" : "이"
+          } 없어요.`}
         </h1>
 
         {children}

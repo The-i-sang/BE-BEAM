@@ -5,11 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { CommunityReviewSlidesToShowState } from "../recoil/contentState";
 import { AccessTokenState } from "../recoil/userState";
-import { MeetingReviewsFetch } from "../api/meetingAndToolkit";
+import {
+  MeetingReviewsFetch,
+  RecentMeetingReviewsFetch,
+} from "../api/meetingAndToolkit";
 import { handleConsoleError2 } from "../common";
 
 import BasicSlider from "../component/slider/BasicSlider";
-import Card from "../component/communityReview/Card";
+import RecentCommunityReviewCard from "../component/card/communityReview/RecentCommunityReviewCard";
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import CommunityReviewsWrap from "../component/communityReview/CommunityReviewsWrap";
 
@@ -23,6 +26,7 @@ export default function CommunityReviews() {
     search: "",
     sort: "recent",
     type: "text",
+    recruitmentType: "all",
   });
   const [
     meetingReviewDataQueryKeyPostFix,
@@ -35,19 +39,38 @@ export default function CommunityReviews() {
   const {
     isLoading,
     error,
-    data: datas,
+    data: recentMeetingReviewdatas,
   } = useQuery({
-    queryKey: ["meetingReviewDatas"],
+    queryKey: ["recentMeetingReviewDatas"],
     queryFn: async () => {
-      const result = await MeetingReviewsFetch();
+      const result = await RecentMeetingReviewsFetch();
       return result;
     },
   });
 
-  const comment = handleConsoleError2(isLoading, error, datas);
-  const bestReviewDatas = [];
+  const {
+    isLoading: isLoading2,
+    error: error2,
+    data: meetingReviewdatas,
+  } = useQuery({
+    queryKey: [
+      "meetingReviewDatas",
+      accessToken,
+      filter,
+      meetingReviewDataQueryKeyPostFix,
+    ],
+    queryFn: async () => {
+      const result = await MeetingReviewsFetch(accessToken, filter);
+      return result;
+    },
+  });
 
-  console.log(datas);
+  const comment = handleConsoleError2(
+    isLoading,
+    error,
+    recentMeetingReviewdatas
+  );
+  const comment2 = handleConsoleError2(isLoading2, error2, meetingReviewdatas);
 
   return (
     <div className="w-full pt-16 dark:bg-black dark:text-white">
@@ -70,15 +93,22 @@ export default function CommunityReviews() {
         </div>
 
         <div className="relative w-full">
-          <BasicSlider slidesToShow={slidesToShow} isDots={false}>
-            {bestReviewDatas.map((data) => (
-              <Card key={data.reviewId} data={data} />
+          {comment}
+          <BasicSlider
+            slidesToShow={slidesToShow}
+            isDots={false}
+            prevArrowStyles="top-[40%] left-0"
+            nextArrowStyles="top-[40%] right-0"
+            arrowFontStyles="text-[4rem] text-white"
+          >
+            {recentMeetingReviewdatas?.map((data) => (
+              <RecentCommunityReviewCard key={data.reviewId} data={data} />
             ))}
           </BasicSlider>
 
           <CommunityReviewsWrap
-            comment={comment}
-            datas={datas?.reviews}
+            comment={comment2}
+            datas={meetingReviewdatas}
             filter={filter}
             setFilter={setFilter}
             accessToken={accessToken}

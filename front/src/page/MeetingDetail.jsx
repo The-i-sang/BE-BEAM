@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../recoil/userState";
 import { dataFetch } from "../api/meetingAndToolkit";
-import { handleConsoleError } from "../common";
+import { handleConsoleError2 } from "../common";
 
 import MeetingDetailTop from "../component/meeting/MeetingDetail/MeetingDetailTop";
 import MeetingApplyAndLikeBtnWrap from "../component/meeting/MeetingDetail/MeetingApplyAndLikeBtnWrap";
@@ -32,7 +32,7 @@ export default function MeetingDetail() {
     },
   });
 
-  const comment = handleConsoleError(isLoading, error);
+  const comment = handleConsoleError2(isLoading, error);
   const aboutPaymentsComment =
     data?.paymentAmount !== 0 &&
     `이후에 "토스뱅크 1000-5552-9626"으로 "${data?.paymentAmount}원"을 입금해주시면 됩니다.`;

@@ -28,12 +28,7 @@ export default function MeetingApplyReasonModal({
 
   const sendMeetingApplyReasonMutation = useMutation({
     mutationFn: () =>
-      fetchSendMeetingApplyReason(
-        accessToken,
-        meetingId,
-        meetingApplyReason,
-        "post"
-      ),
+      fetchSendMeetingApplyReason(accessToken, meetingId, meetingApplyReason),
     onSuccess: () => {
       updateMeetingData();
       Toast("🍒🍓 모임 신청이 완료되었습니다!");

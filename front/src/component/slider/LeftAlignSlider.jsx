@@ -2,14 +2,17 @@
 
 import { useEffect } from "react";
 import MyPageCard from "../card/myPage/MyPageCard";
-import { formatDate2 } from "../../common";
+import { formatDateAndTime } from "../../common";
 
 export function LeftAlignSlider({
   index,
   data,
   slideIndex,
   slideShowNum,
-  isLikeBtn,
+  isLike,
+  isCancelApplication,
+  isDeleteReview,
+  updateMeetingData,
 }) {
   const isHidden =
     (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
@@ -29,18 +32,21 @@ export function LeftAlignSlider({
 
   return (
     <MyPageCard
+      id={data?.reviewId ?? data?.id}
       idx={index}
       isHidden={isHidden}
-      data={data}
       subTitle={
-        data.type ?? `${data.nickName}   |   ${formatDate2(data.creatingAt)}`
+        data?.recruitmentType ?? `${formatDateAndTime(data?.createdAt)}`
       }
-      title={data.title ?? data.meeting.title}
-      des={data.text}
-      bg={data.thumbnail ?? data.meeting.thumbnail}
-      imgs={data?.image}
+      title={data?.title ?? data?.meeting?.name}
+      des={data?.text}
+      bg={data?.squareImage ?? data?.image}
+      img={data?.image}
       styles={data?.image ? "pt-14" : "pt-32"}
-      isLikeBtn={isLikeBtn}
+      isLike={isLike}
+      isCancelApplication={isCancelApplication}
+      isDeleteReview={isDeleteReview}
+      updateMeetingData={updateMeetingData}
     />
   );
 }
