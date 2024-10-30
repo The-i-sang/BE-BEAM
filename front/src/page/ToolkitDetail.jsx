@@ -20,17 +20,18 @@ import { BsDownload, BsArrowRight } from "react-icons/bs";
 import { CiHashtag } from "react-icons/ci";
 
 export default function ToolkitDetail() {
+  const location = useLocation();
   const navigate = useNavigate();
   const accessToken = useRecoilValue(AccessTokenState);
 
-  const {
-    state: { toolkitId },
-  } = useLocation();
+  const pathname = location.pathname;
+  const match = pathname.match(/\/detail\/(\d+)/);
+  const id = match ? match[1] : null;
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["toolkitDetailData", accessToken],
     queryFn: async () => {
-      const result = await dataFetch(accessToken, `toolkits/${toolkitId}`);
+      const result = await dataFetch(accessToken, `toolkits/${id}`);
       return result;
     },
   });

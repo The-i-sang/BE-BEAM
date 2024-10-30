@@ -111,7 +111,7 @@ export default function CommunityReviewsWrap({
               { value: "regular", title: "정기모임" },
               { value: "small", title: "소모임" },
             ]}
-            wrapStyle={`${isHidden ? "hidden" : ""} ${selectStyles}`}
+            wrapStyle={{ display: isHidden ? "none" : "", ...selectStyles }}
           />
         </div>
 

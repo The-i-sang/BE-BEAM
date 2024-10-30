@@ -60,7 +60,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
     <div className="w-full sm:text-[1rem] text-[0.875rem]">
       <div className="w-11/12 sm:max-w-[90%] mx-auto md:mt-16 sm:mt-8 mt-8 sm:mb-12 mb-5 flex md:flex-row sm:flex-col flex-col">
         <img
-          className="lg:w-[600px] md:w-[460px] sm:w-full object-cover object-center rounded-lg"
+          className="lg:w-[500px] md:w-[420px] sm:w-full aspect-square object-cover object-center rounded-lg"
           src={data?.thumbnailImage}
           alt="thumbnail"
         />
@@ -82,7 +82,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
               {data?.introduction}
             </p>
             <img
-              className="md:w-[384px] sm:w-[320px] w-full rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
+              className="md:w-[384px] sm:w-[320px] w-full aspect-square rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
               src={data?.thumbnailImage}
               alt="desc_img"
             />
@@ -141,7 +141,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
             {data?.meetingImages?.map((img, idx) => (
               <li key={idx} className="mb-3 sm:mb-0">
                 <img
-                  className="object-cover w-full rounded-lg"
+                  className="object-cover w-full rounded-lg aspect-square"
                   src={img}
                   alt="meeting_img"
                 />
@@ -194,6 +194,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
           accessToken={accessToken}
           updateMeetingData={updateMeetingData}
           styles="mt-10"
+          isHidden={true}
         />
       </div>
     </div>

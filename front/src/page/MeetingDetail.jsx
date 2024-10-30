@@ -12,9 +12,10 @@ import MeetingDetailContent from "../component/meeting/MeetingDetail/MeetingDeta
 import MeetingApplyReasonModal from "../component/modal/meeting/MeetingApplyReasonModal";
 
 export default function MeetingDetail() {
-  const {
-    state: { id },
-  } = useLocation();
+  const pathname = useLocation().pathname;
+  const match = pathname.match(/\/detail\/(\d+)/);
+  const id = match ? match[1] : null;
+  console.log(id);
 
   const accessToken = useRecoilValue(AccessTokenState);
   const [meetingApplyReasonModal, setMeetingApplyReasonModal] = useState(false);
@@ -40,7 +41,7 @@ export default function MeetingDetail() {
   console.log(data);
 
   return (
-    <div className="w-full pt-10 font-light sm:text-[1rem] text-[0.875rem]">
+    <div className="w-full pt-6 font-light sm:text-[1rem] text-[0.875rem]">
       {comment}
 
       <MeetingDetailTop data={data} />

@@ -240,9 +240,7 @@ export default function Toolkit() {
             <Card
               key={data.id}
               onClick={() => {
-                navigate(`/toolkit/detail/${data.id}`, {
-                  state: { toolkitId: data.id },
-                });
+                navigate(`/toolkit/detail/${data.id}`);
               }}
               title={data.title}
               des={data.description}

@@ -17,7 +17,15 @@ export default function MeetingDetailTop({ data }) {
 
   return (
     <div className="w-11/12 max-w-[90%] mx-auto sm:text-[1.2rem] text-[1rem]">
-      <div className="w-full flex items-center gap-x-2 text-[1.5rem] text-[#f5aa15] font-medium">
+      <p className="mb-6 animate-blink">
+        현재
+        <span className="text-[1.5rem] text-mainColor">
+          {` ${data?.participantCount}명`}
+        </span>
+        이 모임에 참여 중이에요!
+      </p>
+
+      <div className="w-full flex items-center gap-x-2 text-[1.5rem] text-mainColor font-medium">
         <IoPeopleCircle />
         <p className="sm:text-[1.1rem] text-[0.9rem]">{data?.finish_type}</p>
       </div>

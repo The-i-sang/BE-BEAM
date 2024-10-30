@@ -19,6 +19,7 @@ module.exports = {
         "slide-out": "slide-out 2s forwards",
         scale: "scale-up-down 2s infinite",
         fadeIn: "fadeIn 1s ease-out",
+        blink: "blink 1s step-start infinite",
       },
 
       keyframes: {
@@ -33,6 +34,10 @@ module.exports = {
         fadeIn: {
           "0%": { transform: "translateX(100%)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
         },
       },
     },
