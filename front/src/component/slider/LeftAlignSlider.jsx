@@ -9,7 +9,8 @@ export function LeftAlignSlider({
   data,
   slideIndex,
   slideShowNum,
-  isLike,
+  isLikeMeeting,
+  isLikeReview,
   isCancelApplication,
   isDeleteReview,
   updateMeetingData,
@@ -40,10 +41,11 @@ export function LeftAlignSlider({
       }
       title={data?.title ?? data?.meeting?.name}
       des={data?.text}
-      bg={data?.squareImage ?? data?.image}
-      img={data?.image}
-      styles={data?.image ? "pt-14" : "pt-32"}
-      isLike={isLike}
+      bg={data?.squareImage ?? data?.meeting?.thumbImage}
+      img={data?.images}
+      styles={data?.images ? "pt-14" : "pt-32"}
+      isLikeMeeting={isLikeMeeting}
+      isLikeReview={isLikeReview}
       isCancelApplication={isCancelApplication}
       isDeleteReview={isDeleteReview}
       updateMeetingData={updateMeetingData}

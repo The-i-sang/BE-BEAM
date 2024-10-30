@@ -17,8 +17,8 @@ function Auth() {
   }, [userIn, navigate]);
 
   function doKakaoLogin() {
-    // const redirectUrl = "http://localhost:8080/oauth2/authorization/kakao";
-    const redirectUrl = "https://prod.be-beam.site/oauth2/authorization/kakao";
+    const redirectUrl = "http://localhost:8080/oauth2/authorization/kakao";
+    // const redirectUrl = "https://prod.be-beam.site/oauth2/authorization/kakao";
 
     window.location.href = redirectUrl;
   }

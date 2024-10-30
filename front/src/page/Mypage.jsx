@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../recoil/userState";
+import { fetchMypageInfo } from "../api/user.js";
+import { handleConsoleError2 } from "../common.js";
 
 import MypageMyProfile from "../component/myPage/MypageMyProfile";
 import BasicTab from "../component/tab/BasicTab.jsx";
 import TabSliderContent from "../component/tab/TabSliderContent.jsx";
 import Button from "../component/button/Button.jsx";
-import { fetchMypageInfo } from "../api/user.js";
-import { handleConsoleError2 } from "../common.js";
 import { btnBasicStyle, btnStyle } from "../common2.js";
 
 export default function Mypage() {
@@ -92,7 +92,7 @@ export default function Mypage() {
               key={idx}
               datas={data}
               tabTitle={["찜한 정기모임", "찜한 소모임"][idx]}
-              isLike={true}
+              isLikeMeeting={true}
               updateMeetingData={updateMeetingData}
             >
               <Button
@@ -156,7 +156,7 @@ export default function Mypage() {
                   idx
                 ]
               }
-              isLike={[false, true, false][idx]}
+              isLikeReview={[false, true, false][idx]}
               isDeleteReview={[true, false, false][idx]}
               updateMeetingData={updateMeetingData}
             />

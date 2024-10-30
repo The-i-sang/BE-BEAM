@@ -7,7 +7,8 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 export default function TabSliderContent({
   datas,
   tabTitle,
-  isLike,
+  isLikeMeeting,
+  isLikeReview,
   isCancelApplication,
   isDeleteReview,
   updateMeetingData,
@@ -102,7 +103,8 @@ export default function TabSliderContent({
               data={data}
               slideIndex={slideIndex}
               slideShowNum={slideShowNum}
-              isLike={isLike}
+              isLikeMeeting={isLikeMeeting}
+              isLikeReview={isLikeReview}
               isCancelApplication={isCancelApplication}
               isDeleteReview={isDeleteReview}
               updateMeetingData={updateMeetingData}

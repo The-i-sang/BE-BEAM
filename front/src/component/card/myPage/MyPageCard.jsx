@@ -5,15 +5,17 @@ import { AccessTokenState } from "../../../recoil/userState";
 import {
   fetchCancelMeetingApplyReason,
   fetchDeleteMeetingReview,
+  fetchMeetingLikeOrCancel,
   fetchMeetingReviewLikeOrCancel,
 } from "../../../api/meetingAndToolkit";
 
+import BasicSlider from "../../slider/BasicSlider";
 import Button from "../../button/Button";
 import { borderStyle, btnBasicStyle } from "../../../common2";
 import { Toast } from "../../toast/Toast";
 
 import { GoChevronUp, GoChevronDown, GoX } from "react-icons/go";
-import { PiHeartStraightLight, PiHeartStraightFill } from "react-icons/pi";
+import { PiHeartStraightFill } from "react-icons/pi";
 
 export default function MyPageCard({
   id,
@@ -25,7 +27,8 @@ export default function MyPageCard({
   bg,
   img,
   styles,
-  isLike,
+  isLikeMeeting,
+  isLikeReview,
   isCancelApplication,
   isDeleteReview,
   updateMeetingData,
@@ -38,6 +41,14 @@ export default function MyPageCard({
     onSuccess: () => {
       updateMeetingData();
       Toast("😳리뷰를 삭제하였습니다.!");
+    },
+  });
+
+  const MeetingLikeCancelMutation = useMutation({
+    mutationFn: () => fetchMeetingLikeOrCancel(accessToken, id, "delete"),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("😂좋아요를 취소하였습니다.!");
     },
   });
 
@@ -75,9 +86,15 @@ export default function MyPageCard({
       </p>
 
       <Button
-        icon={isLike ? <PiHeartStraightLight /> : <GoX />}
+        icon={isLikeMeeting || isLikeReview ? <PiHeartStraightFill /> : <GoX />}
         onClick={() => {
-          if (isLike) {
+          if (isLikeMeeting) {
+            try {
+              MeetingLikeCancelMutation.mutate();
+            } catch (error) {
+              Toast("좋아요 취소를 실패하였습니다...😢");
+            }
+          } else if (isLikeReview) {
             try {
               MeetingReviewLikeCancelMutation.mutate();
             } catch (error) {
@@ -103,17 +120,22 @@ export default function MyPageCard({
         }}
         basicStyle={btnBasicStyle.circle}
         styles={`${
-          isLike || isCancelApplication || isDeleteReview ? "" : "hidden"
+          isLikeMeeting || isLikeReview || isCancelApplication || isDeleteReview
+            ? ""
+            : "hidden"
         } w-8 h-8 bg-[rgba(0,0,0,0.5)] absolute top-2 left-2`}
       />
 
-      <img
-        className={`${
-          img ? "" : "hidden"
-        } object-cover w-full rounded-lg aspect-square`}
-        src={img}
-        alt="img"
-      />
+      <BasicSlider isDots={false} isArrows={false}>
+        {img?.map((i, idx) => (
+          <img
+            key={idx}
+            className="object-cover w-full rounded-lg aspect-square"
+            src={i}
+            alt="meeting_img"
+          />
+        ))}
+      </BasicSlider>
 
       <div className="mt-2 text-[rgba(255,255,255,0.7)] text-[0.875rem]">
         <p>{subTitle}</p>
