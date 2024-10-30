@@ -65,16 +65,6 @@ export default function WriteCommunityReview({
   const addCommunityReview = () => {
     if (accessToken) {
       createMeetingReviewMutation.mutate();
-      // if (
-      //   // filterReviewData.filter(
-      //   //   (data) => data.userEmail === userPersonalInfo.email
-      //   // ).length === 1
-      //   ""
-      // ) {
-      //   Toast("리뷰가 이미 작성되었습니다!");
-      // } else {
-      //   alert("리뷰 작성이 완료되었습니다!");
-      // }
     }
   };
 

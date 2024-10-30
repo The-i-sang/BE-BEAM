@@ -8,7 +8,7 @@ export const changeCookieToToken = async () => {
   try {
     const res = await axios({
       method: "get",
-      url: "https://prod.be-beam.site/api/web/oauth2-jwt-header",
+      url: "http://localhost:8080/api/web/oauth2-jwt-header",
       withCredentials: true,
     });
     return res.data.result;

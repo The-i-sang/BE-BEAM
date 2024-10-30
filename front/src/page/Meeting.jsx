@@ -84,8 +84,6 @@ export default function Meeting() {
       <Popup />
 
       <div className="flex flex-col items-center w-11/12 mx-auto mb-28 lg:flex-row lg:justify-between">
-        {comment}
-
         <TypeWriter
           type="Meeting Community"
           icon={<FaKissWinkHeart />}

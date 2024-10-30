@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { formatTimeAgo } from "../../../common";
 import {
@@ -12,6 +12,9 @@ import RatingStar from "../../rating/RatingStar";
 import { Toast } from "../../toast/Toast";
 
 import { CiHeart } from "react-icons/ci";
+import Input from "../../input/Input";
+import { TiCamera } from "react-icons/ti";
+import { GoX } from "react-icons/go";
 
 export default function CommunityReviewCard({
   data,
@@ -19,6 +22,34 @@ export default function CommunityReviewCard({
   updateMeetingData,
 }) {
   const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(data.text);
+  const [images, setImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState(data.images);
+
+  console.log(data.images, images);
+
+  async function urlsToFiles(urls) {
+    const files = [];
+
+    for (const url of urls) {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const fileName = url.split("/").pop(); // URL에서 파일 이름 추출
+      const file = new File([blob], fileName, { type: blob.type });
+      files.push(file);
+    }
+
+    return files;
+  }
+
+  useEffect(() => {
+    async function changeUrlsToFiles() {
+      if (data.images) {
+        setImages(await urlsToFiles(data.images));
+      }
+    }
+    changeUrlsToFiles();
+  }, [data]);
 
   const deleteMeetingReviewMutation = useMutation({
     mutationFn: () => fetchDeleteMeetingReview(accessToken, data.reviewId),
@@ -76,20 +107,71 @@ export default function CommunityReviewCard({
         <RatingStar rating={data.rating} />
       </div>
 
-      <p className="mt-4 text-[1.1rem] text-text-light-90 dark:text-text-dark-80">
-        {data.text}
-      </p>
+      {edit ? (
+        <Input
+          placeholder="수정할 내용을 입력해주세요."
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          styles="w-full mt-4 px-4 py-3 text-text-light-90 dark:text-text-dark-80"
+        />
+      ) : (
+        <p className="mt-4 text-[1.1rem] text-text-light-90 dark:text-text-dark-80">
+          {data.text}
+        </p>
+      )}
 
-      <div className="flex flex-wrap items-center w-full mt-4 sm:justify-normal 2sm:justify-between gap-x-4">
-        {data.images.map((img, idx) => (
-          <img
-            key={idx}
-            className="object-cover mb-4 rounded-lg sm:w-52 2sm:w-[48%] 3sm:w-full sm:h-52 aspect-square"
-            src={img}
-            alt="reviewImg"
-          />
-        ))}
-      </div>
+      {edit ? (
+        <div className="flex flex-wrap w-full mt-4 gap-x-4">
+          <label className="flex flex-col items-center justify-center sm:w-52 2sm:w-[48%] 3sm:w-full sm:h-52 aspect-square border-2 border-gray-300 border-dashed rounded-lg cursor-pointer">
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={() => {}}
+              className="hidden"
+            />
+            <TiCamera className="text-[2rem] text-gray-500" />
+            <p>사진 {previewImages?.length}/10</p>
+          </label>
+
+          <div className="flex flex-wrap items-center sm:justify-normal 2sm:justify-between gap-x-4">
+            {previewImages.map((img, idx) => (
+              <div key={idx} className="relative">
+                <img
+                  className="object-cover mb-4 rounded-lg sm:w-52 2sm:w-[48%] 3sm:w-full sm:h-52 aspect-square"
+                  src={img}
+                  alt="reviewImg"
+                />
+
+                <button
+                  onClick={() => {
+                    setPreviewImages((prev) =>
+                      prev.filter((_, index) => index !== idx)
+                    );
+                  }}
+                  className="absolute top-1 right-1 p-1 text-white text-[1.5rem]"
+                >
+                  <GoX />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-wrap items-center w-full mt-4 sm:justify-normal 2sm:justify-between gap-x-4">
+          {data.images.map((img, idx) => (
+            <img
+              key={idx}
+              className="object-cover mb-4 rounded-lg sm:w-52 2sm:w-[48%] 3sm:w-full sm:h-52 aspect-square"
+              src={img}
+              alt="reviewImg"
+            />
+          ))}
+        </div>
+      )}
+
       <p className="mt-2 text-[0.95rem]">{data.meeting.name}</p>
 
       <div className="flex w-full mt-5">
@@ -97,8 +179,14 @@ export default function CommunityReviewCard({
           className={`${data.myReview ? "" : "hidden"} flex mr-auto gap-x-2`}
         >
           <Button
-            buttonText="수정하기"
-            onClick={() => setEdit(true)}
+            buttonText={`${edit ? "수정 완료하기" : "수정하기"}`}
+            onClick={() => {
+              if (edit) {
+                setEdit(false);
+              } else {
+                setEdit(true);
+              }
+            }}
             basicStyle={btnBasicStyle.basic}
             styles={`${btnStyle.blackBg} px-4 py-3`}
           />
@@ -115,7 +203,7 @@ export default function CommunityReviewCard({
               }
             }}
             basicStyle={btnBasicStyle.basic}
-            styles={`${btnStyle.blackBg} px-4 py-3`}
+            styles={`${btnStyle.blackBg} ${edit ? "hidden" : ""} px-4 py-3`}
           />
         </div>
 
