@@ -28,29 +28,6 @@ export default function CommunityReviewCard({
 
   console.log(data.images, images);
 
-  async function urlsToFiles(urls) {
-    const files = [];
-
-    for (const url of urls) {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const fileName = url.split("/").pop(); // URL에서 파일 이름 추출
-      const file = new File([blob], fileName, { type: blob.type });
-      files.push(file);
-    }
-
-    return files;
-  }
-
-  useEffect(() => {
-    async function changeUrlsToFiles() {
-      if (data.images) {
-        setImages(await urlsToFiles(data.images));
-      }
-    }
-    changeUrlsToFiles();
-  }, [data]);
-
   const deleteMeetingReviewMutation = useMutation({
     mutationFn: () => fetchDeleteMeetingReview(accessToken, data.reviewId),
     onSuccess: () => {

@@ -125,6 +125,8 @@ export default function UserInfoModify() {
   const dataComeIn =
     name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex;
 
+  console.log(userPersonalInfo);
+
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
       <div className="w-11/12 mx-auto">

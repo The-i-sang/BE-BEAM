@@ -48,7 +48,7 @@ export default function MeetingApplyAndLikeBtnWrap({
           basicStyle={btnBasicStyle.basic}
           styles="w-full flex-1 rounded-lg sm:text-[1rem] text-[0.875rem]"
           enableStyles="bg-[#282828] text-white"
-          disabled={data?.state === "모집완료" || data?.hasApplied}
+          disabled={data?.state === "모집마감" || data?.hasApplied}
         />
         <Button
           icon={data?.liked ? <BsHeartFill /> : <BsHeart />}

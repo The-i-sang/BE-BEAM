@@ -15,7 +15,6 @@ export default function MeetingDetail() {
   const pathname = useLocation().pathname;
   const match = pathname.match(/\/detail\/(\d+)/);
   const id = match ? match[1] : null;
-  console.log(id);
 
   const accessToken = useRecoilValue(AccessTokenState);
   const [meetingApplyReasonModal, setMeetingApplyReasonModal] = useState(false);
