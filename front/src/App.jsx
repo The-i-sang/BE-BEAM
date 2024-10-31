@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   AccessTokenState,
   UserPersonalInfoState,
@@ -9,6 +9,7 @@ import {
 } from "./recoil/userState";
 import {
   CommunityReviewSlidesToShowState,
+  DataUpdateState,
   ResponsiveSize,
   SlidesToShowState,
 } from "./recoil/contentState";
@@ -34,6 +35,7 @@ function App() {
   );
   const setResponsiveSize = useSetRecoilState(ResponsiveSize);
   const setUserPersonalInfo = useSetRecoilState(UserPersonalInfoState);
+  const meetingReviewDataQueryKeyPostFix = useRecoilValue(DataUpdateState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,7 +114,7 @@ function App() {
       }
     };
     fetchUserPersonalInfo();
-  }, [accessToken, setUserPersonalInfo]);
+  }, [accessToken, setUserPersonalInfo, meetingReviewDataQueryKeyPostFix]);
 
   return (
     <div

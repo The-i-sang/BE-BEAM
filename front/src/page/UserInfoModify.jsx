@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useMutation } from "@tanstack/react-query";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { DataUpdateState } from "../recoil/contentState.js";
 import {
   AccessTokenState,
   UserPersonalInfoState,
@@ -34,9 +36,10 @@ export default function UserInfoModify() {
 
   const [emailIdentifyCheck, setEmailIdentifyCheck] = useState(null);
   const [keywordListOpen, setKeywordListOpen] = useState(false);
-  const [userPersonalInfo, setUserPersonalInfo] = useRecoilState(
-    UserPersonalInfoState
-  );
+  const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
+
+  const setMeetingReviewDataQueryKeyPostFix =
+    useSetRecoilState(DataUpdateState);
 
   useEffect(() => {
     setName(userPersonalInfo.name ?? "");
@@ -95,9 +98,13 @@ export default function UserInfoModify() {
       ? "이메일 양식을 맞춰주세요."
       : "이메일을 입력하세요.";
 
-  const handleEdituserPersonalInfo = async () => {
-    try {
-      await editUserPersonalInfo(
+  const updateMeetingData = () => {
+    setMeetingReviewDataQueryKeyPostFix(Date.now());
+  };
+
+  const edituserPersonalInfoMutation = useMutation({
+    mutationFn: () =>
+      editUserPersonalInfo(
         accessToken,
         name,
         phoneNumber,
@@ -105,18 +112,25 @@ export default function UserInfoModify() {
         birthday,
         sex,
         hashtags
-      );
-
-      Toast("🥨🎂 개인정보 수정을 완료했습니다!");
+      ),
+    onSuccess: () => {
+      updateMeetingData();
+      Toast("개인정보 수정을 완료했습니다.");
       navigate("/mypage");
 
-      setUserPersonalInfo((prev) => ({ ...prev, hashtags: hashtags }));
+      // setUserPersonalInfo((prev) => ({ ...prev, hashtags: hashtags }));
       setName("");
       setPhoneNumber("");
       setEmail("");
       setBirthday("");
       setSex("");
       setHashtags([]);
+    },
+  });
+
+  const handleEdituserPersonalInfo = async () => {
+    try {
+      edituserPersonalInfoMutation.mutate();
     } catch (error) {
       Toast("개인정보 수정에 실패했습니다. 다시 시도해주세요.😢");
     }

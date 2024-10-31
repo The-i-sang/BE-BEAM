@@ -32,3 +32,9 @@ export const ResponsiveSize = atom({
   key: "ResoponsiveSize",
   default: "",
 });
+
+// 4. 데이터 fetch 관련(실시간 업데이트)
+export const DataUpdateState = atom({
+  key: "DataUpdateState",
+  default: 0,
+});
