@@ -84,7 +84,7 @@ export default function MeetingApplyReasonModal({
           basicStyle={btnBasicStyle.basic}
           styles="w-full mt-2 py-3 rounded-lg text-white text-[1rem]"
           enableStyles="bg-[#282828]"
-          disabled={!isValid(userPersonalInfo) || meetingApplyReason === ""}
+          disabled={meetingApplyReason === ""}
         />
       </div>
     </BasicModal>

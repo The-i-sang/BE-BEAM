@@ -153,7 +153,8 @@ export const formatDateAndTime = (dateString) => {
 export const isValid = (obj) => {
   for (const key in obj) {
     const value = obj[key];
-    if (value === "" || (Array.isArray(value) && value.length === 0)) {
+    // hashtags는 빈 배열일 경우를 제외하고 나머지 값이 빈 문자열인지 확인
+    if (key !== "hashtags" && value === "") {
       return false;
     }
   }
