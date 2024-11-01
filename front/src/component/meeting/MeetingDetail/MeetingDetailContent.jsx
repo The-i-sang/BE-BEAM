@@ -82,7 +82,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
               {data?.introduction}
             </p>
             <img
-              className="md:w-[384px] sm:w-[320px] w-full aspect-square rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
+              className="md:w-[384px] sm:w-[320px] w-full aspect-square object-cover rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
               src={data?.thumbnailImage}
               alt="desc_img"
             />
