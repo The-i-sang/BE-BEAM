@@ -71,13 +71,17 @@ export default function MeetingApplyReasonModal({
         <Button
           buttonText="신청하기"
           onClick={async () => {
-            if (!isValid(userPersonalInfo)) {
-              Toast("🍒🍓 먼저 마이페이지에서 개인정보들을 모두 입력해주세요!");
+            if (accessToken === "") {
+              Toast("로그인 후 리뷰를 작성할 수  있습니다.");
             } else {
-              try {
-                sendMeetingApplyReasonMutation.mutate();
-              } catch (error) {
-                Toast("모임 신청에 실패했습니다. 다시 시도해주세요.😢");
+              if (!isValid(userPersonalInfo)) {
+                Toast("먼저 마이페이지에서 개인정보를 입력해주세요.");
+              } else {
+                try {
+                  sendMeetingApplyReasonMutation.mutate();
+                } catch (error) {
+                  Toast("모임 신청에 실패하였습니다. 다시 시도해주세요.");
+                }
               }
             }
           }}

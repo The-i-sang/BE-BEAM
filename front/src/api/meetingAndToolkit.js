@@ -15,6 +15,29 @@ export const MeetingAndToolkitDataFetch = async () => {
   return result;
 };
 
+// 모임들 데이터 받아오기
+export const allMeetingDataFetch = async (
+  accessToken,
+  page,
+  sizeNum = 10,
+  filter
+) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `https://prod.be-beam.site/api/web/v1/meetings?page=${page}&size=${sizeNum}&search=${filter.search}&status=${filter.status}&type=${filter.type}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error fetching All Meeting Data Fetch:", error);
+    throw error;
+  }
+};
+
 // 모임, 툴킷 데이터 받아오기
 export const dataFetch = async (accessToken, detailUrl) => {
   try {
