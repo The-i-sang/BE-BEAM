@@ -24,7 +24,6 @@ import { ImPriceTag } from "react-icons/im";
 export default function MeetingDetailContent({ data, accessToken }) {
   const userData = useRecoilValue(UserDataState);
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
-  console.log(userData, userPersonalInfo, data);
 
   const [filter, setFilter] = useState({
     search: "",
@@ -54,7 +53,6 @@ export default function MeetingDetailContent({ data, accessToken }) {
     },
   });
   const comment = handleConsoleError2(isLoading, error, datas);
-  console.log("datas", datas);
 
   return (
     <div className="w-full sm:text-[1rem] text-[0.875rem]">

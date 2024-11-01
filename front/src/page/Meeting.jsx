@@ -121,9 +121,6 @@ export default function Meeting() {
     }
   }, [datas]);
 
-  console.log(datas, datas?.meetings, storedDatas);
-  console.log(filter);
-
   const isHostGrade = false;
 
   return (

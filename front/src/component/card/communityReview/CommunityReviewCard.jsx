@@ -31,18 +31,6 @@ export default function CommunityReviewCard({
   const [noEditImages, setNoEditImages] = useState(data.images);
   const [previewImages, setPreviewImages] = useState(data.images);
 
-  console.log(
-    data.images,
-    "editImages",
-    editImages,
-    "noEditImages",
-    noEditImages,
-    "previewImages",
-    previewImages,
-    "editBlobImages",
-    editBlobImages
-  );
-
   const deleteMeetingReviewMutation = useMutation({
     mutationFn: () => fetchDeleteMeetingReview(accessToken, data.reviewId),
     onSuccess: () => {
@@ -198,7 +186,6 @@ export default function CommunityReviewCard({
                         const index = editBlobImages.indexOf(
                           previewImages[idx]
                         );
-                        console.log(index);
                         return index2 !== index;
                       })
                     );

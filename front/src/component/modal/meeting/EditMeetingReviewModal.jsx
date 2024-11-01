@@ -20,8 +20,6 @@ export default function EditMeetingReviewModal({
   data,
   updateMeetingData,
 }) {
-  console.log(data);
-
   const [text, setText] = useState("");
   const [rating, setRating] = useState(0);
   const [editImages, setEditImages] = useState([]);
@@ -37,8 +35,6 @@ export default function EditMeetingReviewModal({
       setPreviewImages(data?.images);
     }
   }, [data]);
-
-  console.log(text);
 
   const editMeetingReviewMutation = useMutation({
     mutationFn: () =>
@@ -134,7 +130,6 @@ export default function EditMeetingReviewModal({
                   setEditImages((prev) =>
                     prev.filter((_, index2) => {
                       const index = editBlobImages.indexOf(previewImages[idx]);
-                      console.log(index);
                       return index2 !== index;
                     })
                   );

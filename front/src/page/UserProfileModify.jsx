@@ -68,8 +68,6 @@ export default function UserProfileModify() {
     }
   };
 
-  console.log(userData);
-
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
       <div className="w-11/12 mx-auto pt-[2rem] pb-[2rem]">
