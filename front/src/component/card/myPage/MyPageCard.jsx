@@ -16,6 +16,7 @@ import { Toast } from "../../toast/Toast";
 
 import { GoChevronUp, GoChevronDown, GoX } from "react-icons/go";
 import { PiHeartStraightFill } from "react-icons/pi";
+import { CiEdit } from "react-icons/ci";
 
 export default function MyPageCard({
   id,
@@ -32,6 +33,8 @@ export default function MyPageCard({
   isCancelApplication,
   isDeleteReview,
   updateMeetingData,
+  setModalOpen,
+  setSelectedId,
 }) {
   const accessToken = useRecoilValue(AccessTokenState);
   const [dropDown, setDropDown] = useState(false);
@@ -124,6 +127,17 @@ export default function MyPageCard({
             ? ""
             : "hidden"
         } w-8 h-8 bg-[rgba(0,0,0,0.5)] absolute top-2 left-2`}
+      />
+      <Button
+        icon={<CiEdit />}
+        onClick={() => {
+          setModalOpen(true);
+          setSelectedId(id);
+        }}
+        basicStyle={btnBasicStyle.circle}
+        styles={`${
+          isDeleteReview ? "" : "hidden"
+        } w-8 h-8 bg-[rgba(0,0,0,0.5)] absolute top-2 left-11`}
       />
 
       <BasicSlider isDots={false} isArrows={false}>

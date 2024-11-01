@@ -31,7 +31,7 @@ export default function MeetingApplyReasonModal({
       fetchSendMeetingApplyReason(accessToken, meetingId, meetingApplyReason),
     onSuccess: () => {
       updateMeetingData();
-      Toast("🍒🍓 모임 신청이 완료되었습니다!");
+      Toast("모임 신청이 완료되었습니다.");
       setMeetingApplyReason("");
       setMeetingApplyReasonModal(false);
     },

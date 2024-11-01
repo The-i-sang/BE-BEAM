@@ -11,12 +11,15 @@ import BasicTab from "../component/tab/BasicTab.jsx";
 import TabSliderContent from "../component/tab/TabSliderContent.jsx";
 import Button from "../component/button/Button.jsx";
 import { btnBasicStyle, btnStyle } from "../common2.js";
+import EditMeetingReviewModal from "../component/modal/meeting/EditMeetingReviewModal.jsx";
 
 export default function Mypage() {
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
   const accessToken = useRecoilValue(AccessTokenState);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const [meetingDataQueryKeyPostFix, setMeetingDataQueryKeyPostFix] =
     useState(0);
   const updateMeetingData = () => {
@@ -67,8 +70,6 @@ export default function Mypage() {
   }, [accessToken, path, navigate]);
 
   const divStyles = "w-full mt-14";
-
-  console.log(myLikedMeetings, myMeetings, myReviews);
 
   return (
     <div className="w-full bg-[#f6f6f6] dark:bg-black">
@@ -159,10 +160,22 @@ export default function Mypage() {
               isLikeReview={[false, true, false][idx]}
               isDeleteReview={[true, false, false][idx]}
               updateMeetingData={updateMeetingData}
+              setModalOpen={setModalOpen}
+              setSelectedId={setSelectedId}
             />
           ))}
         </BasicTab>
       </div>
+
+      <EditMeetingReviewModal
+        accessToken={accessToken}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        data={datas?.myReviews?.writtenReviews?.find(
+          (review) => review?.reviewId === selectedId
+        )}
+        updateMeetingData={updateMeetingData}
+      />
     </div>
   );
 }

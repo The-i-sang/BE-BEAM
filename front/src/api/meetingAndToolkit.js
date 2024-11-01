@@ -154,7 +154,7 @@ export const oneMeetingReviewFetch = async (accessToken, meetingId, filter) => {
   }
 };
 
-// 모임 후기 생성
+// 모임 리뷰 생성
 export const createMeetingReview = async (
   accessToken,
   meetingId,
@@ -212,6 +212,53 @@ export const fetchDeleteMeetingReview = async (accessToken, reviewId) => {
     });
   } catch (error) {
     console.error("Error Delete Meeting Review:", error);
+    throw error;
+  }
+};
+
+// 모임 리뷰 수정
+export const editMeetingReview = async (
+  accessToken,
+  reviewId,
+  rating,
+  text,
+  noEditImgList,
+  editImgFileList
+) => {
+  try {
+    const formData = new FormData();
+
+    if (editImgFileList.length) {
+      editImgFileList.forEach((file) => {
+        formData.append("files", file);
+      });
+    }
+
+    formData.append(
+      "data",
+      new Blob(
+        [
+          JSON.stringify({
+            rating: rating,
+            text: text,
+            existingImages: noEditImgList,
+          }),
+        ],
+        { type: "application/json" }
+      )
+    );
+
+    const res = await axios({
+      method: "patch",
+      url: `https://prod.be-beam.site/api/web/v1/reviews/${reviewId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: formData,
+    });
+    return res.data.result;
+  } catch (error) {
+    console.error("Error Create Meeting Review:", error);
     throw error;
   }
 };

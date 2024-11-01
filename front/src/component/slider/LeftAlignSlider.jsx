@@ -14,6 +14,8 @@ export function LeftAlignSlider({
   isCancelApplication,
   isDeleteReview,
   updateMeetingData,
+  setModalOpen,
+  setSelectedId,
 }) {
   const isHidden =
     (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
@@ -49,6 +51,8 @@ export function LeftAlignSlider({
       isCancelApplication={isCancelApplication}
       isDeleteReview={isDeleteReview}
       updateMeetingData={updateMeetingData}
+      setModalOpen={setModalOpen}
+      setSelectedId={setSelectedId}
     />
   );
 }

@@ -12,6 +12,8 @@ export default function TabSliderContent({
   isCancelApplication,
   isDeleteReview,
   updateMeetingData,
+  setModalOpen,
+  setSelectedId,
   children,
 }) {
   const [slideIndex, setSlideIndex] = useState(8);
@@ -108,6 +110,8 @@ export default function TabSliderContent({
               isCancelApplication={isCancelApplication}
               isDeleteReview={isDeleteReview}
               updateMeetingData={updateMeetingData}
+              setModalOpen={setModalOpen}
+              setSelectedId={setSelectedId}
             />
           ))}
         </div>
