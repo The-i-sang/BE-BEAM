@@ -37,6 +37,8 @@ function App() {
   const setUserPersonalInfo = useSetRecoilState(UserPersonalInfoState);
   const meetingReviewDataQueryKeyPostFix = useRecoilValue(DataUpdateState);
 
+  console.log(accessToken);
+
   useEffect(() => {
     const fetchData = async () => {
       if (accessToken === "") {
