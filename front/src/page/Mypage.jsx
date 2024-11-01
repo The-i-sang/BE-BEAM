@@ -39,7 +39,6 @@ export default function Mypage() {
   });
 
   const comment = handleConsoleError2(isLoading, error, datas);
-  console.log("mypageDatas", datas);
 
   // 좋아요 누른 모임
   const myLikedMeetings = [
