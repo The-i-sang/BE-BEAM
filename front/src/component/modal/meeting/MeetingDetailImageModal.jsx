@@ -20,7 +20,7 @@ export default function MeetingDetailImageModal({
     >
       <div className="flex items-center justify-center w-full h-full mt-20">
         <img
-          className="w-full my-4 rounded-lg aspect-square"
+          className="object-cover w-full my-4 rounded-lg aspect-square"
           src={images?.[selectImageIndex]}
           alt="meetingImage"
         />
