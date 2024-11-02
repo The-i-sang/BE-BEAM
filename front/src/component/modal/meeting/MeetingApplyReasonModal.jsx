@@ -52,9 +52,9 @@ export default function MeetingApplyReasonModal({
         <p className="mt-2 mb-6">
           모임에 신청하는 이유를 적어주세요.
           <br />
-          신청 수락될 시, 확인 알림이 갑니다!
-          <br />
           {aboutPaymentsComment}
+          <br />
+          신청 수락될 시, 확인 문자가 갑니다.
         </p>
 
         <TextArea
