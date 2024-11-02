@@ -38,7 +38,7 @@ export default function MeetingDetailTop({ data }) {
         <TopSmallContent
           icon={<FaLocationDot />}
           title={data?.location}
-          styles={`${basicStyle} sm:border-r-[1px] sm:border-b-0 border-b-[1px]`}
+          styles={`${basicStyle} sm:border-r-[1px] sm:pr-4 sm:border-b-0 border-b-[1px]`}
           iconStyle={iconStyle}
           textStyle={textStyle}
           type="meetingDetail"
