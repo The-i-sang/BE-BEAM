@@ -27,13 +27,13 @@ export default function MeetingDetailImageModal({
       </div>
 
       <PrevArrow
-        styles="top-[60%] left-3"
+        styles="top-[60%] left-3 rounded-lg"
         fontStyles="text-[4rem] text-white"
         onClick={() => setSelectImageIndex((prev) => prev - 1)}
         disabled={selectImageIndex === 0}
       />
       <NextArrow
-        styles="top-[60%] right-3"
+        styles="top-[60%] right-3 rounded-lg"
         fontStyles="text-[4rem] text-white"
         onClick={() => setSelectImageIndex((prev) => prev + 1)}
         disabled={images?.length - 1 === selectImageIndex}

@@ -178,8 +178,8 @@ export default function Meeting() {
         <BasicSlider
           slidesToShow={slidesToShow}
           isDots={false}
-          prevArrowStyles="top-[38%] left-2"
-          nextArrowStyles="top-[38%] right-2"
+          prevArrowStyles="top-[38%] left-2 rounded-lg"
+          nextArrowStyles="top-[38%] right-2 rounded-lg"
           arrowFontStyles="text-[3rem] text-white"
         >
           <Category2

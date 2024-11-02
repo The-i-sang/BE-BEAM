@@ -16,7 +16,7 @@ export default function Button({
       onClick={onClick}
       className={`${basicStyle} ${styles} ${
         disabled ? "bg-[#d0d0d0] border-[#d0d0d0]" : enableStyles
-      } rounded-lg`}
+      }`}
     >
       {buttonText ?? icon}
       {children}
