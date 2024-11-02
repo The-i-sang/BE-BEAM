@@ -185,6 +185,7 @@ export default function MeetingDetailContent({
         <SubTitle
           title="비빔 멤버들은 이 모임을 어떻게 생각할까요?"
           des="이 모임에 참여하고 있는 멤버들의 생각 들어다보기:)"
+          des2="모집 기간에는 리뷰 작성이 불가능합니다."
         />
 
         <WriteCommunityReview
