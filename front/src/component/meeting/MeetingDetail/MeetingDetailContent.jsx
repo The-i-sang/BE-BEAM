@@ -66,7 +66,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
         />
         <div className="box-border py-5 md:px-10 sm:px-0 sm:py-5">
           <p className="mb-2 font-semibold sm:mb-4">
-            모임의 host, {data?.hostName}
+            🙋🏻‍♂ 모임의 host, {data?.hostName}
           </p>
           <p>{data?.hostDescription}</p>
         </div>
