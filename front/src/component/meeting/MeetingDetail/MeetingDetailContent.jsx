@@ -138,6 +138,7 @@ export default function MeetingDetailContent({
           <SubTitle
             title="우리 모임은 이렇게 즐겨요"
             des="사진을 통해서 모임과 한 발자국 더 가까워지기!"
+            des2="이미지를 누르면 확대해서 보실 수 있습니다.(PC용)"
           />
 
           <ul className="w-full mt-6 sm:mt-8 sm:grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-3">
