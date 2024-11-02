@@ -169,9 +169,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
         <div className="w-11/12 sm:max-w-[90%] mx-auto sm:py-14 pt-5 pb-10">
           <SubTitle title="문의사항" des="문의사항은 여기로 보내주세요." />
 
-          <p className="mt-2 sm:mt-4">
-            DM (@bebeam_busan), 이메일(oddodd2020@naver.com)
-          </p>
+          <p className="mt-2 sm:mt-4">DM(@bebeam_busan), 010-6481-1834</p>
         </div>
       </div>
 
