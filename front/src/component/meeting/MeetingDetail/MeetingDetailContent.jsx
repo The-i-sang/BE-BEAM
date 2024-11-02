@@ -54,12 +54,14 @@ export default function MeetingDetailContent({ data, accessToken }) {
   });
   const comment = handleConsoleError2(isLoading, error, datas);
 
+  console.log(data);
+
   return (
     <div className="w-full sm:text-[1rem] text-[0.875rem]">
       <div className="w-11/12 sm:max-w-[90%] mx-auto md:mt-16 sm:mt-8 mt-8 sm:mb-12 mb-5 flex md:flex-row sm:flex-col flex-col">
         <img
           className="lg:w-[500px] md:w-[420px] sm:w-full aspect-square object-cover object-center rounded-lg"
-          src={data?.thumbnailImage}
+          src={data?.hostImage}
           alt="thumbnail"
         />
         <div className="box-border py-5 md:px-10 sm:px-0 sm:py-5">
