@@ -36,11 +36,7 @@ export default function CommunityReviews() {
     setMeetingReviewDataQueryKeyPostFix(Date.now());
   };
 
-  const {
-    isLoading,
-    error,
-    data: recentMeetingReviewdatas,
-  } = useQuery({
+  const { data: recentMeetingReviewdatas } = useQuery({
     queryKey: ["recentMeetingReviewDatas"],
     queryFn: async () => {
       const result = await RecentMeetingReviewsFetch();
@@ -49,8 +45,8 @@ export default function CommunityReviews() {
   });
 
   const {
-    isLoading: isLoading2,
-    error: error2,
+    isLoading,
+    error,
     data: meetingReviewdatas,
   } = useQuery({
     queryKey: [
@@ -65,12 +61,7 @@ export default function CommunityReviews() {
     },
   });
 
-  const comment = handleConsoleError2(
-    isLoading,
-    error,
-    recentMeetingReviewdatas
-  );
-  const comment2 = handleConsoleError2(isLoading2, error2, meetingReviewdatas);
+  const comment = handleConsoleError2(isLoading, error, meetingReviewdatas);
 
   return (
     <div className="w-full pt-16 dark:bg-black dark:text-white">
@@ -93,7 +84,6 @@ export default function CommunityReviews() {
         </div>
 
         <div className="relative w-full">
-          {comment}
           <BasicSlider
             slidesToShow={slidesToShow}
             isDots={false}
@@ -107,7 +97,7 @@ export default function CommunityReviews() {
           </BasicSlider>
 
           <CommunityReviewsWrap
-            comment={comment2}
+            comment={comment}
             datas={meetingReviewdatas}
             filter={filter}
             setFilter={setFilter}

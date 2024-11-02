@@ -87,7 +87,7 @@ export function handleConsoleError2(isLoading, error, datas) {
     : error
     ? "An error has occurred...!"
     : datas?.length === 0
-    ? "검색 결과가 없습니다."
+    ? "데이터가 없습니다."
     : null;
 
   return comment;
