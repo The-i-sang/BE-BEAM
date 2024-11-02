@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import MyPageCard from "../card/myPage/MyPageCard";
 import { formatDateAndTime } from "../../common";
+import { useNavigate } from "react-router-dom";
 
 export function LeftAlignSlider({
   index,
@@ -17,6 +18,8 @@ export function LeftAlignSlider({
   setModalOpen,
   setSelectedId,
 }) {
+  const navigate = useNavigate();
+
   const isHidden =
     (slideIndex > slideShowNum && slideIndex - slideShowNum > index) ||
     (slideIndex > slideShowNum && index >= slideIndex) ||
@@ -53,6 +56,11 @@ export function LeftAlignSlider({
       updateMeetingData={updateMeetingData}
       setModalOpen={setModalOpen}
       setSelectedId={setSelectedId}
+      onClick={() => {
+        if (data?.id) {
+          navigate(`/meeting/detail/${data?.id}`);
+        }
+      }}
     />
   );
 }

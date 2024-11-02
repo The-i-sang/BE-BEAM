@@ -16,15 +16,22 @@ export default function Search() {
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [comment, setComment] = useState("");
 
-  const { isLoading, error, data } = useQuery(["data"], async () => {
-    const result = await MeetingAndToolkitDataFetch();
-    return result;
+  const {
+    isLoading,
+    error,
+    data: allDatas,
+  } = useQuery({
+    queryKey: ["allDatas"],
+    queryFn: async () => {
+      const result = await MeetingAndToolkitDataFetch();
+      return result;
+    },
   });
 
   useEffect(() => {
-    if (data?.toolkits && data?.activities)
-      setDatas([...data?.toolkits, ...data?.activities]);
-  }, [data?.toolkits, data?.activities]);
+    if (allDatas?.toolkits && allDatas?.activities)
+      setDatas([...allDatas?.toolkits, ...allDatas?.activities]);
+  }, [allDatas?.toolkits, allDatas?.activities]);
 
   useEffect(() => {
     setComment(handleConsoleError(isLoading, error, searchText, filteredDatas));

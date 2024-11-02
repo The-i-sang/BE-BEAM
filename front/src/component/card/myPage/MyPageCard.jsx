@@ -35,6 +35,7 @@ export default function MyPageCard({
   updateMeetingData,
   setModalOpen,
   setSelectedId,
+  onClick,
 }) {
   const accessToken = useRecoilValue(AccessTokenState);
   const [dropDown, setDropDown] = useState(false);
@@ -153,7 +154,9 @@ export default function MyPageCard({
 
       <div className="mt-2 text-[rgba(255,255,255,0.7)] text-[0.875rem]">
         <p>{subTitle}</p>
-        <h1 className="mb-1 text-white text-[1rem]">{title}</h1>
+        <h1 onClick={onClick} className="mb-1 text-white text-[1rem]">
+          {title}
+        </h1>
 
         <div className={`${des ? "block" : "hidden"}`}>
           <p className={`${dropDown ? "" : "line-clamp-3"} mt-4 mb-8`}>{des}</p>
