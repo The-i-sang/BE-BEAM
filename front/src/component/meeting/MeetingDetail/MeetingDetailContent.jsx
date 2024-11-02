@@ -80,7 +80,7 @@ export default function MeetingDetailContent({ data, accessToken }) {
               {data?.introduction}
             </p>
             <img
-              className="md:w-[384px] sm:w-[320px] w-full aspect-square object-cover rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
+              className="md:w-[384px] sm:w-[320px] w-full md:h-[384px] sm:h-[320px]  aspect-square object-cover rounded-lg shadow-[24px_22px_10px_-15px_rgba(0,0,0,0.2)]"
               src={data?.thumbnailImage}
               alt="desc_img"
             />
@@ -155,7 +155,9 @@ export default function MeetingDetailContent({ data, accessToken }) {
 
           <ul className="mt-1 sm:mt-3">
             {data?.info?.map((i, idx) => (
-              <li key={idx}>{i}</li>
+              <li key={idx} className="mb-3">
+                - {i}
+              </li>
             ))}
           </ul>
         </div>
