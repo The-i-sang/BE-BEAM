@@ -8,7 +8,7 @@ export default function Footer() {
           alt="logo"
         />
         <p className="w-11/12 sm:mt-0 mt-4 lg:text-[1.25rem] md:text-[1.16rem] sm:text-[1.1rem] text-[1rem] text-center">
-          Copyright ⓒ 2023 beBeam. All Rights Reserved.
+          Copyright ⓒ 2024 Be:Beam. All Rights Reserved.
         </p>
       </div>
     </div>
