@@ -198,9 +198,9 @@ export default function Toolkit() {
           slidesToShow={slidesToShow}
           isAutoplay={false}
           isDots={false}
-          prevArrowStyles="top-[36%] left-0"
-          nextArrowStyles="top-[36%] right-0"
-          arrowFontStyles="text-[4rem] text-white"
+          prevArrowStyles="top-[38%] left-0"
+          nextArrowStyles="top-[38%] right-2"
+          arrowFontStyles="text-[3rem] text-white"
         >
           <Category
             title="Toolkit Type"

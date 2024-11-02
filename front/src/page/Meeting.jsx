@@ -178,9 +178,9 @@ export default function Meeting() {
         <BasicSlider
           slidesToShow={slidesToShow}
           isDots={false}
-          prevArrowStyles="top-[36%] left-0"
-          nextArrowStyles="top-[36%] right-0"
-          arrowFontStyles="text-[4rem] text-white"
+          prevArrowStyles="top-[38%] left-2"
+          nextArrowStyles="top-[38%] right-2"
+          arrowFontStyles="text-[3rem] text-white"
         >
           <Category2
             title="Meeting Type"

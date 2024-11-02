@@ -10,6 +10,7 @@ import MeetingDetailTop from "../component/meeting/MeetingDetail/MeetingDetailTo
 import MeetingApplyAndLikeBtnWrap from "../component/meeting/MeetingDetail/MeetingApplyAndLikeBtnWrap";
 import MeetingDetailContent from "../component/meeting/MeetingDetail/MeetingDetailContent";
 import MeetingApplyReasonModal from "../component/modal/meeting/MeetingApplyReasonModal";
+import MeetingDetailImageModal from "../component/modal/meeting/MeetingDetailImageModal";
 
 export default function MeetingDetail() {
   const pathname = useLocation().pathname;
@@ -18,6 +19,8 @@ export default function MeetingDetail() {
 
   const accessToken = useRecoilValue(AccessTokenState);
   const [meetingApplyReasonModal, setMeetingApplyReasonModal] = useState(false);
+  const [detailImageModal, setDetailImageModal] = useState(false);
+  const [selectImageIndex, setSelectImageIndex] = useState(0);
   const [meetingDataQueryKeyPostFix, setMeetingDataQueryKeyPostFix] =
     useState(0);
   const updateMeetingData = () => {
@@ -42,13 +45,27 @@ export default function MeetingDetail() {
       {comment}
 
       <MeetingDetailTop data={data} />
-      <MeetingDetailContent data={data} accessToken={accessToken} />
+      <MeetingDetailContent
+        data={data}
+        accessToken={accessToken}
+        setDetailImageModal={setDetailImageModal}
+        setSelectImageIndex={setSelectImageIndex}
+      />
       <MeetingApplyAndLikeBtnWrap
         data={data}
         accessToken={accessToken}
         updateMeetingData={updateMeetingData}
         setMeetingApplyReasonModal={setMeetingApplyReasonModal}
       />
+
+      <MeetingDetailImageModal
+        detailImageModal={detailImageModal}
+        setDetailImageModal={setDetailImageModal}
+        images={data?.meetingImages}
+        selectImageIndex={selectImageIndex}
+        setSelectImageIndex={setSelectImageIndex}
+      />
+
       <MeetingApplyReasonModal
         accessToken={accessToken}
         meetingId={data?.id}

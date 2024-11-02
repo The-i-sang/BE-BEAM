@@ -21,7 +21,12 @@ import {
 } from "react-icons/bs";
 import { ImPriceTag } from "react-icons/im";
 
-export default function MeetingDetailContent({ data, accessToken }) {
+export default function MeetingDetailContent({
+  data,
+  accessToken,
+  setDetailImageModal,
+  setSelectImageIndex,
+}) {
   const userData = useRecoilValue(UserDataState);
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
 
@@ -139,9 +144,13 @@ export default function MeetingDetailContent({ data, accessToken }) {
             {data?.meetingImages?.map((img, idx) => (
               <li key={idx} className="mb-3 sm:mb-0">
                 <img
-                  className="object-cover w-full rounded-lg aspect-square"
+                  className="object-cover w-full rounded-lg sm:cursor-pointer aspect-square"
                   src={img}
                   alt="meeting_img"
+                  onClick={() => {
+                    setDetailImageModal(true);
+                    setSelectImageIndex(idx);
+                  }}
                 />
               </li>
             ))}
