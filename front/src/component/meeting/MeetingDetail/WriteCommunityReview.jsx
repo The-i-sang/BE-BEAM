@@ -17,6 +17,7 @@ export default function WriteCommunityReview({
   userData,
   meetingId,
   updateMeetingData,
+  reviewable,
 }) {
   const [images, setImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -53,7 +54,7 @@ export default function WriteCommunityReview({
       ),
     onSuccess: () => {
       updateMeetingData();
-      Toast("😍리뷰 작성을 완료하였습니다!XD");
+      Toast("리뷰 작성을 완료하였습니다.");
 
       setImages([]);
       setPreviewImages([]);
@@ -64,7 +65,15 @@ export default function WriteCommunityReview({
 
   const addCommunityReview = () => {
     if (accessToken) {
-      createMeetingReviewMutation.mutate();
+      if (!reviewable) {
+        Toast("리뷰를 작성할 수 있는 대상, 또는 기간이 아닙니다.");
+      } else {
+        try {
+          createMeetingReviewMutation.mutate();
+        } catch (error) {
+          Toast("😍리뷰 작성을 실패하였습니다.");
+        }
+      }
     }
   };
 

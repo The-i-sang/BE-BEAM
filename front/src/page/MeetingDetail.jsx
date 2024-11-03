@@ -75,7 +75,6 @@ export default function MeetingDetail() {
         aboutPaymentsComment={aboutPaymentsComment}
         meetingApplyReasonModal={meetingApplyReasonModal}
         setMeetingApplyReasonModal={setMeetingApplyReasonModal}
-        reviewable={data?.reviewable}
       />
     </div>
   );

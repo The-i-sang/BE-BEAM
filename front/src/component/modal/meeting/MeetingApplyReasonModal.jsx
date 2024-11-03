@@ -18,7 +18,6 @@ export default function MeetingApplyReasonModal({
   aboutPaymentsComment,
   meetingApplyReasonModal,
   setMeetingApplyReasonModal,
-  reviewable,
 }) {
   const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
   const [meetingApplyReason, setMeetingApplyReason] = useState("");
@@ -75,8 +74,6 @@ export default function MeetingApplyReasonModal({
             } else {
               if (!isValid(userPersonalInfo)) {
                 Toast("먼저 마이페이지에서 개인정보를 입력해주세요.");
-              } else if (!reviewable) {
-                Toast("리뷰를 작성할 수 있는 대상, 또는 기간이 아닙니다.");
               } else {
                 try {
                   sendMeetingApplyReasonMutation.mutate();

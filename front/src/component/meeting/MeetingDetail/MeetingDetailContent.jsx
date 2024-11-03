@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
-import {
-  UserDataState,
-  UserPersonalInfoState,
-} from "../../../recoil/userState";
+import { UserDataState } from "../../../recoil/userState";
 import { oneMeetingReviewFetch } from "../../../api/meetingAndToolkit";
 import { formatDateAndTime, handleConsoleError2 } from "../../../common";
 
@@ -28,7 +25,6 @@ export default function MeetingDetailContent({
   setSelectImageIndex,
 }) {
   const userData = useRecoilValue(UserDataState);
-  const userPersonalInfo = useRecoilValue(UserPersonalInfoState);
 
   const [filter, setFilter] = useState({
     search: "",
@@ -194,8 +190,8 @@ export default function MeetingDetailContent({
         <WriteCommunityReview
           userData={userData}
           meetingId={data?.id}
-          userPersonalInfo={userPersonalInfo}
           updateMeetingData={updateMeetingData}
+          reviewable={data?.reviewable}
         />
 
         <CommunityReviewsWrap
