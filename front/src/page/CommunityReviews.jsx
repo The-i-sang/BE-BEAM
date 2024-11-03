@@ -90,6 +90,7 @@ export default function CommunityReviews() {
             prevArrowStyles="top-[40%] left-0"
             nextArrowStyles="top-[40%] right-0"
             arrowFontStyles="text-[4rem] text-white"
+            isInfinite={recentMeetingReviewdatas?.length >= slidesToShow}
           >
             {recentMeetingReviewdatas?.map((data) => (
               <RecentCommunityReviewCard key={data.reviewId} data={data} />
