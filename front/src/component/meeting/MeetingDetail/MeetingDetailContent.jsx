@@ -164,6 +164,9 @@ export default function MeetingDetailContent({
           <SubTitle title="안내사항" />
 
           <ul className="mt-1 sm:mt-3">
+            <li className="mb-3">
+              - 모임 신청시 계좌 입금 확인 후 최종 확정 연락이 가게 됩니다.
+            </li>
             {data?.info?.map((i, idx) => (
               <li key={idx} className="mb-3">
                 - {i}

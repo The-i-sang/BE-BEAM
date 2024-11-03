@@ -37,9 +37,6 @@ export default function MeetingApplyReasonModal({
     },
   });
 
-  console.log(isValid(userPersonalInfo));
-  console.log(userPersonalInfo);
-
   return (
     <BasicModal
       setModal={setMeetingApplyReasonModal}
