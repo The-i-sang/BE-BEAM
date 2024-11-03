@@ -137,7 +137,14 @@ export default function UserInfoModify() {
   };
 
   const dataComeIn =
-    name && phoneNumber.length === 11 && emailIdentifyCheck && birthday && sex;
+    name &&
+    phoneNumber.length === 11 &&
+    email.length !== 0 &&
+    emailIdentifyCheck &&
+    birthday &&
+    sex;
+
+  console.log(emailIdentifyCheck);
 
   return (
     <div className="w-full py-[2rem] bg-[#f6f6f6] dark:bg-black">
