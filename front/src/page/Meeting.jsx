@@ -123,6 +123,8 @@ export default function Meeting() {
 
   const isHostGrade = false;
 
+  console.log(datas);
+
   return (
     <div className="w-full pt-16">
       <Popup />
