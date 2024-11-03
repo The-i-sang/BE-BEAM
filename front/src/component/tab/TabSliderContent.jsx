@@ -63,8 +63,6 @@ export default function TabSliderContent({
     };
   }, []);
 
-  console.log(datas);
-
   const gridNum =
     slideShowNum === 8
       ? "grid-cols-8"
