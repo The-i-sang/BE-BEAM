@@ -58,7 +58,7 @@ export default function UserInfoModify() {
 
   useEffect(() => {
     if (userPersonalInfo.email) {
-      identify(userPersonalInfo.email, undefined, setEmailIdentifyCheck);
+      identify(userPersonalInfo.email, setEmailIdentifyCheck);
     }
   }, [userPersonalInfo]);
 
@@ -224,7 +224,7 @@ export default function UserInfoModify() {
                 placeholder="이메일을 입력해주세요."
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  identify(e.target.value, undefined, setEmailIdentifyCheck);
+                  identify(e.target.value, setEmailIdentifyCheck);
                 }}
                 value={email}
                 styles={inputStyle.userInfoModify}
