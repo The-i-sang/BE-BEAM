@@ -14,7 +14,6 @@ import Brand from "./page/Brand";
 import ToolkitDetail from "./page/ToolkitDetail";
 import Toolkit from "./page/Toolkit";
 import Search from "./page/Search";
-import ApplyForm from "./page/ApplyForm";
 import Auth from "./page/Auth";
 import Mypage from "./page/Mypage";
 import UserInfoModify from "./page/UserInfoModify";
@@ -42,10 +41,6 @@ const router = createBrowserRouter([
       {
         path: "/communityReviews",
         element: <CommunityReviews />,
-      },
-      {
-        path: "/applyForm",
-        element: <ApplyForm />,
       },
       {
         path: "/toolkit",

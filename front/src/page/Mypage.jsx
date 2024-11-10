@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { AccessTokenState } from "../recoil/userState";
 import { fetchMypageInfo } from "../api/user.js";
-import { handleConsoleError2 } from "../common.js";
+import { handleConsoleError } from "../common.js";
 
 import MypageMyProfile from "../component/myPage/MypageMyProfile";
 import BasicTab from "../component/tab/BasicTab.jsx";
@@ -17,7 +17,7 @@ export default function Mypage() {
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
-  const accessToken = useRecoilValue(AccessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(AccessTokenState);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [meetingDataQueryKeyPostFix, setMeetingDataQueryKeyPostFix] =
@@ -38,7 +38,7 @@ export default function Mypage() {
     },
   });
 
-  const comment = handleConsoleError2(isLoading, error, datas);
+  const comment = handleConsoleError(isLoading, error, datas);
 
   // 좋아요 누른 모임
   const myLikedMeetings = [
@@ -76,6 +76,7 @@ export default function Mypage() {
         {comment}
 
         <MypageMyProfile
+          setAccessToken={setAccessToken}
           profileImage={datas?.profileImage}
           nickname={datas?.nickname}
           hashtags={datas?.hashtags}

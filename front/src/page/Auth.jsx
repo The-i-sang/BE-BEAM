@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { userState } from "../recoil/userState";
+import { AccessTokenState } from "../recoil/userState";
 import { useRecoilValue } from "recoil";
 import SnsBtn from "../component/button/SnsBtn";
 
@@ -8,13 +8,13 @@ import { RiKakaoTalkFill } from "react-icons/ri";
 
 function Auth() {
   const navigate = useNavigate();
-  const userIn = useRecoilValue(userState);
+  const accessToken = useRecoilValue(AccessTokenState);
 
   useEffect(() => {
-    if (userIn) {
+    if (accessToken !== "/") {
       navigate("/");
     }
-  }, [userIn, navigate]);
+  }, [accessToken, navigate]);
 
   function doKakaoLogin() {
     // const redirectUrl = "http://localhost:8080/oauth2/authorization/kakao";

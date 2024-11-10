@@ -1,3 +1,6 @@
+// 아직 유저가 소모임을 개최할 수 없으므로 필요로 하지 않는 컴포넌트.
+// 나중에 갈아엎을 예정.
+
 import { useState } from "react";
 
 function CreateSmallGroup() {

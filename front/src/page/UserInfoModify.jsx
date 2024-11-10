@@ -118,7 +118,6 @@ export default function UserInfoModify() {
       Toast("개인정보 수정을 완료했습니다.");
       navigate("/mypage");
 
-      // setUserPersonalInfo((prev) => ({ ...prev, hashtags: hashtags }));
       setName("");
       setPhoneNumber("");
       setEmail("");

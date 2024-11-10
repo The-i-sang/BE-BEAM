@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  AccessTokenState,
-  UserDataState,
-  userState,
-} from "../../recoil/userState";
+import { useRecoilState } from "recoil";
+import { UserDataState } from "../../recoil/userState";
 import { getUserProfile } from "../../api/user";
 
 import MenuList from "./MenuList";
@@ -21,12 +17,11 @@ import {
   CiUser,
 } from "react-icons/ci";
 
-export default function Navbar({ setSideBarOpen, sideBarOpen }) {
+export default function Navbar({ setSideBarOpen, sideBarOpen, accessToken }) {
   const navigate = useNavigate();
 
-  const userIn = useRecoilValue(userState);
-  const accessToken = useRecoilValue(AccessTokenState);
   const [userData, setUserData] = useRecoilState(UserDataState);
+  const userIn = accessToken !== "";
 
   useEffect(() => {
     const fetchData = async () => {

@@ -11,6 +11,7 @@ export const changeCookieToToken = async () => {
       url: "https://prod.be-beam.site/api/web/oauth2-jwt-header",
       withCredentials: true,
     });
+    console.log(res.data);
     return res.data.result;
   } catch (error) {
     console.error("Error fetching JWT header:", error);
@@ -29,6 +30,7 @@ export const getUserProfile = async (accessToken) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log(res.data);
     return res.data.result;
   } catch (error) {
     console.error("Error fetching User Profile:", error);

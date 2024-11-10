@@ -51,25 +51,25 @@ export function formatDate(dateObj) {
 }
 
 // 나중에 없앨 함수
-export function handleConsoleError(
-  isLoading,
-  error,
-  searchText,
-  filteredDatas
-) {
-  const comment = isLoading
-    ? "Loading..."
-    : error
-    ? "An error has occurred...!"
-    : (searchText?.length === 0 || searchText?.length > 0) &&
-      filteredDatas?.length === 0
-    ? "검색 결과가 없습니다."
-    : null;
+// export function handleConsoleError(
+//   isLoading,
+//   error,
+//   searchText,
+//   filteredDatas
+// ) {
+//   const comment = isLoading
+//     ? "Loading..."
+//     : error
+//     ? "An error has occurred...!"
+//     : (searchText?.length === 0 || searchText?.length > 0) &&
+//       filteredDatas?.length === 0
+//     ? "검색 결과가 없습니다."
+//     : null;
 
-  return comment;
-}
+//   return comment;
+// }
 
-export function handleConsoleError2(isLoading, error, datas) {
+export function handleConsoleError(isLoading, error, datas) {
   const comment = isLoading
     ? "Loading..."
     : error

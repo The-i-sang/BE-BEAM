@@ -3,7 +3,6 @@
 export const AppPage = {
   home: "/", // Meeting page
   meetingDetail: "/meeting/detail",
-  applyForm: "/applyForm",
   communityReviews: "/communityReviews",
   toolkit: "/toolkit",
   toolkitDetail: "/toolkit/detail",

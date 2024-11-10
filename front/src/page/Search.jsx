@@ -34,7 +34,7 @@ export default function Search() {
   }, [allDatas?.toolkits, allDatas?.activities]);
 
   useEffect(() => {
-    setComment(handleConsoleError(isLoading, error, searchText, filteredDatas));
+    setComment(handleConsoleError(isLoading, error, filteredDatas));
   }, [isLoading, error, searchText, filteredDatas]);
 
   const onHandleSearchTextChange = (e) => {

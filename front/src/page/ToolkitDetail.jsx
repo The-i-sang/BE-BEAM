@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { AccessTokenState } from "../recoil/userState";
 import { dataFetch, fetchDownloadToolkit } from "../api/meetingAndToolkit";
-import { handleConsoleError2 } from "../common";
+import { handleConsoleError } from "../common";
 
 import DetailToolkitSmallTitle from "../component/toolkit/DetailToolkitSmallTitle";
 import BasicSlider from "../component/slider/BasicSlider";
@@ -36,7 +36,7 @@ export default function ToolkitDetail() {
     },
   });
 
-  const comment = handleConsoleError2(isLoading, error);
+  const comment = handleConsoleError(isLoading, error);
 
   return (
     <div className="w-full py-10 bg-bg-light-default dark:bg-bg-dark-default">

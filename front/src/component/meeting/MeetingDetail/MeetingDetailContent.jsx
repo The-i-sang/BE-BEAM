@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { UserDataState } from "../../../recoil/userState";
 import { oneMeetingReviewFetch } from "../../../api/meetingAndToolkit";
-import { formatDateAndTime, handleConsoleError2 } from "../../../common";
+import { formatDateAndTime, handleConsoleError } from "../../../common";
 
 import SubTitle from "./SubTitle";
 import MeetingDetailSmallContent from "./MeetingDetailSmallContent";
@@ -53,7 +53,7 @@ export default function MeetingDetailContent({
       return result;
     },
   });
-  const comment = handleConsoleError2(isLoading, error, datas);
+  const comment = handleConsoleError(isLoading, error, datas);
 
   return (
     <div className="w-full sm:text-[1rem] text-[0.875rem]">

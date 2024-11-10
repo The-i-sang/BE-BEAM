@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { AccessTokenState, userState } from "../../recoil/userState";
 
 import Button from "../button/Button";
 import { borderStyle, btnBasicStyle, btnStyle } from "../../common2";
@@ -8,15 +6,13 @@ import { borderStyle, btnBasicStyle, btnStyle } from "../../common2";
 import { CiEdit } from "react-icons/ci";
 
 export default function MypageMyProfile({
+  setAccessToken,
   profileImage,
   nickname,
   hashtags,
   introduction,
 }) {
   const navigate = useNavigate();
-
-  const setUserIn = useSetRecoilState(userState);
-  const setAccessToken = useSetRecoilState(AccessTokenState);
 
   return (
     <div className="w-full">
@@ -29,7 +25,6 @@ export default function MypageMyProfile({
           buttonText="로그아웃"
           onClick={() => {
             localStorage.removeItem("accessToken");
-            setUserIn(false);
             setAccessToken("");
 
             navigate("/");

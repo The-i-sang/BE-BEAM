@@ -9,7 +9,7 @@ import {
   MeetingReviewsFetch,
   RecentMeetingReviewsFetch,
 } from "../api/meetingAndToolkit";
-import { handleConsoleError2 } from "../common";
+import { handleConsoleError } from "../common";
 
 import BasicSlider from "../component/slider/BasicSlider";
 import RecentCommunityReviewCard from "../component/card/communityReview/RecentCommunityReviewCard";
@@ -61,7 +61,7 @@ export default function CommunityReviews() {
     },
   });
 
-  const comment = handleConsoleError2(isLoading, error, meetingReviewdatas);
+  const comment = handleConsoleError(isLoading, error, meetingReviewdatas);
 
   return (
     <div className="w-full pt-16 dark:bg-black dark:text-white">
@@ -87,8 +87,8 @@ export default function CommunityReviews() {
           <BasicSlider
             slidesToShow={slidesToShow}
             isDots={false}
-            prevArrowStyles="top-[40%] left-0"
-            nextArrowStyles="top-[40%] right-0"
+            prevArrowStyles="top-[40%] left-0 rounded-lg"
+            nextArrowStyles="top-[40%] right-0 rounded-lg"
             arrowFontStyles="text-[4rem] text-white"
             isInfinite={recentMeetingReviewdatas?.length >= slidesToShow}
           >

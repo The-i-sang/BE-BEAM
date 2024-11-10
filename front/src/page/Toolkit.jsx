@@ -5,10 +5,10 @@ import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 import { AccessTokenState } from "../recoil/userState";
 import { dataFetch } from "../api/meetingAndToolkit";
-import { handleConsoleError2 } from "../common";
+import { handleConsoleError } from "../common";
 
 import BasicSlider from "../component/slider/BasicSlider";
-import Card from "../component/card/BasicCard";
+import BasicCard from "../component/card/BasicCard";
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import Category from "../component/category/Category";
 import SearchInputForm from "../component/input/SearchInputForm";
@@ -41,7 +41,7 @@ export default function Toolkit() {
     },
   });
 
-  const comment = handleConsoleError2(isLoading, error, datas);
+  const comment = handleConsoleError(isLoading, error, datas);
 
   // 임시로 추가하는 toolkitType, personType, creator => server에서 들어오는 데이터가 수정되면 지울 코드
   const editToolkitDatas = useMemo(
@@ -237,7 +237,7 @@ export default function Toolkit() {
 
         <ul className="w-full md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-x-5">
           {filteredToolkits.map((data) => (
-            <Card
+            <BasicCard
               key={data.id}
               onClick={() => {
                 navigate(`/toolkit/detail/${data.id}`);

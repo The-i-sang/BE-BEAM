@@ -4,19 +4,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { SlidesToShowState } from "../recoil/contentState";
 import { AccessTokenState } from "../recoil/userState";
-import { allMeetingDataFetch, dataFetch } from "../api/meetingAndToolkit";
-import { handleConsoleError2 } from "../common";
+import { allMeetingDataFetch } from "../api/meetingAndToolkit";
+import { handleConsoleError } from "../common";
 
 import TypeWriter from "../component/typeWriter/TypeWriter";
 import BasicSlider from "../component/slider/BasicSlider";
 import MeetingCard from "../component/card/meeting/MeetingCard";
 import Popup from "../component/popUp/Popup";
 import Category2 from "../component/category/Category2";
+import SearchInput from "../component/input/SearchInput";
 import Button from "../component/button/Button";
 import { btnBasicStyle, btnStyle } from "../common2";
 
 import { FaKissWinkHeart } from "react-icons/fa";
-import SearchInput from "../component/input/SearchInput";
 
 export default function Meeting() {
   const navigate = useNavigate();
@@ -106,7 +106,7 @@ export default function Meeting() {
     },
   });
 
-  const comment = handleConsoleError2(isLoading, error, datas);
+  const comment = handleConsoleError(isLoading, error, datas);
 
   useEffect(() => {
     if (filter) {
