@@ -11,7 +11,7 @@ function Auth() {
   const accessToken = useRecoilValue(AccessTokenState);
 
   useEffect(() => {
-    if (accessToken !== "/") {
+    if (accessToken !== "") {
       navigate("/");
     }
   }, [accessToken, navigate]);
