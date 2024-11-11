@@ -17,7 +17,12 @@ import {
   CiUser,
 } from "react-icons/ci";
 
-export default function Navbar({ setSideBarOpen, sideBarOpen, accessToken }) {
+export default function Navbar({
+  setSideBarOpen,
+  sideBarOpen,
+  accessToken,
+  setAccessToken,
+}) {
   const navigate = useNavigate();
 
   const [userData, setUserData] = useRecoilState(UserDataState);
@@ -27,11 +32,20 @@ export default function Navbar({ setSideBarOpen, sideBarOpen, accessToken }) {
   useEffect(() => {
     const fetchData = async () => {
       if (accessToken) {
-        setUserData(await getUserProfile(accessToken));
+        try {
+          const profileData = await getUserProfile(accessToken);
+          setUserData(profileData);
+        } catch (error) {
+          if (error.response && error.response.status === 401) {
+            localStorage.removeItem("accessToken");
+            setAccessToken("");
+            window.location.reload();
+          }
+        }
       }
     };
     fetchData();
-  }, [accessToken, setUserData]);
+  }, [accessToken, setUserData, setAccessToken]);
 
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";

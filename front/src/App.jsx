@@ -117,6 +117,7 @@ function App() {
           setSideBarOpen={setSideBarOpen}
           sideBarOpen={sideBarOpen}
           accessToken={accessToken}
+          setAccessToken={setAccessToken}
         />
         <Outlet />
         <Footer />
