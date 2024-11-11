@@ -39,7 +39,8 @@ export default function Navbar({
           if (error.response && error.response.status === 401) {
             localStorage.removeItem("accessToken");
             setAccessToken("");
-            window.location.reload();
+            // 혹시 토큰 만료시 자동으로 로그아웃 안되면(UI) 강제 새로고침할 예정
+            // window.location.reload();
           }
         }
       }
