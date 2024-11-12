@@ -55,24 +55,34 @@ export default function WriteCommunityReview({
     onSuccess: () => {
       updateMeetingData();
       Toast("리뷰 작성을 완료하였습니다.");
+
+      setImages([]);
+      setPreviewImages([]);
+      setRating(0);
+      setReviewComment("");
     },
   });
 
   const addCommunityReview = () => {
     if (!reviewable) {
       Toast("리뷰를 작성할 수 있는 대상, 또는 기간이 아닙니다.");
+
+      setImages([]);
+      setPreviewImages([]);
+      setRating(0);
+      setReviewComment("");
     } else {
       try {
         createMeetingReviewMutation.mutate();
       } catch (error) {
-        Toast("😍리뷰 작성을 실패하였습니다.");
+        Toast("리뷰 작성을 실패하였습니다.");
+
+        setImages([]);
+        setPreviewImages([]);
+        setRating(0);
+        setReviewComment("");
       }
     }
-
-    setImages([]);
-    setPreviewImages([]);
-    setRating(0);
-    setReviewComment("");
   };
 
   const writeReviewBtnDisabled =
