@@ -81,6 +81,7 @@ export default function Meeting() {
   const [page, setPage] = useState(1);
   const [storedDatas, setStoredDatas] = useState([]);
   const [previousFirstMeetingId, setPreviousFirstMeetingId] = useState(null);
+  const [previousEndMeetingId, setPreviousEndMeetingId] = useState(null);
   const slidesToShow = useRecoilValue(SlidesToShowState);
 
   const {
@@ -107,17 +108,23 @@ export default function Meeting() {
   useEffect(() => {
     if (Array.isArray(datas?.meetings)) {
       const currentFirstMeetingId = datas.meetings?.[0]?.id;
+      const currentEndMeetingId =
+        datas.meetings?.[datas.meetings?.length - 1]?.id;
 
-      if (currentFirstMeetingId !== previousFirstMeetingId) {
+      if (
+        currentFirstMeetingId !== previousFirstMeetingId &&
+        currentEndMeetingId !== previousEndMeetingId
+      ) {
         console.log(datas?.meetings);
         const pasteDatas = [...datas.meetings];
         setStoredDatas((prev) => [...prev, ...pasteDatas]);
         setPreviousFirstMeetingId(currentFirstMeetingId);
+        setPreviousEndMeetingId(currentEndMeetingId);
       } else {
         setStoredDatas(datas?.meetings);
       }
     }
-  }, [datas, previousFirstMeetingId]);
+  }, [datas, previousFirstMeetingId, previousEndMeetingId]);
 
   const isHostGrade = false;
 
