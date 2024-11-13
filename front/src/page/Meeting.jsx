@@ -235,7 +235,7 @@ export default function Meeting() {
             onClick={() => {
               setPage((prev) => prev + 1);
 
-              if (Array.isArray(datas?.meetings)) {
+              if (datas?.meetings?.length > 0) {
                 const pasteDatas = [...datas.meetings];
                 setStoredDatas((prev) => [...prev, ...pasteDatas]);
               }
