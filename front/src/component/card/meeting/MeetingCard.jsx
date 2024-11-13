@@ -30,6 +30,8 @@ export default function MeetingCard({
         prev?.map((meeting) => {
           if (meeting?.id === data?.id) {
             return { ...meeting, liked: data?.liked ? false : true };
+          } else {
+            return meeting;
           }
         })
       );
