@@ -116,7 +116,7 @@ export default function Meeting() {
 
   useEffect(() => {
     console.log(datas?.meetings);
-    setStoredDatas([...datas.meetings]);
+    setStoredDatas([...datas?.meetings]);
   }, []);
 
   const isHostGrade = false;
