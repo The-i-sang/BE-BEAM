@@ -106,7 +106,7 @@ export default function Meeting() {
 
   useEffect(() => {
     if (Array.isArray(datas?.meetings)) {
-      setStoredDatas([]);
+      setStoredDatas(datas?.meetings);
     }
   }, [datas]);
 
