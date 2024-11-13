@@ -115,11 +115,8 @@ export default function Meeting() {
   }, [filter]);
 
   useEffect(() => {
-    if (datas?.meetings?.length > 0) {
-      console.log(datas?.meetings);
-      const pasteDatas = [...datas.meetings];
-      setStoredDatas((prev) => [...prev, ...pasteDatas]);
-    }
+    console.log(datas?.meetings);
+    setStoredDatas([...datas.meetings]);
   }, []);
 
   const isHostGrade = false;
@@ -235,11 +232,6 @@ export default function Meeting() {
             buttonText="더보기"
             onClick={() => {
               setPage((prev) => prev + 1);
-
-              if (datas?.meetings?.length > 0) {
-                const pasteDatas = [...datas.meetings];
-                setStoredDatas((prev) => [...prev, ...pasteDatas]);
-              }
             }}
             basicStyle={btnBasicStyle.basic}
             styles={`${btnStyle.blackBg} ${
