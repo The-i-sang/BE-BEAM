@@ -11,10 +11,10 @@ import { GoHeart, GoHeartFill } from "react-icons/go";
 
 export default function MeetingCard({
   data,
+  setStoredDatas,
   accessToken,
   bgColor,
   shadow,
-  updateMeetingData,
 }) {
   const navigate = useNavigate();
 
@@ -26,10 +26,14 @@ export default function MeetingCard({
         data?.liked ? "delete" : "post"
       ),
     onSuccess: () => {
-      updateMeetingData();
-      Toast(
-        data?.liked ? "💔좋아요를 취소했습니다XD" : "💖좋아요를 눌렀습니다XD"
+      setStoredDatas((prev) =>
+        prev?.map((meeting) => {
+          if (meeting?.id === data?.id) {
+            return { ...meeting, liked: data?.liked ? false : true };
+          }
+        })
       );
+      Toast(data?.liked ? "좋아요를 취소하였습니다." : "좋아요를 눌렀습니다.");
     },
   });
 
@@ -62,7 +66,17 @@ export default function MeetingCard({
           <Button
             icon={data.liked ? <GoHeartFill /> : <GoHeart />}
             styles="text-[1.5rem] dark:text-text-dark-default"
-            onClick={() => changeMeetingLikeMutation.mutate()}
+            onClick={() => {
+              try {
+                changeMeetingLikeMutation.mutate();
+              } catch (error) {
+                Toast(
+                  data?.liked
+                    ? "좋아요를 취소하지 못하였습니다."
+                    : "좋아요를 누르지 못하였습니다."
+                );
+              }
+            }}
           />
         </div>
 

@@ -78,29 +78,17 @@ export default function Meeting() {
     type: "all",
     //sort: "recent",
   });
-  const [meetingDataQueryKeyPostFix, setMeetingDataQueryKeyPostFix] =
-    useState(0);
   const [page, setPage] = useState(1);
   const [storedDatas, setStoredDatas] = useState([]);
   const [previousFirstReviewId, setPreviousFirstReviewId] = useState(null);
   const slidesToShow = useRecoilValue(SlidesToShowState);
-
-  const updateMeetingData = () => {
-    setMeetingDataQueryKeyPostFix(Date.now());
-  };
 
   const {
     isLoading,
     error,
     data: datas,
   } = useQuery({
-    queryKey: [
-      "meetingDatas",
-      accessToken,
-      page,
-      filter,
-      meetingDataQueryKeyPostFix,
-    ],
+    queryKey: ["meetingDatas", accessToken, page, filter],
     queryFn: async () => {
       const result = await allMeetingDataFetch(accessToken, page, 10, filter);
       return result;
@@ -230,10 +218,10 @@ export default function Meeting() {
               <MeetingCard
                 key={data.id}
                 data={data}
+                setStoredDatas={setStoredDatas}
                 accessToken={accessToken}
                 bgColor="bg-meeting"
                 shadow="shadow-[0_10px_8px_2px_#e9a30d]"
-                updateMeetingData={updateMeetingData}
               />
             ))}
           </ul>
