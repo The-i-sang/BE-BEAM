@@ -37,7 +37,6 @@ export default function MeetingCard({
         })
       );
       Toast(data?.liked ? "좋아요를 취소하였습니다." : "좋아요를 눌렀습니다.");
-      setIsChangeDatas(false);
     },
   });
 
@@ -71,6 +70,7 @@ export default function MeetingCard({
             icon={data.liked ? <GoHeartFill /> : <GoHeart />}
             styles="text-[1.5rem] dark:text-text-dark-default"
             onClick={() => {
+              setIsChangeDatas(false);
               try {
                 changeMeetingLikeMutation.mutate();
               } catch (error) {
