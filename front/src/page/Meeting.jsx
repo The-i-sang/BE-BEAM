@@ -93,6 +93,7 @@ export default function Meeting() {
       const result = await allMeetingDataFetch(accessToken, page, 10, filter);
       return result;
     },
+    refetchInterval: 5000,
   });
 
   const comment = handleConsoleError(isLoading, error, datas);
