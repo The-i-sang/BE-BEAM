@@ -126,7 +126,7 @@ export default function Meeting() {
 
   const isHostGrade = false;
 
-  console.log(storedDatas, datas?.meetings);
+  console.log(storedDatas, datas?.meetings, isChangeDatas);
 
   return (
     <div className="w-full pt-16">
