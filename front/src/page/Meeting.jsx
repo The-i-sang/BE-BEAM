@@ -109,7 +109,7 @@ export default function Meeting() {
     if (!isChangeDatas) {
       setInterval(() => {
         setIsChangeDatas(true);
-      }, 5000);
+      }, 30000);
       return () => clearInterval();
     }
   }, [isChangeDatas]);
