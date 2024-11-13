@@ -116,6 +116,7 @@ export default function Meeting() {
 
   useEffect(() => {
     if (datas?.meetings?.length > 0) {
+      console.log(datas?.meetings);
       const pasteDatas = [...datas.meetings];
       setStoredDatas((prev) => [...prev, ...pasteDatas]);
     }
