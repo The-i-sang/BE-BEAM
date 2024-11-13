@@ -117,21 +117,12 @@ export default function Meeting() {
 
   useEffect(() => {
     if (Array.isArray(datas?.meetings)) {
-      console.log(datas?.meetings);
-      const pasteDatas = [...datas.meetings];
-      setStoredDatas((prev) => [...prev, ...pasteDatas]);
-    }
-  }, [datas]);
-
-  useEffect(() => {
-    if (Array.isArray(datas?.meetings)) {
       const currentFirstReviewId = datas.reviews?.[0]?.id;
 
       if (currentFirstReviewId !== previousFirstReviewId) {
         console.log(datas?.meetings);
         const pasteDatas = [...datas.meetings];
         setStoredDatas((prev) => [...prev, ...pasteDatas]);
-
         setPreviousFirstReviewId(currentFirstReviewId);
       }
     }
