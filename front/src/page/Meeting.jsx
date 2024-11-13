@@ -80,7 +80,8 @@ export default function Meeting() {
   });
   const [page, setPage] = useState(1);
   const [storedDatas, setStoredDatas] = useState([]);
-  const [previousFirstReviewId, setPreviousFirstReviewId] = useState(null);
+  const [previousFirstMeetingId, setPreviousFirstMeetingId] = useState(null);
+  const [isChangeDatas, setIsChangeDatas] = useState(true);
   const slidesToShow = useRecoilValue(SlidesToShowState);
 
   const {
@@ -105,17 +106,23 @@ export default function Meeting() {
   }, [filter]);
 
   useEffect(() => {
-    if (Array.isArray(datas?.meetings)) {
-      const currentFirstReviewId = datas.reviews?.[0]?.id;
+    if (Array.isArray(datas?.meetings) && isChangeDatas) {
+      setStoredDatas([]);
+    }
+  }, [datas, isChangeDatas]);
 
-      if (currentFirstReviewId !== previousFirstReviewId) {
+  useEffect(() => {
+    if (Array.isArray(datas?.meetings)) {
+      const currentFirstMeetingId = datas.meetings?.[0]?.id;
+
+      if (currentFirstMeetingId !== previousFirstMeetingId) {
         console.log(datas?.meetings);
         const pasteDatas = [...datas.meetings];
         setStoredDatas((prev) => [...prev, ...pasteDatas]);
-        setPreviousFirstReviewId(currentFirstReviewId);
+        setPreviousFirstMeetingId(currentFirstMeetingId);
       }
     }
-  }, [datas, previousFirstReviewId]);
+  }, [datas, previousFirstMeetingId]);
 
   const isHostGrade = false;
 
@@ -223,6 +230,7 @@ export default function Meeting() {
                 accessToken={accessToken}
                 bgColor="bg-meeting"
                 shadow="shadow-[0_10px_8px_2px_#e9a30d]"
+                setIsChangeDatas={setIsChangeDatas}
               />
             ))}
           </ul>
