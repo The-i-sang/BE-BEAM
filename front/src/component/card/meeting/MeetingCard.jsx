@@ -15,7 +15,6 @@ export default function MeetingCard({
   accessToken,
   bgColor,
   shadow,
-  setIsChangeDatas,
 }) {
   const navigate = useNavigate();
 
@@ -70,7 +69,6 @@ export default function MeetingCard({
             icon={data.liked ? <GoHeartFill /> : <GoHeart />}
             styles="text-[1.5rem] dark:text-text-dark-default"
             onClick={() => {
-              setIsChangeDatas(false);
               try {
                 changeMeetingLikeMutation.mutate();
               } catch (error) {

@@ -81,7 +81,6 @@ export default function Meeting() {
   const [page, setPage] = useState(1);
   const [storedDatas, setStoredDatas] = useState([]);
   const [previousFirstMeetingId, setPreviousFirstMeetingId] = useState(null);
-  const [isChangeDatas, setIsChangeDatas] = useState(true);
   const slidesToShow = useRecoilValue(SlidesToShowState);
 
   const {
@@ -106,19 +105,10 @@ export default function Meeting() {
   }, [filter]);
 
   useEffect(() => {
-    if (!isChangeDatas) {
-      setInterval(() => {
-        setIsChangeDatas(true);
-      }, 30000);
-      return () => clearInterval();
-    }
-  }, [isChangeDatas]);
-
-  useEffect(() => {
-    if (Array.isArray(datas?.meetings) && isChangeDatas) {
+    if (Array.isArray(datas?.meetings)) {
       setStoredDatas([]);
     }
-  }, [datas, isChangeDatas]);
+  }, [datas]);
 
   useEffect(() => {
     if (Array.isArray(datas?.meetings)) {
@@ -135,7 +125,7 @@ export default function Meeting() {
 
   const isHostGrade = false;
 
-  console.log(storedDatas, datas?.meetings, isChangeDatas);
+  console.log(storedDatas, datas?.meetings);
 
   return (
     <div className="w-full pt-16">
@@ -239,7 +229,6 @@ export default function Meeting() {
                 accessToken={accessToken}
                 bgColor="bg-meeting"
                 shadow="shadow-[0_10px_8px_2px_#e9a30d]"
-                setIsChangeDatas={setIsChangeDatas}
               />
             ))}
           </ul>
