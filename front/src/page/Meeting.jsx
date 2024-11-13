@@ -106,12 +106,6 @@ export default function Meeting() {
 
   useEffect(() => {
     if (Array.isArray(datas?.meetings)) {
-      setStoredDatas(datas?.meetings);
-    }
-  }, [datas]);
-
-  useEffect(() => {
-    if (Array.isArray(datas?.meetings)) {
       const currentFirstMeetingId = datas.meetings?.[0]?.id;
 
       if (currentFirstMeetingId !== previousFirstMeetingId) {
@@ -119,6 +113,8 @@ export default function Meeting() {
         const pasteDatas = [...datas.meetings];
         setStoredDatas((prev) => [...prev, ...pasteDatas]);
         setPreviousFirstMeetingId(currentFirstMeetingId);
+      } else {
+        setStoredDatas(datas?.meetings);
       }
     }
   }, [datas, previousFirstMeetingId]);
