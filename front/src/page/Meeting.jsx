@@ -106,6 +106,12 @@ export default function Meeting() {
   }, [filter]);
 
   useEffect(() => {
+    if (Array.isArray(datas?.meetings) && !isChangeDatas) {
+      setIsChangeDatas(true);
+    }
+  }, [datas, isChangeDatas]);
+
+  useEffect(() => {
     if (Array.isArray(datas?.meetings) && isChangeDatas) {
       setStoredDatas([]);
     }
