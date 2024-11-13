@@ -119,7 +119,7 @@ export default function Meeting() {
       const pasteDatas = [...datas.meetings];
       setStoredDatas((prev) => [...prev, ...pasteDatas]);
     }
-  }, [datas]);
+  }, []);
 
   const isHostGrade = false;
 
@@ -232,6 +232,11 @@ export default function Meeting() {
             buttonText="더보기"
             onClick={() => {
               setPage((prev) => prev + 1);
+
+              if (Array.isArray(datas?.meetings)) {
+                const pasteDatas = [...datas.meetings];
+                setStoredDatas((prev) => [...prev, ...pasteDatas]);
+              }
             }}
             basicStyle={btnBasicStyle.basic}
             styles={`${btnStyle.blackBg} ${
