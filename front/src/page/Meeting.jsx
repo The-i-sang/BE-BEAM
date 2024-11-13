@@ -107,7 +107,10 @@ export default function Meeting() {
 
   useEffect(() => {
     if (!isChangeDatas) {
-      setIsChangeDatas(true);
+      setInterval(() => {
+        setIsChangeDatas(true);
+      }, 5000);
+      return () => clearInterval();
     }
   }, [isChangeDatas]);
 
