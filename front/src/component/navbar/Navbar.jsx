@@ -27,7 +27,6 @@ export default function Navbar({
 
   const [userData, setUserData] = useRecoilState(UserDataState);
   const userIn = accessToken !== "";
-  console.log(userIn, accessToken);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -30,7 +30,6 @@ export const getUserProfile = async (accessToken) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log(res.data);
     return res.data.result;
   } catch (error) {
     console.error("Error fetching User Profile:", error);
