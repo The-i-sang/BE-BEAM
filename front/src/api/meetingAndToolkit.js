@@ -258,7 +258,7 @@ export const editMeetingReview = async (
     });
     return res.data.result;
   } catch (error) {
-    console.error("Error Create Meeting Review:", error);
+    console.error("Error Edit Meeting Review:", error);
     throw error;
   }
 };
